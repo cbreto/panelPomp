@@ -1,0 +1,4 @@
+^.*\.Rproj$
+^\.git$
+^\.gitignore$
+^\.Rproj\.user$

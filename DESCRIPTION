@@ -1,0 +1,40 @@
+Package: panelPomp
+Type: Package
+Title: Statistical Inference for Panel POMPs (Partially Observed Markov
+    Processes)
+Version: 0.1.0
+Author: Carles Breto, Edward L. Ionides, Aaron A. King
+Maintainer: Carles Breto <cbreto@umich.edu>
+Description: Tools for working with longitudinal/panel POMPs, i.e., with
+    Partially Observed Markov Processes (AKA state-space models, stochastic
+    dynamical systems) involving multiple, independent units (or individuals) for
+    each of which (potentially multivariate) time series data is available. The
+    basic idea driving 'ppomp' is to apply to a collection of units (or individuals)
+    some of the 'pomp' package facilities for implementing POMP models, simulating
+    them, and fitting them to time series data. Regarding fitting, only the
+    iterated filtering (mif2) algorithm has currently been extended to the 'ppomp'
+    longitudinal/panel setting.
+License: MIT + file LICENSE
+LazyData: TRUE
+Depends:
+    R(>= 3.1.0),
+    pomp
+Imports:
+    methods
+RoxygenNote: 5.0.1
+Collate:
+    'panelPomp-package.R'
+    'collection-of-functions--not-exported.R'
+    'collection-of-functions--exported.R'
+    'generic-functions.R'
+    'panelPomp-class.R'
+    'panelPomp-internal-functions.R'
+    'panelPomp-methods.R'
+    'panelPomp-methods-for-construction.R'
+    'pfilterd-ppomp-class.R'
+    'pfilter-internal-functions.R'
+    'pfilterd-ppomp-methods.R'
+    'mif2d-ppomp-class.R'
+    'mif2-internal-functions.R'
+    'mif2d-ppomp-methods.R'
+Suggests: testthat
