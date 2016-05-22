@@ -13,7 +13,7 @@ Description: Tools for working with longitudinal/panel POMPs, i.e., with
     some of the 'pomp' package facilities for implementing POMP models, simulating
     them, and fitting them to time series data. Regarding fitting, only the
     iterated filtering (mif2) algorithm has currently been extended to the 'ppomp'
-    longitudinal/panel setting.
+    longitudinal/panel setting. (Alpha release version.)
 License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
