@@ -101,18 +101,17 @@ toMatrixPparams <- function(listPparams){
      listPparams[[which(sapply(listPparams,is.matrix))]]} else {NULL}
 
   U <- dim(specific.params)[2]
-  matrixPparams <- rbind(common.params.matrix <-
-                           if (is.null(common.params)) {
+  matrixPparams <- rbind(if (is.null(common.params)) {
                              NULL
-                           } else {
+                         } else {
                              matrix(
-                               rep(x = common.params, times = U),
-                               ncol = U,
-                               dimnames = list(names(common.params), NULL)
+                                 rep(x = common.params, times = U),
+                                 ncol = U,
+                                 dimnames = list(names(common.params), NULL)
                              )
-                           },
+                         },
                          specific.params)
-  matrixPparams
+    matrixPparams
   #if(DEBUG==T) print(x = list(listPparams = listPparams))
 }
 
