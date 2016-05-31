@@ -1,17 +1,19 @@
 require(panelPomp)
 
-# Load gompertz pomp object
+## Load gompertz pomp object
 pomp::pompExample(example = gompertz)
 
-# Initialize list of pomps
+## Initialize list of pomps
 U <- 50
 pompList <- setNames(object = as.vector(1:U, mode = "list"),
                      nm = paste0("unit", 1:U))
-for(i.u in 1:U){
-  pompList[[i.u]] <- pomp::simulate(object = gompertz, seed = 12345678 + i.u)
-}
+freeze(seed=1455280898L,kind="Mersenne-Twister",{
+  for(i.u in 1:U){
+    pompList[[i.u]] <- pomp::simulate(object = gompertz, seed = 12345678 + i.u)
+  }
+})
 
-# Construct panelPomp
+## Construct panelPomp
 panelPomp(
   object = pompList,
   shared = coef(gompertz)[names(coef(gompertz)) %in% c("r", "sigma", "tau")] -> shared.params,
