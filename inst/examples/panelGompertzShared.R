@@ -17,14 +17,14 @@ freeze(seed = 1455280898L, kind = "Mersenne-Twister", {
 ## Construct panelPomp
 panelPomp(
   object = pompList,
-  shared = coef(gompertz)[names(coef(gompertz)) %in% c("r", "sigma")] -> shared.params,
+  shared = coef(gompertz),
   specific = matrix(
-    data = coef(gompertz)[!names(coef(gompertz)) %in% names(shared.params)] -> specific.params,
-    nrow = length(specific.params),
+    data = numeric(0),
+    nrow = 0,
     ncol = U,
-    dimnames = list(names(specific.params),
+    dimnames = list(NULL,
                     names(pompList))
   )
-) -> panelGompertz
+) -> panelGompertzShared
 
-c("panelGompertz")
+c("panelGompertzShared")
