@@ -5,10 +5,9 @@
 \alias{mif2,panelPomp-method}
 \title{Apply the \code{mif2} algorithm to a \code{panelPomp} object.}
 \usage{
-\S4method{mif2}{panelPomp}(object, shared.start = numeric(0),
-  specific.start = array(data = numeric(0), dim = c(0, 0)), Np, Nmif,
-  cooling.type, cooling.fraction.50, transform, prw.sd,
-  verbose = getOption("verbose"), ...)
+\S4method{mif2}{panelPomp}(object, shared.start, specific.start, Np, Nmif = 1,
+  cooling.type = c("hyperbolic", "geometric"), cooling.fraction.50,
+  transform = FALSE, prw.sd, verbose = getOption("verbose"), ...)
 }
 \arguments{
 \item{object}{A \code{panelPomp} object.}
