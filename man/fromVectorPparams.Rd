@@ -4,17 +4,10 @@
 \alias{fromVectorPparams}
 \title{fromVectorPparams.}
 \usage{
-fromVectorPparams(vectorPparams, unit.names, names.of.shared.params,
-  names.of.specific.params)
+fromVectorPparams(vectorPparams)
 }
 \arguments{
 \item{vectorPparams}{A one-row \code{data.frame} with format matching that of the output of \link{toVectorPparams}.}
-
-\item{unit.names}{Names of units.}
-
-\item{names.of.shared.params}{Names of shared parameters.}
-
-\item{names.of.specific.params}{Names of specific parameters.}
 }
 \description{
 fromVectorPparams.
