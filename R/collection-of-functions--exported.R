@@ -122,8 +122,8 @@ fromVectorPparams <- function(vectorPparams) {
     
     # Extract unit names (from last column) and shared and specific names
     unit.names <- eval(parse(text = vectorPparams[, ncol(vectorPparams)]))
-    names.of.shared.params <- names(vectorPparams[, vectorPparams=="shared"])
-    names.of.specific.params <- names(vectorPparams[, vectorPparams=="specific"])
+    names.of.shared.params <- names(vectorPparams[, !is.na(vectorPparams=="shared") & vectorPparams=="shared"])
+    names.of.specific.params <- names(vectorPparams[, !is.na(vectorPparams=="shared") & vectorPparams=="specific"])
     
     # shared
     vector.of.shared.params <- numeric(0)

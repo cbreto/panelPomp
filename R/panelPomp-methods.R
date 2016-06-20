@@ -97,13 +97,21 @@ setMethod(
       # If the pParams slot is not empty, check that the shared and specific structure of any 
       # provided starting values match the pParams slot
       if ((length(coef(object)$shared) + nrow(coef(object)$specific)) > 0){
-        if (!identical(character(0), setdiff(x = names(coef(object)$shared), y = names(shared.start)))){
+        if (
+          !identical(character(0), setdiff(x = names(coef(object)$shared), y = names(shared.start)))
+          &
+          !(is.null(names(coef(object)$shared)) & is.null(names(shared.start)))
+          ){
           stop(
             sQuote("mif2"), " error: ", "names of ", sQuote("shared.start"), " must match those of ", 
             sQuote("coef(object)$shared"), call.=FALSE
           )
           }
-        if (!identical(character(0), setdiff(x = rownames(coef(object)$specific), y = rownames(specific.start)))){
+        if (
+          !identical(character(0), setdiff(x = rownames(coef(object)$specific), y = rownames(specific.start)))
+          &
+          !(is.null(rownames(coef(object)$specific)) & is.null(rownames(specific.start)))
+          ){
           stop(
             sQuote("mif2"), " error: ", "rownames of ", sQuote("specific.start"), " must match those of ", 
             sQuote("coef(object)$specific"), call.=FALSE
