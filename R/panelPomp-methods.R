@@ -70,87 +70,86 @@ setMethod(
 setMethod(
   f = "mif2",
   signature = signature(object = "panelPomp"),
-  definition =
-    function(object,
-             shared.start,
-             specific.start,
-             Np,
-             Nmif = 1,
-             cooling.type = c("hyperbolic", "geometric"),
-             cooling.fraction.50,
-             transform = FALSE,
-             prw.sd,
-             verbose = getOption("verbose"),
-             ...) {
-      
-      # If no starting values are specified, try using the pParams slot
-      if (missing(shared.start)) shared.start <- coef(object)$shared
-      if (missing(specific.start)) specific.start <- coef(object)$specific
-      
-      if (length(shared.start)==0 & nrow(specific.start)==0){
+  definition = function(object,
+                        shared.start,
+                        specific.start,
+                        Np,
+                        Nmif = 1,
+                        cooling.type = c("hyperbolic", "geometric"),
+                        cooling.fraction.50,
+                        transform = FALSE,
+                        prw.sd,
+                        verbose = getOption("verbose"),
+                        ...) {
+    
+    # If no starting values are specified, try using the pParams slot
+    if (missing(shared.start)) shared.start <- coef(object)$shared
+    if (missing(specific.start)) specific.start <- coef(object)$specific
+    
+    if (length(shared.start)==0 & nrow(specific.start)==0){
+      stop(
+        sQuote("mif2"), " error: ", "non-empty ", sQuote("shared.start"), "or ", 
+        sQuote("specific.start"), " must be specified if ", sQuote("coef(object)")," is empty",
+        call.=FALSE
+      )
+    }
+    # If the pParams slot is not empty, check that the shared and specific structure of any 
+    # provided starting values match the pParams slot
+    if ((length(coef(object)$shared) + nrow(coef(object)$specific)) > 0){
+      if (
+        !identical(character(0), setdiff(x = names(coef(object)$shared), y = names(shared.start)))
+        &
+        !(is.null(names(coef(object)$shared)) & is.null(names(shared.start)))
+      ){
         stop(
-          sQuote("mif2"), " error: ", "non-empty ", sQuote("shared.start"), "or ", 
-          sQuote("specific.start"), " must be specified if ", sQuote("coef(object)")," is empty",
-          call.=FALSE
+          sQuote("mif2"), " error: ", "names of ", sQuote("shared.start"), " must match those of ", 
+          sQuote("coef(object)$shared"), call.=FALSE
         )
       }
-      # If the pParams slot is not empty, check that the shared and specific structure of any 
-      # provided starting values match the pParams slot
-      if ((length(coef(object)$shared) + nrow(coef(object)$specific)) > 0){
-        if (
-          !identical(character(0), setdiff(x = names(coef(object)$shared), y = names(shared.start)))
-          &
-          !(is.null(names(coef(object)$shared)) & is.null(names(shared.start)))
-          ){
-          stop(
-            sQuote("mif2"), " error: ", "names of ", sQuote("shared.start"), " must match those of ", 
-            sQuote("coef(object)$shared"), call.=FALSE
-          )
-          }
-        if (
-          !identical(character(0), setdiff(x = rownames(coef(object)$specific), y = rownames(specific.start)))
-          &
-          !(is.null(rownames(coef(object)$specific)) & is.null(rownames(specific.start)))
-          ){
-          stop(
-            sQuote("mif2"), " error: ", "rownames of ", sQuote("specific.start"), " must match those of ", 
-            sQuote("coef(object)$specific"), call.=FALSE
-          )
-        }
-        if (!identical(x = colnames(coef(object)$specific), y = colnames(specific.start))){
-          stop(
-            sQuote("mif2"), " error: ", "colnames of ", sQuote("specific.start"), " must be identical to those of ", 
-            sQuote("coef(object)$specific"), call.=FALSE
-          )
-        }
+      if (
+        !identical(character(0), setdiff(x = rownames(coef(object)$specific), y = rownames(specific.start)))
+        &
+        !(is.null(rownames(coef(object)$specific)) & is.null(rownames(specific.start)))
+      ){
+        stop(
+          sQuote("mif2"), " error: ", "rownames of ", sQuote("specific.start"), " must match those of ", 
+          sQuote("coef(object)$specific"), call.=FALSE
+        )
       }
-      if (missing(Np)) {
-        "Missing 'Np' argument."
+      if (!identical(x = colnames(coef(object)$specific), y = colnames(specific.start))){
+        stop(
+          sQuote("mif2"), " error: ", "colnames of ", sQuote("specific.start"), " must be identical to those of ", 
+          sQuote("coef(object)$specific"), call.=FALSE
+        )
       }
-      if (missing(cooling.fraction.50)) {
-        "Missing 'cooling.fraction.50' argument."
-      }
-      if (missing(prw.sd)) {
-        "Missing 'prw.sd' argument."
-      }
-      # Check that all parameters in the pomp objects have been provided either as shared or specific ...
-      if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared.start), rownames(specific.start)))) 
-        stop("At least one 'pomp' parameter needs to be added to the (shared. or specific.) start argument")
-      # ... and viceversa.
-      if(!all(c(names(shared.start), rownames(specific.start))  %in% names(coef(unitobjects(object)[[1]]))))
-        stop("At least one parameter in the (shared. or specific.) start argument is not being used")
-      pmif2.internal(
-        pPomp.object = object,
-        pstart = list(shared = shared.start, specific = specific.start),
-        Np = Np,
-        Nmif = Nmif,
-        cooling.type = cooling.type,
-        cooling.fraction.50 = cooling.fraction.50,
-        transform = transform,
-        prw.sd = prw.sd,
-        ...
-      )# END CALL pmif2.internal
-    } # END FN definition arg
+    }
+    if (missing(Np)) {
+      stop("Missing 'Np' argument.")
+    }
+    if (missing(cooling.fraction.50)) {
+      stop("Missing 'cooling.fraction.50' argument.")
+    }
+    if (missing(prw.sd)) {
+      stop("Missing 'prw.sd' argument.")
+    }
+    # Check that all parameters in the pomp objects have been provided either as shared or specific ...
+    if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared.start), rownames(specific.start)))) 
+      stop("At least one 'pomp' parameter needs to be added to the (shared. or specific.) start argument")
+    # ... and viceversa.
+    if(!all(c(names(shared.start), rownames(specific.start))  %in% names(coef(unitobjects(object)[[1]]))))
+      stop("At least one parameter in the (shared. or specific.) start argument is not being used")
+    pmif2.internal(
+      object,
+      pstart = list(shared = shared.start, specific = specific.start),
+      Np = Np,
+      Nmif = Nmif,
+      cooling.type = cooling.type,
+      cooling.fraction.50 = cooling.fraction.50,
+      transform = transform,
+      prw.sd = prw.sd,
+      ...
+    )# END CALL pmif2.internal
+  } # END FN definition arg
 ) # END setMethod
 
 

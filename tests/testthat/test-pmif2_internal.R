@@ -12,7 +12,7 @@ short.pgompertz <-
 pPomp.object <- short.pgompertz
 test_pmif2_internal <-
   panelPomp:::pmif2.internal(
-    pPomp.object = pPomp.object,
+    pPomp.object,
     Nmif = 2,
     pstart = list(
       shared = c(
@@ -39,7 +39,7 @@ test_pmif2_internal <-
 
 test_that("mif2.internal does not choke when given only one specific parameter", {
   mif2d.ppomp.with.only.one.specific.parameter <- panelPomp:::pmif2.internal(
-    pPomp.object = pPomp.object,
+    pPomp.object,
     Nmif = 2,
     pstart = list(
       shared = c(
@@ -72,7 +72,7 @@ test_that("mif2.internal does not choke when given only one specific parameter",
 
 test_that("mif2.internal does not choke when given both specific and shared parameters", {
   mif2d.ppomp.with.only.one.specific.parameter <- panelPomp:::pmif2.internal(
-    pPomp.object = pPomp.object,
+    pPomp.object,
     Nmif = 2,
     pstart = list(
       shared = c(
@@ -101,7 +101,7 @@ test_that("mif2.internal does not choke when given both specific and shared para
 
 test_that("mif2.internal does not choke when given only a shared parameter", {
   mif2d.ppomp.with.only.one.specific.parameter <- panelPomp:::pmif2.internal(
-    pPomp.object = pPomp.object,
+    pPomp.object,
     Nmif = 2,
     pstart = list(
       shared = c(tau = 0.1),
