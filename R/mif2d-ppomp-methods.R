@@ -1,4 +1,4 @@
-#' @include mif2-internal-functions.R
+#' @include mif2-internal.R
 NULL
 
 # methods for class 'mif2d.ppomp'

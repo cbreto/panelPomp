@@ -1,4 +1,4 @@
-#' @include collection-of-functions--exported.R
+#' @include misc-exported.R
 NULL
 
 #' \code{panelPpomp} generic
