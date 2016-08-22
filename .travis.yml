@@ -1,0 +1,34 @@
+language: R
+sudo: false
+cache: packages
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+matrix:
+  include:
+    - os: linux
+      env: RVERSION=release
+      r_github_packages:
+        - jimhester/covr
+        - kingaa/pomp
+      after_success:
+        - travis_wait 30 Rscript -e 'covr::codecov()'
+    - os: linux
+      env: RVERSION=3.1.2
+    - os: linux
+      env: RVERSION=devel
+    - os: osx
+      env: RVERSION=release
+      before_install:
+        - curl -O http://kingaa.github.io/scripts/mac-fortran.sh
+        - sh mac-fortran.sh
+        - rm -f mac-fortran.sh
+    - os: osx
+      env: RVERSION=devel
+      before_install:
+        - curl -O http://kingaa.github.io/scripts/mac-fortran.sh
+        - sh mac-fortran.sh
+        - rm -f mac-fortran.sh
