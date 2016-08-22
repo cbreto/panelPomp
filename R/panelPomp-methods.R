@@ -1,10 +1,10 @@
-#' @include panelPomp-internal-functions.R
+#' @include panelPomp-internal.R
 NULL
 
 ### coef method for panelPomp signature
 #' Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
 #'
-#' S4 method
+#' What do I do?
 #'
 #' S4 method.
 #'
@@ -20,14 +20,10 @@ setMethod(
 
 
 
-
-
-
-
-### lenght method for panelPomp signature
+### length method for panelPomp signature
 #' Count the number of units in the \code{unitobjects} slot of \code{panelPomp} objects.
 #'
-#' S4 method
+#' Help me!
 #'
 #' S4 method.
 #'
@@ -47,13 +43,10 @@ setMethod(
 
 
 
-
-
-
 ### mif2 method for panelPomp signature
 #' Apply the \code{mif2} algorithm to a \code{panelPomp} object.
 #'
-#' S4 method.
+#' Mystery of mysteries
 #'
 #' S4 method.
 #'
@@ -61,7 +54,7 @@ setMethod(
 #' @inheritParams pomp::mif2
 #' @param shared.start shared.arg.
 #' @param specific.start specific.arg.
-#' @param prw.sd An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.
+#' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.
 #' @param cooling.fraction.50 cooling.fraction.50 (seems to cause an error if documentation inherited from 'pomp' package)
 #' @param transform transform (seems to cause an error if documentation inherited from 'pomp' package)
 #'
@@ -78,9 +71,11 @@ setMethod(
                         cooling.type = c("hyperbolic", "geometric"),
                         cooling.fraction.50,
                         transform = FALSE,
-                        prw.sd,
+                        rw.sd,
                         verbose = getOption("verbose"),
                         ...) {
+
+      ep <- paste0("in ",sQuote("mif2"),": ")
     
     # If no starting values are specified, try using the pParams slot
     if (missing(shared.start)) shared.start <- coef(object)$shared
@@ -129,8 +124,8 @@ setMethod(
     if (missing(cooling.fraction.50)) {
       stop("Missing 'cooling.fraction.50' argument.")
     }
-    if (missing(prw.sd)) {
-      stop("Missing 'prw.sd' argument.")
+    if (missing(rw.sd)) {
+      stop(ep,"missing ",sQuote("rw.sd")," argument.",call.=FALSE)
     }
     # Check that all parameters in the pomp objects have been provided either as shared or specific ...
     if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared.start), rownames(specific.start)))) 
@@ -146,7 +141,7 @@ setMethod(
       cooling.type = cooling.type,
       cooling.fraction.50 = cooling.fraction.50,
       transform = transform,
-      prw.sd = prw.sd,
+      prw.sd = rw.sd,
       ...
     )# END CALL pmif2.internal
   } # END FN definition arg

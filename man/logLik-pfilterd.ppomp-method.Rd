@@ -13,7 +13,7 @@
 \item{...}{Additional arguments}
 }
 \description{
-S4 method
+Now then, now then, what's all this?
 }
 \details{
 S4 method

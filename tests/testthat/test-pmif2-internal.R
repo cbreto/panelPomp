@@ -31,7 +31,7 @@ test_pmif2_internal <-
       )
     ),
     Np = 50,
-    prw.sd = substitute(pomp::rw.sd(tau = 0.02, X.0 = ivp(0.2))),
+    prw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
     transform = TRUE,
     cooling.type = "geometric",
     cooling.fraction.50 = 0.5
@@ -58,7 +58,7 @@ test_that("mif2.internal does not choke when given only one specific parameter",
       )
     ),
     Np = 50,
-    prw.sd = substitute(pomp::rw.sd(tau = 0.02, X.0 = ivp(0.2))),
+    prw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
     transform = TRUE,
     cooling.type = "geometric",
     cooling.fraction.50 = 0.5
@@ -87,7 +87,7 @@ test_that("mif2.internal does not choke when given both specific and shared para
       )
     ),
     Np = 50,
-    prw.sd = substitute(pomp::rw.sd(tau = 0.02, X.0 = ivp(0.2))),
+    prw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
     transform = TRUE,
     cooling.type = "geometric",
     cooling.fraction.50 = 0.5
@@ -112,7 +112,7 @@ test_that("mif2.internal does not choke when given only a shared parameter", {
       )
     ),
     Np = 50,
-    prw.sd = substitute(pomp::rw.sd(tau = 0.02, X.0 = ivp(0.2))),
+    prw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
     transform = TRUE,
     cooling.type = "geometric",
     cooling.fraction.50 = 0.5

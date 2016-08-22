@@ -1,4 +1,4 @@
-#' @include collection-of-functions--not-exported.R
+#' @include misc-unexported.R
 NULL
 
 ### panel_logmeanexp

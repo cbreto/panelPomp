@@ -1,9 +1,9 @@
-#' @include pfilter-internal-functions.R
+#' @include pfilter-internal.R
 NULL
 
 #' Extract loglikelihood from \code{pfilterd.ppomp} object
 #'
-#' S4 method
+#' Now then, now then, what's all this?
 #'
 #' S4 method
 #'

@@ -91,10 +91,8 @@ pmif2.internal <- function(object,
   # PRELIMS & BASIC CHECKS
   U <- as.integer(length(object))
   Nmif <- as.integer(Nmif)
-  # Check prw.sd: if it is not a list of 'rw.sd expressions,' make it one
-  if (!is.list(prw.sd)) {
-    prw.sd <- rep(list(substitute(prw.sd)),U)
-  }
+  # Check prw.sd: if it is not a list, make it one
+  if (!is.list(prw.sd)) prw.sd <- rep(list(prw.sd),U)
   shnames <- names(pstart$shared)
   spnames <- rownames(pstart$specific)
   

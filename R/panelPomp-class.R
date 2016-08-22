@@ -1,4 +1,4 @@
-#' @include generic-functions.R
+#' @include generics.R
 NULL
 
 #' An S4 class to represent panel POMP models

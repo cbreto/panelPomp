@@ -1,12 +1,11 @@
 #'Inference for panel POMPs (Partially Observed Markov Processes)
 #'
-#' The panelPomp package provides three categories of important functions:
-#' ppomp1, ppomp2 and ppomp3.
+#' The panelPomp package helps with inference on panel POMPs.
 #'
-#' @section Constructing a ppomp ogject:
-#' \code{panelPomp} objects can be constructed calling \code{panelPomp}.
+#' @section Constructing a ppomp object:
+#' \code{panelPomp} objects can be constructed by calling \code{panelPomp}.
 #'
-#' @section Constructing a ppomp ogject:
+#' @section Constructing a ppomp object:
 #' @docType package
 #' @name panelPomp-package
 #'

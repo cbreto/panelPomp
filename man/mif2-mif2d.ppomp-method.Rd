@@ -6,7 +6,7 @@
 \title{Apply the \code{mif2} algorithm to \code{mif2d.ppomp} objects.}
 \usage{
 \S4method{mif2}{mif2d.ppomp}(object, Nmif, shared.start, specific.start, Np,
-  prw.sd, transform, cooling.type, cooling.fraction.50, ptol, ...)
+  rw.sd, transform, cooling.type, cooling.fraction.50, tol, ...)
 }
 \arguments{
 \item{object}{
@@ -32,7 +32,17 @@
     \strong{Note that this behavior differs from that of \code{\link{mif}}!}
   }
 
-\item{prw.sd}{An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.}
+\item{rw.sd}{
+    specification of the magnitude of the random-walk perturbations that will be applied to some or all model parameters.
+    Parameters that are to be estimated should have positive perturbations specified here.
+    The specification is given using the \code{rw.sd} function, which creates a list of unevaluated expressions.
+    The latter are evaluated in a context where the model time variable is defined (as \code{time}).
+    The expression \code{ivp(s)} can be used in this context as shorthand for \preformatted{ifelse(time==time[1],s,0).}
+    Likewise, \code{ivp(s,lag)} is equivalent to \preformatted{ifelse(time==time[lag],s,0).}
+    See below for some examples.
+    The perturbations that are applied are normally distributed with the specified s.d.
+    If \code{transform = TRUE}, then they are applied on the estimation scale.
+  }
 
 \item{transform}{transform (seems to cause an error if documentation inherited from 'pomp' package)}
 
@@ -44,7 +54,7 @@
 
 \item{cooling.fraction.50}{cooling.fraction.50 (seems to cause an error if documentation inherited from 'pomp' package)}
 
-\item{ptol}{Unit-specific tolerances can be passed as a named numeric vector with names matching \code{names(unitobjects(object))}.}
+\item{tol}{Unit-specific tolerances can be passed as a named numeric vector with names matching \code{names(unitobjects(object))}.}
 
 \item{...}{...}
 }

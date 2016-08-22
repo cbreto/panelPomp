@@ -2,8 +2,8 @@ Package: panelPomp
 Type: Package
 Title: Statistical Inference for Panel POMPs (Partially Observed Markov
     Processes)
-Version: 0.1.2
-Date: 2016-06-16
+Version: 0.2.1
+Date: 2016-08-22
 Author: Carles Breto, Edward L. Ionides, Aaron A. King
 Maintainer: Carles Breto <cbreto@umich.edu>
 Description: Tools for working with longitudinal/panel POMPs, i.e., with
@@ -18,24 +18,24 @@ Description: Tools for working with longitudinal/panel POMPs, i.e., with
 License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
-    R(>= 3.1.0),
-    pomp
+    R(>= 3.1.0), pomp(>= 1.7.3.4)
 Imports:
     methods
 RoxygenNote: 5.0.1
+Suggests:
+    testthat
 Collate:
     'panelPomp-package.R'
-    'collection-of-functions--not-exported.R'
-    'collection-of-functions--exported.R'
-    'generic-functions.R'
+    'misc-unexported.R'
+    'misc-exported.R'
+    'generics.R'
     'panelPomp-class.R'
-    'panelPomp-internal-functions.R'
+    'panelPomp-internal.R'
     'panelPomp-methods.R'
-    'panelPomp-methods-for-construction.R'
+    'panelPomp-construction.R'
     'pfilterd-ppomp-class.R'
-    'pfilter-internal-functions.R'
+    'pfilter-internal.R'
     'pfilterd-ppomp-methods.R'
     'mif2d-ppomp-class.R'
-    'mif2-internal-functions.R'
+    'mif2-internal.R'
     'mif2d-ppomp-methods.R'
-Suggests: testthat

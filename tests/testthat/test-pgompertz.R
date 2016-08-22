@@ -16,7 +16,7 @@ test_that("mif2 runs on panelGompertz", {
       panelGompertz,
       transform = TRUE,
       Nmif = 1,
-      prw.sd = rw.sd(r = 0.02),
+      rw.sd = rw.sd(r = 0.02),
       Np = 10,
       cooling.type = "geometric", 
       cooling.fraction.50 = 0.5
