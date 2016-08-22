@@ -15,6 +15,7 @@ matrix:
     - os: linux
       env: RVERSION=release
       r_github_packages:
+        - kingaa/pomp
         - jimhester/covr
       after_success:
         - travis_wait 30 Rscript -e 'covr::codecov()'
