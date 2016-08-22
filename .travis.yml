@@ -7,13 +7,15 @@ notifications:
     on_success: change
     on_failure: change
 
+r_github_packages:
+  - kingaa/pomp
+
 matrix:
   include:
     - os: linux
       env: RVERSION=release
       r_github_packages:
         - jimhester/covr
-        - kingaa/pomp
       after_success:
         - travis_wait 30 Rscript -e 'covr::codecov()'
     - os: linux
