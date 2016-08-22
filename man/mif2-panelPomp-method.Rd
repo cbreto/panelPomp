@@ -7,7 +7,7 @@
 \usage{
 \S4method{mif2}{panelPomp}(object, shared.start, specific.start, Np, Nmif = 1,
   cooling.type = c("hyperbolic", "geometric"), cooling.fraction.50,
-  transform = FALSE, prw.sd, verbose = getOption("verbose"), ...)
+  transform = FALSE, rw.sd, verbose = getOption("verbose"), ...)
 }
 \arguments{
 \item{object}{A \code{panelPomp} object.}
@@ -41,7 +41,7 @@
 
 \item{transform}{transform (seems to cause an error if documentation inherited from 'pomp' package)}
 
-\item{prw.sd}{An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.}
+\item{rw.sd}{An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.}
 
 \item{verbose}{
     logical; if TRUE, print progress reports.
@@ -52,7 +52,7 @@
   }
 }
 \description{
-S4 method.
+Mystery of mysteries
 }
 \details{
 S4 method.

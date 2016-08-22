@@ -39,5 +39,5 @@ test_that("functionality X is being implemented as intended", {
     object = TRUE==FALSE)
   #expect_equal_to_reference(
   #  object = coef(panelGompertz), 
-  #  file = "test-collection-of-functions--exported--details.rds") # must be an .rds file
+  #  file = "exported-funs.rds") # must be an .rds file
 })

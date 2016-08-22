@@ -23,4 +23,20 @@ Depends:
 Imports:
     methods
 RoxygenNote: 5.0.1
-Suggests: testthat
+Suggests:
+    testthat
+Collate:
+    'panelPomp-package.R'
+    'misc-unexported.R'
+    'misc-exported.R'
+    'generics.R'
+    'panelPomp-class.R'
+    'panelPomp-internal.R'
+    'panelPomp-methods.R'
+    'panelPomp-construction.R'
+    'pfilterd-ppomp-class.R'
+    'pfilter-internal.R'
+    'pfilterd-ppomp-methods.R'
+    'mif2d-ppomp-class.R'
+    'mif2-internal.R'
+    'mif2d-ppomp-methods.R'
