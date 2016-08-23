@@ -137,3 +137,10 @@ test_that("mif2d.ppomps can be mif2d again",
             expect_true(object =
                           class(x = test.mif2ing.a.mif2d.ppomp) == "mif2d.ppomp")
           })
+
+test_that("pmif2.internal runs with the rand.unit=T",
+          {
+            test.mif2ing.with.rand.unit <- mif2(object = test_pmif2_internal, rand.unit = T)
+            expect_true(object =
+                          class(x = test.mif2ing.with.rand.unit) == "mif2d.ppomp")
+          })

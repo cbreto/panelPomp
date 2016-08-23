@@ -11,6 +11,7 @@ pmif2.internal <- function(object,
                            cooling.type,
                            cooling.fraction.50,
                            .ndone = 0L,
+                           rand.unit = FALSE,
                            ...) {
   # BEGIN DEBUG
   #require(panelPomp)
@@ -86,13 +87,13 @@ pmif2.internal <- function(object,
   ##  # END DEBUG
   
   # Error prefix
-  ep <- paste0("in ",sQuote("panelPomp::mif2"),": ")
+  ep <- paste0("in ", sQuote("panelPomp::mif2"), ": ")
   
   # PRELIMS & BASIC CHECKS
   U <- as.integer(length(object))
   Nmif <- as.integer(Nmif)
   # Check prw.sd: if it is not a list, make it one
-  if (!is.list(prw.sd)) prw.sd <- rep(list(prw.sd),U)
+  if (!is.list(prw.sd)) prw.sd <- rep(list(prw.sd), U)
   shnames <- names(pstart$shared)
   spnames <- rownames(pstart$specific)
   
@@ -150,7 +151,8 @@ pmif2.internal <- function(object,
   ###########################################################
   
   for (mifiter in seq_len(Nmif)) {
-    for (unit in seq_len(U)) {
+    unit.seq <- if(rand.unit==T) sample(seq_len(U)) else seq_len(U)
+    for (unit in unit.seq) {
       ## DEBUG
       # i.loop <- as.integer(1)
       # i.loop <- as.integer(2)
@@ -200,14 +202,13 @@ pmif2.internal <- function(object,
       # ... and update pparamArray:
       # first for the current unit ...
       pparamArray[spnames, , unit] <- output[[unit]]@paramMatrix[spnames, , drop = FALSE]
-      # ... then, resample all other units using the mif2s.pomp indices
+      # ... then, resample all other units using the mif2d.pomp indices
       pparamArray[spnames, , -unit] <- pparamArray[spnames, output[[unit]]@indices, -unit, drop = FALSE]
       
-      # Cleaning up: the default behaviour is to remove the paramMatrix
-      # slot from the mif2d.pomp object to minimize memory requirements
+      # Cleaning up: remove the paramMatrix slot from the mif2d.pomp object to minimize memory requirements
       output[[unit]]@paramMatrix <- array(data = numeric(0), dim = c(0, 0))
       # Finish by passing the updates onto pconv.rec and pconv.rec.array when appropriate
-      if (unit == U) {
+      if (unit == tail(x = unit.seq, n = 1)) {
         # ... pconv.rec ...
         pconv.rec[mifiter + 1, -c(1:2)] <- apply(X = pParamMatrix, MARGIN = 1, FUN = mean)
         pconv.rec[mifiter + 1, "loglik"] <- sum(sapply(X = output, FUN = logLik))
