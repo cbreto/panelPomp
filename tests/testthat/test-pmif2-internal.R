@@ -66,8 +66,8 @@ test_that("mif2.internal does not choke when given only one specific parameter",
   expect_true(
     object = 
       class(x = mif2d.ppomp.with.only.one.specific.parameter)=="mif2d.ppomp"
-    )
-  })
+  )
+})
 
 
 test_that("mif2.internal does not choke when given both specific and shared parameters", {
