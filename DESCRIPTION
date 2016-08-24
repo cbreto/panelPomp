@@ -18,7 +18,7 @@ Description: Tools for working with longitudinal/panel POMPs, i.e., with
 License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
-    R(>= 3.1.0), pomp(>= 1.7.4.3)
+    R(>= 3.1.2), pomp(>= 1.7.4.3)
 Imports:
     methods
 RoxygenNote: 5.0.1
