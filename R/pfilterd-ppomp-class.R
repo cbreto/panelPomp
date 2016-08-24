@@ -1,4 +1,4 @@
-#' @include panelPomp-methods-for-construction.R
+#' @include panelPomp-construction.R
 NULL
 
 #' An S4 class to represent panel POMP models that have been analyzed using \code{mif2}

@@ -1,10 +1,10 @@
-#' @include panelPomp-internal-functions.R
+#' @include panelPomp-internal.R
 NULL
 
 ### coef method for panelPomp signature
 #' Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
 #'
-#' S4 method
+#' What do I do?
 #'
 #' S4 method.
 #'
@@ -20,14 +20,10 @@ setMethod(
 
 
 
-
-
-
-
-### lenght method for panelPomp signature
+### length method for panelPomp signature
 #' Count the number of units in the \code{unitobjects} slot of \code{panelPomp} objects.
 #'
-#' S4 method
+#' Help me!
 #'
 #' S4 method.
 #'
@@ -47,13 +43,10 @@ setMethod(
 
 
 
-
-
-
 ### mif2 method for panelPomp signature
 #' Apply the \code{mif2} algorithm to a \code{panelPomp} object.
 #'
-#' S4 method.
+#' Mystery of mysteries
 #'
 #' S4 method.
 #'
@@ -61,7 +54,7 @@ setMethod(
 #' @inheritParams pomp::mif2
 #' @param shared.start shared.arg.
 #' @param specific.start specific.arg.
-#' @param prw.sd An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.
+#' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.
 #' @param cooling.fraction.50 cooling.fraction.50 (seems to cause an error if documentation inherited from 'pomp' package)
 #' @param transform transform (seems to cause an error if documentation inherited from 'pomp' package)
 #'
@@ -70,76 +63,88 @@ setMethod(
 setMethod(
   f = "mif2",
   signature = signature(object = "panelPomp"),
-  definition =
-    function(object,
-             shared.start = numeric(0),
-             specific.start = array(
-               data = numeric(0),
-               dim = c(0, 0)),
-             Np,
-             Nmif,
-             cooling.type,
-             cooling.fraction.50,
-             transform,
-             prw.sd,
-             verbose = getOption("verbose"),
-             ...) {
-      # Deal with missing params:
-      #
-      if (missing(object)) {
-        "Missing 'object' argument."
+  definition = function(object,
+                        shared.start,
+                        specific.start,
+                        Np,
+                        Nmif = 1,
+                        cooling.type = c("hyperbolic", "geometric"),
+                        cooling.fraction.50,
+                        transform = FALSE,
+                        rw.sd,
+                        verbose = getOption("verbose"),
+                        ...) {
+
+      ep <- paste0("in ",sQuote("mif2"),": ")
+    
+    # If no starting values are specified, try using the pParams slot
+    if (missing(shared.start)) shared.start <- coef(object)$shared
+    if (missing(specific.start)) specific.start <- coef(object)$specific
+    
+    if (length(shared.start)==0 & nrow(specific.start)==0){
+      stop(
+        sQuote("mif2"), " error: ", "non-empty ", sQuote("shared.start"), "or ", 
+        sQuote("specific.start"), " must be specified if ", sQuote("coef(object)")," is empty",
+        call.=FALSE
+      )
+    }
+    # If the pParams slot is not empty, check that the shared and specific structure of any 
+    # provided starting values match the pParams slot
+    if ((length(coef(object)$shared) + nrow(coef(object)$specific)) > 0){
+      if (
+        !identical(character(0), setdiff(x = names(coef(object)$shared), y = names(shared.start)))
+        &
+        !(is.null(names(coef(object)$shared)) & is.null(names(shared.start)))
+      ){
+        stop(
+          sQuote("mif2"), " error: ", "names of ", sQuote("shared.start"), " must match those of ", 
+          sQuote("coef(object)$shared"), call.=FALSE
+        )
       }
-      if (identical(x = specific.start, y = array(data = numeric(0), dim = c(0, 0)))) {
-        specific.start <- array(
-          data = numeric(0), 
-          dim = c(0, length(x = object)), 
-          dimnames = list(NULL, names(unitobjects(object = object)))
-          )
-      } 
-      #      if (missing(start.arg)) {
-      #        start.arg <- list(specific = matrix(
-      #          unlist(lapply(unitobjects(object), coef)),
-      #          nrow = length(coef(unitobjects(object)[[1]])),
-      #          dimnames = list(names(coef(
-      #            unitobjects(object)[[1]]
-      #          )), NULL)
-      #        ))
-      #      }# END IF missing start
-      if (missing(Np)) {
-        "Missing 'Np' argument."
+      if (
+        !identical(character(0), setdiff(x = rownames(coef(object)$specific), y = rownames(specific.start)))
+        &
+        !(is.null(rownames(coef(object)$specific)) & is.null(rownames(specific.start)))
+      ){
+        stop(
+          sQuote("mif2"), " error: ", "rownames of ", sQuote("specific.start"), " must match those of ", 
+          sQuote("coef(object)$specific"), call.=FALSE
+        )
       }
-      if (missing(Nmif)) {
-        "Missing 'Nmif' argument."
+      if (!identical(x = colnames(coef(object)$specific), y = colnames(specific.start))){
+        stop(
+          sQuote("mif2"), " error: ", "colnames of ", sQuote("specific.start"), " must be identical to those of ", 
+          sQuote("coef(object)$specific"), call.=FALSE
+        )
       }
-      if (missing(cooling.type)) {
-        "Missing 'cooling.type' argument."
-      }
-      if (missing(cooling.fraction.50)) {
-        "Missing 'cooling.fraction.50' argument."
-      }
-      if (missing(transform)) {
-        "Missing 'transform' argument."
-      }
-      if (missing(prw.sd)) {
-        "Missing 'prw.sd' argument."
-      }
-      # Check that all parameters in the pomp objects have been provided either as shared or specific
-      if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared.start), rownames(specific.start)))) 
-        stop("At least one 'pomp' parameter needs to be added to the (shared. or specific.) start argument")
-      #if(!all(c(names(shared.start), rownames(specific.start))  %in% names(coef(unitobjects(object)[[1]]))))
-      #  stop("At least one parameter in the (shared. or specific.) start argument is not being used")
-      pmif2.internal(
-        pPomp.object = object,
-        pstart = list(shared = shared.start, specific = specific.start),
-        Np = Np,
-        Nmif = Nmif,
-        cooling.type = cooling.type,
-        cooling.fraction.50 = cooling.fraction.50,
-        transform = transform,
-        prw.sd = prw.sd,
-        ...
-      )# END CALL pmif2.internal
-    } # END FN definition arg
+    }
+    if (missing(Np)) {
+      stop("Missing 'Np' argument.")
+    }
+    if (missing(cooling.fraction.50)) {
+      stop("Missing 'cooling.fraction.50' argument.")
+    }
+    if (missing(rw.sd)) {
+      stop(ep,"missing ",sQuote("rw.sd")," argument.",call.=FALSE)
+    }
+    # Check that all parameters in the pomp objects have been provided either as shared or specific ...
+    if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared.start), rownames(specific.start)))) 
+      stop("At least one 'pomp' parameter needs to be added to the (shared. or specific.) start argument")
+    # ... and viceversa.
+    if(!all(c(names(shared.start), rownames(specific.start))  %in% names(coef(unitobjects(object)[[1]]))))
+      stop("At least one parameter in the (shared. or specific.) start argument is not being used")
+    pmif2.internal(
+      object,
+      pstart = list(shared = shared.start, specific = specific.start),
+      Np = Np,
+      Nmif = Nmif,
+      cooling.type = cooling.type,
+      cooling.fraction.50 = cooling.fraction.50,
+      transform = transform,
+      prw.sd = rw.sd,
+      ...
+    )# END CALL pmif2.internal
+  } # END FN definition arg
 ) # END setMethod
 
 

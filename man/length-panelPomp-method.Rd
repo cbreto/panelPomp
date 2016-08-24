@@ -11,7 +11,7 @@
 \item{x}{A \code{panelPomp} object.}
 }
 \description{
-S4 method
+Help me!
 }
 \details{
 S4 method.
