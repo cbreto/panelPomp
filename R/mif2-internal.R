@@ -175,7 +175,7 @@ pmif2.internal <- function(object,
             cooling.type = cooling.type,
             cooling.fraction.50 = cooling.fraction.50,
             transform = transform,
-            rw.sd = eval(prw.sd[[unit]],enclos=parent.frame()),
+            rw.sd = prw.sd[[unit]],
             .paramMatrix = updated.paramMatrix,
             .indices = seq.int(Np)
           ),
