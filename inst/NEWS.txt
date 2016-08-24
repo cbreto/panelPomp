@@ -1,0 +1,16 @@
+_N_e_w_s _f_o_r _p_a_c_k_a_g_e '_p_a_n_e_l_P_o_m_p'
+
+_C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n _0._2:
+
+        • New tests added.
+
+        • Eliminate need to protect ‘rw.sd’ from being evaluated.
+
+_C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n _0._1:
+
+        • Unused variable purged.
+
+        • ‘pPfilter.internal’ streamlined.
+
+        • Test for reproducibility of pfilter calculations added.
+
