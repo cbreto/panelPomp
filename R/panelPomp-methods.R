@@ -231,7 +231,7 @@ setMethod(
       
         pPfilter.internal(
           object = object,
-          pParams = pParams,
+          pParams = list(shared = shared, specific = specific),
           Np = Np,
           verbose = verbose,
           ...
