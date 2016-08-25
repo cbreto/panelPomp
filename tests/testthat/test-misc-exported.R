@@ -15,6 +15,7 @@ test_that("panel_logmeanexp runs", {
   z <- unname(panel_logmeanexp(x = x, MARGIN = MARGIN, se = FALSE))
   
   expect_true(object = identical(x = -1217.141, y = round(y, 3)))
+  expect_true(object = identical(x = -1217.141, y = round(z, 3)))
 })
 
 pompExample(panelGompertz)
