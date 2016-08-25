@@ -4,3 +4,7 @@
 ^\.Rproj\.user$
 ^codecov\.yml$
 ^\.travis\.yml$
+^javascripts$
+^stylesheets$
+^index\.html$
+^params\.json$
