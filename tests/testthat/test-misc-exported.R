@@ -11,10 +11,10 @@ test_that("panel_logmeanexp runs", {
       dimnames = list(unit = paste0("unit", 1:2), rep = NULL)
     )#; x
   MARGIN <- 1
-  se <- TRUE
-  y <- panel_logmeanexp(x = x, MARGIN = MARGIN, se = se)[1]
+  y <- unname(panel_logmeanexp(x = x, MARGIN = MARGIN, se = TRUE)[1])
+  z <- unname(panel_logmeanexp(x = x, MARGIN = MARGIN, se = FALSE))
   
-  expect_true(object = identical(x = -1217.141, y = unname(round(y, 3))))
+  expect_true(object = identical(x = -1217.141, y = round(y, 3)))
 })
 
 pompExample(panelGompertz)

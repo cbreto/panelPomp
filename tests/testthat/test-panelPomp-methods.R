@@ -44,7 +44,7 @@ test_that("mif2;panelPomp-method stops for missing rw.sd", {
   expect_true(object = identical(x = class(res), y = "try-error"))
 })
 
-#test_that("pfilter;panelPomp-method stops for missing Np", {
-#  res <- try(pfilter(object = panelGompertz), silent = TRUE)
-#  expect_true(object = identical(x = class(res), y = "try-error"))
-#})
+test_that("unitobjects returns specified unit", {
+  res <- try(unitobjects(object = panelGompertz, unit = "unit1"), silent = TRUE)
+  expect_true(object = identical(x = is(res), y = "pomp"))
+})

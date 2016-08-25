@@ -253,8 +253,9 @@ setMethod(
 setMethod(
   f = "unitobjects",
   signature = signature(object = "panelPomp"),
-  definition = function(object, unitname) {
-    if(missing(unitname)) {
+  definition = function(object,
+                        unitname) {
+    if (missing(unitname)) {
       return(object@unit.objects)
     } else {
       return(object@unit.objects[unitname][[1]])
