@@ -16,18 +16,6 @@ NULL
 #'
 panel_logmeanexp <- function (x, MARGIN, se = FALSE) 
 {
-  # DEBUG
-  #x <-
-  #  array(
-  #    data = c(log(1e-310), log(1e-220), log(1e-308), log(1e-300)),
-  #    dim = c(2, 2),
-  #    dimnames = list(unit = paste0("unit", 1:2), rep = NULL)
-  #  ); x
-  #MARGIN <- 1
-  #se <- TRUE
-  #panel_logmeanexp(x = x, MARGIN = MARGIN, se = se)
-  #loglik.reps <- x[2,]; loglik.reps
-
   logmeanexps <- apply(X = x, MARGIN = MARGIN, FUN = logmeanexp, se = TRUE)
   if (se) {
     c(sum(logmeanexps[1,]),
@@ -51,16 +39,6 @@ panel_logmeanexp <- function (x, MARGIN, se = FALSE)
 #' @export
 #'
 toVectorPparams <- function(listPparams) {
-  # BEGIN DEBUG
-  #library(panelPomp)
-  #pompExample(panelGompertz)
-  #pompExample(panelGompertzShared)
-  #pompExample(panelGompertzSpecific)
-  #listPparams <- listPparams.shared.only <- coef(panelGompertzShared)
-  #listPparams <- listPparams.specific.only <- coef(panelGompertzSpecific)
-  #listPparams <- coef(panelGompertz)
-  # END DEBUG
-  
   # rbind replicated shared parameters with matrix of specific parameters
   matrixPparams <- rbind(matrix(
     rep(x = listPparams$shared,
@@ -110,16 +88,6 @@ toVectorPparams <- function(listPparams) {
 #' @export
 #'
 fromVectorPparams <- function(vectorPparams) {
-    # BEGIN DEBUG
-    #library(panelPomp)
-    #pompExample(panelGompertz)
-    #pompExample(panelGompertzShared)
-    #pompExample(panelGompertzSpecific)
-    ##listPparams <- coef(panelGompertzShared); vectorPparams <- toVectorPparams(listPparams); vectorPparams
-    ##listPparams <-  coef(panelGompertzSpecific); vectorPparams <- toVectorPparams(listPparams); vectorPparams
-    #listPparams <- coef(panelGompertz); vectorPparams <- toVectorPparams(listPparams); vectorPparams
-    # END DEBUG
-    
     # Extract unit names (from last column) and shared and specific names
     unit.names <- eval(parse(text = vectorPparams[, ncol(vectorPparams)]))
     names.of.shared.params <- names(vectorPparams[, !is.na(vectorPparams=="shared") & vectorPparams=="shared"])
