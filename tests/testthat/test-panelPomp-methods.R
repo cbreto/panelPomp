@@ -7,8 +7,13 @@ ppo <- panelPomp(object = list(unit1 = gompertz, unit2 = gompertz))
 
 
 # Test "mif2"
-test_that("mif2 stop works for missing start & missing pParams slot", {
+test_that("mif2 stop works for missing shared start & pParams slot", {
   res <- try(mif2(object = ppo), silent = TRUE)
+  expect_true(object = identical(x = class(res), y = "try-error"))
+})
+
+test_that("mif2 stop works for missing specific start & missing pParams slot", {
+  res <- try(mif2(object = ppo, shared.start = coef(panelGompertz)$shared), silent = TRUE)
   expect_true(object = identical(x = class(res), y = "try-error"))
 })
 

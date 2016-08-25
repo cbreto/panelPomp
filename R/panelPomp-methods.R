@@ -81,42 +81,44 @@ setMethod(
     if (missing(shared.start)) shared.start <- coef(object)$shared
     if (missing(specific.start)) specific.start <- coef(object)$specific
     
-    if (length(shared.start)==0 & nrow(specific.start)==0){
-      stop(ep, "non-empty ", sQuote("shared.start"), "or ", 
-        sQuote("specific.start"), " must be specified if ", sQuote("coef(object)")," is empty",
-        call.=FALSE
-      )
+    if (is.null(shared.start)){
+      stop(ep, "non-empty ", sQuote("shared.start"), " must be specified if ", 
+           sQuote("coef(object)$shared")," is empty.", call.=FALSE)
+    }
+    if (is.null(nrow(specific.start))){
+      stop(ep, "non-empty ", sQuote("specific.start"), " must be specified if ", 
+           sQuote("coef(object)$specific")," is empty.", call.=FALSE)
     }
     # If the pParams slot is not empty, check that the shared and specific structure of any 
     # provided starting values match the pParams slot
-    if ((length(coef(object)$shared) + nrow(coef(object)$specific)) > 0){
+    if (!is.null(coef(object)$shared)){
       if (
         !identical(character(0), setdiff(x = names(coef(object)$shared), y = names(shared.start)))
         &
         !(is.null(names(coef(object)$shared)) & is.null(names(shared.start)))
       ){
-        stop(
-          sQuote("mif2"), " error: ", "names of ", sQuote("shared.start"), " must match those of ", 
-          sQuote("coef(object)$shared"), call.=FALSE
+        stop(ep, "names of ", sQuote("shared.start"), " must match those of ", 
+             sQuote("coef(object)$shared"),".", call.=FALSE
         )
       }
+    }
+    if (!is.null(coef(object)$specific)){
       if (
         !identical(character(0), setdiff(x = rownames(coef(object)$specific), y = rownames(specific.start)))
         &
         !(is.null(rownames(coef(object)$specific)) & is.null(rownames(specific.start)))
       ){
-        stop(
-          sQuote("mif2"), " error: ", "rownames of ", sQuote("specific.start"), " must match those of ", 
-          sQuote("coef(object)$specific"), call.=FALSE
+        stop(ep, "rownames of ", sQuote("specific.start"), " must match those of ", 
+             sQuote("coef(object)$specific"),".", call.=FALSE
         )
       }
       if (!identical(x = colnames(coef(object)$specific), y = colnames(specific.start))){
-        stop(
-          sQuote("mif2"), " error: ", "colnames of ", sQuote("specific.start"), " must be identical to those of ", 
-          sQuote("coef(object)$specific"), call.=FALSE
+        stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
+             sQuote("coef(object)$specific"),".", call.=FALSE
         )
       }
     }
+    
     if (missing(Np)) {
       stop("Missing 'Np' argument.")
     }
