@@ -166,36 +166,24 @@ pmif2.internal <- function(object,
       rownames(updated.paramMatrix) <- c(rownames(pParamMatrix), rownames(pparamArray))
       
       # use pomp::mif2 the first time and pomp::continue after that
-      if (mifiter==1) {
-        output[[unit]] <- tryCatch(
-          pomp::mif2(
-            object = object@unit.objects[[unit]],
-            Np = Np,
-            Nmif = 1,
-            cooling.type = cooling.type,
-            cooling.fraction.50 = cooling.fraction.50,
-            transform = transform,
-            rw.sd = prw.sd[[unit]],
-            .paramMatrix = updated.paramMatrix,
-            .indices = seq.int(Np)
-          ),
-          error = function (e) {
-            stop(ep,"error in ",sQuote("pomp::mif2"),": ",
-                 conditionMessage(e),call.=FALSE)
-          }
-        )
-      } else {
-        # ... and run iterated filtering by continuing mif2d.pomp objects)
-        output[[unit]] <- tryCatch(
-          pomp::continue(object = output[[unit]],
-                         .paramMatrix = updated.paramMatrix,
-                         .indices = seq.int(Np)),
-          error = function (e) {
-            stop(ep,"error in ",sQuote("pomp::continue"),": ",
-                 conditionMessage(e),call.=FALSE)
-          }
-        )
-      }
+      output[[unit]] <- tryCatch(
+        pomp::mif2(
+          object = object@unit.objects[[unit]],
+          Np = Np,
+          Nmif = 1,
+          cooling.type = cooling.type,
+          cooling.fraction.50 = cooling.fraction.50,
+          transform = transform,
+          rw.sd = prw.sd[[unit]],
+          .paramMatrix = updated.paramMatrix,
+          .indices = seq.int(Np),
+          .ndone = mifiter-1
+        ),
+        error = function (e) {
+          stop(ep,"error in ",sQuote("pomp::mif2"),": ",
+               conditionMessage(e),call.=FALSE)
+        }
+      )
       
       # Update (panelPomp) pParamMatrix with (pomp) paramMatrix ...
       pParamMatrix <- output[[unit]]@paramMatrix[shnames, , drop = FALSE]
