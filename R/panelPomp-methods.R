@@ -74,16 +74,15 @@ setMethod(
                         rw.sd,
                         verbose = getOption("verbose"),
                         ...) {
-
-      ep <- paste0("in ",sQuote("mif2"),": ")
+    
+    ep <- paste0(sQuote("panelPomp::mif2")," error: ")
     
     # If no starting values are specified, try using the pParams slot
     if (missing(shared.start)) shared.start <- coef(object)$shared
     if (missing(specific.start)) specific.start <- coef(object)$specific
     
     if (length(shared.start)==0 & nrow(specific.start)==0){
-      stop(
-        sQuote("mif2"), " error: ", "non-empty ", sQuote("shared.start"), "or ", 
+      stop(ep, "non-empty ", sQuote("shared.start"), "or ", 
         sQuote("specific.start"), " must be specified if ", sQuote("coef(object)")," is empty",
         call.=FALSE
       )
@@ -174,57 +173,62 @@ setMethod(
              Np,
              verbose = getOption("verbose"),
              ...) {
-      # Deal with missing arguments
-      if (missing(object)) {
-        "Missing object argument."
+      
+      ep <- paste0("in ",sQuote("panelPomp::pfilter"),": ")
+      
+      # If no starting values are specified, try using the pParams slot
+      if (missing(shared)) shared <- coef(object)$shared
+      if (missing(specific)) specific <- coef(object)$specific
+      
+      if (is.null(shared)){
+        stop(ep, "non-empty ", sQuote("shared"), " must be specified if ", 
+             sQuote("coef(object)$shared")," is empty.", call.=FALSE)
+      }
+      if (is.null(nrow(specific))){
+        stop(ep, "non-empty ", sQuote("specific"), " must be specified if ", 
+             sQuote("coef(object)$specific")," is empty.", call.=FALSE)
+      }
+      # If the pParams slot is not empty, check that the shared and specific structure of any 
+      # provided starting values match the pParams slot
+      if (!is.null(coef(object)$shared)){
+        if (
+          !identical(character(0), setdiff(x = names(coef(object)$shared), y = names(shared)))
+          &
+          !(is.null(names(coef(object)$shared)) & is.null(names(shared)))
+        ){
+          stop(ep, "names of ", sQuote("shared"), " must match those of ", 
+            sQuote("coef(object)$shared"),".", call.=FALSE
+          )
+        }
+      }
+      if (!is.null(coef(object)$specific)){
+        if (
+          !identical(character(0), setdiff(x = rownames(coef(object)$specific), y = rownames(specific)))
+          &
+          !(is.null(rownames(coef(object)$specific)) & is.null(rownames(specific)))
+        ){
+          stop(ep, "rownames of ", sQuote("specific"), " must match those of ", 
+            sQuote("coef(object)$specific"),".", call.=FALSE
+          )
+        }
+        if (!identical(x = colnames(coef(object)$specific), y = colnames(specific))){
+          stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
+            sQuote("coef(object)$specific"),".", call.=FALSE
+          )
+        }
       }
       if (missing(Np)) {
-        "Missing Np argument."
-      }      
-      if (missing(shared)) {
-        if (identical(object@pParams$shared, numeric(0))) {
-          "Missing shared argument."
-        } else {
-          shared <- object@pParams$shared
-        }
+        stop(ep, "Missing 'Np' argument.")
       }
-        if (missing(specific)) {
-          if (identical(object@pParams$specific,
-                        array(
-                          data = numeric(0),
-                          dim = c(0, length(object)),
-                          dimnames = list(NULL, names(unitobjects(object = object)))
-                        ))) {
-            "Missing specific argument."
-          } else {
-            specific <- object@pParams$specific
-          }
-        }
-        pParams <- list(shared = shared, specific = specific)
-        #      # If missing params, use params in pomp objects
-        #      if (missing(params)){
-        #        params <- NULL
-        #        for (i.u in 1:length(object@unit.objects)){
-        #          params <- cbind(
-        #            params,
-        #            coef(object@unit.objects[i.u][[1]])
-        #          )
-        #        }# end for i.u
-        #        params <- matrix(
-        #          params,
-        #          nrow = dim(params)[1],
-        #          ncol = dim(params)[2],
-        #          dimnames = list(
-        #            names(coef(object@unit.objects[1][[1]])),
-        #            NULL
-        #          )
-        #        )
-        #      }# END IF missing params
-        # Check that all parameters in the pomp objects have been provided either as shared or specific
-        if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared), rownames(specific)))) 
-          stop("At least one 'pomp' parameter needs to be added to the shared or specific argument")
-        #if(!all(c(names(shared), rownames(specific))  %in% names(coef(unitobjects(object)[[1]]))))
-        #  stop("At least one parameter in the shared or specific argument is not being used")
+      # Check that all parameters in the pomp objects have been provided either as shared or specific ...
+      if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared), rownames(specific)))) 
+        stop(ep, "At least one 'pomp' parameter needs to be added to the (shared. or specific.) 
+             start argument.")
+      # ... and viceversa.
+      if(!all(c(names(shared), rownames(specific))  %in% names(coef(unitobjects(object)[[1]]))))
+        stop(ep, "At least one parameter in the (shared. or specific.) start argument is not 
+             being used.")
+      
         pPfilter.internal(
           object = object,
           pParams = pParams,
