@@ -1,6 +1,6 @@
 library(panelPomp)
 
-context("test-pmif2_internal.R")
+context("test-mif2_internal.R")
 
 pompExample(gompertz)
 short.gompertz <- gompertz
@@ -143,4 +143,14 @@ test_that("pmif2.internal runs with the rand.unit=T",
             test.mif2ing.with.rand.unit <- mif2(object = test_pmif2_internal, rand.unit = T)
             expect_true(object =
                           class(x = test.mif2ing.with.rand.unit) == "mif2d.ppomp")
+          })
+
+
+test_that("pmif2.internal pomp::mif2::tryCatch works",
+          {
+            res <- try(mif2(panelGompertz, Nmif = 2, Np = 50, 
+                            rw.sd = rw.sd(something = 0.02, random = ivp(0.2)),
+                            transform = TRUE, cooling.type = "geometric", 
+                            cooling.fraction.50 = 0.5), silent = TRUE)
+            expect_true(object = class(x = res) == "try-error")
           })
