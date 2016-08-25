@@ -60,6 +60,46 @@ test_that("mif2 stop works for missing rw.sd", {
 
 # Test "pfilter"
 
+test_that("pfilter stop works for missing shared", {
+  res <- try(
+    pfilter(object = ppo),
+    silent = TRUE)
+  expect_identical(object = is(res), expected = "try-error")
+})
+
+test_that("pfilter stop works for missing specific", {
+  res <- try(
+    pfilter(object = ppo, shared = coef(panelGompertz)$shared),
+    silent = TRUE)
+  expect_identical(object = is(res), expected = "try-error")
+})
+
+
+test_that("pfilter stop works for wrong shared names", {
+  res <- try(
+    pfilter(object = panelGompertz, shared = c(sth = 0)),
+    silent = TRUE)
+  expect_identical(object = is(res), expected = "try-error")
+})
+
+test_that("pfilter stop works for wrong specific rownames", {
+  sp <- coef(panelGompertz)$specific
+  rownames(sp) <- c("some", "wrong", "names")
+  res <- try(
+    pfilter(object = panelGompertz, specific = sp),
+    silent = TRUE)
+  expect_identical(object = is(res), expected = "try-error")
+})
+
+test_that("pfilter stop works for wrong specific colnames", {
+  sp <- coef(panelGompertz)$specific
+  colnames(sp) <- paste0(colnames(sp), "_")
+  res <- try(
+    pfilter(object = panelGompertz, specific = sp),
+    silent = TRUE)
+  expect_identical(object = is(res), expected = "try-error")
+})
+
 test_that("pfilter stop works for missing Np", {
   res <- try(
     pfilter(object = panelGompertz),
