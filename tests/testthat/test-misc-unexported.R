@@ -14,9 +14,8 @@ specific <-
   dimnames = list(c("spec.1", "spec.2") , c(paste0("unit.", 1:u)))
   )
 
-test_that("tolistPparams recoves pParams from matrix (common parameters only)", {
+test_that("tolistPparams and toMatrixPparams work (common parameters only)", {
   listPparams <-
-    listPparams.common.only <-
     list(
       cool.common = common,
       yay.specific = array(
@@ -42,9 +41,8 @@ test_that("tolistPparams recoves pParams from matrix (common parameters only)", 
   expect_true(object = identical(x = res, y = listPparams))
 })
 
-test_that("tolistPparams recoves pParams from matrix (specific parameters only)", {
+test_that("tolistPparams and toMatrixPparams work (specific parameters only)", {
   listPparams <-
-    listPparams.specific.only <-
     list(cool.common = numeric(0), yay.specific = specific)
   
   matrixPparams <- panelPomp:::toMatrixPparams(listPparams)
@@ -64,9 +62,8 @@ test_that("tolistPparams recoves pParams from matrix (specific parameters only)"
   
 })
 
-test_that("tolistPparams recoves pParams from matrix (both common & specific parameters)", {
+test_that("tolistPparams and toMatrixPparams work (both common & specific parameters)", {
   listPparams <-
-    listPparams.mixec <-
     list(cool.common = common, yay.specific = specific)
 
   matrixPparams <- panelPomp:::toMatrixPparams(listPparams)
@@ -83,4 +80,8 @@ test_that("tolistPparams recoves pParams from matrix (both common & specific par
     matrix.name.in.listPparams = matrix.name.in.listPparams
   )
   expect_true(object = identical(x = res, y = listPparams))
+})
+
+test_that("runif.EstimationScale works", {
+  res <- panelPomp:::runif.EstimationScale(centers = c(th = 1), widths = 2)
 })

@@ -45,37 +45,19 @@ toListPparams <- function(
 
 
 ## Go to matrix-form pparams from list specification
-toMatrixPparams <- function(listPparams){
-  # DEBUG=T
-  #if(DEBUG==T){
-  #  common <- c(common.1 = 1, common.2 = 2)
-  #  u <- 5 # at least 1
-  #  specific <- matrix(
-  #    as.numeric(paste0(rep(seq(3,u+2),each=2),rep(c(".1",".2"),times=u))),
-  #    nrow = 2, dimnames = list(c("spec.1", "spec.2") , c(paste0("unit.",1:u))))
-  #  #
-  #  #listPparams <- listPparams.common.only <- list(common = common, specific = do.call(cbind, sapply(1:u, as.matrix, x=numeric(0))))
-  #  #listPparams <- listPparams.specific.only <- list(common = numeric(0), specific = specific)
-  #  listPparams <- listPparams.mixec <- list(common = common, specific = specific)
-  #}
-  common.params <- if(any(sapply(listPparams,is.vector))) {
-     listPparams[[which(!sapply(listPparams,is.matrix))]]} else {NULL}
-  specific.params <- if(any(unname(unlist(lapply(listPparams,is.matrix))))) {
-     listPparams[[which(sapply(listPparams,is.matrix))]]} else {NULL}
-
+toMatrixPparams <- function(listPparams) {
+  common.params <- listPparams[[which(sapply(listPparams, is.vector))]]
+  specific.params <- listPparams[[which(sapply(listPparams, is.matrix))]]
+  
   U <- dim(specific.params)[2]
-  matrixPparams <- rbind(if (is.null(common.params)) {
-                             NULL
-                         } else {
-                             matrix(
-                                 rep(x = common.params, times = U),
-                                 ncol = U,
-                                 dimnames = list(names(common.params), NULL)
-                             )
-                         },
-                         specific.params)
-    matrixPparams
-  #if(DEBUG==T) print(x = list(listPparams = listPparams))
+  matrixPparams <- rbind(
+    matrix(
+      rep(x = common.params, times = U),
+      ncol = U,
+      dimnames = list(names(common.params), NULL)
+    ),
+  specific.params)
+  matrixPparams
 }
 
 ## Uniform random draws in the transformed scale: give centers and widths
