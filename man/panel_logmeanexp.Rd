@@ -17,6 +17,6 @@ panel_logmeanexp(x, MARGIN, se = FALSE)
 Log-mean-exp for panels.
 }
 \details{
-When \code{se = TRUE}, the jackknife se's from \code{logmeanexp} are squared and summed.
+When \code{se = TRUE}, the jackknife se's from \code{logmeanexp} are squared, summed and the squared root is taken.
 }
 
