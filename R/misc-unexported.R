@@ -122,7 +122,7 @@ runif.EstimationScale <-
 #}
 
 
-### This version works with common parameters
+## This version works with common parameters
 #negative.gompertz.panel.Kalman.loglik <-
 #  function(x, object, params) {
 #    # evaluates gompertz likelihood for a 2-unit panel
