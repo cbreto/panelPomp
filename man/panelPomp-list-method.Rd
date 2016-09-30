@@ -9,7 +9,7 @@
   specific = array(data = numeric(0), dim = c(0, 0)))
 }
 \arguments{
-\item{object}{A \code{list} of \code{pomp} objects.}
+\item{object}{A named \code{list} of \code{pomp} objects.}
 
 \item{shared}{A named \code{numeric vector}}
 

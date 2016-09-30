@@ -161,8 +161,8 @@ setMethod(
 #' @inheritParams coef,panelPomp-method 
 #' @inheritParams panelPomp,list-method
 #' @inheritParams pomp::mif2
-#' @param ... A \code{ptol} argument with unit-specific tolerances can be passed as a named numeric vector with names matching \code{names(unitobjects(object))}.
-#'
+#' @param tol unit-specific filtering tolerances.  Can be a scalar or a named numeric vector with names matching \code{names(unitobjects(object))}.
+#' @param ... additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.
 #' @export
 #'
 setMethod(
@@ -173,6 +173,7 @@ setMethod(
              shared,
              specific,
              Np,
+             tol,
              verbose = getOption("verbose"),
              ...) {
       
@@ -233,7 +234,7 @@ setMethod(
       
         pPfilter.internal(
           object = object,
-          pParams = list(shared = shared, specific = specific),
+          params = list(shared = shared, specific = specific),
           Np = Np,
           verbose = verbose,
           ...
