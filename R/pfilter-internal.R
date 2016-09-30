@@ -3,17 +3,21 @@ NULL
 
 # pPfilter algorithm internal functions
 pPfilter.internal <- function(object,
-                              pParams,
+                              params,
                               Np,
-                              ptol,
+                              tol = 1e-17,
                               ...) {
   # DEBUG
   # Turn params list into a matrix
-  matrixpParams <- toMatrixPparams(pParams)
+  matrixpParams <- toMatrixPparams(params)
   U <- length(object)
   pfilterd.pomp.list <- setNames(vector(mode="list",length=U),names(unitobjects(object)))
-  if (missing(ptol)) {
-    ptol <- setNames(rep(1e-17,U),names(unitobjects(object)))
+  if (length(tol)==1) {
+    tol <- setNames(rep(tol,U),names(unitobjects(object)))
+  } else if (length(tol) != U) {
+    stop("in ",sQuote("pfilter"),": ",sQuote("tol"),
+      " must be a single positive scalar or a vector of length ",
+      U,call.=FALSE)
   }
   for (i.u in 1:U) {
     pfilterd.pomp.list[[i.u]] <-
@@ -21,7 +25,8 @@ pPfilter.internal <- function(object,
         object = object@unit.objects[[i.u]],
         params = matrixpParams[, i.u],
         Np = Np,
-        tol = unname(ptol[i.u])
+        tol = unname(tol[i.u]),
+        ...
       )
   }
   pPfilter.internal.unit.logliks <- sapply(pfilterd.pomp.list,logLik)
@@ -29,9 +34,9 @@ pPfilter.internal <- function(object,
   new(
     Class = "pfilterd.ppomp",
     unit.objects = pfilterd.pomp.list,
-    pParams = pParams,
+    pParams = params,
     ploglik = pPfilter.internal.loglik,
     unit.logliks = pPfilter.internal.unit.logliks,
-    ptol = ptol
+    ptol = tol
   )
 }

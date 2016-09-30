@@ -5,7 +5,7 @@
 \alias{pfilter,panelPomp-method}
 \title{Apply a particle filter to \code{panelPomp} objects.}
 \usage{
-\S4method{pfilter}{panelPomp}(object, shared, specific, Np,
+\S4method{pfilter}{panelPomp}(object, shared, specific, Np, tol,
   verbose = getOption("verbose"), ...)
 }
 \arguments{
@@ -27,11 +27,13 @@ more than one column}
     \strong{Note that this behavior differs from that of \code{\link{mif}}!}
   }
 
+\item{tol}{unit-specific filtering tolerances.  Can be a scalar or a named numeric vector with names matching \code{names(unitobjects(object))}.}
+
 \item{verbose}{
     logical; if TRUE, print progress reports.
   }
 
-\item{...}{A \code{ptol} argument with unit-specific tolerances can be passed as a named numeric vector with names matching \code{names(unitobjects(object))}.}
+\item{...}{additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.}
 }
 \description{
 S4 method.

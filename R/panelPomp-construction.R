@@ -7,7 +7,7 @@ NULL
 #'
 #' S4 method.
 #'
-#' @param object A \code{list} of \code{pomp} objects.
+#' @param object A named \code{list} of \code{pomp} objects.
 #' @param shared A named \code{numeric vector}
 #' @param specific A \code{matrix} with parameters on named rows and panel units on named columns  
 #' more than one column
