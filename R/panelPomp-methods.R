@@ -1,7 +1,8 @@
 #' @include panelPomp-internal.R
 NULL
 
-### coef method for panelPomp signature
+
+### 'coef' method for panelPomp signature
 #' Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
 #'
 #' What do I do?
@@ -18,6 +19,16 @@ setMethod(
   definition = function(object) {object@pParams}
 )# END setMethod
 
+
+## 'coerce' method: allows for coercion of a "panelPomp" object to a list
+setAs(
+  from="panelPomp",
+  to="list",
+  def=function (from) {
+    x <- from@unit.objects
+    x
+  }
+)
 
 
 ### length method for panelPomp signature
@@ -39,8 +50,6 @@ setMethod(
     length(unitobjects(object = x))
   }
 )# END setMethod
-
-
 
 
 ### mif2 method for panelPomp signature

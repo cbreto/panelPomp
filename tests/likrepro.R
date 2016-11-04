@@ -1,6 +1,6 @@
 library(panelPomp)
 
-vals <- numeric(60)
+vals <- numeric(1)
 
 pompExample(panelGompertz)
   

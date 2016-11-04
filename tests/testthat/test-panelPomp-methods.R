@@ -110,8 +110,13 @@ test_that("pfilter stop works for missing Np", {
 
 
 # Test "unitobjects"
-
 test_that("unitobjects returns specified unit", {
   res <- try(unitobjects(object = panelGompertz, unit = "unit1"), silent = TRUE)
   expect_true(object = identical(x = is(res), y = "pomp"))
+})
+
+# Test 'coerce' as list
+test_that("'as' returns list of units", {
+  res <- try(as(panelGompertz,"list"),silent=TRUE)
+  expect_true(identical(res,panelGompertz@unit.objects))
 })
