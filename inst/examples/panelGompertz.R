@@ -1,30 +1,25 @@
 require(panelPomp)
+pomp::pompExample(example=gompertz)
+# change 'times' slot so that t0 is one time step before t1
+gompertz <- window(gompertz,start=1,end=100)
 
-## Load gompertz pomp object
-pomp::pompExample(example = gompertz)
-
-## Initialize list of pomps
 U <- 50
-pompList <- setNames(object = vector(mode = "list", length = U),
-                     nm = paste0("unit", 1:U))
-freeze(seed = 1455280898L, kind = "Mersenne-Twister", {
-  for (i.u in 1:U) {
-    pompList[[i.u]] <-
-      pomp::simulate(object = gompertz, seed = 12345678 + i.u)
-  }
-})
+ppoList <- setNames(vector("list",length=U),
+                    nm=paste0("unit",1:U)
+)
+for (i.u in seq_len(U)) {
+  ppoList[[i.u]] <- pomp::simulate(gompertz,seed=12345678+i.u)
+}
 
-## Construct panelPomp
-panelPomp(
-  object = pompList,
-  shared = coef(gompertz)[names(coef(gompertz)) %in% c("r", "sigma")] -> shared.params,
-  specific = matrix(
-    data = coef(gompertz)[!names(coef(gompertz)) %in% names(shared.params)] -> specific.params,
-    nrow = length(specific.params),
-    ncol = U,
-    dimnames = list(names(specific.params),
-                    names(pompList))
-  )
+panelPomp(ppoList,
+          shared=coef(gompertz)[c("r", "sigma") -> shnm],
+          specific=matrix(
+            data=coef(gompertz)[!names(coef(gompertz)) %in% shnm] -> spparams,
+            nrow=length(spparams),
+            ncol=U,
+            dimnames=list(names(spparams),
+                          names(ppoList))
+          )
 ) -> panelGompertz
 
 c("panelGompertz")
