@@ -2,8 +2,12 @@
 # allows for defining the examples with Csnipets and use them in tests in 
 # the 'testthat' folder
 
+library(pomp)
 library(panelPomp)
 
 pomp::bake("testthat/panelGomp.rds",{
-  panelGomp <- pompExample(panelGomp,envir=NULL)[[1]]
+  panelGomp <- pomp::pompExample(
+    panelGomp,
+    envir=NULL,
+    cdir=paste0(getwd(),"/testthat"))[[1]]
 })

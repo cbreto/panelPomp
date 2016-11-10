@@ -8,6 +8,8 @@ rproc <- Csnippet("
  double eps = (sigma > 0.0) ? rlnorm(0,sigma) : 1.0;
  X = pow(K,(1-S))*pow(X,S)*eps;")
 
+cdir <- if (exists("cdir",inherits=FALSE)) cdir else NULL
+
 pomp::pomp(data=data.frame(t=1:100,Y=NA),
            times="t",
            t0=0,
@@ -18,7 +20,8 @@ pomp::pomp(data=data.frame(t=1:100,Y=NA),
            paramnames=c("K","r","sigma","tau"),
            statenames=c("X"),
            fromEstimationScale=function (params,...) exp(params),
-           toEstimationScale=function (params,...) log(params)
+           toEstimationScale=function (params,...) log(params),
+           cdir=cdir
 ) -> gomp
 
 ## Initialize list of pomps

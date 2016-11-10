@@ -1,3 +1,4 @@
+library(pomp)
 library(panelPomp)
 
 context("Test panelGomp")
