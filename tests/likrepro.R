@@ -2,7 +2,7 @@ library(panelPomp)
 
 vals <- numeric(1)
 
-pompExample(panelGompertz)
+panelGompertz <- pompExample(panelGompertz,envir=NULL)[[1]]
   
 for (i in seq_along(vals)) {
   

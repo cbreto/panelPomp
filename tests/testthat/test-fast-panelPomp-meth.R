@@ -1,8 +1,10 @@
 library(panelPomp)
 
-context("test-panelPomp-methods")
+context("Test panelPomp methods")
 
-pompExample(panelGompertz)
+panelGompertz <- pompExample(panelGompertz,envir=NULL)[[1]]
+gompertz <- pompExample(gompertz,envir=NULL)[[1]]
+
 ppo <- panelPomp(object = list(unit1 = gompertz, unit2 = gompertz))
 
 

@@ -1,8 +1,8 @@
 library(panelPomp)
 
-context("test-mif2_internal.R")
+context("Test 'mif2.internal'")
 
-pompExample(gompertz)
+gompertz <- pompExample(gompertz,envir=NULL)[[1]]
 short.gompertz <- gompertz
 time(short.gompertz) <- time(gompertz)[1:2]
 short.gompertz@data <-
@@ -11,10 +11,10 @@ short.pgompertz <-
   panelPomp(object = list(unit1 = short.gompertz, unit2 = short.gompertz))
 pPomp.object <- short.pgompertz
 test_pmif2_internal <-
-  panelPomp:::pmif2.internal(
+  panelPomp:::mif2.internal(
     pPomp.object,
     Nmif = 2,
-    pstart = list(
+    start = list(
       shared = c(
         #K = 1.0,
         r = 0.1,
@@ -31,17 +31,17 @@ test_pmif2_internal <-
       )
     ),
     Np = 50,
-    prw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
+    rw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
     transform = TRUE,
     cooling.type = "geometric",
     cooling.fraction.50 = 0.5
   )
 
 test_that("mif2.internal does not choke when given only one specific parameter", {
-  mif2d.ppomp.with.only.one.specific.parameter <- panelPomp:::pmif2.internal(
+  mif2d.ppomp.with.only.one.specific.parameter <- panelPomp:::mif2.internal(
     pPomp.object,
     Nmif = 2,
-    pstart = list(
+    start = list(
       shared = c(
         K = 1.0,
         r = 0.1,
@@ -58,7 +58,7 @@ test_that("mif2.internal does not choke when given only one specific parameter",
       )
     ),
     Np = 50,
-    prw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
+    rw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
     transform = TRUE,
     cooling.type = "geometric",
     cooling.fraction.50 = 0.5
@@ -71,10 +71,10 @@ test_that("mif2.internal does not choke when given only one specific parameter",
 
 
 test_that("mif2.internal does not choke when given both specific and shared parameters", {
-  mif2d.ppomp.with.only.one.specific.parameter <- panelPomp:::pmif2.internal(
+  mif2d.ppomp.with.only.one.specific.parameter <- panelPomp:::mif2.internal(
     pPomp.object,
     Nmif = 2,
-    pstart = list(
+    start = list(
       shared = c(
         r = 0.1,
         sigma = 0.1,
@@ -87,7 +87,7 @@ test_that("mif2.internal does not choke when given both specific and shared para
       )
     ),
     Np = 50,
-    prw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
+    rw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
     transform = TRUE,
     cooling.type = "geometric",
     cooling.fraction.50 = 0.5
@@ -100,10 +100,10 @@ test_that("mif2.internal does not choke when given both specific and shared para
 
 
 test_that("mif2.internal does not choke when given only a shared parameter", {
-  mif2d.ppomp.with.only.one.specific.parameter <- panelPomp:::pmif2.internal(
+  mif2d.ppomp.with.only.one.specific.parameter <- panelPomp:::mif2.internal(
     pPomp.object,
     Nmif = 2,
-    pstart = list(
+    start = list(
       shared = c(tau = 0.1),
       specific = array(
         data = c(1, 1, 0.1, 0.1),
@@ -112,7 +112,7 @@ test_that("mif2.internal does not choke when given only a shared parameter", {
       )
     ),
     Np = 50,
-    prw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
+    rw.sd = rw.sd(tau = 0.02, X.0 = ivp(0.2)),
     transform = TRUE,
     cooling.type = "geometric",
     cooling.fraction.50 = 0.5
@@ -138,7 +138,7 @@ test_that("mif2d.ppomps can be mif2d again",
                           class(x = test.mif2ing.a.mif2d.ppomp) == "mif2d.ppomp")
           })
 
-test_that("pmif2.internal runs with the rand.unit=T",
+test_that("mif2.internal runs with the rand.unit=T",
           {
             test.mif2ing.with.rand.unit <- mif2(object = test_pmif2_internal, rand.unit = T)
             expect_true(object =
@@ -146,7 +146,7 @@ test_that("pmif2.internal runs with the rand.unit=T",
           })
 
 
-test_that("pmif2.internal pomp::mif2::tryCatch works",
+test_that("mif2.internal pomp::mif2::tryCatch works",
           {
             res <- try(mif2(panelGompertz, Nmif = 2, Np = 50, 
                             rw.sd = rw.sd(something = 0.02, random = ivp(0.2)),

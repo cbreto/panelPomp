@@ -1,5 +1,5 @@
 require(panelPomp)
-pomp::pompExample(example=gompertz)
+gompertz <- pomp::pompExample(example=gompertz,envir=NULL)[[1]]
 # change 'times' slot so that t0 is one time step before t1
 gompertz <- window(gompertz,start=1,end=100)
 

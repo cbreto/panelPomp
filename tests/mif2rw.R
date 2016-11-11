@@ -1,6 +1,6 @@
 library(panelPomp)
 
-pompExample(panelGompertz)
+panelGompertz <- pompExample(panelGompertz,envir=NULL)[[1]]
 
 sigma <- 0.02
 pmf <- mif2(

@@ -1,8 +1,8 @@
 library(panelPomp)
 
-context("Test pompExamples")
+context("Test panelGompertz")
 
-pompExample(panelGompertz)
+panelGompertz <- pompExample(panelGompertz,envir=NULL)[[1]]
 
 test_that("pfilter runs on panelGompertz", {
   panelGompertz.pf <- pfilter(panelGompertz, Np = 10)
