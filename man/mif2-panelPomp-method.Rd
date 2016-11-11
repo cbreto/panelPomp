@@ -5,12 +5,16 @@
 \alias{mif2,panelPomp-method}
 \title{Apply the \code{mif2} algorithm to a \code{panelPomp} object.}
 \usage{
-\S4method{mif2}{panelPomp}(object, shared.start, specific.start, Np, Nmif = 1,
-  cooling.type = c("hyperbolic", "geometric"), cooling.fraction.50,
-  transform = FALSE, rw.sd, verbose = getOption("verbose"), ...)
+\S4method{mif2}{panelPomp}(object, Nmif = 1, shared.start, specific.start, Np,
+  rw.sd, transform = FALSE, cooling.type = c("hyperbolic", "geometric"),
+  cooling.fraction.50, verbose = getOption("verbose"), ...)
 }
 \arguments{
 \item{object}{A \code{panelPomp} object.}
+
+\item{Nmif}{
+    The number of filtering iterations to perform.
+  }
 
 \item{shared.start}{shared.arg.}
 
@@ -27,9 +31,9 @@
     \strong{Note that this behavior differs from that of \code{\link{mif}}!}
   }
 
-\item{Nmif}{
-    The number of filtering iterations to perform.
-  }
+\item{rw.sd}{An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.}
+
+\item{transform}{transform (seems to cause an error if documentation inherited from 'pomp' package)}
 
 \item{cooling.type}{
     specifications for the cooling schedule, i.e., the manner in which the intensity of the parameter perturbations is reduced with successive filtering iterations.
@@ -38,10 +42,6 @@
   }
 
 \item{cooling.fraction.50}{cooling.fraction.50 (seems to cause an error if documentation inherited from 'pomp' package)}
-
-\item{transform}{transform (seems to cause an error if documentation inherited from 'pomp' package)}
-
-\item{rw.sd}{An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.}
 
 \item{verbose}{
     logical; if TRUE, print progress reports.
@@ -52,7 +52,7 @@
   }
 }
 \description{
-Mystery of mysteries
+Apply the \code{mif2} algorithm to a \code{panelPomp} object.
 }
 \details{
 S4 method.

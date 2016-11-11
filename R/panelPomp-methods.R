@@ -14,20 +14,27 @@ NULL
 #' @export
 #'
 setMethod(
-  f = "coef",
-  signature = signature(object = "panelPomp"),
-  definition = function(object) {object@pParams}
-)# END setMethod
+  "coef",
+  signature=signature(object="panelPomp"),
+  definition = function (object) object@pParams
+)
 
 
 ## 'coerce' method: allows for coercion of a "panelPomp" object to a list
-setAs(
-  from="panelPomp",
-  to="list",
-  def=function (from) {
-    x <- from@unit.objects
-    x
-  }
+#' Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.
+#'
+#' Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.
+#'
+#' S4 method.
+#'
+#' @name as
+#' @family panelPomp
+#'
+setAs(from="panelPomp",to="list",
+      def = function (from) {
+        x <- from@unit.objects
+        x
+      }
 )
 
 
@@ -55,7 +62,7 @@ setMethod(
 ### mif2 method for panelPomp signature
 #' Apply the \code{mif2} algorithm to a \code{panelPomp} object.
 #'
-#' Mystery of mysteries
+#' Apply the \code{mif2} algorithm to a \code{panelPomp} object.
 #'
 #' S4 method.
 #'
@@ -70,19 +77,13 @@ setMethod(
 #' @export
 #'
 setMethod(
-  f = "mif2",
-  signature = signature(object = "panelPomp"),
-  definition = function(object,
-                        shared.start,
-                        specific.start,
-                        Np,
-                        Nmif = 1,
-                        cooling.type = c("hyperbolic", "geometric"),
-                        cooling.fraction.50,
-                        transform = FALSE,
-                        rw.sd,
-                        verbose = getOption("verbose"),
-                        ...) {
+  "mif2",
+  signature=signature(object="panelPomp"),
+  definition = function (object, Nmif = 1, shared.start, specific.start, 
+                         Np, rw.sd, transform = FALSE, 
+                         cooling.type = c("hyperbolic", "geometric"), 
+                         cooling.fraction.50, verbose = getOption("verbose"), 
+                         ...) {
     
     ep <- paste0(sQuote("panelPomp::mif2")," error: ")
     
@@ -143,17 +144,17 @@ setMethod(
     # ... and viceversa.
     if(!all(c(names(shared.start), rownames(specific.start))  %in% names(coef(unitobjects(object)[[1]]))))
       stop("At least one parameter in the (shared. or specific.) start argument is not being used")
-    pmif2.internal(
+    mif2.internal(
       object,
-      pstart = list(shared = shared.start, specific = specific.start),
+      start = list(shared = shared.start, specific = specific.start),
       Np = Np,
       Nmif = Nmif,
       cooling.type = cooling.type,
       cooling.fraction.50 = cooling.fraction.50,
       transform = transform,
-      prw.sd = rw.sd,
+      rw.sd = rw.sd,
       ...
-    )# END CALL pmif2.internal
+    )# END CALL mif2.internal
   } # END FN definition arg
 ) # END setMethod
 
@@ -241,7 +242,7 @@ setMethod(
         stop(ep, "At least one parameter in the (shared. or specific.) start argument is not 
              being used.")
       
-        pPfilter.internal(
+        pfilter.internal(
           object = object,
           params = list(shared = shared, specific = specific),
           Np = Np,

@@ -19,51 +19,26 @@ NULL
 #' @export
 #'
 setMethod(
-  f = "mif2",
-  signature = signature(object = "mif2d.ppomp"),
-  definition = function (object,
-                         Nmif,
-                         shared.start,
-                         specific.start,
-                         Np,
-                         rw.sd,
-                         transform,
-                         cooling.type,
-                         cooling.fraction.50,
-                         tol,
+  "mif2",
+  signature=signature(object="mif2d.ppomp"),
+  definition = function (object, Nmif, shared.start, specific.start, Np, rw.sd,
+                         transform, cooling.type, cooling.fraction.50, tol,
                          ...) {
-    if (missing(Nmif))
-      Nmif <- object@Nmif
-    if (missing(shared.start))
-      shared.start <- coef(object)$shared
-    if (missing(specific.start))
-      specific.start <- coef(object)$specific
-    if (missing(Np))
-      Np <- object@Np    
-    if (missing(rw.sd))
-      rw.sd <- object@prw.sd
-    if (missing(transform))
-      transform <- object@transform
-    if (missing(cooling.type))
-      cooling.type <- object@cooling.type
-    if (missing(cooling.fraction.50))
+    if (missing(Nmif)) Nmif <- object@Nmif
+    if (missing(shared.start)) shared.start <- coef(object)$shared
+    if (missing(specific.start)) specific.start <- coef(object)$specific
+    if (missing(Np)) Np <- object@Np    
+    if (missing(rw.sd)) rw.sd <- object@prw.sd
+    if (missing(transform)) transform <- object@transform
+    if (missing(cooling.type)) cooling.type <- object@cooling.type
+    if (missing(cooling.fraction.50)) 
       cooling.fraction.50 <- object@cooling.fraction.50
-    if (missing(tol))
-      tol <- object@ptol
+    if (missing(tol)) tol <- object@ptol
     
-    f <- selectMethod(f = "mif2", signature = "panelPomp")
-    f(
-      object = object,
-      shared.start = shared.start, 
-      specific.start = specific.start,
-      Np = Np,
-      Nmif = Nmif,      
-      cooling.type = cooling.type,
-      cooling.fraction.50 = cooling.fraction.50,
-      transform = transform,
-      rw.sd = rw.sd,
-      tol = tol,
-      ...
-    )
+    f <- selectMethod("mif2",signature="panelPomp")
+    f(object=object,shared.start=shared.start,specific.start=specific.start,
+      Np=Np,Nmif=Nmif,cooling.type=cooling.type,
+      cooling.fraction.50=cooling.fraction.50,transform=transform,rw.sd=rw.sd,
+      tol = tol, ...)
   }
 )

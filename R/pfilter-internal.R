@@ -2,7 +2,7 @@
 NULL
 
 # pPfilter algorithm internal functions
-pPfilter.internal <- function(object,
+pfilter.internal <- function(object,
                               params,
                               Np,
                               tol = 1e-17,
@@ -29,14 +29,14 @@ pPfilter.internal <- function(object,
         ...
       )
   }
-  pPfilter.internal.unit.logliks <- sapply(pfilterd.pomp.list,logLik)
-  pPfilter.internal.loglik <- sum(pPfilter.internal.unit.logliks)
+  pfilter.internal.unit.logliks <- sapply(pfilterd.pomp.list,logLik)
+  pfilter.internal.loglik <- sum(pfilter.internal.unit.logliks)
   new(
     Class = "pfilterd.ppomp",
     unit.objects = pfilterd.pomp.list,
     pParams = params,
-    ploglik = pPfilter.internal.loglik,
-    unit.logliks = pPfilter.internal.unit.logliks,
+    ploglik = pfilter.internal.loglik,
+    unit.logliks = pfilter.internal.unit.logliks,
     ptol = tol
   )
 }

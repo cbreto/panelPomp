@@ -2,16 +2,8 @@
 NULL
 
 # pmif2 algorithm internal functions
-pmif2.internal <- function(object,
-                           Nmif,
-                           pstart,
-                           Np,
-                           prw.sd,
-                           transform = FALSE,
-                           cooling.type,
-                           cooling.fraction.50,
-                           .ndone = 0L,
-                           rand.unit = FALSE,
+mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE, 
+                           cooling.type, cooling.fraction.50, .ndone = 0L, 
                            ...) {
   # BEGIN DEBUG
   #require(panelPomp)
@@ -23,8 +15,8 @@ pmif2.internal <- function(object,
   #object <-
   #  panelPomp(object = list(unit1 = two.obs.gompertz, unit2 = two.obs.gompertz))
   #Nmif <- 2
-  #pstart <-
-  ##  # pstart with only one shared parameter
+  #start <-
+  ##  # start with only one shared parameter
   ##  list(
   ##    shared = c(tau = 0.7),
   ##    specific = array(
@@ -35,7 +27,7 @@ pmif2.internal <- function(object,
   ##    )
   ##  )
   ##  
-  ## #  # pstart with both shared and specific parameters
+  ## #  # start with both shared and specific parameters
   ## #  list(
   ##    shared = c(tau = 0.7, r = 0.1, sigma = 0.5),
   ##    specific = array(
@@ -46,7 +38,7 @@ pmif2.internal <- function(object,
   ##   )
   ##  )
   ##
-  #  # pstart with only one specific parameter
+  #  # start with only one specific parameter
   #  list(
   #    shared = c(tau = 0.7, r = 0.1, sigma = 0.5, K = 1),
   #    specific = array(
@@ -57,7 +49,7 @@ pmif2.internal <- function(object,
   #    )
   #  )
   #
-  ##  # pstart with no specific parameter
+  ##  # start with no specific parameter
   ##  list(
   ##    shared = c(tau = 0.7, r = 0.1, sigma = 0.5, K = 1, X.0 = 11),
   ##    specific = array(
@@ -68,7 +60,7 @@ pmif2.internal <- function(object,
   ##    )
   ##  )
   ##
-  ###  # pstart with no shared parameter
+  ###  # start with no shared parameter
   ##  list(shared = numeric(0),
   ##       specific = array(
   ##         data = c(11, 1, 0.71, 0.1, 0.5,
@@ -79,7 +71,7 @@ pmif2.internal <- function(object,
   ##         )
   ##       )
   #Np <- 50
-  #prw.sd <- substitute(pomp::rw.sd(tau = 0.02, X.0 = ivp(0.2)))
+  #rw.sd <- substitute(pomp::rw.sd(tau = 0.02, X.0 = ivp(0.2)))
   #transform <- TRUE
   #cooling.type <- "geometric"
   #cooling.fraction.50 <- 0.5
@@ -92,10 +84,10 @@ pmif2.internal <- function(object,
   # PRELIMS & BASIC CHECKS
   U <- as.integer(length(object))
   Nmif <- as.integer(Nmif)
-  # Check prw.sd: if it is not a list, make it one
-  if (!is.list(prw.sd)) prw.sd <- rep(list(prw.sd), U)
-  shnames <- names(pstart$shared)
-  spnames <- rownames(pstart$specific)
+  # Check rw.sd: if it is not a list, make it one
+  if (!is.list(rw.sd)) rw.sd <- rep(list(rw.sd), U)
+  shnames <- names(start$shared)
+  spnames <- rownames(start$specific)
   
   ########################################################
   # Initialize objects
@@ -103,7 +95,7 @@ pmif2.internal <- function(object,
   
   # Initialize pParamMatrix
   pParamMatrix <- array(
-    data = pstart$shared,
+    data = start$shared,
     dim = c(length(shnames), Np),
     dimnames = list(
       variable = shnames, 
@@ -112,7 +104,7 @@ pmif2.internal <- function(object,
   )
   # Initialize pparamArray
   pparamArray <- array(
-    data = apply(pstart$specific, 2, rep, times = Np),
+    data = apply(start$specific, 2, rep, times = Np),
     dim = c(length(spnames), Np, U),
     dimnames = list(
       variable = spnames,
@@ -123,20 +115,20 @@ pmif2.internal <- function(object,
   # Initialize pconv.rec and pconv.rec.array
   pconv.rec <- array(
     data = numeric(0),
-    dim = c(Nmif + 1, length(pstart$shared) + 2),
+    dim = c(Nmif + 1, length(start$shared) + 2),
     dimnames = list(
       iteration = seq.int(.ndone, .ndone + Nmif),
-      variable = c('loglik', 'nfail', names(pstart$shared))
+      variable = c('loglik', 'nfail', names(start$shared))
     )
   )
-  pconv.rec[1L,-c(1:2)] <- pstart$shared
+  pconv.rec[1L,-c(1:2)] <- start$shared
   
   pconv.rec.array <- array(
     data = numeric(0),
-    dim = c(Nmif + 1, dim(pstart$specific)[1] + 3, U),
+    dim = c(Nmif + 1, dim(start$specific)[1] + 3, U),
     dimnames = list(
       iteration = seq.int(.ndone, .ndone + Nmif),
-      variable = c('loglik', 'unitNfail', 'unitLoglik', dimnames(pstart$specific)[[1]]),
+      variable = c('loglik', 'unitNfail', 'unitLoglik', dimnames(start$specific)[[1]]),
       unit = names(unitobjects(object))
     )
   )
@@ -151,7 +143,7 @@ pmif2.internal <- function(object,
   ###########################################################
   
   for (mifiter in seq_len(Nmif)) {
-    unit.seq <- if(rand.unit==T) sample(seq_len(U)) else seq_len(U)
+    unit.seq <- seq_len(U)
     for (unit in unit.seq) {
       ## DEBUG
       # i.loop <- as.integer(1)
@@ -174,7 +166,7 @@ pmif2.internal <- function(object,
           cooling.type = cooling.type,
           cooling.fraction.50 = cooling.fraction.50,
           transform = transform,
-          rw.sd = prw.sd[[unit]],
+          rw.sd = rw.sd[[unit]],
           .paramMatrix = updated.paramMatrix,
           .indices = seq.int(Np),
           .ndone = mifiter-1
@@ -250,7 +242,7 @@ pmif2.internal <- function(object,
       unit.logliks = unit.logliks,      
       # mif2d.ppomp
       Nmif = Nmif,
-      prw.sd = prw.sd,
+      prw.sd = rw.sd,
       cooling.type = cooling.type,
       cooling.fraction.50 = cooling.fraction.50,
       transform = transform,
