@@ -5,16 +5,18 @@
 \alias{pfilter,panelPomp-method}
 \title{Apply a particle filter to \code{panelPomp} objects.}
 \usage{
-\S4method{pfilter}{panelPomp}(object, shared, specific, Np, tol,
+\S4method{pfilter}{panelPomp}(object, shared, specific, params, Np, tol,
   verbose = getOption("verbose"), ...)
 }
 \arguments{
 \item{object}{A \code{panelPomp} object.}
 
-\item{shared}{A named \code{numeric vector}}
+\item{shared}{a named \code{numeric vector}.}
 
-\item{specific}{A \code{matrix} with parameters on named rows and panel units on named columns
-more than one column}
+\item{specific}{a \code{matrix} with parameters on named rows and panel units on named columns.}
+
+\item{params}{optional; a list with (named) 'shared' and 'specific' elements.
+more than one column.}
 
 \item{Np}{
     the number of particles to use in filtering.

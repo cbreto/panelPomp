@@ -30,12 +30,7 @@ setMethod(
 #' @name as
 #' @family panelPomp
 #'
-setAs(from="panelPomp",to="list",
-      def = function (from) {
-        x <- from@unit.objects
-        x
-      }
-)
+setAs(from="panelPomp",to="list",def = function (from) from@unit.objects)
 
 
 ### length method for panelPomp signature
@@ -51,12 +46,10 @@ setAs(from="panelPomp",to="list",
 #' @export
 #'
 setMethod(
-  f = "length",
-  signature = signature(x = "panelPomp"),
-  definition = function(x) {
-    length(unitobjects(object = x))
-  }
-)# END setMethod
+  "length",
+  signature=signature(x="panelPomp"),
+  definition = function (x) length(unitobjects(x))
+)
 
 
 ### mif2 method for panelPomp signature
@@ -70,6 +63,7 @@ setMethod(
 #' @inheritParams pomp::mif2
 #' @param shared.start shared.arg.
 #' @param specific.start specific.arg.
+#' @param start start.
 #' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.
 #' @param cooling.fraction.50 cooling.fraction.50 (seems to cause an error if documentation inherited from 'pomp' package)
 #' @param transform transform (seems to cause an error if documentation inherited from 'pomp' package)
@@ -80,33 +74,55 @@ setMethod(
   "mif2",
   signature=signature(object="panelPomp"),
   definition = function (object, Nmif = 1, shared.start, specific.start, 
+                         start = list(
+                           shared = shared.start, 
+                           specific = specific.start
+                         ),
                          Np, rw.sd, transform = FALSE, 
                          cooling.type = c("hyperbolic", "geometric"), 
                          cooling.fraction.50, verbose = getOption("verbose"), 
                          ...) {
     
     ep <- paste0(sQuote("panelPomp::mif2")," error: ")
-    
-    # If no starting values are specified, try using the pParams slot
-    if (missing(shared.start)) shared.start <- coef(object)$shared
-    if (missing(specific.start)) specific.start <- coef(object)$specific
-    
-    if (is.null(shared.start)){
-      stop(ep, "non-empty ", sQuote("shared.start"), " must be specified if ", 
-           sQuote("coef(object)$shared")," is empty.", call.=FALSE)
+
+    if (!missing(shared.start)&&!missing(specific.start)&&!missing(start)) 
+      stop("specify either 'start' only, 'start' and 'shared', or 
+           'start' and 'specific'")
+
+    # Get starting parameter values from 'object,' 'start,' or 
+    # 'shared/specific.start'
+    if (missing(shared.start)){
+      if (!missing(start)) shared.start <- start$shared 
+      else shared.start <- coef(object)$shared
+    } 
+    if (missing(specific.start)){
+      if (!missing(start)) specific.start <- start$specific 
+      else specific.start <- coef(object)$specific
     }
-    if (is.null(nrow(specific.start))){
-      stop(ep, "non-empty ", sQuote("specific.start"), " must be specified if ", 
-           sQuote("coef(object)$specific")," is empty.", call.=FALSE)
+    
+    if (identical(shared.start,numeric(0))) {
+      stop(ep,"if ",sQuote("coef(object)$shared")," is empty, shared parameters
+           must be specified in either ",sQuote("shared.start"),
+           " or as part of ",sQuote("start"),".",call.=FALSE
+      )
     }
-    # If the pParams slot is not empty, check that the shared and specific structure of any 
-    # provided starting values match the pParams slot
-    if (!is.null(coef(object)$shared)){
+    if (identical(specific.start,array(numeric(0),dim=c(0,0)))) {
+      stop(ep,"if ",sQuote("coef(object)$specific")," is empty, specific 
+           parameters must be specified in either ",sQuote("specific.start"),
+           " or as part of ",sQuote("start"),".",call.=FALSE
+      )
+    }
+    # If the object pParams slot is not empty, check that the shared and 
+    # specific structure of any provided starting values match the pParams slot
+    if (!is.null(coef(object)$shared)) {
       if (
-        !identical(character(0), setdiff(x = names(coef(object)$shared), y = names(shared.start)))
+        !identical(
+          character(0),
+          setdiff(names(coef(object)$shared),names(shared.start))
+        )
         &
-        !(is.null(names(coef(object)$shared)) & is.null(names(shared.start)))
-      ){
+        !(is.null(names(coef(object)$shared))&is.null(names(shared.start)))
+      ) {
         stop(ep, "names of ", sQuote("shared.start"), " must match those of ", 
              sQuote("coef(object)$shared"),".", call.=FALSE
         )
@@ -114,9 +130,15 @@ setMethod(
     }
     if (!is.null(coef(object)$specific)){
       if (
-        !identical(character(0), setdiff(x = rownames(coef(object)$specific), y = rownames(specific.start)))
+        !identical(
+          character(0),
+          setdiff(rownames(coef(object)$specific),rownames(specific.start))
+        )
         &
-        !(is.null(rownames(coef(object)$specific)) & is.null(rownames(specific.start)))
+        !(is.null(rownames(coef(object)$specific))
+          &
+          is.null(rownames(specific.start))
+        )
       ){
         stop(ep, "rownames of ", sQuote("specific.start"), " must match those of ", 
              sQuote("coef(object)$specific"),".", call.=FALSE
@@ -176,63 +198,81 @@ setMethod(
 #' @export
 #'
 setMethod(
-  f = "pfilter",
-  signature = signature(object = "panelPomp"),
+  "pfilter",
+  signature=signature(object="panelPomp"),
   definition =
-    function(object,
-             shared,
-             specific,
-             Np,
-             tol,
-             verbose = getOption("verbose"),
-             ...) {
+    function(object, shared, specific, params, Np, tol, 
+             verbose = getOption("verbose"), ...) {
       
-      ep <- paste0("in ",sQuote("panelPomp::pfilter"),": ")
+      ep <- paste0(sQuote("panelPomp::pfilter")," error: ")
       
-      # If no starting values are specified, try using the pParams slot
-      if (missing(shared)) shared <- coef(object)$shared
-      if (missing(specific)) specific <- coef(object)$specific
+      if (!missing(shared)&&!missing(specific)&&!missing(params)) 
+        stop("specify either 'params' only, 'params' and 'shared', or 'params' 
+             and 'specific'")
       
-      if (is.null(shared)){
-        stop(ep, "non-empty ", sQuote("shared"), " must be specified if ", 
-             sQuote("coef(object)$shared")," is empty.", call.=FALSE)
+      # Get starting parameter values from 'object,' 'start,' or 'params'
+      if (missing(shared)){
+        if (!missing(params)) shared <- params$shared 
+        else shared <- coef(object)$shared
+      } 
+      if (missing(specific)){
+        if (!missing(params)) specific <- params$specific 
+        else specific <- coef(object)$specific
       }
-      if (is.null(nrow(specific))){
-        stop(ep, "non-empty ", sQuote("specific"), " must be specified if ", 
-             sQuote("coef(object)$specific")," is empty.", call.=FALSE)
+      
+      if (identical(shared,numeric(0))) {
+        stop(ep,"if ",sQuote("coef(object)$shared")," is empty, shared 
+             parameters must be specified in either ",sQuote("shared"),
+             " or as part of ",sQuote("params"),".",call.=FALSE
+        )
+      }
+      if (identical(specific,array(numeric(0),dim=c(0,0)))) {
+        stop(ep,"if ",sQuote("coef(object)$specific")," is empty, specific 
+           parameters must be specified in either ",sQuote("specific"),
+             " or as part of ",sQuote("params"),".",call.=FALSE
+        )
       }
       # If the pParams slot is not empty, check that the shared and specific structure of any 
       # provided starting values match the pParams slot
       if (!is.null(coef(object)$shared)){
         if (
-          !identical(character(0), setdiff(x = names(coef(object)$shared), y = names(shared)))
+          !identical(
+            character(0),
+            setdiff(names(coef(object)$shared),names(shared))
+          )
           &
-          !(is.null(names(coef(object)$shared)) & is.null(names(shared)))
-        ){
+          !(is.null(names(coef(object)$shared))&is.null(names(shared)))
+        ) {
           stop(ep, "names of ", sQuote("shared"), " must match those of ", 
-            sQuote("coef(object)$shared"),".", call.=FALSE
+               sQuote("coef(object)$shared"),".", call.=FALSE
           )
         }
       }
       if (!is.null(coef(object)$specific)){
         if (
-          !identical(character(0), setdiff(x = rownames(coef(object)$specific), y = rownames(specific)))
+          !identical(
+            character(0),
+            setdiff(rownames(coef(object)$specific),
+                    rownames(specific))
+          )
           &
-          !(is.null(rownames(coef(object)$specific)) & is.null(rownames(specific)))
-        ){
-          stop(ep, "rownames of ", sQuote("specific"), " must match those of ", 
-            sQuote("coef(object)$specific"),".", call.=FALSE
+          !(
+            is.null(rownames(coef(object)$specific))
+            &
+            is.null(rownames(specific))
+          )
+        ) {
+          stop(ep,"rownames of ",sQuote("specific")," must match those of ", 
+               sQuote("coef(object)$specific"),".",call.=FALSE
           )
         }
         if (!identical(x = colnames(coef(object)$specific), y = colnames(specific))){
           stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
-            sQuote("coef(object)$specific"),".", call.=FALSE
+               sQuote("coef(object)$specific"),".", call.=FALSE
           )
         }
       }
-      if (missing(Np)) {
-        stop(ep, "Missing 'Np' argument.")
-      }
+      if (missing(Np)) stop(ep,"Missing 'Np' argument.")
       # Check that all parameters in the pomp objects have been provided either as shared or specific ...
       if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared), rownames(specific)))) 
         stop(ep, "At least one 'pomp' parameter needs to be added to the (shared. or specific.) 
@@ -242,14 +282,14 @@ setMethod(
         stop(ep, "At least one parameter in the (shared. or specific.) start argument is not 
              being used.")
       
-        pfilter.internal(
-          object = object,
-          params = list(shared = shared, specific = specific),
-          Np = Np,
-          verbose = verbose,
-          ...
-        )
-      }
+      pfilter.internal(
+        object = object,
+        params = list(shared = shared, specific = specific),
+        Np = Np,
+        verbose = verbose,
+        ...
+      )
+    }
 ) # END setMethod
 
 

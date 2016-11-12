@@ -7,34 +7,35 @@ NULL
 #'
 #' S4 method.
 #'
-#' @param object A named \code{list} of \code{pomp} objects.
-#' @param shared A named \code{numeric vector}
-#' @param specific A \code{matrix} with parameters on named rows and panel units on named columns  
-#' more than one column
+#' @param object a named \code{list} of \code{pomp} objects.
+#' @param shared a named \code{numeric vector}.
+#' @param specific a \code{matrix} with parameters on named rows and panel units on named columns.
+#' @param params optional; a list with (named) 'shared' and 'specific' elements.
+#' more than one column.
 #'
 #' @export
 #'
 setMethod(
-  f = "panelPomp",
-  signature = signature(object = "list"),
-  definition = function(object,
-                        shared = numeric(0),
-                        specific = array(data = numeric(0), dim = c(0, 0))) {
-    if (missing(object))
-      stop(sQuote("object"),
-           " (list of pomp objects) is a required argument")
-    # If no shared nor specific parameters are provided, endow the panelPomp object with an empty pParams slot 
-    if (
-      identical(x = shared, y = numeric(0)) && 
-      identical(x = specific, y = array(data = numeric(0), dim = c(0, 0)))
-    ) {
-      pParams <- list()
-    } else {
-    # Else, used the parameters specified by the user
-      pParams <- list(shared = shared, specific = specific)
-    }
-    pPomp.internal(pompList = object,
-                   pParams = pParams)
+  "panelPomp",
+  signature=signature(object="list"),
+  definition = function (object, shared = numeric(0),
+                         specific = array(numeric(0), dim = c(0,0)),
+                         params = list(shared = shared, specific = specific)
+  ) {
+    ep <- paste0(sQuote("panelPomp::panelPomp")," error: ")
+    
+    if (class(object[[1]])!="pomp") 
+      stop(ep,"The ",sQuote("unit.objects")," slot must be a list of ",
+           sQuote("pomp")," objects.",call.=FALSE
+      )
+    if (!missing(shared) && !missing(specific) && !missing(params)) 
+      stop(ep,"specify either ",sQuote("params")," only, ",sQuote("params"),
+           " and ",sQuote("shared")," , or ",sQuote("params")," and ",
+           sQuote("specific"),".",call.=FALSE
+      )
+    pParams <- params
+    if (!missing(shared)) pParams$shared <- shared
+    if (!missing(specific)) pParams$specific <- specific
+    pPomp.internal(pompList=object,pParams=pParams)
   }
 )
-# END setMethod

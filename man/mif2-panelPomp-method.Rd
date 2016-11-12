@@ -5,8 +5,9 @@
 \alias{mif2,panelPomp-method}
 \title{Apply the \code{mif2} algorithm to a \code{panelPomp} object.}
 \usage{
-\S4method{mif2}{panelPomp}(object, Nmif = 1, shared.start, specific.start, Np,
-  rw.sd, transform = FALSE, cooling.type = c("hyperbolic", "geometric"),
+\S4method{mif2}{panelPomp}(object, Nmif = 1, shared.start, specific.start,
+  start = list(shared = shared.start, specific = specific.start), Np, rw.sd,
+  transform = FALSE, cooling.type = c("hyperbolic", "geometric"),
   cooling.fraction.50, verbose = getOption("verbose"), ...)
 }
 \arguments{
@@ -19,6 +20,8 @@
 \item{shared.start}{shared.arg.}
 
 \item{specific.start}{specific.arg.}
+
+\item{start}{start.}
 
 \item{Np}{
     the number of particles to use in filtering.

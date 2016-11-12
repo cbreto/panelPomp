@@ -39,27 +39,22 @@ NULL
 #'
 #' @export
 setClass(
-  Class = "panelPomp",
-  slots = c(unit.objects = "list",
-            pParams = "list"),
-  prototype = prototype(unit.objects = list(),
-                        pParams = list(
-                          shared = numeric(0),
-                          specific = array(data = numeric(0),
-                                           dim = c(0,0))
-                          )
-                        ),
+  "panelPomp",
+  slots=c(
+    unit.objects = "list",
+    pParams = "list"
+  ),
+  prototype=prototype(
+    unit.objects=list(),
+    pParams=list(shared=numeric(0),specific=array(numeric(0),dim=c(0,0)))
+  ),
   validity=function (object) {
     retval <- character(0)
-    # check that mandatory arguments have been provided
-    if (length(object@unit.objects)<1) {
-      retval <- append(retval, paste(sQuote("unit.objects"), "is a required slot"))
-    }
     # check that mandatory arguments have the required format
     if (!all(sapply(object@unit.objects,is,'pomp'))) {
       retval <- append(retval, paste0("The 'unit.objects' slot must be a list of 'pomp' objects"))
     } else {
-      same.parameters.check <- T
+      same.parameters.check <- TRUE
       if (length(object) > 1) {
         for (i.u in 2:length(object)) {
           same.parameters.check <- 
@@ -145,21 +140,20 @@ setClass(
                       )
                     )
                   } else {
-                pParams.names <-
-                  c(names(object@pParams$shared),
-                    dimnames(object@pParams$specific)[[1]])
-                if (!identical(sort(pParams.names), sort(names(coef(
-                  object@unit.objects[[1]]
-                ))))) {
-                  retval <- append(
-                    retval,
-                    paste(
-                      "All parameters in the pomp objects of unit.objects slot must be in",
-                      sQuote("pParams"),
-                      "and viceversa"
+                    pParams.names <-c(
+                      names(object@pParams$shared),
+                      dimnames(object@pParams$specific)[[1]]
                     )
-                  )
-                }
+                    if (!identical(
+                      sort(pParams.names),
+                      sort(names(coef(object@unit.objects[[1]]))))) retval <- append(
+                        retval,
+                        paste(
+                          "All parameters in the pomp objects of unit.objects slot must be in",
+                          sQuote("pParams"),
+                          "and viceversa"
+                        )
+                      )
                   }
                 }
               }
@@ -168,9 +162,6 @@ setClass(
         }
       }
     }
-    if (length(retval) == 0)
-      TRUE
-    else
-      retval
+    if (length(retval)==0) TRUE else retval
   }
 )

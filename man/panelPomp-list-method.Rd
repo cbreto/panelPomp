@@ -6,15 +6,18 @@
 \title{Construct \code{panelPomp} objects.}
 \usage{
 \S4method{panelPomp}{list}(object, shared = numeric(0),
-  specific = array(data = numeric(0), dim = c(0, 0)))
+  specific = array(numeric(0), dim = c(0, 0)), params = list(shared =
+  shared, specific = specific))
 }
 \arguments{
-\item{object}{A named \code{list} of \code{pomp} objects.}
+\item{object}{a named \code{list} of \code{pomp} objects.}
 
-\item{shared}{A named \code{numeric vector}}
+\item{shared}{a named \code{numeric vector}.}
 
-\item{specific}{A \code{matrix} with parameters on named rows and panel units on named columns
-more than one column}
+\item{specific}{a \code{matrix} with parameters on named rows and panel units on named columns.}
+
+\item{params}{optional; a list with (named) 'shared' and 'specific' elements.
+more than one column.}
 }
 \description{
 S4 method.
