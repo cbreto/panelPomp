@@ -1,6 +1,6 @@
 library(panelPomp)
 
-context("Test unexported functions")
+context("Test panelPomp's unexported functions")
 
 common <- c(common.1 = 1, common.2 = 2)
 u <- 5 # at least 1

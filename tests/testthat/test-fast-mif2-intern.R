@@ -1,14 +1,12 @@
 library(panelPomp)
 
-context("Test 'mif2.internal'")
+context("Test panelPomp:::mif2.internal()")
 
 gompertz <- pompExample(gompertz,envir=NULL)[[1]]
-short.gompertz <- gompertz
-time(short.gompertz) <- time(gompertz)[1:2]
-short.gompertz@data <-
-  gompertz@data[, 1:length(time(short.gompertz)), drop = FALSE]
-short.pgompertz <-
-  panelPomp(object = list(unit1 = short.gompertz, unit2 = short.gompertz))
+shgomp <- gompertz
+time(shgomp) <- time(gompertz)[1:2]
+shgomp@data <- gompertz@data[, 1:length(time(shgomp)),drop = FALSE]
+short.pgompertz <- panelPomp(list(u1=shgomp,u2=shgomp),shared=coef(gompertz))
 pPomp.object <- short.pgompertz
 test_pmif2_internal <-
   panelPomp:::mif2.internal(
@@ -117,10 +115,7 @@ test_that("mif2.internal does not choke when given only a shared parameter", {
     cooling.type = "geometric",
     cooling.fraction.50 = 0.5
   )
-  expect_true(
-    object = 
-      class(x = mif2d.ppomp.with.only.one.specific.parameter)=="mif2d.ppomp"
-  )
+  expect_true(class(mif2d.ppomp.with.only.one.specific.parameter)=="mif2d.ppomp")
 })
 
 #test_that("Unit 2's paramMatrix matches unit 1's filtering distribution", {
@@ -137,14 +132,6 @@ test_that("mif2d.ppomps can be mif2d again",
             expect_true(object =
                           class(x = test.mif2ing.a.mif2d.ppomp) == "mif2d.ppomp")
           })
-
-test_that("mif2.internal runs with the rand.unit=T",
-          {
-            test.mif2ing.with.rand.unit <- mif2(object = test_pmif2_internal, rand.unit = T)
-            expect_true(object =
-                          class(x = test.mif2ing.with.rand.unit) == "mif2d.ppomp")
-          })
-
 
 test_that("mif2.internal pomp::mif2::tryCatch works",
           {

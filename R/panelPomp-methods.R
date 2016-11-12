@@ -86,8 +86,10 @@ setMethod(
     ep <- paste0(sQuote("panelPomp::mif2")," error: ")
 
     if (!missing(shared.start)&&!missing(specific.start)&&!missing(start)) 
-      stop("specify either 'start' only, 'start' and 'shared', or 
-           'start' and 'specific'")
+      stop(ep,"specify either ",sQuote("start")," only, ",sQuote("start"),
+           " and ",sQuote("shared.start")," , or ",sQuote("start")," and ",
+           sQuote("specific.start"),".",call.=FALSE
+      )
 
     # Get starting parameter values from 'object,' 'start,' or 
     # 'shared/specific.start'
@@ -205,10 +207,12 @@ setMethod(
              verbose = getOption("verbose"), ...) {
       
       ep <- paste0(sQuote("panelPomp::pfilter")," error: ")
-      
-      if (!missing(shared)&&!missing(specific)&&!missing(params)) 
-        stop("specify either 'params' only, 'params' and 'shared', or 'params' 
-             and 'specific'")
+
+      if (!missing(shared) && !missing(specific) && !missing(params)) 
+        stop(ep,"specify either ",sQuote("params")," only, ",sQuote("params"),
+             " and ",sQuote("shared")," , or ",sQuote("params")," and ",
+             sQuote("specific"),".",call.=FALSE
+        )
       
       # Get starting parameter values from 'object,' 'start,' or 'params'
       if (missing(shared)){
