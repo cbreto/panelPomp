@@ -2,6 +2,10 @@ library(panelPomp)
 
 context("Test panelPomp's unexported functions")
 
+pg <- try(pompExample(pangomp,envir=NULL)[[1]])
+if (class(pg)=="try-error") pg <- readRDS("pangomp.rds")
+
+
 common <- c(common.1 = 1, common.2 = 2)
 u <- 5 # at least 1
 specific <-

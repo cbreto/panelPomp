@@ -1,6 +1,8 @@
 library(panelPomp)
 
-pg <- pompExample(panelGompertz,envir=NULL)[[1]]
+pg <- try(pompExample(pangomp,envir=NULL)[[1]])
+if (class(pg)=="try-error") pg <- readRDS("pangomp.rds")
+
 g <- pompExample(gompertz,envir=NULL)[[1]]
 
 pp <- panelPomp(

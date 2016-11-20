@@ -1,10 +1,10 @@
 library(panelPomp)
 
-panelGompertz <- pompExample(panelGompertz,envir=NULL)[[1]]
+pangomp <- pompExample(pangomp,envir=NULL)[[1]]
 
 sigma <- 0.02
 pmf <- mif2(
-  panelGompertz,
+  pangomp,
   transform = TRUE,
   Nmif = 1,
   rw.sd = rw.sd(r = sigma),
@@ -16,7 +16,7 @@ stopifnot(class(pmf) == "mif2d.ppomp")
 
 shnames <- 0.02
 pmf <- mif2(
-  panelGompertz,
+  pangomp,
   transform = TRUE,
   Nmif = 1,
   rw.sd = rw.sd(r = shnames),

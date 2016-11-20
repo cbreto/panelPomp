@@ -1,7 +1,9 @@
 library(panelPomp)
-pg <- pompExample(panelGompertz,envir=NULL)[[1]]
 
-context("Test panelPomp::panelPomp()")
+pg <- try(pompExample(pangomp,envir=NULL)[[1]])
+if (class(pg)=="try-error") pg <- readRDS("pangomp.rds")
+
+context("Test panelPomp()")
 test_that(
   "panelPomp() fails to detect list of 'non-pomp' objects",
   {expect_error(panelPomp(list(a=1)),regexp="panelPomp::panelPomp",fixed=T)}

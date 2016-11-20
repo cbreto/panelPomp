@@ -2,6 +2,9 @@ library(panelPomp)
 
 context("Test panelPomp:::mif2.internal()")
 
+pg <- try(pompExample(pangomp,envir=NULL)[[1]])
+if (class(pg)=="try-error") pg <- readRDS("pangomp.rds")
+
 gompertz <- pompExample(gompertz,envir=NULL)[[1]]
 shgomp <- gompertz
 time(shgomp) <- time(gompertz)[1:2]
@@ -135,7 +138,7 @@ test_that("mif2d.ppomps can be mif2d again",
 
 test_that("mif2.internal pomp::mif2::tryCatch works",
           {
-            res <- try(mif2(panelGompertz, Nmif = 2, Np = 50, 
+            res <- try(mif2(pg, Nmif = 2, Np = 50, 
                             rw.sd = rw.sd(something = 0.02, random = ivp(0.2)),
                             transform = TRUE, cooling.type = "geometric", 
                             cooling.fraction.50 = 0.5), silent = TRUE)
