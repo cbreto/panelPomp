@@ -18,7 +18,8 @@ Description: Tools for working with longitudinal/panel POMPs, i.e., with
 License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
-    R(>= 3.1.2), pomp(>= 1.7.5.2)
+    R(>= 3.1.2),
+    pomp(>= 1.7.5.2)
 Imports:
     methods
 RoxygenNote: 5.0.1
@@ -39,3 +40,4 @@ Collate:
     'mif2d-ppomp-class.R'
     'mif2-internal.R'
     'mif2d-ppomp-methods.R'
+    'contacts.R'
