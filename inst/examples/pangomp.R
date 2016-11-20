@@ -39,6 +39,6 @@ panelPomp(object=poList,
             ncol=U,
             dimnames=list(names(spparams),names(poList))
           )
-) -> panelGomp
+) -> pangomp
 
-c("panelGomp")
+c("pangomp")
