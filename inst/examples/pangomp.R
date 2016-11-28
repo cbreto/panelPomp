@@ -31,10 +31,9 @@ poList <- setNames(vector(mode="list",length=U),
 for (i.u in seq_len(U)) poList[[i.u]] <- pomp::simulate(gomp,seed=12345678+i.u)
 
 ## Construct panelPomp
-panelPomp(object=poList,
-          shared=coef(gomp)[c("r", "sigma") -> shnm],
-          specific=matrix(
-            data=coef(gomp)[!names(coef(gomp)) %in% shnm] -> spparams,
+panelPomp(poList,
+          shared=coef(gomp)[c("r","sigma") -> shnm],
+          specific=matrix(coef(gomp)[!names(coef(gomp))%in%shnm] -> spparams,
             nrow=length(spparams),
             ncol=U,
             dimnames=list(names(spparams),names(poList))
