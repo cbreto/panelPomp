@@ -52,6 +52,7 @@ setMethod(
 )
 
 
+
 ### mif2 method for panelPomp signature
 #' Apply the \code{mif2} algorithm to a \code{panelPomp} object.
 #'
@@ -102,12 +103,13 @@ setMethod(
       else specific.start <- coef(object)$specific
     }
     
-    if (identical(shared.start,numeric(0))) {
-      stop(ep,"if ",sQuote("coef(object)$shared")," is empty, shared parameters
-           must be specified in either ",sQuote("shared.start"),
-           " or as part of ",sQuote("start"),".",call.=FALSE
-      )
-    }
+    # This causes an unintended stop in panelPomp objects that genuinely have no shared parameters
+    #if (identical(shared.start,numeric(0))) {
+    #  stop(ep,"if ",sQuote("coef(object)$shared")," is empty, shared parameters
+    #       must be specified in either ",sQuote("shared.start"),
+    #       " or as part of ",sQuote("start"),".",call.=FALSE
+    #  )
+    #}
     if (identical(specific.start,array(numeric(0),dim=c(0,0)))) {
       stop(ep,"if ",sQuote("coef(object)$specific")," is empty, specific 
            parameters must be specified in either ",sQuote("specific.start"),
@@ -185,6 +187,27 @@ setMethod(
 
 
 
+### names method for panelPomp signature
+#' Get the unit names of a \code{panelPomp} objects.
+#'
+#' Get the unit names of a \code{panelPomp} objects.
+#'
+#' S4 method.
+#'
+# Can't @inheritParams coef because coef's argument is "object" not "x" (which is length's argument)
+#' @param x A \code{panelPomp} object.
+#'
+#' @export
+#'
+setMethod(
+  "names",
+  signature=signature(x="panelPomp"),
+  definition = function (x) names(as(x,"list"))
+)
+
+
+
+
 ### pfilter method for panelPomp signature
 #' Apply a particle filter to \code{panelPomp} objects.
 #'
@@ -224,12 +247,13 @@ setMethod(
         else specific <- coef(object)$specific
       }
       
-      if (identical(shared,numeric(0))) {
-        stop(ep,"if ",sQuote("coef(object)$shared")," is empty, shared 
-             parameters must be specified in either ",sQuote("shared"),
-             " or as part of ",sQuote("params"),".",call.=FALSE
-        )
-      }
+      # This causes an unintended stop in panelPomp objects that genuinely have no shared parameters      
+      #if (identical(shared,numeric(0))) {
+      #  stop(ep,"if ",sQuote("coef(object)$shared")," is empty, shared 
+      #       parameters must be specified in either ",sQuote("shared"),
+      #       " or as part of ",sQuote("params"),".",call.=FALSE
+      #  )
+      #}
       if (identical(specific,array(numeric(0),dim=c(0,0)))) {
         stop(ep,"if ",sQuote("coef(object)$specific")," is empty, specific 
            parameters must be specified in either ",sQuote("specific"),
