@@ -3,20 +3,20 @@ library(panelPomp)
 
 context("Test 'pompExample(pangomp)'")
 
-pg <- try(pompExample(pangomp,envir=NULL)[[1]])
-if (class(pg)=="try-error") pg <- readRDS("pangomp.rds")
+pang <- try(pompExample(pangomp,envir=NULL)[[1]])
+if (class(pang)=="try-error") pang <- readRDS("pangomp.rds")
 
-test_that("pompExample(pangomp) fails",{class(pg)=="panelPomp"})
+test_that("pompExample(pangomp) fails",{class(pang)=="panelPomp"})
 
-test_that("pfilter runs on pangomp",
-          {pg.pf <- pfilter(pg, Np = 10)
-          logLik(pg.pf)
-          unitlogLik(pg.pf)
+test_that("pfilter fails on pangomp",
+          {pang.pf <- pfilter(pang,Np=10)
+          logLik(pang.pf)
+          unitlogLik(pang.pf)
           }
 )
 
-test_that("mif2 runs on pangomp", 
-          {pg.mif2 <- mif2(pg,
+test_that("mif2 fails on pangomp", 
+          {pang.mif2 <- mif2(pang,
                            transform=TRUE,
                            Nmif=1,
                            rw.sd=rw.sd(r = 0.02),
@@ -24,27 +24,27 @@ test_that("mif2 runs on pangomp",
                            cooling.type="geometric", 
                            cooling.fraction.50=0.5
           )
-          pg.mif2@pconv.rec.array
-          pg.mif2@pconv.rec  
+          pang.mif2@pconv.rec.array
+          pang.mif2@pconv.rec  
           }
 )
 
 context("Test 'pompExample(pancon)'")
 
-pc <- try(pompExample(pancon,envir=NULL)[[1]])
-if (class(pc)=="try-error") pc <- readRDS("pancon.rds")
+panc <- try(pompExample(pancon,envir=NULL)[[1]])
+if (class(panc)=="try-error") panc <- readRDS("pancon.rds")
 
-test_that("pompExample(pancon) fails",{class(pc)=="panelPomp"})
+test_that("pompExample(pancon) fails",{class(panc)=="panelPomp"})
 
-test_that("pfilter runs on pancon",
-          {pc.pf <- pfilter(pc, Np = 10)
-          logLik(pc.pf)
-          unitlogLik(pc.pf)
+test_that("pfilter fails on pancon",
+          {panc.pf <- pfilter(panc,Np=10)
+          logLik(panc.pf)
+          unitlogLik(panc.pf)
           }
 )
 
-test_that("mif2 runs on pancon",
-          {pc.mif2 <- mif2(pc,
+test_that("mif2 fails on pancon",
+          {panc.mif2 <- mif2(panc,
                            transform=TRUE,
                            Nmif=1,
                            rw.sd=rw.sd(mu_X=0.02),
@@ -52,7 +52,36 @@ test_that("mif2 runs on pancon",
                            cooling.type="geometric", 
                            cooling.fraction.50=0.5
           )
-          pc.mif2@pconv.rec.array
-          pc.mif2@pconv.rec  
+          panc.mif2@pconv.rec.array
+          panc.mif2@pconv.rec  
+          }
+)
+
+
+context("Test 'pompExample(panpol)'")
+
+panp <- try(pompExample(panpol,envir=NULL)[[1]])
+if (class(panp)=="try-error") panp <- readRDS("panpol.rds")
+
+test_that("pompExample(panpol) fails",{class(panp)=="panelPomp"})
+
+test_that("pfilter fails on panpol",
+          {panp.pf <- pfilter(panp,Np=10)
+          logLik(panp.pf)
+          unitlogLik(panp.pf)
+          }
+)
+
+test_that("mif2 fails on panpol",
+          {panp.mif2 <- mif2(panp,
+                           transform=TRUE,
+                           Nmif=1,
+                           rw.sd=rw.sd(rho=0.02),
+                           Np=10,
+                           cooling.type="geometric", 
+                           cooling.fraction.50=0.5
+          )
+          panp.mif2@pconv.rec.array
+          panp.mif2@pconv.rec  
           }
 )

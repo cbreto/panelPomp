@@ -40,4 +40,5 @@ Collate:
     'mif2d-ppomp-class.R'
     'mif2-internal.R'
     'mif2d-ppomp-methods.R'
-    'contacts.R'
+    'data-contacts.R'
+    'data-polio.R'

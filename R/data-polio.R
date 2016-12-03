@@ -4,7 +4,7 @@ NULL
 #' Polio data
 #' 
 #' @docType data
-"polio_dataset"
+"polioUS"
 
 #' Longitudes and latitudes for the polio data
 #' 
