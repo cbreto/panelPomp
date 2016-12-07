@@ -67,13 +67,14 @@ U <- 882
 poList <- setNames(vector(mode="list",length=U),
                    nm=paste0("unit",1:U))
 for (i.u in seq_len(U)) {
-  poList[[i.u]] <- con
-  poList[[i.u]]@data <- t(
-    matrix(
-      as.matrix(contacts[i.u,1:4]),
-      dimnames=list(NULL,"y")
+  
+  con_u <- pomp::pomp(
+    data.frame(t=time(con),y=as.numeric(contacts[i.u,time(con)])),
+    times="t",
+    t0=timezero(con)
     )
-  )
+  poList[[i.u]] <- con
+  poList[[i.u]]@data <- con_u@data 
 }
 
 
