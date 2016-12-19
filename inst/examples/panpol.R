@@ -85,6 +85,7 @@ initial_births <- matrix(
   nc=length(unm),
   dimnames=list(sbnms,unm)
 )
+
 for (i.u in unm) {
   # i.u <- "Texas"#"South Dakota"#levels(polio_data$state)[1]#
   
@@ -115,31 +116,52 @@ for (i.u in unm) {
   )
   ii_u <- which(abs(covartable_u$time-t0_u)<0.01)
   initial_births[,i.u] <- as.numeric(covartable_u$B[ii_u-0:5])
-    
-  poList[[i.u]] <- pomp::pomp(
-    data=data.frame(
-      subset(data_u,(time>t0_u + 0.01)&(time<1953+(1/12)+0.01),
-             select=c("time","cases")
-      )
-    ),
-    times="time",
-    t0=t0_u,
-    params=c(paramsh,paramsp,initial_births[,i.u]),
-    rprocess=euler.sim(step.fun = rproc, delta.t=1/12),
-    rmeasure=rmeas,
-    dmeasure=dmeas,
-    covar=covartable_u,
-    tcovar="time",
-    statenames=c("IB","IO","SB1","SB2","SB3","SB4","SB5","SB6","SO"),
-    paramnames=c("b1","b2","b3","b4","b5","b6","psi","rho","sigma_dem","sigma_env","tau",
-                 "IO_0","SO_0",
-                 "delta",sbnms),
-    initializer=init,
-    toEstimationScale=toEst, 
-    fromEstimationScale=fromEst,
-    globals="int K = 6;",
-    cdir=cdir
-  )
+  
+  if (i.u==unm[[1]]) {
+    pomp::pomp(
+      data=data.frame(
+        subset(data_u,(time>t0_u + 0.01)&(time<1953+(1/12)+0.01),
+               select=c("time","cases")
+        )
+      ),
+      times="time",
+      t0=t0_u,
+      params=c(paramsh,paramsp,initial_births[,i.u]),
+      rprocess=euler.sim(step.fun = rproc, delta.t=1/12),
+      rmeasure=rmeas,
+      dmeasure=dmeas,
+      covar=covartable_u,
+      tcovar="time",
+      statenames=c("IB","IO","SB1","SB2","SB3","SB4","SB5","SB6","SO"),
+      paramnames=c("b1","b2","b3","b4","b5","b6","psi","rho","sigma_dem","sigma_env","tau",
+                   "IO_0","SO_0",
+                   "delta",sbnms),
+      initializer=init,
+      toEstimationScale=toEst, 
+      fromEstimationScale=fromEst,
+      globals="int K = 6;",
+      cdir=cdir
+    ) -> polio -> poList[[i.u]]
+  } else {
+    poList[[i.u]] <- polio
+    polio.u <- pomp::pomp(
+      data=data.frame(
+        subset(data_u,(time>t0_u + 0.01)&(time<1953+(1/12)+0.01),
+               select=c("time","cases")
+        )
+      ),
+      times="time",
+      t0=t0_u,
+      params=c(paramsh,paramsp,initial_births[,i.u]),
+      covar=covartable_u,
+      tcovar="time"
+    )
+    poList[[i.u]]@data <- polio.u@data
+    poList[[i.u]]@times <- polio.u@times
+    poList[[i.u]]@t0 <- polio.u@t0
+    poList[[i.u]]@covar <- polio.u@covar
+    poList[[i.u]]@tcovar <- polio.u@tcovar
+  }
 }
 
 panelPomp(
@@ -151,7 +173,7 @@ panelPomp(
            ncol=length(poList),
            dimnames=list(names(paramsp),names(poList))),
     initial_births
-    )
+  )
 ) -> panpol
 
 c("panpol")
