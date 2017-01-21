@@ -157,7 +157,6 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
       # R will then have dropped its name, which we fix by
       rownames(updated.paramMatrix) <- c(rownames(pParamMatrix), rownames(pparamArray))
       
-      # use pomp::mif2 the first time and pomp::continue after that
       output[[unit]] <- tryCatch(
         pomp::mif2(
           object = object@unit.objects[[unit]],
