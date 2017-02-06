@@ -1,6 +1,53 @@
 #' @include misc-unexported.R
 NULL
 
+### fromVectorPparams
+#' fromVectorPparams.
+#'
+#' fromVectorPparams.
+#'
+#' Convert back to the format of the \code{pParams} slot \code{panelPomp} objects from a one-row \code{data.frame} (e.g., the row of a record of evaluated likelihoods with the maximum likelihood).
+#'
+#' @param vectorPparams A one-row \code{data.frame} with format matching that of the output of \link{toVectorPparams}.
+#' 
+#' @export
+#'
+fromVectorPparams <- function(vectorPparams) {
+  # Extract unit names (from last column) and shared and specific names
+  unit.names <- eval(parse(text = vectorPparams[, ncol(vectorPparams)]))
+  names.of.shared.params <- names(vectorPparams[, !is.na(vectorPparams=="shared") & vectorPparams=="shared"])
+  names.of.specific.params <- names(vectorPparams[, !is.na(vectorPparams=="shared") & vectorPparams=="specific"])
+  
+  # shared
+  vector.of.shared.params <- numeric(0)
+  if(length(names.of.shared.params) > 0){
+    vector.of.shared.params <- setNames(object = as.numeric(vectorPparams[, paste0(unit.names[1], names.of.shared.params)]),
+                                        nm = names.of.shared.params)
+  }
+  # specific
+  if(length(names.of.specific.params) > 0){
+    matrix.of.specific.params <- NULL
+    for (i.u in 1:length(unit.names)) {
+      matrix.of.specific.params <- cbind(matrix.of.specific.params,
+                                         as.numeric(vectorPparams[, paste0(unit.names[i.u], names.of.specific.params)]))
+    }
+    dimnames(matrix.of.specific.params) <-
+      list(names.of.specific.params, unit.names)
+  } else {
+    matrix.of.specific.params <- 
+      array(
+        data = numeric(0), 
+        dim = c(0, length(unit.names)), 
+        dimnames = list(NULL, unit.names))
+  }
+  
+  # combine into list
+  listpParams <- list(shared = vector.of.shared.params,
+                      specific = matrix.of.specific.params)
+  # return
+  listpParams
+}
+
 ### panel_logmeanexp
 #' Log-mean-exp for panels.
 #'
@@ -25,8 +72,6 @@ panel_logmeanexp <- function (x, MARGIN, se = FALSE)
     }
 }
 
-
-
 ### toVectorPparams
 #' toVectorPparams.
 #'
@@ -40,13 +85,14 @@ panel_logmeanexp <- function (x, MARGIN, se = FALSE)
 #'
 toVectorPparams <- function(listPparams) {
   # rbind replicated shared parameters with matrix of specific parameters
-  matrixPparams <- rbind(matrix(
-    rep(x = listPparams$shared,
-        times = ncol(listPparams$specific)),
-    ncol = ncol(listPparams$specific),
-    dimnames = list(names(listPparams$shared), NULL)
-  ),
-  listPparams$specific
+  matrixPparams <- rbind(
+    matrix(
+      rep(listPparams$shared,
+          times=ncol(listPparams$specific)),
+      ncol = ncol(listPparams$specific),
+      dimnames = list(names(listPparams$shared), NULL)
+    ),
+    listPparams$specific
   )
   # vectorize the matrix
   vectorPparams <- setNames(object = as.vector(matrixPparams),
@@ -73,52 +119,3 @@ toVectorPparams <- function(listPparams) {
         )
   )
 }
-
-
-
-### fromVectorPparams
-#' fromVectorPparams.
-#'
-#' fromVectorPparams.
-#'
-#' Convert back to the format of the \code{pParams} slot \code{panelPomp} objects from a one-row \code{data.frame} (e.g., the row of a record of evaluated likelihoods with the maximum likelihood).
-#'
-#' @param vectorPparams A one-row \code{data.frame} with format matching that of the output of \link{toVectorPparams}.
-#' 
-#' @export
-#'
-fromVectorPparams <- function(vectorPparams) {
-    # Extract unit names (from last column) and shared and specific names
-    unit.names <- eval(parse(text = vectorPparams[, ncol(vectorPparams)]))
-    names.of.shared.params <- names(vectorPparams[, !is.na(vectorPparams=="shared") & vectorPparams=="shared"])
-    names.of.specific.params <- names(vectorPparams[, !is.na(vectorPparams=="shared") & vectorPparams=="specific"])
-    
-    # shared
-    vector.of.shared.params <- numeric(0)
-    if(length(names.of.shared.params) > 0){
-      vector.of.shared.params <- setNames(object = as.numeric(vectorPparams[, paste0(unit.names[1], names.of.shared.params)]),
-               nm = names.of.shared.params)
-    }
-    # specific
-    if(length(names.of.specific.params) > 0){
-      matrix.of.specific.params <- NULL
-      for (i.u in 1:length(unit.names)) {
-        matrix.of.specific.params <- cbind(matrix.of.specific.params,
-                                           as.numeric(vectorPparams[, paste0(unit.names[i.u], names.of.specific.params)]))
-      }
-      dimnames(matrix.of.specific.params) <-
-        list(names.of.specific.params, unit.names)
-    } else {
-      matrix.of.specific.params <- 
-        array(
-        data = numeric(0), 
-        dim = c(0, length(unit.names)), 
-        dimnames = list(NULL, unit.names))
-    }
-    
-    # combine into list
-    listpParams <- list(shared = vector.of.shared.params,
-                        specific = matrix.of.specific.params)
-    # return
-    listpParams
-  }

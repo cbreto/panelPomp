@@ -6,7 +6,7 @@ pg <- try(pompExample(pangomp,envir=NULL)[[1]])
 if (class(pg)=="try-error") pg <- readRDS("pangomp.rds")
 
 
-common <- c(common.1 = 1, common.2 = 2)
+shared <- c(shared.1 = 1, shared.2 = 2)
 u <- 5 # at least 1
 specific <-
   matrix(as.numeric(paste0(rep(seq(
@@ -18,11 +18,11 @@ specific <-
   dimnames = list(c("spec.1", "spec.2") , c(paste0("unit.", 1:u)))
   )
 
-test_that("tolistPparams and toMatrixPparams work (common parameters only)", {
+test_that("tolistPparams and toMatrixPparams work (shared parameters only)", {
   listPparams <-
     list(
-      cool.common = common,
-      yay.specific = array(
+      shared = shared,
+      specific = array(
         data = numeric(0),
         dim = c(0, dim(specific)[2]),
         dimnames = list(NULL, dimnames(specific)[[2]])
@@ -31,7 +31,7 @@ test_that("tolistPparams and toMatrixPparams work (common parameters only)", {
 
   matrixPparams <- panelPomp:::toMatrixPparams(listPparams)
   vector.position.in.listPparams <- which(sapply(listPparams, is.vector))
-  names.in.vector <- names(listPparams[vector.position.in.listPparams]$cool.common)
+  names.in.vector <- names(listPparams[vector.position.in.listPparams]$shared)
   vector.name.in.listPparams <- names(listPparams)[vector.position.in.listPparams]
   matrix.name.in.listPparams <- names(listPparams)[ifelse(vector.position.in.listPparams == 1, 2, 1)]
   
@@ -47,11 +47,11 @@ test_that("tolistPparams and toMatrixPparams work (common parameters only)", {
 
 test_that("tolistPparams and toMatrixPparams work (specific parameters only)", {
   listPparams <-
-    list(cool.common = numeric(0), yay.specific = specific)
+    list(shared = numeric(0), specific = specific)
   
   matrixPparams <- panelPomp:::toMatrixPparams(listPparams)
   vector.position.in.listPparams <- which(sapply(listPparams, is.vector))
-  names.in.vector <- names(listPparams[vector.position.in.listPparams]$cool.common)
+  names.in.vector <- names(listPparams[vector.position.in.listPparams]$shared)
   vector.name.in.listPparams <- names(listPparams)[vector.position.in.listPparams]
   matrix.name.in.listPparams <- names(listPparams)[ifelse(vector.position.in.listPparams == 1, 2, 1)]
   
@@ -66,13 +66,13 @@ test_that("tolistPparams and toMatrixPparams work (specific parameters only)", {
   
 })
 
-test_that("tolistPparams and toMatrixPparams work (both common & specific parameters)", {
+test_that("tolistPparams and toMatrixPparams work (both shared & specific parameters)", {
   listPparams <-
-    list(cool.common = common, yay.specific = specific)
+    list(shared = shared, specific = specific)
 
   matrixPparams <- panelPomp:::toMatrixPparams(listPparams)
   vector.position.in.listPparams <- which(sapply(listPparams, is.vector))
-  names.in.vector <- names(listPparams[vector.position.in.listPparams]$cool.common)
+  names.in.vector <- names(listPparams[vector.position.in.listPparams]$shared)
   vector.name.in.listPparams <- names(listPparams)[vector.position.in.listPparams]
   matrix.name.in.listPparams <- names(listPparams)[ifelse(vector.position.in.listPparams == 1, 2, 1)]
   
