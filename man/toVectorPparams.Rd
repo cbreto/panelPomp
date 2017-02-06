@@ -15,4 +15,3 @@ toVectorPparams.
 \details{
 Convert from the format of the \code{pParams} slot of \code{panelPomp} objects to a one-row \code{data.frame}. This facilitates keeping a record of evaluated likeilhoods.
 }
-

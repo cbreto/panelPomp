@@ -12,4 +12,3 @@ polioUS
 Polio data
 }
 \keyword{datasets}
-

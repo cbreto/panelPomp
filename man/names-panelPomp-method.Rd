@@ -16,4 +16,3 @@ Get the unit names of a \code{panelPomp} objects.
 \details{
 S4 method.
 }
-

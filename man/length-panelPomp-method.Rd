@@ -16,4 +16,3 @@ Help me!
 \details{
 S4 method.
 }
-

@@ -12,4 +12,3 @@ longlat
 Longitudes and latitudes for the polio data
 }
 \keyword{datasets}
-

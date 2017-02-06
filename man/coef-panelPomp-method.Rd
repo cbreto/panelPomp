@@ -16,4 +16,3 @@ What do I do?
 \details{
 S4 method.
 }
-

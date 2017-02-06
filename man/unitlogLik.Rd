@@ -18,4 +18,3 @@ unitlogLik(object, ...)
 This is a generic function: methods can be defined for it.
 }
 \keyword{internal}
-

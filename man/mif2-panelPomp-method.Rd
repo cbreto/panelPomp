@@ -60,4 +60,3 @@ Apply the \code{mif2} algorithm to a \code{panelPomp} object.
 \details{
 S4 method.
 }
-

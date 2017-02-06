@@ -22,7 +22,7 @@ Depends:
     pomp(>= 1.7.5.2)
 Imports:
     methods
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.0
 Suggests:
     testthat
 Collate:

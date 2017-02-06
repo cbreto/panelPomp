@@ -15,4 +15,3 @@ fromVectorPparams.
 \details{
 Convert back to the format of the \code{pParams} slot \code{panelPomp} objects from a one-row \code{data.frame} (e.g., the row of a record of evaluated likelihoods with the maximum likelihood).
 }
-

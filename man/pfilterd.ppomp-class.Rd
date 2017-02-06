@@ -18,5 +18,5 @@ An S4 class to represent panel POMP models that have been analyzed using \code{m
 
 \item{\code{unit.logliks}}{unit loglikelihoods#'}
 }}
-\keyword{internal}
 
+\keyword{internal}

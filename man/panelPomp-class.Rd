@@ -21,6 +21,7 @@ unit names). When all parameters are specific, the numeric vector is \code{numer
 are shared, the matrix is empty but its number of columns still represents the number of units in the panel 
 \code{U}, i.e., \code{array(numeric(0), dim = c(0,U))}.}
 }}
+
 \examples{
 
 pompExample(gompertz)
@@ -47,4 +48,3 @@ ppo <- panelPomp(
 
 }
 \keyword{internal}
-

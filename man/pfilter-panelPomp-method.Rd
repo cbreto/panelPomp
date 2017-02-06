@@ -43,4 +43,3 @@ S4 method.
 \details{
 S4 method.
 }
-

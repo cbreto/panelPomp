@@ -24,5 +24,5 @@ An S4 class to represent panel POMP models that have been analyzed using \code{m
 
 \item{\code{pconv.rec.array}}{pconv.rec.array}
 }}
-\keyword{internal}
 
+\keyword{internal}
