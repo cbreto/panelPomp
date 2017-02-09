@@ -25,3 +25,10 @@ pomp::bake("testthat/panpol.rds",{
     envir=NULL,
     cdir=paste0(getwd(),"/testthat"))[[1]]
 })
+
+pomp::bake("testthat/panpolola.rds",{
+  pangomp <- pomp::pompExample(
+    panpolola,
+    envir=NULL,
+    cdir=paste0(getwd(),"/testthat"))[[1]]
+})
