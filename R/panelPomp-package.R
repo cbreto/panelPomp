@@ -11,6 +11,6 @@
 #'
 #' @import methods
 #' @import pomp
-#' @importFrom stats dnorm runif setNames
+#' @importFrom stats dnorm runif setNames var
 #' @importFrom utils tail
 NULL

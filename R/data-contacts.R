@@ -1,4 +1,4 @@
-#' @include mif2d-ppomp-methods.R
+#' @include other-methods.R
 NULL
 
 #' Total sexual contacts in four 6-month periods. (Includes only individuals having no missing observations. Authorized for open access. Order has been randomized.)
