@@ -74,19 +74,19 @@ fromEst <- Csnippet("
 
 cdir <- if (exists("cdir",inherits=FALSE)) cdir else NULL
 ## Construct panelPomp object
-unm <- levels(polioUS$state)
-poList <- setNames(vector(mode="list",length=length(unm)),nm=unm)
-paramsh <- c(rho=0.01,delta=1/60)
-paramsp <- c(b1=3,b2=0,b3=1.5,b4=6,b5=5,b6=3,psi=0.002,tau=0.001,
-             sigma_dem=0.04,sigma_env=0.5,SO_0=0.12,IO_0=0.001)
+u.nm <- levels(polioUS$state)
+poList <- setNames(vector(mode="list",length=length(u.nm)),nm=u.nm)
+paramsh <- c(delta=1/60,psi=0.002,rho=0.01,sigma_dem=0.04)
+paramsp <- c(b1=3,b2=0,b3=1.5,b4=6,b5=5,b6=3,tau=0.001,sigma_env=0.5,SO_0=0.12,
+             IO_0=0.001)
 initial_births <- matrix(
   NA,
   nr=length(sbnms <- c("SB1_0","SB2_0","SB3_0","SB4_0","SB5_0","SB6_0")),
-  nc=length(unm),
-  dimnames=list(sbnms,unm)
+  nc=length(u.nm),
+  dimnames=list(sbnms,u.nm)
 )
 
-for (i.u in unm) {
+for (i.u in u.nm) {
   # i.u <- "Texas"#"South Dakota"#levels(polio_data$state)[1]#
   
   # t0 is (end of) April 1932 except for Texas (1934) and South Dakota (1933)
@@ -117,7 +117,7 @@ for (i.u in unm) {
   ii_u <- which(abs(covartable_u$time-t0_u)<0.01)
   initial_births[,i.u] <- as.numeric(covartable_u$B[ii_u-0:5])
   
-  if (i.u==unm[[1]]) {
+  if (i.u==u.nm[[1]]) {
     pomp::pomp(
       data=data.frame(
         subset(data_u,(time>t0_u + 0.01)&(time<1953+(1/12)+0.01),
