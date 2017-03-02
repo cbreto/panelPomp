@@ -2,6 +2,10 @@
 # allows to define the examples with Csnipets and use them in tests inside 
 # the 'testthat' folder
 
+# Include the following in each file that needs to use a panelPomp example
+#pg <- try(pompExample(pangomp,envir=NULL)[[1]])
+#if (class(pg)=="try-error") pg <- readRDS("pangomp.rds")
+
 library(pomp)
 library(panelPomp)
 
