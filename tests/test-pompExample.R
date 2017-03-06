@@ -10,29 +10,15 @@ library(pomp)
 library(panelPomp)
 
 pomp::bake("testthat/pangomp.rds",{
-  pangomp <- pomp::pompExample(
+  pomp::pompExample(
     pangomp,
     envir=NULL,
     cdir=paste0(getwd(),"/testthat"))[[1]]
 })
 
 pomp::bake("testthat/pancon.rds",{
-  pangomp <- pomp::pompExample(
+  pomp::pompExample(
     pancon,
-    envir=NULL,
-    cdir=paste0(getwd(),"/testthat"))[[1]]
-})
-
-pomp::bake("testthat/panpol.rds",{
-  pangomp <- pomp::pompExample(
-    panpol,
-    envir=NULL,
-    cdir=paste0(getwd(),"/testthat"))[[1]]
-})
-
-pomp::bake("testthat/panpolola.rds",{
-  pangomp <- pomp::pompExample(
-    panpolola,
     envir=NULL,
     cdir=paste0(getwd(),"/testthat"))[[1]]
 })

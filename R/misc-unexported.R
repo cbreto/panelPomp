@@ -1,7 +1,7 @@
 #' @include panelPomp-package.R
 NULL
 
-## change the "pomp.examples' global option when the "panelPomp" package is loaded/unloaded
+## change the "pomp.examples' global option when the package is loaded/unloaded
 .onAttach <- function (...) {
   exampleDir <- getOption("pomp.examples")
   newDir <- system.file("examples",package="panelPomp")
