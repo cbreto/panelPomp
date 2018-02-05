@@ -6,7 +6,10 @@ _C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n
 
         • New methods.
 
-        • Fixed bug with ‘tol’ in ‘pfilter’ and ‘mif2’.
+        • A bug in ‘pfilter’ and ‘mif2’ has been fixed (‘pomp’'s
+          default filtering tolerance ‘tol=1e-17’ was used instead of
+          values specified by the user). Thanks to Aaron King for
+          finding it.
 
 _C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n _0._2:
 

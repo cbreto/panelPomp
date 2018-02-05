@@ -4,7 +4,7 @@
   \itemize{
     \item New tests added.
     \item New methods.
-    \item Fixed bug with \code{tol} in \code{pfilter} and \code{mif2}.
+    \item A bug in \code{pfilter} and \code{mif2} has been fixed (\code{pomp}'s default filtering tolerance \code{tol=1e-17} was used instead of values specified by the user). Thanks to Aaron King for finding it.
   }
 }
 \section{Changes in \pkg{panelPomp} version 0.2}{
