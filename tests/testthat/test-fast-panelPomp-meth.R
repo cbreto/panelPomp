@@ -33,7 +33,7 @@ test_that(
 test_that(
   "mif2 stop fails for missing specific start & missing pParams slot",
   {
-    res <- try(mif2(object = pp, shared.start = coef(pg)$shared), silent = TRUE)
+    res <- try(mif2(object = pp, shared.start = pg@pParams$shared), silent = TRUE)
     expect_true(object = identical(x = class(res), y = "try-error"))
   }
 )
@@ -47,7 +47,7 @@ test_that(
 test_that(
   "mif2 stop fails for wrong specific.start rownames",
   {
-    sp.start <- coef(pg)$specific
+    sp.start <- pg@pParams$specific
     rownames(sp.start) <- c("some", "wrong", "names")
     res <- try(mif2(object = pg, specific.start = sp.start), silent = TRUE)
     expect_true(object = identical(x = class(res), y = "try-error"))
@@ -56,7 +56,7 @@ test_that(
 test_that(
   "mif2 stop fails for wrong specific.start colnames",
   {
-    sp.start <- coef(pg)$specific
+    sp.start <- pg@pParams$specific
     colnames(sp.start) <- paste0(colnames(sp.start), "_")
     res <- try(mif2(object = pg, specific.start = sp.start), silent = TRUE)
     expect_true(object = identical(x = class(res), y = "try-error"))
@@ -94,8 +94,8 @@ test_that(
   {
     mfdpp <- mif2(
       pp,
-      shared.start=2*coef(pp)$shared,
-      specific.start=2*coef(pp)$specific,
+      shared.start=2*pp@pParams$shared,
+      specific.start=2*pp@pParams$specific,
       Np=10,
       rw.sd=rw.sd(r=0.2),
       cooling.fraction.50=0.5,
@@ -103,7 +103,7 @@ test_that(
     )
     expect_identical(
       conv.rec(as(mfdpp,Class="list")[[1]])[1,-(1:2)],
-      expected=c(2*coef(pp)$shared,2*coef(pp)$specific[,1])
+      expected=c(2*pp@pParams$shared,2*pp@pParams$specific[,1])
     )
   }
 )
@@ -112,7 +112,7 @@ test_that(
   {
     mfdpp <- mif2(
       pp,
-      shared.start=2*coef(pp)$shared,
+      shared.start=2*pp@pParams$shared,
       start=coef(pp),
       Np=10,
       rw.sd=rw.sd(r=0.2),
@@ -121,7 +121,7 @@ test_that(
     )
     expect_identical(
       conv.rec(as(mfdpp,Class="list")[[1]])[1,-(1:2)],
-      expected=c(2*coef(pp)$shared,coef(pp)$specific[,1])
+      expected=c(2*pp@pParams$shared,pp@pParams$specific[,1])
     )
   }
 )
@@ -130,7 +130,7 @@ test_that(
   {
     mfdpp <- mif2(
       pp,
-      specific.start=2*coef(pp)$specific,
+      specific.start=2*pp@pParams$specific,
       start=coef(pp),      
       Np=10,
       rw.sd=rw.sd(r=0.2),
@@ -139,7 +139,7 @@ test_that(
     )
     expect_identical(
       conv.rec(as(mfdpp,Class="list")[[1]])[1,-(1:2)],
-      expected=c(coef(pp)$shared,2*coef(pp)$specific[,1])
+      expected=c(pp@pParams$shared,2*pp@pParams$specific[,1])
     )
   }
 )
@@ -149,8 +149,8 @@ test_that(
     expect_error(
       mif2(
         pp,
-        shared.start=2*coef(pp)$specific,      
-        specific.start=2*coef(pp)$specific,
+        shared.start=2*pp@pParams$specific,      
+        specific.start=2*pp@pParams$specific,
         start=coef(pp),      
         Np=10,
         rw.sd=rw.sd(r=0.2),
@@ -170,7 +170,7 @@ test_that(
   {
     res <- try(panelPomp(pg,shared=c("r","sigma")),silent=TRUE)
     expect_true(class(res)=="panelPomp")
-    expect_true(identical(names(coef(res)$shared),c("r","sigma")))
+    expect_true(identical(names(res@pParams$shared),c("r","sigma")))
   }
 )
 
@@ -189,7 +189,7 @@ test_that(
   "pfilter stop fails for missing specific",
   {
     res <- try(
-      pfilter(object = pp, shared = coef(pg)$shared),
+      pfilter(object = pp, shared = pg@pParams$shared),
       silent = TRUE)
     expect_identical(object = is(res), expected = "try-error")
   }
@@ -206,7 +206,7 @@ test_that(
 test_that(
   "pfilter stop fails for wrong specific rownames",
   {
-    sp <- coef(pg)$specific
+    sp <- pg@pParams$specific
     rownames(sp) <- c("some", "wrong", "names")
     res <- try(
       pfilter(object = pg, specific = sp),
@@ -217,7 +217,7 @@ test_that(
 test_that(
   "pfilter stop fails for wrong specific colnames",
   {
-    sp <- coef(pg)$specific
+    sp <- pg@pParams$specific
     colnames(sp) <- paste0(colnames(sp), "_")
     res <- try(
       pfilter(object = pg, specific = sp),
@@ -237,13 +237,13 @@ test_that(
   {
     pfdpp <- pfilter(
       pp,
-      shared=2*coef(pp)$shared,
-      specific=2*coef(pp)$specific,
+      shared=2*pp@pParams$shared,
+      specific=2*pp@pParams$specific,
       Np=10
     )
     expect_identical(
       coef(as(pfdpp,Class="list")[[1]]),
-      expected=c(2*coef(pp)$shared,2*coef(pp)$specific[,1])
+      expected=c(2*pp@pParams$shared,2*pp@pParams$specific[,1])
     )
   }
 )
@@ -252,13 +252,13 @@ test_that(
   {
     pfdpp <- pfilter(
       pp,
-      shared=2*coef(pp)$shared,
+      shared=2*pp@pParams$shared,
       params=coef(pp),
       Np=10
     )
     expect_identical(
       coef(as(pfdpp,Class="list")[[1]]),
-      expected=c(2*coef(pp)$shared,coef(pp)$specific[,1])
+      expected=c(2*pp@pParams$shared,pp@pParams$specific[,1])
     )
   }
 )
@@ -267,13 +267,13 @@ test_that(
   {
     pfdpp <- pfilter(
       pp,
-      specific=2*coef(pp)$specific,
+      specific=2*pp@pParams$specific,
       params=coef(pp),
       Np=10
     )
     expect_identical(
       coef(as(pfdpp,Class="list")[[1]]),
-      expected=c(coef(pp)$shared,2*coef(pp)$specific[,1])
+      expected=c(pp@pParams$shared,2*pp@pParams$specific[,1])
     )
   }
 )
@@ -283,8 +283,8 @@ test_that(
     expect_error(
       pfilter(
         pp,
-        shared=2*coef(pp)$shared, 
-        specific=2*coef(pp)$specific,
+        shared=2*pp@pParams$shared, 
+        specific=2*pp@pParams$specific,
         params=coef(pp),
         Np=10
       ),

@@ -23,8 +23,8 @@ setMethod(
                          transform, cooling.type, cooling.fraction.50, tol,
                          ...) {
     if (missing(Nmif)) Nmif <- object@Nmif
-    if (missing(shared.start)) shared.start <- coef(object)$shared
-    if (missing(specific.start)) specific.start <- coef(object)$specific
+    if (missing(shared.start)) shared.start <- object@pParams$shared
+    if (missing(specific.start)) specific.start <- object@pParams$specific
     if (missing(Np)) Np <- object@Np    
     if (missing(rw.sd)) rw.sd <- object@prw.sd
     if (missing(transform)) transform <- object@transform
