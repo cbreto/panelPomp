@@ -14,7 +14,7 @@ An S4 class to represent panel POMP models that have been analyzed using \code{m
 
 \item{\code{ploglik}}{panel loglikelihoods}
 
-\item{\code{ptol}}{panel tolerances}
+\item{\code{tol}}{panel tolerances}
 
 \item{\code{unit.logliks}}{unit loglikelihoods#'}
 }}

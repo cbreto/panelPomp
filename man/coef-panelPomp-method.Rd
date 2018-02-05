@@ -11,8 +11,8 @@
 \item{object}{A \code{panelPomp} object.}
 }
 \description{
-What do I do?
+Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
 }
 \details{
-S4 method.
+Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
 }

@@ -5,8 +5,8 @@
 \alias{pfilter,panelPomp-method}
 \title{Apply a particle filter to \code{panelPomp} objects.}
 \usage{
-\S4method{pfilter}{panelPomp}(object, shared, specific, params, Np, tol,
-  verbose = getOption("verbose"), ...)
+\S4method{pfilter}{panelPomp}(object, shared, specific, params, Np,
+  tol = 1e-17, verbose = getOption("verbose"), ...)
 }
 \arguments{
 \item{object}{A \code{panelPomp} object.}
@@ -15,8 +15,7 @@
 
 \item{specific}{a \code{matrix} with parameters on named rows and panel units on named columns.}
 
-\item{params}{optional; a list with (named) 'shared' and 'specific' elements.
-more than one column.}
+\item{params}{optional; a list with (named) 'shared' and 'specific' elements.}
 
 \item{Np}{
     the number of particles to use in filtering.
@@ -29,7 +28,7 @@ more than one column.}
     \strong{Note that this behavior differs from that of \code{\link{mif}}!}
   }
 
-\item{tol}{unit-specific filtering tolerances.  Can be a scalar or a named numeric vector with names matching \code{names(unitobjects(object))}.}
+\item{tol}{filtering tolerance for all units.}
 
 \item{verbose}{
     logical; if TRUE, print progress reports.

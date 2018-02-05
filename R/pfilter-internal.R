@@ -3,10 +3,11 @@ NULL
 
 # pPfilter algorithm internal functions
 pfilter.internal <- function(object,
-                              params,
-                              Np,
-                              tol = 1e-17,
-                              ...) {
+                             params,
+                             Np,
+                             tol,
+                             verbose = FALSE,
+                             ...) {
   # DEBUG
   # Turn params list into a matrix
   matrixpParams <- toMatrixPparams(params)
@@ -37,6 +38,6 @@ pfilter.internal <- function(object,
     pParams = params,
     ploglik = pfilter.internal.loglik,
     unit.logliks = pfilter.internal.unit.logliks,
-    ptol = tol
+    tol = tol
   )
 }

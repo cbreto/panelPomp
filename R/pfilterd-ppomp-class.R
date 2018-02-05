@@ -7,7 +7,7 @@ NULL
 #' @inheritParams panelPomp
 #' @slot Np Np
 #' @slot ploglik panel loglikelihoods
-#' @slot ptol panel tolerances
+#' @slot tol panel tolerances
 #' @slot unit.logliks unit loglikelihoods#' 
 #'
 #' @export
@@ -17,13 +17,13 @@ setClass(
   slots = c(
     Np = "numeric",
     ploglik = "numeric",
-    ptol = "numeric",
+    tol = "numeric",
     unit.logliks = "numeric"
   ),
   prototype = prototype(
-    Np = numeric(0),
+    Np = as.integer(NA),
     ploglik = as.double(NA),
-    ptol = numeric(0),
+    tol = as.double(NA),
     unit.logliks = numeric(0)
   )
 )

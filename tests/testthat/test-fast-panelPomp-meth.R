@@ -164,6 +164,17 @@ test_that(
 )
 
 
+context("Test panelPomp()")
+test_that(
+  "panelPomp() fails to redefine an existing panelPomp object",
+  {
+    res <- try(panelPomp(pg,shared=c("r","sigma")),silent=TRUE)
+    expect_true(class(res)=="panelPomp")
+    expect_true(identical(names(coef(res)$shared),c("r","sigma")))
+  }
+)
+
+
 context("Test pfilter()")
 test_that(
   "pfilter stop fails for missing shared",
@@ -290,5 +301,18 @@ test_that(
   {
     res <- try(unitobjects(object = pg, unit = "unit1"), silent = TRUE)
     expect_true(object = identical(x = is(res), y = "pomp"))
+  }
+)
+
+
+context("Test window()")
+test_that(
+  "window fails",
+  {
+    U <- 3; start <- 1; end <- 2
+    res <- try(window(pg,U=U,start=start,end=end),silent=TRUE)
+    expect_true(class(res)=="panelPomp")
+    expect_true(length(res)==U)
+    expect_true(length(time(as(res,"list")[[1]]))==(end-start+1))
   }
 )

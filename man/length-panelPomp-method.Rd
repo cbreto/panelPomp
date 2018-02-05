@@ -11,8 +11,8 @@
 \item{x}{A \code{panelPomp} object.}
 }
 \description{
-Help me!
+Count the number of units in the \code{unitobjects} slot of \code{panelPomp} objects.
 }
 \details{
-S4 method.
+Count the number of units in the \code{unitobjects} slot of \code{panelPomp} objects.
 }

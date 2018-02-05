@@ -7,5 +7,5 @@
 Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.
 }
 \details{
-S4 method.
+Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.
 }

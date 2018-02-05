@@ -16,8 +16,7 @@
 
 \item{specific}{a \code{matrix} with parameters on named rows and panel units on named columns.}
 
-\item{params}{optional; a list with (named) 'shared' and 'specific' elements.
-more than one column.}
+\item{params}{optional; a list with (named) 'shared' and 'specific' elements.}
 }
 \description{
 S4 method.

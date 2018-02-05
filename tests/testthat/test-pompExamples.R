@@ -56,3 +56,31 @@ test_that("mif2 fails on pancon",
           panc.mif2@pconv.rec  
           }
 )
+
+#context("Test 'pompExample(panpol)'")
+#
+#panp <- try(pompExample(panpol,envir=NULL)[[1]])
+#if (class(panp)=="try-error") panp <- readRDS("panpol.rds")
+#
+#test_that("pompExample(panpol) fails",{class(panp)=="panelPomp"})
+#
+#test_that("pfilter fails on panpol",
+#          {panp.pf <- pfilter(panp,Np=10)
+#          logLik(panp.pf)
+#          unitlogLik(panp.pf)
+#          }
+#)
+#
+#test_that("mif2 fails on panpol",
+#          {panp.mif2 <- mif2(panp,
+#                             transform=TRUE,
+#                             Nmif=1,
+#                             rw.sd=rw.sd(rho=0.02),
+#                             Np=10,
+#                             cooling.type="geometric",
+#                             cooling.fraction.50=0.5
+#          )
+#          panp.mif2@pconv.rec.array
+#          panp.mif2@pconv.rec
+#          }
+#)

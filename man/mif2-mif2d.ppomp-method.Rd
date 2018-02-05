@@ -3,7 +3,7 @@
 \docType{methods}
 \name{mif2,mif2d.ppomp-method}
 \alias{mif2,mif2d.ppomp-method}
-\title{Apply the \code{mif2} algorithm to \code{mif2d.ppomp} objects.}
+\title{IF2: Maximum likelihood by iterated, perturbed Bayes maps}
 \usage{
 \S4method{mif2}{mif2d.ppomp}(object, Nmif, shared.start, specific.start, Np,
   rw.sd, transform, cooling.type, cooling.fraction.50, tol, ...)
@@ -17,9 +17,10 @@
     The number of filtering iterations to perform.
   }
 
-\item{shared.start}{shared.arg.}
+\item{shared.start}{named numerical vector; the starting guess of the shared parameters.}
 
-\item{specific.start}{specific.arg.}
+\item{specific.start}{matrix with row parameter names and column 
+unit names; the starting guess of the specific parameters.}
 
 \item{Np}{
     the number of particles to use in filtering.
@@ -44,7 +45,7 @@
     If \code{transform = TRUE}, then they are applied on the estimation scale.
   }
 
-\item{transform}{transform (seems to cause an error if documentation inherited from 'pomp' package)}
+\item{transform}{logical; if TRUE, optimization is performed on the estimation scale (see \code{pomp} documentation).}
 
 \item{cooling.type}{
     specifications for the cooling schedule, i.e., the manner in which the intensity of the parameter perturbations is reduced with successive filtering iterations.
@@ -52,15 +53,24 @@
     See below (under \dQuote{Specifying the perturbations}) for more detail.
   }
 
-\item{cooling.fraction.50}{cooling.fraction.50 (seems to cause an error if documentation inherited from 'pomp' package)}
+\item{cooling.fraction.50}{
+    specifications for the cooling schedule, i.e., the manner in which the intensity of the parameter perturbations is reduced with successive filtering iterations.
+    \code{cooling.type} specifies the nature of the cooling schedule.
+    See below (under \dQuote{Specifying the perturbations}) for more detail.
+  }
 
-\item{tol}{Unit-specific tolerances can be passed as a named numeric vector with names matching \code{names(unitobjects(object))}.}
+\item{tol}{
+    passed to the particle filter.
+    See the descriptions under \code{\link{pfilter}}.
+  }
 
-\item{...}{...}
+\item{...}{
+    additional arguments that override the defaults.
+  }
 }
 \description{
-S4 method
-}
-\details{
-S4 method
+Extension to panel models of the improved iterated filtering algorithm (Ionides et al., 2015) for estimating parameters of a partially observed Markov process.
+Iterated filtering algorithms rely on extending a partially observed Markov process model of interest by introducing random perturbations to the model parameters. 
+The space where the original parameters live is then explored at each iteration by running a particle filter.
+Convergence to a maximum likelihood estimate has been established for appropriately constructed procedures that iterate this search over the parameter space while diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 }

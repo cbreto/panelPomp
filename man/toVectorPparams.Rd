@@ -4,10 +4,10 @@
 \alias{toVectorPparams}
 \title{toVectorPparams.}
 \usage{
-toVectorPparams(listPparams)
+toVectorPparams(pParams)
 }
 \arguments{
-\item{listPparams}{A list with the format of the \code{pParams} slot of \code{panelPomp} objects.}
+\item{pParams}{A list with the format of the \code{pParams} slot of \code{panelPomp} objects.}
 }
 \description{
 toVectorPparams.

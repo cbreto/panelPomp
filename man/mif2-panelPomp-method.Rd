@@ -3,12 +3,12 @@
 \docType{methods}
 \name{mif2,panelPomp-method}
 \alias{mif2,panelPomp-method}
-\title{Apply the \code{mif2} algorithm to a \code{panelPomp} object.}
+\title{IF2: Maximum likelihood via panel iterated, perturbed Bayes maps}
 \usage{
 \S4method{mif2}{panelPomp}(object, Nmif = 1, shared.start, specific.start,
   start = list(shared = shared.start, specific = specific.start), Np, rw.sd,
   transform = FALSE, cooling.type = c("hyperbolic", "geometric"),
-  cooling.fraction.50, verbose = getOption("verbose"), ...)
+  cooling.fraction.50, tol = 1e-17, verbose = getOption("verbose"), ...)
 }
 \arguments{
 \item{object}{A \code{panelPomp} object.}
@@ -17,11 +17,12 @@
     The number of filtering iterations to perform.
   }
 
-\item{shared.start}{shared.arg.}
+\item{shared.start}{named numerical vector; the starting guess of the shared parameters.}
 
-\item{specific.start}{specific.arg.}
+\item{specific.start}{matrix with row parameter names and column 
+unit names; the starting guess of the specific parameters.}
 
-\item{start}{start.}
+\item{start}{A \code{list} with starting guess of length 2 with elements named \code{shared} and \code{specific}.}
 
 \item{Np}{
     the number of particles to use in filtering.
@@ -36,7 +37,7 @@
 
 \item{rw.sd}{An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.}
 
-\item{transform}{transform (seems to cause an error if documentation inherited from 'pomp' package)}
+\item{transform}{logical; if TRUE, optimization is performed on the estimation scale (see \code{pomp} documentation).}
 
 \item{cooling.type}{
     specifications for the cooling schedule, i.e., the manner in which the intensity of the parameter perturbations is reduced with successive filtering iterations.
@@ -45,6 +46,11 @@
   }
 
 \item{cooling.fraction.50}{cooling.fraction.50 (seems to cause an error if documentation inherited from 'pomp' package)}
+
+\item{tol}{
+    passed to the particle filter.
+    See the descriptions under \code{\link{pfilter}}.
+  }
 
 \item{verbose}{
     logical; if TRUE, print progress reports.
@@ -55,8 +61,8 @@
   }
 }
 \description{
-Apply the \code{mif2} algorithm to a \code{panelPomp} object.
-}
-\details{
-S4 method.
+Extension to panel models of the improved iterated filtering algorithm (Ionides et al., 2015) for estimating parameters of a partially observed Markov process.
+Iterated filtering algorithms rely on extending a partially observed Markov process model of interest by introducing random perturbations to the model parameters. 
+The space where the original parameters live is then explored at each iteration by running a particle filter.
+Convergence to a maximum likelihood estimate has been established for appropriately constructed procedures that iterate this search over the parameter space while diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 }

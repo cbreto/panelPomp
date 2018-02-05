@@ -4,10 +4,10 @@
 \alias{fromVectorPparams}
 \title{fromVectorPparams.}
 \usage{
-fromVectorPparams(vectorPparams)
+fromVectorPparams(vec_pars)
 }
 \arguments{
-\item{vectorPparams}{A one-row \code{data.frame} with format matching that of the output of \link{toVectorPparams}.}
+\item{vec_pars}{A one-row \code{data.frame} with format matching that of the output of \link{toVectorPparams}.}
 }
 \description{
 fromVectorPparams.

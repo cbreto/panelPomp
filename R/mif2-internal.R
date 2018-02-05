@@ -3,7 +3,8 @@ NULL
 
 # pmif2 algorithm internal functions
 mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE, 
-                           cooling.type, cooling.fraction.50, .ndone = 0L, 
+                           cooling.type, cooling.fraction.50,
+                           tol = 1e-17, verbose = FALSE, .ndone = 0L,
                            ...) {
   # BEGIN DEBUG
   #require(panelPomp)
@@ -145,12 +146,6 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
   for (mifiter in seq_len(Nmif)) {
     unit.seq <- seq_len(U)
     for (unit in unit.seq) {
-      ## DEBUG
-      # i.loop <- as.integer(1)
-      # i.loop <- as.integer(2)
-      # i.loop <- as.integer(3)
-      # i.loop <- as.integer(4)
-      
       # Create a (n updated) paramMatrix to pass to mif2 on next panel unit
       updated.paramMatrix <- rbind(pParamMatrix, pparamArray[, , unit])
       # Here, we want to drop the unit dimension but, if there was only one specific parameter,
@@ -160,12 +155,14 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
       output[[unit]] <- tryCatch(
         pomp::mif2(
           object = object@unit.objects[[unit]],
-          Np = Np,
           Nmif = 1,
+          Np = Np,
+          rw.sd = rw.sd[[unit]],
+          transform = transform,
           cooling.type = cooling.type,
           cooling.fraction.50 = cooling.fraction.50,
-          transform = transform,
-          rw.sd = rw.sd[[unit]],
+          tol = tol,
+          verbose = verbose,
           .paramMatrix = updated.paramMatrix,
           .indices = seq.int(Np),
           .ndone = mifiter-1
@@ -190,14 +187,14 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
       if (unit == tail(x = unit.seq, n = 1)) {
         # ... pconv.rec ...
         pconv.rec[mifiter + 1, -c(1:2)] <- apply(X = pParamMatrix, MARGIN = 1, FUN = mean)
-        pconv.rec[mifiter + 1, "loglik"] <- sum(sapply(X = output, FUN = logLik))
-        pconv.rec[mifiter + 1, "nfail"] <- sum(sapply(X = output, slot, "nfail"))
+        pconv.rec[mifiter, "loglik"] <- sum(sapply(X = output, FUN = logLik))
+        pconv.rec[mifiter, "nfail"] <- sum(sapply(X = output, slot, "nfail"))
         # ... and pconv.rec.array
         if (!is.null(spnames)) {
           pconv.rec.array[mifiter + 1, -c(1:3), ] <- apply(X = pparamArray, MARGIN = c(1,3), FUN = mean)
-          pconv.rec.array[mifiter + 1, "loglik", ] <- sum(sapply(X = output, FUN = logLik))
-          pconv.rec.array[mifiter + 1, "unitLoglik", ] <- sapply(X = output, FUN = logLik)
-          pconv.rec.array[mifiter + 1, "unitNfail",] <- sapply(X = output, FUN = slot, "nfail")
+          pconv.rec.array[mifiter, "loglik", ] <- sum(sapply(X = output, FUN = logLik))
+          pconv.rec.array[mifiter, "unitLoglik", ] <- sapply(X = output, FUN = logLik)
+          pconv.rec.array[mifiter, "unitNfail",] <- sapply(X = output, FUN = slot, "nfail")
         }
       }
     }
@@ -225,8 +222,9 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
     variable = colnames(pconv.rec.array)[-c(1:3)],
     unit = dimnames(pconv.rec.array)$unit
   )
-  ptol <- sapply(output, slot, "tol")
-  
+  # To have unit-specific tolerances, one could use something like:
+  #ptol <- sapply(output, slot, "tol")
+
   # Return the end "mif2d.ppomp" object
   return(
     new(
@@ -237,7 +235,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
       # pfilterd.ppomp
       Np = Np,
       ploglik = ploglik,
-      ptol = ptol,
+      tol = tol,
       unit.logliks = unit.logliks,      
       # mif2d.ppomp
       Nmif = Nmif,

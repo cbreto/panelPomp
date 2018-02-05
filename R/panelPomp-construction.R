@@ -11,7 +11,6 @@ NULL
 #' @param shared a named \code{numeric vector}.
 #' @param specific a \code{matrix} with parameters on named rows and panel units on named columns.
 #' @param params optional; a list with (named) 'shared' and 'specific' elements.
-#' more than one column.
 #'
 #' @export
 #'

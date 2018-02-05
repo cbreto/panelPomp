@@ -70,15 +70,3 @@ runif.EstimationScale <-
       max = transformed.centers + widths*0.5
     ))
   }# END FN runif.EstimationScale
-
-## subsetting function that is robust to R's default of dropping dimension
-get.col <- function (matrix, rows, col) {
-  stopifnot(is.matrix(matrix)&!missing(col))
-  # if all rows, i.e., get.col(mtrx,,cl)
-  if(all('rows'!=names(as.list(match.call())))) {
-    matrix[,col]
-  } else {
-    setNames(matrix[rows,col],nm=rownames(matrix)[rows]
-    )
-  }
-}
