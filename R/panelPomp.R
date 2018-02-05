@@ -141,10 +141,10 @@ pPomp.internal <- function(pompList,pParams,
                            verbose=getOption("verbose",FALSE)) {
   # If needed, fix validity checks on 'pParams$specific'
   if (identical(pParams$specific,array(numeric(0),dim=c(0,0)))) {
-    pParams$specific <- structure(
+    pParams$specific <- array(
       numeric(0),
       dim=c(0,length(pompList)),
-      dimnames=list(NULL,names(pompList))
+      dimnames=list(params=character(0),unit=names(pompList))
     )
   }
   new("panelPomp", unit.objects=pompList,pParams=pParams)
@@ -201,19 +201,20 @@ setMethod(
   f = "panelPomp",
   signature = signature(object = "panelPomp"),
   definition = function (object, shared = NULL) {
-    parnames <- c(names(coef(object)$shared),row.names(coef(object)$sp))
+    parnames <- c(names(object@pParams$shared),row.names(object@pParams$sp))
     stopifnot(all(shared%in%parnames))
     sp <- parnames[!parnames%in%shared]
-    # make matrix from coef(object)$sh that can be rbinded to coef(object)$sp
-    sh0 <- names(coef(object)$shared)
+    # make matrix from object@pParams$sh that can be rbinded to object@pParams$sp
+    sh0 <- names(object@pParams$shared)
     not.in.sp0 <- matrix(
-      coef(object)$shared,nrow=length(sh0),ncol=length(object),
+      object@pParams$shared,nrow=length(sh0),ncol=length(object),
       dimnames=list(sh0,names(object))
     )
-    all.sp <- rbind(coef(object)$specific,not.in.sp0)
+    all.sp <- rbind(object@pParams$specific,not.in.sp0)
     stopifnot(!as.logical(anyDuplicated(row.names(all.sp))))
-    # make vector from coef(object)$sp[1,] that can be c()d to coef(object)$sh
-    all.sh <- c(coef(object)$shared,coef(object)$specific[,1])
+    # make vector from object@pParams$sp[1,] that can be c()d to object@pParams$sh
+    all.sh <- c(object@pParams$shared,object@pParams$specific[,1])
+    
     shs <- all.sh[shared]
     sps <- all.sp[sp,]
     panelPomp(as(object,"list"),shared=shs,specific=sps)

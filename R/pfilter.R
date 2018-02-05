@@ -107,63 +107,63 @@ setMethod(
     # Get starting parameter values from 'object,' 'start,' or 'params'
     if (missing(shared)){
       if (!missing(params)) shared <- params$shared 
-      else shared <- coef(object)$shared
+      else shared <- object@pParams$shared
     } 
     if (missing(specific)){
       if (!missing(params)) specific <- params$specific 
-      else specific <- coef(object)$specific
+      else specific <- object@pParams$specific
     }
     
     # This causes an unintended stop in panelPomp objects that genuinely have no shared parameters      
     #if (identical(shared,numeric(0))) {
-    #  stop(ep,"if ",sQuote("coef(object)$shared")," is empty, shared 
+    #  stop(ep,"if ",sQuote("object@pParams$shared")," is empty, shared 
     #       parameters must be specified in either ",sQuote("shared"),
     #       " or as part of ",sQuote("params"),".",call.=FALSE
     #  )
     #}
     if (identical(specific,array(numeric(0),dim=c(0,0)))) {
-      stop(ep,"if ",sQuote("coef(object)$specific")," is empty, specific 
+      stop(ep,"if ",sQuote("object@pParams$specific")," is empty, specific 
            parameters must be specified in either ",sQuote("specific"),
            " or as part of ",sQuote("params"),".",call.=FALSE
       )
     }
     # If the pParams slot is not empty, check that the shared and specific structure of any 
     # provided starting values match the pParams slot
-    if (!is.null(coef(object)$shared)){
+    if (!is.null(object@pParams$shared)){
       if (
         !identical(
           character(0),
-          setdiff(names(coef(object)$shared),names(shared))
+          setdiff(names(object@pParams$shared),names(shared))
         )
         &
-        !(is.null(names(coef(object)$shared))&is.null(names(shared)))
+        !(is.null(names(object@pParams$shared))&is.null(names(shared)))
       ) {
         stop(ep, "names of ", sQuote("shared"), " must match those of ", 
-             sQuote("coef(object)$shared"),".", call.=FALSE
+             sQuote("object@pParams$shared"),".", call.=FALSE
         )
       }
     }
-    if (!is.null(coef(object)$specific)){
+    if (!is.null(object@pParams$specific)){
       if (
         !identical(
           character(0),
-          setdiff(rownames(coef(object)$specific),
+          setdiff(rownames(object@pParams$specific),
                   rownames(specific))
         )
         &
         !(
-          is.null(rownames(coef(object)$specific))
+          is.null(rownames(object@pParams$specific))
           &
           is.null(rownames(specific))
         )
       ) {
         stop(ep,"rownames of ",sQuote("specific")," must match those of ", 
-             sQuote("coef(object)$specific"),".",call.=FALSE
+             sQuote("object@pParams$specific"),".",call.=FALSE
         )
       }
-      if (!identical(x = colnames(coef(object)$specific), y = colnames(specific))){
+      if (!identical(x = colnames(object@pParams$specific), y = colnames(specific))){
         stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
-             sQuote("coef(object)$specific"),".", call.=FALSE
+             sQuote("object@pParams$specific"),".", call.=FALSE
         )
       }
     }
