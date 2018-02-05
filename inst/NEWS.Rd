@@ -1,5 +1,12 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 0.4}{
+  \itemize{
+    \item New tests added.
+    \item New methods.
+    \item Fixed bug with \code{tol} in \code{pfilter} and \code{mif2}.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.2}{
   \itemize{
     \item New tests added.
