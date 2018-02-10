@@ -1,12 +1,11 @@
 Package: panelPomp
 Type: Package
-Title: Statistical Inference for Panel POMPs (Partially Observed Markov
-    Processes)
+Title: Statistical Inference for PanelPOMPs (Panel Partially Observed Markov   Processes)
 Version: 0.4.1
 Date: 2018-02-05
 Author: Carles Breto, Edward L. Ionides, Aaron A. King
 Maintainer: Carles Breto <cbreto@umich.edu>
-Description: Tools for working with longitudinal/panel POMPs, i.e., with
+Description: Tools for working with PanelPOMPs, i.e., with
     Partially Observed Markov Processes (AKA state-space models, stochastic
     dynamical systems) involving multiple, independent units (or individuals) for
     each of which (potentially multivariate) time series data is available. The
@@ -26,7 +25,7 @@ RoxygenNote: 6.0.1
 Suggests:
     testthat
 Collate: 
-    'panelPomp-package.R'
+    'package.R'
     'misc-unexported.R'
     'misc-exported.R'
     'generics.R'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/generics.R
 \name{panelPomp}
 \alias{panelPomp}
-\title{\code{panelPpomp} generic}
+\title{\code{panelPomp} generic}
 \usage{
 panelPomp(object, ...)
 }
@@ -12,7 +12,7 @@ panelPomp(object, ...)
 \item{...}{Additional arguments.}
 }
 \description{
-\code{panelPpomp} generic
+\code{panelPomp} generic
 }
 \details{
 This is a generic function: methods can be defined for it.

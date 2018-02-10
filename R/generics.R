@@ -1,9 +1,9 @@
 #' @include misc-exported.R
 NULL
 
-#' \code{panelPpomp} generic
+#' \code{panelPomp} generic
 #'
-#' \code{panelPpomp} generic
+#' \code{panelPomp} generic
 #'
 #' This is a generic function: methods can be defined for it.
 #'

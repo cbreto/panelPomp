@@ -1,4 +1,4 @@
-#' @include panelPomp-package.R
+#' @include package.R
 NULL
 
 ## change the "pomp.examples' global option when the package is loaded/unloaded

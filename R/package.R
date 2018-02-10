@@ -10,17 +10,17 @@
 #' 
 #' The \pkg{panelPomp} package extends to panel data some of the capabilities 
 #' of the \pkg{pomp} package to fit nonlinear, non-Gaussian dynamic models. 
-#' This is done accomodating both fixed and random effects. Currently, this is
-#' done focusing on a likelihood-based framework. In addition to these 
+#' This is done accomodating both fixed and random effects. Currently, the 
+#' focus is on likelihood-based approaches. In addition to these 
 #' likelihood-based tools, \pkg{panelPomp} also provides a framework under 
 #' which alternative statistical methods for \acronym{PanelPOMP} models can be 
-#' developed, very much like \pkg{pomp} provides a platform upon which 
-#' statistical inference methods for \acronym{POMP} models can be implemented.
+#' developed (very much like \pkg{pomp} provides a platform upon which 
+#' statistical inference methods for \acronym{POMP} models can be implemented).
 #'
 #' @section Data analysis using \pkg{panelPomp}:
 #' The first step in using \pkg{panelPomp} is to encode one's model(s) and data
 #'  in objects of class \code{panelPomp}.
-#' One does this via a call to the \link[=panelPomp]{panelPomp constructor function}.
+#' One does this via a call to the %\link[=panelPomp]{panelPomp constructor function}.
 #' Details on this are given in the documentation 
 #' (\code{\link{panelPomp-package}}).
 #' 
@@ -29,11 +29,11 @@
 #' provides algorithms for
 #' \enumerate{
 #' \item particle filtering of panel data (AKA sequential Monte Carlo or 
-#' sequential importance sampling), as proposed in Bretó, Ionides and King 
+#' sequential importance sampling), as proposed in Breto, Ionides and King 
 #' (2017). This reference provides the fundamental theoretical support for the 
-#' averaging of panel unit likelihoods as implemented in \pkg{panelPomp}; see 
-#' \code{\link{pfilter,panelPomp-method}}
-#' \item the panel iterated filtering method of Bretó, Ionides and King 
+#' averaging of Monte Carlo replicates of panel unit likelihoods as implemented 
+#' in \pkg{panelPomp}; see \code{\link{pfilter,panelPomp-method}}
+#' \item the panel iterated filtering method of Breto, Ionides and King 
 #' (2017). This reference provides the fundamental theoretical support for the 
 #' extensions of the iterated filtering ideas of Ionides et al. (2006, 2011, 
 #' 2015) to panel data as implemented in \pkg{panelPomp}; see 
@@ -49,7 +49,7 @@
 #' development of new algorithms in an environment where they can be tested 
 #' and compared on a growing body of models and datasets.
 #' 
-#' @section Comments, bug reports, feature requests:
+#' @section Comments, bug reports, and requests:
 #' Contributions are welcome, as are suggestions for improvement, feature 
 #' requests, and bug reports.
 #' Please submit these via the \href{https://github.com/cbreto/panelPomp/issues}{issues page}.
@@ -62,29 +62,29 @@
 #' \href{https://kingaa.github.io/pomp/FAQ.html#how-can-i-submit-an-effective-request-for-help}{FAQ}.
 #' 
 #' @section Documentation:
-#' A number of tutorials, demonstrating the construction of \code{pomp} objects
+#' A number of tutorials, demonstrating the construction of \code{panelPomp} objects
 #' and the application of the panel iterated filtering inference algorithm, 
 #' will soon be available on the 
 #' \href{https://cbreto.github.io/panelPomp/docs.html}{package webpage}.
 #' Examples are provided via the \code{\link{pompExample}} function.
-#' See a list of the included examples via \preformatted{
+#' See a list of the examples included both in \pkg{panelPomp} and \pkg{pomp} via \preformatted{
 #' pompExample()}
 #' 
 #' @section License:
 #' \pkg{panelPomp} is provided under the \acronym{MIT} License.
 #' 
 #' @references
-#' C. Bretó, E. L. Ionides, and A. A. King (2017) 
+#' C. Breto, E. L. Ionides, and A. A. King (2017) 
 #' Panel Data Analysis via Mechanistic Models. \emph{arXiv:1801.05695}.
 #' 
 #' See the package website, \url{https://cbreto.github.io/panelPomp}, for more 
 #' references.
 #' 
-#' @author Carles Bretó
+#' @author Carles Breto
 #' 
 #' @seealso
 #' \link{panelPomp-package},
-#' \link{panelPomp-package}
+#' \link{panelPomp}
 #' 
 #' @keywords models datasets ts
 #' 
@@ -92,4 +92,5 @@
 #' @import pomp
 #' @importFrom stats dnorm runif setNames var
 #' @importFrom utils tail
-"_PACKAGE"
+NULL # replacing NULL by "_PACKAGE" results in roxygen2 adding an \alias{} with
+     # the package name, conflicting with functions named after the package
