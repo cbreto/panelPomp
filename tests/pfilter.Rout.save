@@ -1,0 +1,31 @@
+> library(panelPomp)
+Loading required package: pomp
+> 
+> ppo <- pompExample(prw,envir=NULL)[[1]]
+> pos <- as(ppo,"list")
+> po <- pos[[1]]
+> 
+> # check reproducibility over a range of randomly chosen seeds
+> seeds <- c(21125715L,81902071L,86680005L,29971689L,73376915L)
+> for (s in seq_along(seeds)) {
++ set.seed(seeds[s])
++ pf <- pfilter(ppo,Np=10)
++ print(unitlogLik(pf))
++ print(logLik(pf))
++ }
+      rw1       rw2 
+-5.989446 -8.714786 
+[1] -14.70423
+      rw1       rw2 
+-6.427359 -8.675708 
+[1] -15.10307
+      rw1       rw2 
+-6.922634 -7.845590 
+[1] -14.76822
+      rw1       rw2 
+-6.391707 -9.008469 
+[1] -15.40018
+      rw1       rw2 
+-7.189965 -8.640094 
+[1] -15.83006
+> 
