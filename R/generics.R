@@ -1,3 +1,5 @@
+## generic functions
+
 #' @include misc-exported.R
 NULL
 

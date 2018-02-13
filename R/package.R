@@ -1,3 +1,5 @@
+## package description
+
 #' @docType package
 #' @name panelPomp-package
 #' @title Inference for PanelPOMPs (Panel Partially Observed Markov Processes)

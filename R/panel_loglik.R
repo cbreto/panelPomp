@@ -1,21 +1,24 @@
-#' @include mif2d-ppomp-methods.R
+#' @include mif2_methods.R
 NULL
 
-### LogLik
-#' Handling of loglikelihood replicates.
-#'
-#' Handling of loglikelihood replicates.
-#'
-#' When \code{se = TRUE}, the jackknife se's from \code{pomp::logmeanexp} are squared, summed and the squared root is taken.
-#'
-#' @param object Matrix with the same number of replicated estimates for each panel unit loglikelihood.
-#' @param repMargin The margin of the matrix having the replicates (1 for rows, 2 for columns).
-#' @param first Wether to \code{"aver"}(age replicates) or \code{"aggr"}(egate units) before performing the other action.
-#' @param aver How to average: \code{'logmeanexp'} to average on the likelihood scale before taking logs or \code{'mean'} to average after taking logs (in which case, which action is performed first does not change the result).
+## logLik,matrix-method
+#' @title Handling of loglikelihood replicates
+#' @description Handling of loglikelihood replicates.
+#' @details When \code{se = TRUE}, the jackknife se's from 
+#' \code{pomp::logmeanexp} are squared, summed and the squared root is taken.
+#' @param object Matrix with the same number of replicated estimates for each 
+#' panel unit loglikelihood.
+#' @param repMargin The margin of the matrix having the replicates (1 for rows,
+#'  2 for columns).
+#' @param first Wether to \code{"aver"}(age replicates) or \code{"aggr"}(egate 
+#' units) before performing the other action.
+#' @param aver How to average: \code{'logmeanexp'} to average on the likelihood 
+#' scale before taking logs or \code{'mean'} to average after taking logs (in 
+#' which case, which action is performed first does not change the result).
 #' @param se logical; whether to give standard errors.
-#' 
+#' @name panel_loglik
+#' @aliases logLik,matrix-method
 #' @export
-#'
 setMethod(
   "logLik",
   signature=signature(object="matrix"),

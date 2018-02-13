@@ -1,6 +1,8 @@
 #' @include misc-unexported.R
 NULL
 
+## miscellanea of exported functions
+
 ### fromVectorPparams
 #' fromVectorPparams.
 #'

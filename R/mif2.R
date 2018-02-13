@@ -1,5 +1,50 @@
-#' @include mif2d-ppomp-class.R
+## MIF2 algorithm codes
+
+#' @include pfilter_methods.R
 NULL
+
+#' @title PIF: Panel iterated filtering
+#' @description The panel iterated filtering of Breto et al. (2017) extends to 
+#' panel models the improved iterated filtering algorithm (Ionides et al., 
+#' 2015) for estimating parameters of a partially observed Markov process.
+#' Iterated filtering algorithms rely on extending a partially observed Markov 
+#' process model of interest by introducing random perturbations to the model 
+#' parameters. The space where the original parameters live is then explored 
+#' at each iteration by running a particle filter. Convergence to a maximum 
+#' likelihood estimate has been established for appropriately constructed 
+#' procedures that iterate this search over the parameter space while 
+#' diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
+#' @param object An object of class \code{panelPomp} or inheriting class \code{panelPomp}.
+#' @name mif2
+#' @aliases mif2d.ppomp-class
+#' @family panelPomp functions that use SMC (particle filters)
+#' @seealso
+#' \pkg{pomp}'s \link[pomp]{mif2}
+NULL
+
+#' @keywords internal
+#' @export
+setClass(
+  Class = "mif2d.ppomp",
+  contains = "pfilterd.ppomp",
+  slots = c(
+    Nmif = "integer",
+    prw.sd = "list",
+    cooling.type = "character",
+    cooling.fraction.50 = "numeric",
+    transform = "logical",
+    pconv.rec = "matrix",
+    pconv.rec.array = "array"),
+  prototype = prototype(
+    Nmif = integer(0),
+    prw.sd = list(),
+    cooling.type = character(0),
+    cooling.fraction.50 = numeric(0),
+    transform = F,
+    pconv.rec = array(data = numeric(0), dim = c(0, 0)),
+    pconv.rec.array = array(data = numeric(0), dim = c(0, 0, 0))
+    )
+)
 
 # pmif2 algorithm internal functions
 mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE, 
@@ -224,7 +269,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
   )
   # To have unit-specific tolerances, one could use something like:
   #ptol <- sapply(output, slot, "tol")
-
+  
   # Return the end "mif2d.ppomp" object
   return(
     new(
@@ -248,3 +293,134 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
     )
   )
 }
+
+## mif2,panelPomp-method
+#' @rdname mif2
+#' @inheritParams coef,panelPomp-method 
+#' @inheritParams pomp::mif2
+#' @param shared.start named numerical vector; the starting guess of the shared parameters.
+#' @param specific.start matrix with row parameter names and column 
+#' unit names; the starting guess of the specific parameters.
+#' @param start A \code{list} with starting guess of length 2 with elements named \code{shared} and \code{specific}.
+#' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.
+#' @param cooling.fraction.50 cooling.fraction.50 (seems to cause an error if documentation inherited from 'pomp' package)
+#' @param transform logical; if TRUE, optimization is performed on the estimation scale (see \code{pomp} documentation).
+#'
+#' @export
+#'
+setMethod(
+  "mif2",
+  signature=signature(object="panelPomp"),
+  definition = function (object, Nmif = 1, shared.start, specific.start, 
+                         start = list(
+                           shared = shared.start, 
+                           specific = specific.start
+                         ),
+                         Np, rw.sd, transform = FALSE, 
+                         cooling.type = c("hyperbolic", "geometric"), 
+                         cooling.fraction.50,
+                         tol = 1e-17,
+                         verbose = getOption("verbose"), 
+                         ...) {
+    
+    ep <- paste0(sQuote("panelPomp::mif2")," error: ")
+    
+    if (!missing(shared.start)&&!missing(specific.start)&&!missing(start)) 
+      stop(ep,"specify either ",sQuote("start")," only, ",sQuote("start"),
+           " and ",sQuote("shared.start")," , or ",sQuote("start")," and ",
+           sQuote("specific.start"),".",call.=FALSE
+      )
+    
+    # Get starting parameter values from 'object,' 'start,' or 
+    # 'shared/specific.start'
+    if (missing(shared.start)){
+      if (!missing(start)) shared.start <- start$shared 
+      else shared.start <- coef(object)$shared
+    } 
+    if (missing(specific.start)){
+      if (!missing(start)) specific.start <- start$specific 
+      else specific.start <- coef(object)$specific
+    }
+    
+    # This causes an unintended stop in panelPomp objects that genuinely have no shared parameters
+    #if (identical(shared.start,numeric(0))) {
+    #  stop(ep,"if ",sQuote("coef(object)$shared")," is empty, shared parameters
+    #       must be specified in either ",sQuote("shared.start"),
+    #       " or as part of ",sQuote("start"),".",call.=FALSE
+    #  )
+    #}
+    if (identical(specific.start,array(numeric(0),dim=c(0,0)))) {
+      stop(ep,"if ",sQuote("coef(object)$specific")," is empty, specific 
+           parameters must be specified in either ",sQuote("specific.start"),
+           " or as part of ",sQuote("start"),".",call.=FALSE
+      )
+    }
+    # If the object pParams slot is not empty, check that the shared and 
+    # specific structure of any provided starting values match the pParams slot
+    if (!is.null(coef(object)$shared)) {
+      if (
+        !identical(
+          character(0),
+          setdiff(names(coef(object)$shared),names(shared.start))
+        )
+        &
+        !(is.null(names(coef(object)$shared))&is.null(names(shared.start)))
+      ) {
+        stop(ep, "names of ", sQuote("shared.start"), " must match those of ", 
+             sQuote("coef(object)$shared"),".", call.=FALSE
+        )
+      }
+    }
+    if (!is.null(coef(object)$specific)){
+      if (
+        !identical(
+          character(0),
+          setdiff(rownames(coef(object)$specific),rownames(specific.start))
+        )
+        &
+        !(is.null(rownames(coef(object)$specific))
+          &
+          is.null(rownames(specific.start))
+        )
+      ){
+        stop(ep, "rownames of ", sQuote("specific.start"), " must match those of ", 
+             sQuote("coef(object)$specific"),".", call.=FALSE
+        )
+      }
+      if (!identical(x = colnames(coef(object)$specific), y = colnames(specific.start))){
+        stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
+             sQuote("coef(object)$specific"),".", call.=FALSE
+        )
+      }
+    }
+    
+    if (missing(Np)) {
+      stop("Missing 'Np' argument.")
+    }
+    if (missing(cooling.fraction.50)) {
+      stop("Missing 'cooling.fraction.50' argument.")
+    }
+    if (missing(rw.sd)) {
+      stop(ep,"missing ",sQuote("rw.sd")," argument.",call.=FALSE)
+    }
+    # Check that all parameters in the pomp objects have been provided either as shared or specific ...
+    if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared.start), rownames(specific.start)))) 
+      stop("At least one 'pomp' parameter needs to be added to the (shared. or specific.) start argument")
+    # ... and viceversa.
+    if(!all(c(names(shared.start), rownames(specific.start))  %in% names(coef(unitobjects(object)[[1]]))))
+      stop("At least one parameter in the (shared. or specific.) start argument is not being used")
+    mif2.internal(
+      object,
+      Nmif=Nmif,
+      start=list(shared=shared.start,specific=specific.start),
+      Np=Np,
+      rw.sd=rw.sd,
+      transform=transform,
+      cooling.type=cooling.type,
+      cooling.fraction.50=cooling.fraction.50,
+      tol=tol,
+      verbose=verbose,
+      ...
+    )
+  }
+)

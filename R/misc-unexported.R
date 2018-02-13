@@ -1,6 +1,8 @@
 #' @include package.R
 NULL
 
+## miscellanea of unexported functions
+
 ## change the "pomp.examples' global option when the package is loaded/unloaded
 .onAttach <- function (...) {
   exampleDir <- getOption("pomp.examples")
