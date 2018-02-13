@@ -7,7 +7,6 @@ NULL
 #' @description Tools for applying particle filtering algorithms to panel data.
 #' @param object An object of class \code{panelPomp} or inheriting class \code{panelPomp}.
 #' @name pfilter
-#' @aliases pfilterd.ppomp-class
 #' @section Methods:
 #' \describe{
 #'   \item{logLik}{Extracts the estimated log likelihood for the entire panel.}
@@ -17,6 +16,7 @@ NULL
 #' @seealso \pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
 NULL
 
+#' @rdname pfilter
 #' @export
 setClass(
   Class = "pfilterd.ppomp",
