@@ -24,9 +24,8 @@ statistical inference methods for \acronym{POMP} models can be implemented).
 
 The first step in using \pkg{panelPomp} is to encode one's model(s) and data
  in objects of class \code{panelPomp}.
-One does this via a call to the %\link[=panelPomp]{panelPomp} constructor 
-function. Details on this are given in the documentation 
-(\code{\link{panelPomp}}).
+One does this via a call to the \link[=panelPomp]{panelPomp} constructor 
+function.
 
 \pkg{panelPomp} version 
 \Sexpr[echo=FALSE,stage=build,results=text]{packageDescription("panelPomp",fields="Version")} 
@@ -60,14 +59,14 @@ and compared on a growing body of models and datasets.
 
 Contributions are welcome, as are suggestions for improvement, feature 
 requests, and bug reports.
-Please submit these via the \href{https://github.com/cbreto/panelPomp/issues}{issues page}.
+Please submit these via the \href{https://github.com/cbreto/panelPomp/issues}{panelPomp issues page}.
 We particularly welcome minimal working examples displaying uninformative, 
 misleading or inacurate error messages. We also welcome suggestions for 
 clarifying obscure passages in the documentation. Help requests are welcome, 
 but please consider before sending requests whether they are regarding the 
 use of \pkg{panelPomp} or that of \pkg{pomp}. For help with \pkg{pomp}, 
-please visit \pkg{pomp}'s 
-\href{https://kingaa.github.io/pomp/FAQ.html#how-can-i-submit-an-effective-request-for-help}{FAQ}.
+please visit 
+\href{https://kingaa.github.io/pomp/FAQ.html#how-can-i-submit-an-effective-request-for-help}{\pkg{pomp}'s FAQ}.
 }
 
 \section{Documentation}{
