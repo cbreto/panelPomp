@@ -17,7 +17,7 @@ NULL
 #' @param object An object of class \code{panelPomp} or inheriting class \code{panelPomp}.
 #' @name mif2
 #' @aliases mif2d.ppomp-class
-#' @family panelPomp functions that use SMC (particle filters)
+#' @family panelPomp SMC functions
 #' @seealso
 #' \pkg{pomp}'s \link[pomp]{mif2}
 NULL
