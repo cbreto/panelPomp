@@ -24,9 +24,9 @@ statistical inference methods for \acronym{POMP} models can be implemented).
 
 The first step in using \pkg{panelPomp} is to encode one's model(s) and data
  in objects of class \code{panelPomp}.
-One does this via a call to the %\link[=panelPomp]{panelPomp constructor function}.
-Details on this are given in the documentation 
-(\code{\link{panelPomp-package}}).
+One does this via a call to the %\link[=panelPomp]{panelPomp} constructor 
+function. Details on this are given in the documentation 
+(\code{\link{panelPomp}}).
 
 \pkg{panelPomp} version 
 \Sexpr[echo=FALSE,stage=build,results=text]{packageDescription("panelPomp",fields="Version")} 
@@ -36,12 +36,12 @@ provides algorithms for
 sequential importance sampling), as proposed in Breto, Ionides and King 
 (2017). This reference provides the fundamental theoretical support for the 
 averaging of Monte Carlo replicates of panel unit likelihoods as implemented 
-in \pkg{panelPomp}; see \code{\link{pfilter,panelPomp-method}}
+in \pkg{panelPomp}; see \code{\link{pfilter}}
 \item the panel iterated filtering method of Breto, Ionides and King 
 (2017). This reference provides the fundamental theoretical support for the 
 extensions of the iterated filtering ideas of Ionides et al. (2006, 2011, 
 2015) to panel data as implemented in \pkg{panelPomp}; see 
-\code{\link{mif2,panelPomp-method}}
+\code{\link{mif2}}
 }
 The package also provides various tools for handling and extracting 
 information on models and data.
@@ -72,13 +72,11 @@ please visit \pkg{pomp}'s
 
 \section{Documentation}{
 
-A number of tutorials, demonstrating the construction of \code{panelPomp} objects
-and the application of the panel iterated filtering inference algorithm, 
-will soon be available on the 
-\href{https://cbreto.github.io/panelPomp/docs.html}{package webpage}.
-Examples are provided via the \code{\link{pompExample}} function.
-See a list of the examples included both in \pkg{panelPomp} and \pkg{pomp} via \preformatted{
-pompExample()}
+Examples are provided via the \code{\link[pomp]{pompExample}} function from 
+the \pkg{pomp} package.
+See a list of the examples included both in \pkg{panelPomp} and \pkg{pomp} 
+via 
+\preformatted{pompExample()}
 }
 
 \section{License}{
@@ -89,13 +87,9 @@ pompExample()}
 \references{
 C. Breto, E. L. Ionides, and A. A. King (2017) 
 Panel Data Analysis via Mechanistic Models. \emph{arXiv:1801.05695}.
-
-See the package website, \url{https://cbreto.github.io/panelPomp}, for more 
-references.
 }
 \seealso{
-\link{panelPomp-package},
-\link{panelPomp}
+\link[=pomp-package]{pomp package}, \link{panelPomp}
 }
 \author{
 Carles Breto

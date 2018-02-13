@@ -77,5 +77,5 @@ diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 \seealso{
 \pkg{pomp}'s \link[pomp]{mif2}
 
-Other panelPomp functions that use SMC (particle filters): \code{\link{pfilter}}
+Other panelPomp SMC functions: \code{\link{pfilter}}
 }

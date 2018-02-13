@@ -56,7 +56,7 @@ Tools for applying particle filtering algorithms to panel data.
 }
 
 \seealso{
-\pkg{pomp}'s \link[pomp]{pfilter}, \link{panel_loglik}
+\pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
 
-Other panelPomp functions that use SMC (particle filters): \code{\link{mif2}}
+Other panelPomp SMC functions: \code{\link{mif2}}
 }
