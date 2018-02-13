@@ -73,10 +73,7 @@
 #' @section License:
 #' \pkg{panelPomp} is provided under the \acronym{MIT} License.
 #' 
-#' @references
-#' C. Breto, E. L. Ionides, and A. A. King (2017) 
-#' Panel Data Analysis via Mechanistic Models. \emph{arXiv:1801.05695}.
-#' 
+#' @references \breto2017
 #' @author Carles Breto
 #' 
 #' @seealso \link[=pomp-package]{pomp package}, \link{panelPomp}

@@ -85,8 +85,7 @@ via
 }
 
 \references{
-C. Breto, E. L. Ionides, and A. A. King (2017) 
-Panel Data Analysis via Mechanistic Models. \emph{arXiv:1801.05695}.
+\breto2017
 }
 \seealso{
 \link[=pomp-package]{pomp package}, \link{panelPomp}

@@ -12,6 +12,9 @@ NULL
 #'   \item{logLik}{Extracts the estimated log likelihood for the entire panel.}
 #'   \item{unitlogLik}{Extracts the estimated log likelihood for each panel unit.}
 #'   }
+#' @references \arulampalam2002
+#' 
+#' \breto2017
 #' @family panelPomp SMC functions
 #' @seealso \pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
 NULL
