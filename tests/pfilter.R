@@ -12,3 +12,7 @@ pf <- pfilter(ppo,Np=10)
 print(unitlogLik(pf))
 print(logLik(pf))
 }
+
+try(pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10),silent=TRUE)[1]==
+  paste0("Error : in ",sQuote("pfilter"),": ",sQuote("object")," is a required 
+    argument\n")
