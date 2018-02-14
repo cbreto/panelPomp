@@ -14,9 +14,9 @@ test_that(
     expect_error(
       panelPomp(
         as(pg,"list"),
-        shared=2*coef(pg)$shared,
-        specific=2*coef(pg)$specific,
-        params=coef(pg)),
+        shared=2*pg@pParams$shared,
+        specific=2*pg@pParams$specific,
+        params=pg@pParams),
       regexp="panelPomp::panelPomp",
       fixed=T
     )
@@ -27,9 +27,9 @@ test_that(
   {
     pp <- panelPomp(
       as(pg,"list"),
-      shared=2*coef(pg)$shared,
-      params=coef(pg))
-    expect_identical(coef(pp)$shared,2*coef(pg)$shared)
+      shared=2*pg@pParams$shared,
+      params=pg@pParams)
+    expect_identical(pp@pParams$shared,2*pg@pParams$shared)
   }
 )
 test_that(
@@ -37,9 +37,9 @@ test_that(
   {
     pp <- panelPomp(
       as(pg,"list"),
-      specific=2*coef(pg)$specific,
-      params=coef(pg))
-    expect_identical(coef(pp)$specific,2*coef(pg)$specific)
+      specific=2*pg@pParams$specific,
+      params=pg@pParams)
+    expect_identical(pp@pParams$specific,2*pg@pParams$specific)
   }
 )
 
