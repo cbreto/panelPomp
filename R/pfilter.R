@@ -1,6 +1,6 @@
 ## particle filtering codes
 
-#' @include panelPomp_methods.R
+#' @include params.R
 NULL
 
 #' @title Panel particle filter
