@@ -7,8 +7,8 @@ g <- pompExample(gompertz,envir=NULL)[[1]]
 
 pp <- panelPomp(
   list(unit1=g,unit2=g),
-  shared=coef(pg)$shared,
-  specific=coef(pg)$specific[,1:2]
+  shared=pg@pParams$shared,
+  specific=pg@pParams$specific[,1:2]
 )
 
 
