@@ -6,4 +6,4 @@ SAVED = $(shell ls *.Rout.save)
 default: $(SAVED)
 
 %.Rout.save: %.R
-	$(R_CMD) BATCH --no-restore --no-save --no-timing --quiet $*.R $*.Rout.save
+	$(R_CMD) BATCH --no-restore --no-save --no-timing $*.R $*.Rout.save

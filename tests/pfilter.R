@@ -13,6 +13,10 @@ print(unitlogLik(pf))
 print(logLik(pf))
 }
 
-try(pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10),silent=TRUE)[1]==
-  paste0("Error : in ",sQuote("pfilter"),": ",sQuote("object")," is a required 
-    argument\n")
+error_req_obj <- paste0(
+  "Error : in ",sQuote("pfilter"),": ",sQuote("object")," is a required argument\n"
+)
+try(pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10),
+    silent=TRUE)[1]==error_req_obj
+try(pfilter(params=coef(ppo),Np=10),
+    silent=TRUE)[1]==error_req_obj
