@@ -25,11 +25,12 @@ setMethod(
 )
 
 ## 'coef<-' method for panelPomp signature
-#' @title Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
-#' @description Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
-#' @details Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
+#' @title 'coef<-' method for panelPomp signature.
+#' @description 'coef<-' method for panelPomp signature.
 #' @param object A \code{panelPomp} object.
+#' @param ... ....
 #' @param value value.
+#' @author Carles Breto and Aaron A. King.
 #' @export
 setMethod(
   "coef<-",
