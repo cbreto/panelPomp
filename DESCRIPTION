@@ -39,3 +39,4 @@ Collate:
     'mif2_methods.R'
     'panel_loglik.R'
     'runif_EstimationScale.R'
+    'sQuotes.R'
