@@ -125,7 +125,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
   ##  # END DEBUG
   
   # Error prefix
-  ep <- paste0("in ", sQuote("panelPomp::mif2"), ": ")
+  ep <- paste0("in ", sQuote("panelPomp:::mif2.internal"), ": ")
   
   # PRELIMS & BASIC CHECKS
   U <- as.integer(length(object))
@@ -213,8 +213,8 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
           .ndone = mifiter-1
         ),
         error = function (e) {
-          stop(ep,"error in ",sQuote("pomp::mif2"),": ",
-               conditionMessage(e),call.=FALSE)
+          stop(ep,"error in ",sQuote("pomp::mif2"),": ",conditionMessage(e),
+               call.=FALSE)
         }
       )
       
@@ -323,7 +323,7 @@ setMethod(
                          verbose = getOption("verbose"), 
                          ...) {
     
-    ep <- paste0(sQuote("panelPomp::mif2")," error: ")
+    ep <- paste0("in ", sQuote("panelPomp::mif2"), ": ")
     
     if (!missing(shared.start)&&!missing(specific.start)&&!missing(start)) 
       stop(ep,"specify either ",sQuote("start")," only, ",sQuote("start"),
@@ -342,7 +342,8 @@ setMethod(
       else specific.start <- object@pParams$specific
     }
     
-    # This causes an unintended stop in panelPomp objects that genuinely have no shared parameters
+    # This causes an unintended stop in panelPomp objects that genuinely have 
+    # no shared parameters
     #if (identical(shared.start,numeric(0))) {
     #  stop(ep,"if ",sQuote("object@pParams$shared")," is empty, shared parameters
     #       must be specified in either ",sQuote("shared.start"),
@@ -383,32 +384,39 @@ setMethod(
           is.null(rownames(specific.start))
         )
       ){
-        stop(ep, "rownames of ", sQuote("specific.start"), " must match those of ", 
-             sQuote("object@pParams$specific"),".", call.=FALSE
+        stop(ep,"rownames of ",sQuote("specific.start")," must match those ",
+             "of ",sQuote("object@pParams$specific"),".",call.=FALSE
         )
       }
-      if (!identical(x = colnames(object@pParams$specific), y = colnames(specific.start))){
-        stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
-             sQuote("object@pParams$specific"),".", call.=FALSE
-        )
+      if (!identical(
+        colnames(object@pParams$specific),
+        colnames(specific.start))){
+        stop(ep,"colnames of ",sQuote("specific")," must be identical to ",
+             "those of ",sQuote("object@pParams$specific"),".",call.=FALSE)
       }
     }
     
     if (missing(Np)) {
-      stop("Missing 'Np' argument.")
+      stop(ep,"Missing ",sQuote("Np")," argument.",call.=FALSE)
     }
     if (missing(cooling.fraction.50)) {
-      stop("Missing 'cooling.fraction.50' argument.")
+      stop(ep,"Missing ",sQuote("cooling.fraction.50")," argument.",
+           call.=FALSE)
     }
     if (missing(rw.sd)) {
       stop(ep,"missing ",sQuote("rw.sd")," argument.",call.=FALSE)
     }
-    # Check that all parameters in the pomp objects have been provided either as shared or specific ...
-    if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared.start), rownames(specific.start)))) 
-      stop("At least one 'pomp' parameter needs to be added to the (shared. or specific.) start argument")
+    # Check that all parameters in the pomp objects have been provided either 
+    # as shared or specific ...
+    if(!all(names(coef(unitobjects(object)[[1]])) %in% 
+            c(names(shared.start), rownames(specific.start)))) 
+      stop(ep,"At least one ",sQuote("pomp")," parameter needs to be added to",
+           " the (shared. or specific.) start argument",call.=FALSE)
     # ... and viceversa.
-    if(!all(c(names(shared.start), rownames(specific.start))  %in% names(coef(unitobjects(object)[[1]]))))
-      stop("At least one parameter in the (shared. or specific.) start argument is not being used")
+    if(!all(c(names(shared.start), rownames(specific.start)) %in% 
+            names(coef(unitobjects(object)[[1]]))))
+      stop(ep,"At least one parameter in the (shared. or specific.) start",
+           " argument is not being used",call.=FALSE)
     mif2.internal(
       object,
       Nmif=Nmif,
