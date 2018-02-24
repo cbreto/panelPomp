@@ -1,4 +1,4 @@
-#' @include mif2_methods.R
+#' @include mif2d_methods.R
 NULL
 
 ## logLik,matrix-method

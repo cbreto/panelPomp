@@ -1,6 +1,6 @@
 ## MIF2 algorithm codes
 
-#' @include pfilter_methods.R
+#' @include pfilterd_methods.R
 NULL
 
 #' @title PIF: Panel iterated filtering
@@ -125,7 +125,8 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
   ##  # END DEBUG
   
   # Error prefix
-  ep <- paste0("in ", sQuote("panelPomp:::mif2.internal"), ": ")
+  ep <- paste0("in ", sQuote("mif2"), ": ")
+  et <- paste0(" (",sQuote("panelPomp:::mif2.internal"),")")
   
   # PRELIMS & BASIC CHECKS
   U <- as.integer(length(object))
@@ -213,8 +214,8 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
           .ndone = mifiter-1
         ),
         error = function (e) {
-          stop(ep,"error in ",sQuote("pomp::mif2"),": ",conditionMessage(e),
-               call.=FALSE)
+          stop(ep,"pomp's ",sQuote("mif2"),"error message: ",conditionMessage(e),
+               et,call.=FALSE)
         }
       )
       
@@ -323,12 +324,13 @@ setMethod(
                          verbose = getOption("verbose"), 
                          ...) {
     
-    ep <- paste0("in ", sQuote("panelPomp::mif2"), ": ")
+    ep <- paste0("in ", sQuote("mif2"), ": ")
+    et <- paste0(" (", sQuote("mif2,panelPomp-method"), ")")
     
     if (!missing(shared.start)&&!missing(specific.start)&&!missing(start)) 
       stop(ep,"specify either ",sQuote("start")," only, ",sQuote("start"),
            " and ",sQuote("shared.start")," , or ",sQuote("start")," and ",
-           sQuote("specific.start"),".",call.=FALSE
+           sQuote("specific.start"),".",et,call.=FALSE
       )
     
     # Get starting parameter values from 'object,' 'start,' or 
@@ -347,13 +349,13 @@ setMethod(
     #if (identical(shared.start,numeric(0))) {
     #  stop(ep,"if ",sQuote("object@pParams$shared")," is empty, shared parameters
     #       must be specified in either ",sQuote("shared.start"),
-    #       " or as part of ",sQuote("start"),".",call.=FALSE
+    #       " or as part of ",sQuote("start"),".",et,call.=FALSE
     #  )
     #}
     if (identical(specific.start,array(numeric(0),dim=c(0,0)))) {
       stop(ep,"if ",sQuote("object@pParams$specific")," is empty, specific 
            parameters must be specified in either ",sQuote("specific.start"),
-           " or as part of ",sQuote("start"),".",call.=FALSE
+           " or as part of ",sQuote("start"),".",et,call.=FALSE
       )
     }
     # If the object pParams slot is not empty, check that the shared and 
@@ -367,8 +369,8 @@ setMethod(
         &
         !(is.null(names(object@pParams$shared))&is.null(names(shared.start)))
       ) {
-        stop(ep, "names of ", sQuote("shared.start"), " must match those of ", 
-             sQuote("object@pParams$shared"),".", call.=FALSE
+        stop(ep,"names of ",sQuote("shared.start")," must match those of ", 
+             sQuote("object@pParams$shared"),".",et,call.=FALSE
         )
       }
     }
@@ -385,38 +387,38 @@ setMethod(
         )
       ){
         stop(ep,"rownames of ",sQuote("specific.start")," must match those ",
-             "of ",sQuote("object@pParams$specific"),".",call.=FALSE
+             "of ",sQuote("object@pParams$specific"),".",et,call.=FALSE
         )
       }
       if (!identical(
         colnames(object@pParams$specific),
         colnames(specific.start))){
         stop(ep,"colnames of ",sQuote("specific")," must be identical to ",
-             "those of ",sQuote("object@pParams$specific"),".",call.=FALSE)
+             "those of ",sQuote("object@pParams$specific"),".",et,call.=FALSE)
       }
     }
     
     if (missing(Np)) {
-      stop(ep,"Missing ",sQuote("Np")," argument.",call.=FALSE)
+      stop(ep,"Missing ",sQuote("Np")," argument.",et,call.=FALSE)
     }
     if (missing(cooling.fraction.50)) {
-      stop(ep,"Missing ",sQuote("cooling.fraction.50")," argument.",
+      stop(ep,"Missing ",sQuote("cooling.fraction.50")," argument.",et,
            call.=FALSE)
     }
     if (missing(rw.sd)) {
-      stop(ep,"missing ",sQuote("rw.sd")," argument.",call.=FALSE)
+      stop(ep,"missing ",sQuote("rw.sd")," argument.",et,call.=FALSE)
     }
     # Check that all parameters in the pomp objects have been provided either 
     # as shared or specific ...
     if(!all(names(coef(unitobjects(object)[[1]])) %in% 
             c(names(shared.start), rownames(specific.start)))) 
       stop(ep,"At least one ",sQuote("pomp")," parameter needs to be added to",
-           " the (shared. or specific.) start argument",call.=FALSE)
+           " the (shared. or specific.) start argument",et,call.=FALSE)
     # ... and viceversa.
     if(!all(c(names(shared.start), rownames(specific.start)) %in% 
             names(coef(unitobjects(object)[[1]]))))
       stop(ep,"At least one parameter in the (shared. or specific.) start",
-           " argument is not being used",call.=FALSE)
+           " argument is not being used",et,call.=FALSE)
     mif2.internal(
       object,
       Nmif=Nmif,
