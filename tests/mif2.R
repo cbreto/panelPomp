@@ -46,4 +46,5 @@ TESTS_PASS <- c(
 )
 PASSES#?
 
+stopifnot(all(TESTS_PASS))
 all(TESTS_PASS)#?

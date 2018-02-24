@@ -130,6 +130,7 @@ variable       rw1      rw2
 > PASSES#?
 [1] TRUE
 > 
+> stopifnot(all(TESTS_PASS))
 > all(TESTS_PASS)#?
 [1] TRUE
 > 

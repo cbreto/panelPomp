@@ -2,7 +2,7 @@
 % Please edit documentation in R/sQuotes.R
 \name{sQuotes}
 \alias{sQuotes}
-\title{Replace singles quotes (') with \code{sQuote()}s}
+\title{Write \code{sQuote()}s as singles quotes (') in character objects}
 \usage{
 sQuotes(...)
 }
@@ -11,10 +11,10 @@ sQuotes(...)
 \code{strsplit(paste0(...),"'")[[1]]}).}
 }
 \description{
-Concatenate character vectors and replace singles quotes (') with 
-\code{sQuote()}s so that "\code{sQuote('x')}" can be written as just "'x'".
+Concatenate character objects and replace singles quotes (') with 
+\code{sQuote()}s: \code{sQuote('x')} can be written as just 'x'.
 }
 \examples{
-sQuotes("in 'fn'",": 'object' is a required argument")==
+sQuotes("in 'fn': 'object' is a required argument")
 paste0("in ",sQuote('fn'),": ",sQuote('object')," is a required argument")
 }

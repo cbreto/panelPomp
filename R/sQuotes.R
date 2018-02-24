@@ -1,13 +1,13 @@
 #' @include runif_EstimationScale.R
 NULL
 
-#' @title Replace singles quotes (') with \code{sQuote()}s
-#' @description Concatenate character vectors and replace singles quotes (') with 
-#' \code{sQuote()}s so that "\code{sQuote('x')}" can be written as just "'x'".
+#' @title Write \code{sQuote()}s as singles quotes (') in character objects
+#' @description Concatenate character objects and replace singles quotes (') with 
+#' \code{sQuote()}s: \code{sQuote('x')} can be written as just 'x'.
 #' @param ... character objects (or other objects to be passed to 
 #' \code{strsplit(paste0(...),"'")[[1]]}).
 #' @examples
-#' sQuotes("in 'fn'",": 'object' is a required argument")==
+#' sQuotes("in 'fn': 'object' is a required argument")
 #' paste0("in ",sQuote('fn'),": ",sQuote('object')," is a required argument")
 #' @export
 sQuotes <- function (...) {
