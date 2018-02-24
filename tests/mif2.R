@@ -25,24 +25,23 @@ PASSES#?
 TESTS_PASS <- c(
   TESTS_PASS,# for missing Np
   try(mif2(ppo,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5),
-      silent=TRUE)[1]
-  ==
-  sQuotes("Error : in 'panelPomp::mif2': Missing 'Np' argument.\n") -> PASSES#?
+      silent=TRUE)[1]==sQuotes(
+        "Error : in 'mif2': Missing 'Np' argument. ('mif2,panelPomp-method')\n"
+      ) -> PASSES#?
 )
 PASSES#?
 TESTS_PASS <- c(
   TESTS_PASS,# for missing rw.sd
-  try(mif2(ppo,Np=10,cooling.fraction.50=0.5),silent=TRUE)[1]
-  ==
-  sQuotes("Error : in 'panelPomp::mif2': missing 'rw.sd' argument.\n") -> PASSES#?
+  try(mif2(ppo,Np=10,cooling.fraction.50=0.5),silent=TRUE)[1]==sQuotes(
+    "Error : in 'mif2': missing 'rw.sd' argument. ('mif2,panelPomp-method')\n"
+  ) -> PASSES#?
 )
 PASSES#?
 TESTS_PASS <- c(
   TESTS_PASS,# for missing object
-  try(mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5)),silent=TRUE)[1]
-  ==
-  sQuotes("Error : in 'panelPomp::mif2': Missing 'cooling.fraction.50'",
-          " argument.\n") -> PASSES#?
+  try(mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5)),silent=TRUE)[1]==sQuotes(
+    "Error : in 'mif2': Missing 'cooling.fraction.50' argument. ",
+    "('mif2,panelPomp-method')\n") -> PASSES#?
 )
 PASSES#?
 
