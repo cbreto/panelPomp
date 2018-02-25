@@ -18,6 +18,7 @@ NULL
 #' @param se logical; whether to give standard errors.
 #' @name panel_loglik
 #' @aliases logLik,matrix-method
+#' @family panelPomp workhorse functions
 #' @export
 setMethod(
   "logLik",

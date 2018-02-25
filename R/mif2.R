@@ -4,7 +4,8 @@
 NULL
 
 #' @title PIF: Panel iterated filtering
-#' @description The panel iterated filtering of Breto et al. (2017) extends to 
+#' @description Tools for applying iterated filtering algorithms to panel data.
+#' The panel iterated filtering of Breto et al. (2017) extends to 
 #' panel models the improved iterated filtering algorithm (Ionides et al., 
 #' 2015) for estimating parameters of a partially observed Markov process.
 #' Iterated filtering algorithms rely on extending a partially observed Markov 
@@ -14,15 +15,40 @@ NULL
 #' likelihood estimate has been established for appropriately constructed 
 #' procedures that iterate this search over the parameter space while 
 #' diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
-#' @param object An object of class \code{panelPomp} or inheriting class \code{panelPomp}.
+#' @inheritParams mif2,panelPomp-method 
+#' @inheritParams coef,panelPomp-method 
+#' @inheritParams pomp::mif2
+#' @param object An object of class \code{panelPomp} or inheriting class.
+#' @param shared.start named numerical vector; the starting guess of the shared
+#'  parameters.
+#' @param specific.start matrix with row parameter names and column 
+#' unit names; the starting guess of the specific parameters.
+#' @param start A \code{list} with starting guess of length 2 with elements 
+#' named \code{shared} and \code{specific}.
+#' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to 
+#' be used for all panel units. If a \code{list} of such expressions of the 
+#' same length as the \code{object} argument is provided, each list element 
+#' will be used for the corresponding panel unit.
+#' @param cooling.fraction.50 cooling.fraction.50 (seems to cause an error if 
+#' documentation inherited from 'pomp' package).
+#' @param transform logical; if TRUE, optimization is performed on the 
+#' estimation scale (see \code{pomp} documentation).
 #' @name mif2
-#' @aliases mif2d.ppomp-class
-#' @family panelPomp SMC functions
-#' @seealso
-#' \pkg{pomp}'s \link[pomp]{mif2}
+#' @references \breto2017
+#' 
+#' \ionides2006
+#' 
+#' \ionides2011
+#' 
+#' \ionides2015
+#' 
+#' \king2015
+#' @family panelPomp workhorse functions
+#' @seealso \pkg{pomp}'s mif2 at \link[=mif2,pomp-method]{mif2}, 
+#' \link{panel_loglik}
 NULL
 
-#' @keywords internal
+#' @rdname mif2
 #' @export
 setClass(
   Class = "mif2d.ppomp",
@@ -175,7 +201,8 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
     dim = c(Nmif + 1, dim(start$specific)[1] + 3, U),
     dimnames = list(
       iteration = seq.int(.ndone, .ndone + Nmif),
-      variable = c('loglik', 'unitNfail', 'unitLoglik', dimnames(start$specific)[[1]]),
+      variable = c('loglik', 'unitNfail', 'unitLoglik', 
+                   dimnames(start$specific)[[1]]),
       unit = names(unitobjects(object))
     )
   )
@@ -194,9 +221,10 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
     for (unit in unit.seq) {
       # Create a (n updated) paramMatrix to pass to mif2 on next panel unit
       updated.paramMatrix <- rbind(pParamMatrix, pparamArray[, , unit])
-      # Here, we want to drop the unit dimension but, if there was only one specific parameter,
-      # R will then have dropped its name, which we fix by
-      rownames(updated.paramMatrix) <- c(rownames(pParamMatrix), rownames(pparamArray))
+      # Here, we want to drop the unit dimension but, if there was only one 
+      # specific parameter, R will then have dropped its name, which we fix by
+      rownames(updated.paramMatrix) <- c(rownames(pParamMatrix), 
+                                         rownames(pparamArray))
       
       output[[unit]] <- tryCatch(
         pomp::mif2(
@@ -256,8 +284,8 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
   # create pParams slot from last mif iteration values in pconv.rec
   pParams <- list()
   pParams$shared <- pconv.rec[nrow(pconv.rec), -c(1:2)]
-  # Here, we want to drop the iteration dimension but, if there was only one shared 
-  # parameter, R will then have dropped its name, which we fix by
+  # Here, we want to drop the iteration dimension but, if there was only one 
+  # shared parameter, R will then have dropped its name, which we fix by
   names(pParams$shared) <- dimnames(pconv.rec)$variable[-c(1:2)]
   pParams$specific <- aperm(
     a = pconv.rec.array[nrow(pconv.rec), -c(1:3), , drop = FALSE],
@@ -297,16 +325,6 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
 
 ## mif2,panelPomp-method
 #' @rdname mif2
-#' @inheritParams coef,panelPomp-method 
-#' @inheritParams pomp::mif2
-#' @param shared.start named numerical vector; the starting guess of the shared parameters.
-#' @param specific.start matrix with row parameter names and column 
-#' unit names; the starting guess of the specific parameters.
-#' @param start A \code{list} with starting guess of length 2 with elements named \code{shared} and \code{specific}.
-#' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to be used for all panel units. If a \code{list} of such expressions of the same length as the \code{object} argument is provided, each list element will be used for the corresponding panel unit.
-#' @param cooling.fraction.50 cooling.fraction.50 (seems to cause an error if documentation inherited from 'pomp' package)
-#' @param transform logical; if TRUE, optimization is performed on the estimation scale (see \code{pomp} documentation).
-#'
 #' @export
 #'
 setMethod(
@@ -344,8 +362,8 @@ setMethod(
       else specific.start <- object@pParams$specific
     }
     
-    # This causes an unintended stop in panelPomp objects that genuinely have 
-    # no shared parameters
+    # This causes an unintended stop in panelPomp objects that genuinely 
+    # have no shared parameters
     #if (identical(shared.start,numeric(0))) {
     #  stop(ep,"if ",sQuote("object@pParams$shared")," is empty, shared parameters
     #       must be specified in either ",sQuote("shared.start"),
@@ -359,7 +377,8 @@ setMethod(
       )
     }
     # If the object pParams slot is not empty, check that the shared and 
-    # specific structure of any provided starting values match the pParams slot
+    # specific structure of any provided starting values match the pParams 
+    # slot
     if (!is.null(object@pParams$shared)) {
       if (
         !identical(
@@ -432,5 +451,32 @@ setMethod(
       verbose=verbose,
       ...
     )
+  }
+)
+
+#' @rdname mif2
+#' @export
+setMethod(
+  "mif2",
+  signature=signature(object="mif2d.ppomp"),
+  definition = function (object, Nmif, shared.start, specific.start, Np, rw.sd,
+                         transform, cooling.type, cooling.fraction.50, tol,
+                         ...) {
+    if (missing(Nmif)) Nmif <- object@Nmif
+    if (missing(shared.start)) shared.start <- object@pParams$shared
+    if (missing(specific.start)) specific.start <- object@pParams$specific
+    if (missing(Np)) Np <- object@Np    
+    if (missing(rw.sd)) rw.sd <- object@prw.sd
+    if (missing(transform)) transform <- object@transform
+    if (missing(cooling.type)) cooling.type <- object@cooling.type
+    if (missing(cooling.fraction.50)) 
+      cooling.fraction.50 <- object@cooling.fraction.50
+    if (missing(tol)) tol <- object@tol
+    
+    f <- selectMethod("mif2",signature="panelPomp")
+    f(object=object,shared.start=shared.start,specific.start=specific.start,
+      Np=Np,Nmif=Nmif,cooling.type=cooling.type,
+      cooling.fraction.50=cooling.fraction.50,transform=transform,rw.sd=rw.sd,
+      tol=tol,...)
   }
 )
