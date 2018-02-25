@@ -1,4 +1,4 @@
-#' @include pfilter_methods.R
+#' @include params.R
 NULL
 
 ## Uniform random draws in the transformed scale: give centers and widths

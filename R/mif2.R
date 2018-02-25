@@ -1,6 +1,6 @@
 ## MIF2 algorithm codes
 
-#' @include pfilterd_methods.R
+#' @include pfilter_methods.R
 NULL
 
 #' @title PIF: Panel iterated filtering

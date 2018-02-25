@@ -157,7 +157,7 @@ test_that(
         cooling.fraction.50=0.5,
         cooling.type="geometric"
       ),
-      regexp="panelPomp::mif2",
+      regexp="mif2",
       fixed=T
     )
   }

@@ -1,4 +1,4 @@
-#' @include get_col_row.R
+#' @include panel_loglik.R
 NULL
 
 ### panel_logmeanexp
