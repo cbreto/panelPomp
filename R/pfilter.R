@@ -22,13 +22,13 @@ NULL
 #' @rdname pfilter
 #' @export
 setClass(
-  Class = "pfilterd.ppomp",
-  contains = "panelPomp",
+  'pfilterd.ppomp',
+  contains = 'panelPomp',
   slots = c(
-    Np = "numeric",
-    ploglik = "numeric",
-    tol = "numeric",
-    unit.logliks = "numeric"
+    Np = 'numeric',
+    ploglik = 'numeric',
+    tol = 'numeric',
+    unit.logliks = 'numeric'
   ),
   prototype = prototype(
     Np = as.integer(NA),

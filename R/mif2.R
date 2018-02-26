@@ -51,16 +51,16 @@ NULL
 #' @rdname mif2
 #' @export
 setClass(
-  Class = "mif2d.ppomp",
-  contains = "pfilterd.ppomp",
+  'mif2d.ppomp',
+  contains = 'pfilterd.ppomp',
   slots = c(
-    Nmif = "integer",
-    prw.sd = "list",
-    cooling.type = "character",
-    cooling.fraction.50 = "numeric",
-    transform = "logical",
-    pconv.rec = "matrix",
-    pconv.rec.array = "array"),
+    Nmif = 'integer',
+    prw.sd = 'list',
+    cooling.type = 'character',
+    cooling.fraction.50 = 'numeric',
+    transform = 'logical',
+    pconv.rec = 'matrix',
+    pconv.rec.array = 'array'),
   prototype = prototype(
     Nmif = integer(0),
     prw.sd = list(),

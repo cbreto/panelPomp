@@ -28,10 +28,10 @@ NULL
 #' @rdname panelPomp
 #' @export
 setClass(
-  "panelPomp",
+  'panelPomp',
   slots=c(
-    unit.objects = "list",
-    pParams = "list"
+    unit.objects = 'list',
+    pParams = 'list'
   ),
   prototype=prototype(
     unit.objects=list(),
@@ -40,7 +40,7 @@ setClass(
   validity=function (object) {
     retval <- character(0)
     # check that mandatory arguments have the required format
-    if (!all(sapply(object@unit.objects,is,'pomp'))) {
+    if (!all(sapply(object@unit.objects,is,"pomp"))) {
       retval <- append(retval, paste0("The 'unit.objects' slot must be a list of 'pomp' objects"))
     } else {
       same.parameters.check <- TRUE
@@ -155,7 +155,7 @@ setClass(
   }
 )
 
-pPomp.internal <- function(pompList,pParams,
+panelPomp.internal <- function(pompList,pParams,
                            verbose=getOption("verbose",FALSE)) {
   # If needed, fix validity checks on 'pParams$specific'
   if (identical(pParams$specific,array(numeric(0),dim=c(0,0)))) {
@@ -191,7 +191,7 @@ setMethod(
     pParams <- params
     if (!missing(shared)) pParams$shared <- shared
     if (!missing(specific)) pParams$specific <- specific
-    pPomp.internal(pompList=object,pParams=pParams)
+    panelPomp.internal(pompList=object,pParams=pParams)
   }
 )
 
