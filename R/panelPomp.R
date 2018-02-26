@@ -41,16 +41,15 @@ setClass(
     retval <- character(0)
     # check that mandatory arguments have the required format
     if (!all(sapply(object@unit.objects,is,"pomp"))) {
-      retval <- append(retval, paste0("The 'unit.objects' slot must be a list of 'pomp' objects"))
+      retval <- append(retval, sQuotes("The 'unit.objects' slot must be a ",
+                                       "list of 'pomp' objects"))
     } else {
       same.parameters.check <- TRUE
       if (length(object) > 1) {
         for (i.u in 2:length(object)) {
-          same.parameters.check <- 
-            ifelse(
-              all(
-                sort(names(coef(object@unit.objects[[i.u]])))==sort(names(coef(object@unit.objects[[i.u - 1]])))
-              ), TRUE, FALSE)
+          parnmsA <- sort(names(coef(object@unit.objects[[i.u]])))
+          parnmsB <- sort(names(coef(object@unit.objects[[i.u-1]])))
+          same.parameters.check <- ifelse(all(parnmsA==parnmsB),TRUE,FALSE)
           if (same.parameters.check==FALSE) {
             retval <- append(
               retval,
