@@ -176,17 +176,16 @@ setMethod(
                          specific = array(numeric(0), dim = c(0,0)),
                          params = list(shared = shared, specific = specific)
   ) {
-    ep <- paste0(sQuote("panelPomp::panelPomp")," error: ")
+    # Error prefix
+    ep <- paste0("in ", sQuote("panelPomp"), ": ")
     
     if (class(object[[1]])!="pomp") 
       stop(ep,"The ",sQuote("unit.objects")," slot must be a list of ",
-           sQuote("pomp")," objects.",call.=FALSE
-      )
+           sQuote("pomp")," objects.",call.=FALSE)
     if (!missing(shared) && !missing(specific) && !missing(params)) 
       stop(ep,"specify either ",sQuote("params")," only, ",sQuote("params"),
            " and ",sQuote("shared")," , or ",sQuote("params")," and ",
-           sQuote("specific"),".",call.=FALSE
-      )
+           sQuote("specific"),".",call.=FALSE)
     pParams <- params
     if (!missing(shared)) pParams$shared <- shared
     if (!missing(specific)) pParams$specific <- specific

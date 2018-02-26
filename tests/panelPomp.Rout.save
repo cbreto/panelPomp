@@ -1,0 +1,41 @@
+
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(panelPomp)
+Loading required package: pomp
+> 
+> TESTS_PASS <- NULL
+> 
+> ppo <- pompExample(prw,envir=NULL)[[1]]
+> pos <- as(ppo,"list")
+> po <- pos[[1]]
+> 
+> TESTS_PASS <- c(
++   TESTS_PASS,# for missing object
++   try(panelPomp(list(a=1)),silent=TRUE)[1]==sQuotes(
++         "Error : in 'panelPomp': The 'unit.objects' slot must be a list of ",
++         "'pomp' objects.\n") -> PASSES#?
++ )
+> PASSES#?
+[1] TRUE
+> 
+> stopifnot(all(TESTS_PASS))
+> all(TESTS_PASS)#?
+[1] TRUE
+> 

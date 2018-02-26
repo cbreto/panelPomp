@@ -6,7 +6,7 @@ if (class(pg)=="try-error") pg <- readRDS("pangomp.rds")
 context("Test panelPomp()")
 test_that(
   "panelPomp() fails to detect list of 'non-pomp' objects",
-  {expect_error(panelPomp(list(a=1)),regexp="panelPomp::panelPomp",fixed=T)}
+  {expect_error(panelPomp(list(a=1)),regexp="panelPomp",fixed=T)}
 )
 test_that(
   "panelPomp() fails to resolve simultaneous parameter assignments",
@@ -17,7 +17,7 @@ test_that(
         shared=2*pg@pParams$shared,
         specific=2*pg@pParams$specific,
         params=pg@pParams),
-      regexp="panelPomp::panelPomp",
+      regexp="panelPomp",
       fixed=T
     )
   }
