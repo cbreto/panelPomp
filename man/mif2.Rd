@@ -101,6 +101,6 @@ diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 \pkg{pomp}'s mif2 at \link[=mif2,pomp-method]{mif2}, 
 \link{panel_loglik}
 
-Other panelPomp workhorse functions: \code{\link{panel_loglik}},
-  \code{\link{pfilter}}
+Other panelPomp workhorse functions: \code{\link{panelPomp}},
+  \code{\link{panel_loglik}}, \code{\link{pfilter}}
 }

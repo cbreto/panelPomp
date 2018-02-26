@@ -3,9 +3,29 @@
 #' @include panel_logmeanexp.R
 NULL
 
-## panelPomp class
+#' @title Constructor of panelPomp objects
+#' @name panelPomp
+#' @description This function constructs a \code{panelPomp} object. It also 
+#' redefine shared/specific configuration of a \code{panelPomp} object.
+#' @param object either (i) a named \code{list} of \code{pomp} objects; or (ii) 
+#' an object of class \code{panelPomp} or inheriting class \code{panelPomp}. In  
+#' the second case, the function \code{panelPomp} will manipulate the provided 
+#' object.
+#' @param shared either (matching the \code{object} argument above) (i) a named 
+#' \code{numeric vector}; or (ii) a character vector of names for parameters to 
+#' be set to shared. Parameters that were not originally shared are copied from 
+#' the specific parameters from the first panel unit (in the second case, it 
+#' defaults to \code{NULL}, which implies all parameters are specific).
+#' @param specific a \code{matrix} with parameters on named rows and panel units on named columns.
+#' @param params optional; a list with (named) 'shared' and 'specific' elements.
+#' @references \breto2017
+#' 
+#' \king2015
+#' @family panelPomp workhorse functions
+#' @seealso \pkg{pomp}'s constructor at \link[=pomp]{pomp}
+NULL
 
-#' @keywords internal
+#' @rdname panelPomp
 #' @export
 setClass(
   "panelPomp",
@@ -135,8 +155,6 @@ setClass(
   }
 )
 
-## panelPomp constructor
-
 pPomp.internal <- function(pompList,pParams,
                            verbose=getOption("verbose",FALSE)) {
   # If needed, fix validity checks on 'pParams$specific'
@@ -150,19 +168,8 @@ pPomp.internal <- function(pompList,pParams,
   new("panelPomp", unit.objects=pompList,pParams=pParams)
 }
 
-#' Construct \code{panelPomp} objects.
-#'
-#' S4 method.
-#'
-#' S4 method.
-#' 
-#' @param object a named \code{list} of \code{pomp} objects.
-#' @param shared a named \code{numeric vector}.
-#' @param specific a \code{matrix} with parameters on named rows and panel units on named columns.
-#' @param params optional; a list with (named) 'shared' and 'specific' elements.
-#' @aliases panelPomp-class
+#' @rdname panelPomp
 #' @export
-#'
 setMethod(
   "panelPomp",
   signature=signature(object="list"),
@@ -188,15 +195,8 @@ setMethod(
   }
 )
 
-#' Redefine shared/specific configuration of a panelPomp object.
-#'
-#' Extract shared and specific parameter values from a panelPomp and use them to create a new panelPomp object with a new configuration of shared and specific parameters.
-#'
-#' @param object panelPomp object.
-#' @param shared character; names of shared parameters. Those which were not originally shared are copied from the specific parameters for the first panel unit. Defaults to \code{NULL}, which implies all parameters are specific.
-#'
+#' @rdname panelPomp
 #' @export
-#'
 setMethod(
   f = "panelPomp",
   signature = signature(object = "panelPomp"),

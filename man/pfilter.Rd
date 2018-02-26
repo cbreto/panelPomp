@@ -19,7 +19,11 @@
 \arguments{
 \item{object}{An object of class \code{panelPomp} or inheriting class \code{panelPomp}.}
 
-\item{shared}{a named \code{numeric vector}.}
+\item{shared}{either (matching the \code{object} argument above) (i) a named 
+\code{numeric vector}; or (ii) a character vector of names for parameters to 
+be set to shared. Parameters that were not originally shared are copied from 
+the specific parameters from the first panel unit (in the second case, it 
+defaults to \code{NULL}, which implies all parameters are specific).}
 
 \item{specific}{a \code{matrix} with parameters on named rows and panel units on named columns.}
 
@@ -64,5 +68,5 @@ Tools for applying particle filtering algorithms to panel data.
 \pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
 
 Other panelPomp workhorse functions: \code{\link{mif2}},
-  \code{\link{panel_loglik}}
+  \code{\link{panelPomp}}, \code{\link{panel_loglik}}
 }

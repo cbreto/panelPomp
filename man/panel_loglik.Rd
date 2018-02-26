@@ -34,5 +34,5 @@ When \code{se = TRUE}, the jackknife se's from
 }
 \seealso{
 Other panelPomp workhorse functions: \code{\link{mif2}},
-  \code{\link{pfilter}}
+  \code{\link{panelPomp}}, \code{\link{pfilter}}
 }
