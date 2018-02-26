@@ -41,23 +41,18 @@ setClass(
     retval <- character(0)
     # check that mandatory arguments have the required format
     if (!all(sapply(object@unit.objects,is,"pomp"))) {
-      retval <- append(retval, sQuotes("The 'unit.objects' slot must be a ",
-                                       "list of 'pomp' objects"))
+      retval <- append(retval, sQuotes("'unit.objects' must be a list of ",
+                                       "'pomp' objects (validity check)"))
     } else {
-      same.parameters.check <- TRUE
       if (length(object) > 1) {
         for (i.u in 2:length(object)) {
           parnmsA <- sort(names(coef(object@unit.objects[[i.u]])))
           parnmsB <- sort(names(coef(object@unit.objects[[i.u-1]])))
-          same.parameters.check <- ifelse(all(parnmsA==parnmsB),TRUE,FALSE)
-          if (same.parameters.check==FALSE) {
+          if (!identical(parnmsA,parnmsB)) {
             retval <- append(
               retval,
-              paste0(
-                "error in ",sQuote("c"),
-                ": `pomp' objects with different parameter names cannot be combined"
-              )
-            )
+              sQuotes("'pomp' objects with different parameter names cannot ",
+                      "be combined (validity check)"))
           }
         }
       }
@@ -65,68 +60,55 @@ setClass(
     # check that optional arguments have the required format
     if (!identical(list(), object@pParams)) {
       if (!is.list(object@pParams)) {
-        retval <- append(retval, paste(sQuote("pParams"), "must be a list"))
+        retval <- append(
+          retval,sQuotes("'pParams' must be a list (validity check)"))
       } else {
         if (!(length(object@pParams) == 2)) {
           retval <-
-            append(retval, paste(sQuote("pParams"), "must be of length two"))
+            append(retval,
+                   sQuotes("'pParams' must be of length two (validity check)"))
         } else {
           right.list.structure <-
-            any(all(sapply(object@pParams, class) == c('numeric', 'matrix'))
+            any(all(sapply(object@pParams,class) == c('numeric','matrix'))
                 &
-                  all(names(object@pParams) == c("shared", "specific")),
-                all(sapply(object@pParams, class) == c('matrix', 'numeric'))
+                  all(names(object@pParams) == c("shared","specific")),
+                all(sapply(object@pParams,class) == c('matrix','numeric'))
                 &
-                  all(names(object@pParams) == c("specific", "shared")))
+                  all(names(object@pParams) == c("specific","shared")))
           if (!right.list.structure) {
             retval <- append(
               retval,
-              paste(
-                "The elements of",
-                sQuote("pParams"),
-                "must be a numeric vector named 'shared' and a matrix named 'specific'"
-              )
-            )
+              sQuotes("The elements of 'pParams' must be a numeric vector ",
+                      "named 'shared' and a matrix named 'specific' ",
+                      "(validity check)"))
           } else {
             if (!dim(object@pParams[["specific"]])[2] == length(object@unit.objects)) {
               retval <- append(
                 retval,
-                paste(
-                  "The number of columns of the 'specific' matrix in",
-                  sQuote("pParams"),
-                  "must match the length of the list in the unit.object slot"
-                )
-              )
+                sQuotes("The number of columns of the 'specific' matrix in ",
+                        "'pParams' must match the length of the list in the ",
+                        "'unit.object' slot (validity check)"))
             } else {
               if (!identical(dimnames(object@pParams$specific)[[2]], names(object@unit.objects))) {
                 retval <- append(
                   retval,
-                  paste(
-                    "The names of columns of the 'specific' matrix in",
-                    sQuote("pParams"),
-                    "must match those of the list in the unit.object slot"
-                  )
-                )
+                  sQuotes("The names of columns of the 'specific' matrix in",
+                          "'pParams' must match those of the list in the ",
+                          "'unit.object' slot (validity check)"))
               } else {
                 if (is.null(dimnames(object@pParams$specific)[[2]])) {
                   retval <- append(
                     retval,
-                    paste(
-                      "The column names of the 'specific' matrix in the",
-                      sQuote("pParams"),
-                      "slot must be non-empty"
+                    sQuotes("The column names of the 'specific' matrix in the",
+                            "'pParams' slot must be non-empty (validity check)"
                     )
                   )
                 } else {
                   if (is.null(names(object@unit.objects))) {
                     retval <- append(
                       retval,
-                      paste(
-                        "The names of the 'list' in the",
-                        sQuote("unit.object"),
-                        "slot must be non-empty"
-                      )
-                    )
+                      sQuotes("The names of the 'list' in the 'unit.object' ",
+                              "slot must be non-empty (validity check)"))
                   } else {
                     pParams.names <-c(
                       names(object@pParams$shared),
@@ -136,12 +118,9 @@ setClass(
                       sort(pParams.names),
                       sort(names(coef(object@unit.objects[[1]]))))) retval <- append(
                         retval,
-                        paste(
-                          "All parameters in the pomp objects of unit.objects slot must be in",
-                          sQuote("pParams"),
-                          "and viceversa"
-                        )
-                      )
+                        sQuotes("All parameters in the pomp objects of ",
+                                "'unit.objects' slot must be in 'pParams' and",
+                                " viceversa (validity check)"))
                   }
                 }
               }
@@ -177,15 +156,15 @@ setMethod(
                          params = list(shared = shared, specific = specific)
   ) {
     # Error prefix
-    ep <- paste0("in ", sQuote("panelPomp"), ": ")
-    
-    if (class(object[[1]])!="pomp") 
-      stop(ep,"The ",sQuote("unit.objects")," slot must be a list of ",
-           sQuote("pomp")," objects.",call.=FALSE)
+    ep <- sQuotes("in 'panelPomp': ")
+    if (missing(object)) stop(sQuotes(ep,"'object' is a required argument"),
+                              call.=FALSE)
+    if (!all(sapply(as(object,"list"),is,"pomp"))) 
+      stop(sQuotes(ep,"'object' must be a list of 'pomp' objects."),
+           call.=FALSE)
     if (!missing(shared) && !missing(specific) && !missing(params)) 
-      stop(ep,"specify either ",sQuote("params")," only, ",sQuote("params"),
-           " and ",sQuote("shared")," , or ",sQuote("params")," and ",
-           sQuote("specific"),".",call.=FALSE)
+      stop(sQuotes(ep,"specify either 'params' only, 'params' and 'shared', ",
+                   "or 'params' and 'specific'."),call.=FALSE)
     pParams <- params
     if (!missing(shared)) pParams$shared <- shared
     if (!missing(specific)) pParams$specific <- specific
@@ -202,7 +181,7 @@ setMethod(
     parnames <- c(names(object@pParams$shared),row.names(object@pParams$sp))
     stopifnot(all(shared%in%parnames))
     sp <- parnames[!parnames%in%shared]
-    # make matrix from object@pParams$sh that can be rbinded to object@pParams$sp
+    # make matrix from object@pParams$sh to be rbind()d to object@pParams$sp
     sh0 <- names(object@pParams$shared)
     not.in.sp0 <- matrix(
       object@pParams$shared,nrow=length(sh0),ncol=length(object),
@@ -210,7 +189,7 @@ setMethod(
     )
     all.sp <- rbind(object@pParams$specific,not.in.sp0)
     stopifnot(!as.logical(anyDuplicated(row.names(all.sp))))
-    # make vector from object@pParams$sp[1,] that can be c()d to object@pParams$sh
+    # make vector from object@pParams$sp[1,] to be c()d to object@pParams$sh
     all.sh <- c(object@pParams$shared,object@pParams$specific[,1])
     
     shs <- all.sh[shared]

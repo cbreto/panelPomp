@@ -4,10 +4,7 @@ pg <- try(pompExample(pangomp,envir=NULL)[[1]])
 if (class(pg)=="try-error") pg <- readRDS("pangomp.rds")
 
 context("Test panelPomp()")
-test_that(
-  "panelPomp() fails to detect list of 'non-pomp' objects",
-  {expect_error(panelPomp(list(a=1)),regexp="panelPomp",fixed=T)}
-)
+
 test_that(
   "panelPomp() fails to resolve simultaneous parameter assignments",
   {
