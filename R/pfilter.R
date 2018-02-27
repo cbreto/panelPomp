@@ -46,7 +46,6 @@ pfilter.internal <- function(object,
                              tol,
                              verbose = FALSE,
                              ...) {
-  # DEBUG
   # Turn params list into a matrix
   matrixpParams <- toMatrixPparams(params)
   U <- length(object)
@@ -84,7 +83,7 @@ pfilter.internal <- function(object,
 
 #' @rdname pfilter
 #' @inheritParams coef,panelPomp-method 
-#' @inheritParams panelPomp,list-method
+#' @inheritParams panelPomp
 #' @inheritParams pomp::mif2
 #' @param tol filtering tolerance for all units.
 #' @param ... additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.

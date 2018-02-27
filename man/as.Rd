@@ -2,7 +2,7 @@
 % Please edit documentation in R/panelPomp_methods.R
 \name{as}
 \alias{as}
-\title{Coersing \code{panelPomp} objects as a \code{list}}
+\title{Coercing \code{panelPomp} objects as a \code{list}}
 \description{
 Extracts the \code{unit.objects} slot of \code{panelPomp} 
 objects.

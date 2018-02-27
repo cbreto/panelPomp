@@ -3,16 +3,6 @@
 #' @include aaa.R
 NULL
 
-#' @title \code{panelPomp} generic
-#' @description \code{panelPomp} generic
-#' @details This is a generic function: methods can be defined for it.
-#' @keywords internal
-#' @param object object.
-#' @param ... Additional arguments.
-#' @export
-setGeneric(name = "panelPomp",
-           def = function(object, ...) standardGeneric("panelPomp"))
-
 #' @title \code{pParams} generic.
 #' @description \code{pParams} generic function.
 #' @details This is a generic function: methods can be defined for it.

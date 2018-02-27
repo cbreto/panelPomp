@@ -134,7 +134,7 @@ setClass(
 )
 
 panelPomp.internal <- function(pompList,pParams,
-                           verbose=getOption("verbose",FALSE)) {
+                               verbose=getOption("verbose",FALSE)) {
   # If needed, fix validity checks on 'pParams$specific'
   if (identical(pParams$specific,array(numeric(0),dim=c(0,0)))) {
     pParams$specific <- array(
@@ -143,57 +143,26 @@ panelPomp.internal <- function(pompList,pParams,
       dimnames=list(params=character(0),unit=names(pompList))
     )
   }
-  new("panelPomp", unit.objects=pompList,pParams=pParams)
+  new("panelPomp",unit.objects=pompList,pParams=pParams)
 }
 
 #' @rdname panelPomp
 #' @export
-setMethod(
-  "panelPomp",
-  signature=signature(object="list"),
-  definition = function (object, shared = numeric(0),
-                         specific = array(numeric(0), dim = c(0,0)),
-                         params = list(shared = shared, specific = specific)
-  ) {
-    # Error prefix
-    ep <- sQuotes("in 'panelPomp': ")
-    if (missing(object)) stop(sQuotes(ep,"'object' is a required argument"),
-                              call.=FALSE)
-    if (!all(sapply(as(object,"list"),is,"pomp"))) 
-      stop(sQuotes(ep,"'object' must be a list of 'pomp' objects."),
-           call.=FALSE)
-    if (!missing(shared) && !missing(specific) && !missing(params)) 
-      stop(sQuotes(ep,"specify either 'params' only, 'params' and 'shared', ",
-                   "or 'params' and 'specific'."),call.=FALSE)
-    pParams <- params
-    if (!missing(shared)) pParams$shared <- shared
-    if (!missing(specific)) pParams$specific <- specific
-    panelPomp.internal(pompList=object,pParams=pParams)
-  }
-)
-
-#' @rdname panelPomp
-#' @export
-setMethod(
-  f = "panelPomp",
-  signature = signature(object = "panelPomp"),
-  definition = function (object, shared = NULL) {
-    parnames <- c(names(object@pParams$shared),row.names(object@pParams$sp))
-    stopifnot(all(shared%in%parnames))
-    sp <- parnames[!parnames%in%shared]
-    # make matrix from object@pParams$sh to be rbind()d to object@pParams$sp
-    sh0 <- names(object@pParams$shared)
-    not.in.sp0 <- matrix(
-      object@pParams$shared,nrow=length(sh0),ncol=length(object),
-      dimnames=list(sh0,names(object))
-    )
-    all.sp <- rbind(object@pParams$specific,not.in.sp0)
-    stopifnot(!as.logical(anyDuplicated(row.names(all.sp))))
-    # make vector from object@pParams$sp[1,] to be c()d to object@pParams$sh
-    all.sh <- c(object@pParams$shared,object@pParams$specific[,1])
-    
-    shs <- all.sh[shared]
-    sps <- all.sp[sp,]
-    panelPomp(as(object,"list"),shared=shs,specific=sps)
-  }
-)
+panelPomp <- function (object, shared = numeric(0),
+                       specific = array(numeric(0), dim = c(0,0)),
+                       params = list(shared = shared, specific = specific)) {
+  # Error prefix
+  ep <- sQuotes("in 'panelPomp': ")
+  if (missing(object)) stop(sQuotes(ep,"'object' is a required argument"),
+                            call.=FALSE)
+  if (!all(sapply(as(object,"list"),is,"pomp"))) 
+    stop(sQuotes(ep,"'object' must be a list of 'pomp' objects."),
+         call.=FALSE)
+  if (!missing(shared) && !missing(specific) && !missing(params)) 
+    stop(sQuotes(ep,"specify either 'params' only, 'params' and 'shared', ",
+                 "or 'params' and 'specific'."),call.=FALSE)
+  pParams <- params
+  if (!missing(shared)) pParams$shared <- shared
+  if (!missing(specific)) pParams$specific <- specific
+  panelPomp.internal(pompList=object,pParams=pParams)
+}
