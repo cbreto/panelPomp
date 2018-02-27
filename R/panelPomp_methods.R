@@ -3,8 +3,9 @@
 #' @include panelPomp.R
 NULL
 
+#' @name panelPomp_methods
+#' @docType methods
 #' @title Manipulating \code{panelPomp} objects
-#' @name panelPomp-methods
 #' @description Tools for manipulating \code{panelPomp} objects.
 #' @param object,x An object of class \code{panelPomp} or inheriting class 
 #' \code{panelPomp}.
@@ -20,7 +21,7 @@ NULL
 #'   \item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
 #'   \item{length}{Count the number of units in \code{panelPomp} objects.}
 #'   \item{names}{Get the unit names of \code{panelPomp} objects.}
-#'   \item{pParams}{Extracts coefficients from the \code{pParams} slot of 
+#'   \item{pparams}{Extracts coefficients from the \code{pParams} slot of 
 #'   \code{panelPomp} objects.}
 #'   \item{unitobjects}{Extracts \code{pomp} objects from \code{panelPomp} 
 #'   objects.}
@@ -31,7 +32,7 @@ NULL
 #' @family panelPomp methods
 NULL
 
-#' @rdname panelPomp-methods
+#' @rdname panelPomp_methods
 #' @export
 setMethod(
   "coef",
@@ -48,7 +49,7 @@ setMethod(
   }
 )
 
-#' @rdname panelPomp-methods
+#' @rdname panelPomp_methods
 #' @export
 setMethod(
   "coef<-",
@@ -71,19 +72,7 @@ setMethod(
   }
 )
 
-## 'coerce' method: allows for coercion of a "panelPomp" object to a list
-#' Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.
-#'
-#' Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.
-#'
-#' Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.
-#'
-#' @name as
-#' @family panelPomp
-#'
-setAs(from="panelPomp",to="list",def = function (from) from@unit.objects)
-
-#' @rdname panelPomp-methods
+#' @rdname panelPomp_methods
 #' @export
 setMethod(
   "length",
@@ -91,16 +80,23 @@ setMethod(
   definition = function (x) length(unitobjects(x))
 )
 
-#' @rdname panelPomp-methods
+#' @rdname panelPomp_methods
 #' @export
-#'
 setMethod(
   "names",
   signature=signature(x="panelPomp"),
   definition = function (x) names(x@unit.objects)
 )
 
-#' @rdname panelPomp-methods
+#' @rdname panelPomp_methods
+#' @export
+setMethod(
+  "pparams",
+  signature=signature(object="panelPomp"),
+  definition = function (object) slot(object,"pParams")
+)
+
+#' @rdname panelPomp_methods
 #' @export
 setMethod(
   f = "unitobjects",
@@ -115,7 +111,7 @@ setMethod(
   }
 )
 
-#' @rdname panelPomp-methods
+#' @rdname panelPomp_methods
 #' @export
 setMethod(
   f = "window",
@@ -130,3 +126,12 @@ setMethod(
     )
   }
 )
+
+## "@rdname panelPomp_methods" doesn't seem to work with setAs()
+## coerce method
+#' @title Coercing \code{panelPomp} objects as a \code{list}
+#' @description Extracts the \code{unit.objects} slot of \code{panelPomp} 
+#' objects.
+#' @name as
+#' @family panelPomp methods
+setAs(from="panelPomp",to="list",def = function (from) from@unit.objects)

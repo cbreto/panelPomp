@@ -2,10 +2,11 @@
 % Please edit documentation in R/panelPomp_methods.R
 \name{as}
 \alias{as}
-\title{Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.}
+\title{Coersing \code{panelPomp} objects as a \code{list}}
 \description{
-Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.
+Extracts the \code{unit.objects} slot of \code{panelPomp} 
+objects.
 }
-\details{
-Extract \code{unit.objects} slot of \code{panelPomp} objects as a \code{list}.
+\seealso{
+Other panelPomp methods: \code{\link{panelPomp_methods}}
 }

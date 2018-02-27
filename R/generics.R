@@ -10,9 +10,18 @@ NULL
 #' @param object object.
 #' @param ... Additional arguments.
 #' @export
-## basic ppomp constructor
 setGeneric(name = "panelPomp",
            def = function(object, ...) standardGeneric("panelPomp"))
+
+#' @title \code{pParams} generic.
+#' @description \code{pParams} generic function.
+#' @details This is a generic function: methods can be defined for it.
+#' @keywords internal
+#' @param object object.
+#' @param ... Additional arguments.
+#' @export
+setGeneric(name = "pparams",
+           def = function(object, ...) standardGeneric("pparams"))
 
 #' @title \code{unitobjects} generic.
 #' @description \code{unitobjects} generic.
@@ -21,7 +30,6 @@ setGeneric(name = "panelPomp",
 #' @param object object.
 #' @param ... Additional arguments.
 #' @export
-## slot extractors: ppomp class
 setGeneric(name = "unitobjects",
            def = function(object, ...) standardGeneric("unitobjects"))
 
@@ -32,6 +40,5 @@ setGeneric(name = "unitobjects",
 #' @param object object.
 #' @param ... Additional arguments.
 #' @export
-## slot extractors: ppomp class
 setGeneric(name = "unitlogLik",
            def = function(object, ...) standardGeneric("unitlogLik"))
