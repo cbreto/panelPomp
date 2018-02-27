@@ -16,7 +16,8 @@ NULL
 #' be set to shared. Parameters that were not originally shared are copied from 
 #' the specific parameters from the first panel unit (in the second case, it 
 #' defaults to \code{NULL}, which implies all parameters are specific).
-#' @param specific a \code{matrix} with parameters on named rows and panel units on named columns.
+#' @param specific a \code{matrix} with parameters on named rows and panel 
+#' units on named columns.
 #' @param params optional; a list with (named) 'shared' and 'specific' elements.
 #' @references \breto2017
 #' 
@@ -39,7 +40,7 @@ setClass(
   ),
   validity=function (object) {
     retval <- character(0)
-    # check that mandatory arguments have the required format
+    ## check that mandatory arguments have the required format
     if (!all(sapply(object@unit.objects,is,"pomp"))) {
       retval <- append(retval, sQuotes("'unit.objects' must be a list of ",
                                        "'pomp' objects (validity check)"))
@@ -57,7 +58,7 @@ setClass(
         }
       }
     }
-    # check that optional arguments have the required format
+    ## check that optional arguments have the required format
     if (!identical(list(), object@pParams)) {
       if (!is.list(object@pParams)) {
         retval <- append(
@@ -135,7 +136,7 @@ setClass(
 
 panelPomp.internal <- function(pompList,pParams,
                                verbose=getOption("verbose",FALSE)) {
-  # If needed, fix validity checks on 'pParams$specific'
+  ## If needed, fix validity checks on 'pParams$specific'
   if (identical(pParams$specific,array(numeric(0),dim=c(0,0)))) {
     pParams$specific <- array(
       numeric(0),
@@ -151,18 +152,56 @@ panelPomp.internal <- function(pompList,pParams,
 panelPomp <- function (object, shared = numeric(0),
                        specific = array(numeric(0), dim = c(0,0)),
                        params = list(shared = shared, specific = specific)) {
-  # Error prefix
+  ## Error prefix
   ep <- sQuotes("in 'panelPomp': ")
-  if (missing(object)) stop(sQuotes(ep,"'object' is a required argument"),
-                            call.=FALSE)
-  if (!all(sapply(as(object,"list"),is,"pomp"))) 
-    stop(sQuotes(ep,"'object' must be a list of 'pomp' objects."),
-         call.=FALSE)
+  if (missing(object)) 
+    stop(sQuotes(ep,"'object' is a required argument."),call.=FALSE)
   if (!missing(shared) && !missing(specific) && !missing(params)) 
-    stop(sQuotes(ep,"specify either 'params' only, 'params' and 'shared', ",
-                 "or 'params' and 'specific'."),call.=FALSE)
-  pParams <- params
-  if (!missing(shared)) pParams$shared <- shared
-  if (!missing(specific)) pParams$specific <- specific
-  panelPomp.internal(pompList=object,pParams=pParams)
+    stop(sQuotes(ep,"do not specify all of 'params', 'shared' and 'specific'."),
+         call.=FALSE)
+  
+  if (is(object,"panelPomp")) {
+    ## if character 'shared': make them shared and make the rest specific
+    ## if NULL 'shared': make all specific
+    if (!missing(shared) && (is.character(shared)) || is.null(shared)) {
+      ## modify the panelPomp
+      parnames <- c(names(object@pParams$shared),row.names(object@pParams$sp))
+      stopifnot(all(shared%in%parnames))
+      sp <- parnames[!parnames%in%shared]
+      ## make matrix from object@pParams$sh to be rbind()d to object@pParams$sp
+      sh0 <- names(object@pParams$shared)
+      not.in.sp0 <- matrix(
+        object@pParams$shared,nrow=length(sh0),ncol=length(object),
+        dimnames=list(sh0,names(object))
+      )
+      all.sp <- rbind(object@pParams$specific,not.in.sp0)
+      stopifnot(!as.logical(anyDuplicated(row.names(all.sp))))
+      ## make vector from object@pParams$sp[1,] to be c()d to object@pParams$sh
+      all.sh <- c(object@pParams$shared,object@pParams$specific[,1])
+      pParams <- list(shared=all.sh[shared],specific=all.sp[sp,])
+      if (is.null(shared)) pParams$shared <- numeric()
+    } else {
+      pParams <- params
+      if (!missing(shared)) pParams$shared <- shared
+      if (!missing(specific)) pParams$specific <- specific
+    }
+  } else {## is(object,"pompList")) should be TRUE!
+    ## construct a panelPomp
+    if (!all(sapply(as(object,"list"),is,"pomp"))) 
+      stop(sQuotes(ep,"'object' must be a either a 'panelPomp' object or a ",
+                   "list of 'pomp' objects."),
+           call.=FALSE)
+    ## if no parameters explicitely provided, make all parameters unit-specific
+    ## and equal to value from pomps
+    if (missing(shared) && missing(specific) && missing(params)) {
+      pParams <- list(shared=numeric(),specific=sapply(object,coef))
+    } else {## use if provided at least one of params, shared or specific
+      pParams <- params
+      if (!missing(shared)) pParams$shared <- shared
+      if (!missing(specific)) pParams$specific <- specific
+    }
+  }
+  panelPomp.internal(
+    pompList=if (is(object,"panelPomp")) unitobjects(object) else object,
+    pParams=pParams)
 }

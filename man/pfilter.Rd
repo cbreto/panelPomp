@@ -26,7 +26,8 @@ be set to shared. Parameters that were not originally shared are copied from
 the specific parameters from the first panel unit (in the second case, it 
 defaults to \code{NULL}, which implies all parameters are specific).}
 
-\item{specific}{a \code{matrix} with parameters on named rows and panel units on named columns.}
+\item{specific}{a \code{matrix} with parameters on named rows and panel 
+units on named columns.}
 
 \item{params}{optional; a list with (named) 'shared' and 'specific' elements.}
 

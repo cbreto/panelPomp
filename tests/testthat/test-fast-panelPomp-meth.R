@@ -163,18 +163,6 @@ test_that(
   }
 )
 
-
-#context("Test panelPomp()")
-#test_that(
-#  "panelPomp() fails to redefine an existing panelPomp object",
-#  {
-#    res <- try(panelPomp(pg,shared=c("r","sigma")),silent=TRUE)
-#    expect_true(class(res)=="panelPomp")
-#    expect_true(identical(names(res@pParams$shared),c("r","sigma")))
-#  }
-#)
-
-
 context("Test pfilter()")
 test_that(
   "pfilter stop fails for missing shared",
