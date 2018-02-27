@@ -5,7 +5,8 @@ NULL
 
 #' @title Particle filtering for panel data
 #' @description Tools for applying particle filtering algorithms to panel data.
-#' @param object An object of class \code{panelPomp} or inheriting class \code{panelPomp}.
+#' @param object An object of class \code{panelPomp} or inheriting class 
+#' \code{panelPomp}.
 #' @name pfilter
 #' @section Methods:
 #' \describe{

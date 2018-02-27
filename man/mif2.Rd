@@ -69,9 +69,7 @@ documentation inherited from 'pomp' package).}
     logical; if TRUE, print progress reports.
   }
 
-\item{...}{
-    additional arguments that override the defaults.
-  }
+\item{...}{....}
 }
 \description{
 Tools for applying iterated filtering algorithms to panel data.

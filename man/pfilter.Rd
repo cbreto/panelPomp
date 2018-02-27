@@ -17,7 +17,8 @@
 \S4method{unitlogLik}{pfilterd.ppomp}(object, ...)
 }
 \arguments{
-\item{object}{An object of class \code{panelPomp} or inheriting class \code{panelPomp}.}
+\item{object}{An object of class \code{panelPomp} or inheriting class 
+\code{panelPomp}.}
 
 \item{shared}{either (matching the \code{object} argument above) (i) a named 
 \code{numeric vector}; or (ii) a character vector of names for parameters to 

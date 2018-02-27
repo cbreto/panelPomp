@@ -5,15 +5,24 @@ NULL
 
 #' @title Manipulating \code{panelPomp} objects
 #' @name panelPomp-methods
-#' @description Tools for applying particle filtering algorithms to panel data.
-#' @param object An object of class \code{panelPomp} or inheriting class 
+#' @description Tools for manipulating \code{panelPomp} objects.
+#' @param object,x An object of class \code{panelPomp} or inheriting class 
 #' \code{panelPomp}.
+#' @param start,end position in original \code{times(pomp)} at which to start 
+#' @param U how many units to keep (starting from the first).
+#' and end the window.
+#' @param value value.
+#' @param ... ....
 #' @section Methods:
 #' \describe{
 #'   \item{coef}{Extracts coefficients of \code{panelPomp} objects.}
+#'   \item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
 #'   \item{pParams}{Extracts coefficients from the \code{pParams} slot of 
 #'   \code{panelPomp} objects.}
+#'   \item{window}{Subset \code{panelPomp} objects by changing start time, 
+#'   end time, and number of units.}
 #'   }
+#' @author Carles Breto and Aaron A. King.
 #' @family panelPomp methods
 NULL
 
@@ -34,13 +43,7 @@ setMethod(
   }
 )
 
-## 'coef<-' method for panelPomp signature
-#' @title 'coef<-' method for panelPomp signature.
-#' @description 'coef<-' method for panelPomp signature.
-#' @param object A \code{panelPomp} object.
-#' @param ... ....
-#' @param value value.
-#' @author Carles Breto and Aaron A. King.
+#' @rdname panelPomp-methods
 #' @export
 setMethod(
   "coef<-",
@@ -135,21 +138,10 @@ setMethod(
       return(object@unit.objects[unitname][[1]])
     }
   }
-)# END setMethod
+)
 
-
-
-#' Subset panelPomp objects by changing start time, end time, and number of units.
-#'
-#' Subset panelPomp objects by changing start time, end time, and number of units.
-#'
-#' @param x panelPomp object.
-#' @param U how many units to keep (starting from the first).
-#' @param start position in original \code{times(pomp)} at which to start the window.
-#' @param end position in original \code{time(pomp)} at which to end the window.
-#'
+#' @rdname panelPomp-methods
 #' @export
-#'
 setMethod(
   f = "window",
   signature = signature(x = "panelPomp"),

@@ -4,23 +4,44 @@
 \name{panelPomp-methods}
 \alias{panelPomp-methods}
 \alias{coef,panelPomp-method}
+\alias{coef<-,panelPomp-method}
+\alias{window,panelPomp-method}
 \title{Manipulating \code{panelPomp} objects}
 \usage{
 \S4method{coef}{panelPomp}(object)
+
+\S4method{coef}{panelPomp}(object, ...) <- value
+
+\S4method{window}{panelPomp}(x, U, start, end)
 }
 \arguments{
-\item{object}{An object of class \code{panelPomp} or inheriting class 
+\item{object, x}{An object of class \code{panelPomp} or inheriting class 
 \code{panelPomp}.}
+
+\item{...}{....}
+
+\item{value}{value.}
+
+\item{U}{how many units to keep (starting from the first).
+and end the window.}
+
+\item{start, end}{position in original \code{times(pomp)} at which to start}
 }
 \description{
-Tools for applying particle filtering algorithms to panel data.
+Tools for manipulating \code{panelPomp} objects.
 }
 \section{Methods}{
 
 \describe{
   \item{coef}{Extracts coefficients of \code{panelPomp} objects.}
+  \item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
   \item{pParams}{Extracts coefficients from the \code{pParams} slot of 
   \code{panelPomp} objects.}
+  \item{window}{Subset \code{panelPomp} objects by changing start time, 
+  end time, and number of units.}
   }
 }
 
+\author{
+Carles Breto and Aaron A. King.
+}
