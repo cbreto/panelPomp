@@ -45,10 +45,29 @@ Loading required package: pomp
 > PASSES#?
 [1] TRUE
 > c(TESTS_PASS,
-+   try(panelPomp(pos,sh=pPs$shared,sp=pPs$sp,params=pPs),silent=TRUE)[1]==sQuotes(
-+     "Error : in 'panelPomp': specify either 'params' only, 'params' and ",
-+     "'shared', or 'params' and 'specific'.\n") -> PASSES#?
++   try(panelPomp(pos,sh=2*pPs$sh,sp=2*pPs$sp,params=pPs),silent=TRUE)[1]==
++     sQuotes("Error : in 'panelPomp': specify either 'params' only, 'params' ",
++             "and 'shared', or 'params' and 'specific'.\n") -> PASSES#?
 + ) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> # does panelPomp replace shared and specific parameters as expected?
+> c(TESTS_PASS,identical(panelPomp(pos,sh=2*pPs$sh,par=pPs)@pParams$sh,2*pPs$sh
++ ) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> c(TESTS_PASS,
++   identical(panelPomp(pos,sh=pPs$sh,par=lapply(pPs,`*`,2))@pParams$sp,2*pPs$sp
++   ) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> c(TESTS_PASS,identical(panelPomp(pos,sp=2*pPs$sp,par=pPs)@pParams$sp,2*pPs$sp
++ ) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> c(TESTS_PASS,
++   identical(panelPomp(pos,sp=pPs$sp,par=lapply(pPs,`*`,2))@pParams$sh,2*pPs$sh
++   ) -> PASSES) -> TESTS_PASS
 > PASSES#?
 [1] TRUE
 > 
