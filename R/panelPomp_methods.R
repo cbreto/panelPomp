@@ -11,14 +11,19 @@ NULL
 #' @param start,end position in original \code{times(pomp)} at which to start 
 #' @param U how many units to keep (starting from the first).
 #' and end the window.
-#' @param value value.
+#' @param unitname name of panel unit to be manipulated.
+#' @param value value to be assigned.
 #' @param ... ....
 #' @section Methods:
 #' \describe{
 #'   \item{coef}{Extracts coefficients of \code{panelPomp} objects.}
 #'   \item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
+#'   \item{length}{Count the number of units in \code{panelPomp} objects.}
+#'   \item{names}{Get the unit names of \code{panelPomp} objects.}
 #'   \item{pParams}{Extracts coefficients from the \code{pParams} slot of 
 #'   \code{panelPomp} objects.}
+#'   \item{unitobjects}{Extracts \code{pomp} objects from \code{panelPomp} 
+#'   objects.}
 #'   \item{window}{Subset \code{panelPomp} objects by changing start time, 
 #'   end time, and number of units.}
 #'   }
@@ -78,35 +83,15 @@ setMethod(
 #'
 setAs(from="panelPomp",to="list",def = function (from) from@unit.objects)
 
-
-### length method for panelPomp signature
-#' Count the number of units in the \code{unitobjects} slot of \code{panelPomp} objects.
-#'
-#' Count the number of units in the \code{unitobjects} slot of \code{panelPomp} objects.
-#'
-#' Count the number of units in the \code{unitobjects} slot of \code{panelPomp} objects.
-#'
-# Can't @inheritParams coef because coef's argument is "object" not "x" (which is length's argument)
-#' @param x A \code{panelPomp} object.
-#'
+#' @rdname panelPomp-methods
 #' @export
-#'
 setMethod(
   "length",
   signature=signature(x="panelPomp"),
   definition = function (x) length(unitobjects(x))
 )
 
-### names method for panelPomp signature
-#' Get the unit names of a \code{panelPomp} objects.
-#'
-#' Get the unit names of a \code{panelPomp} objects.
-#'
-#' S4 method.
-#'
-# Can't @inheritParams coef because coef's argument is "object" not "x" (which is length's argument)
-#' @param x A \code{panelPomp} object.
-#'
+#' @rdname panelPomp-methods
 #' @export
 #'
 setMethod(
@@ -115,18 +100,8 @@ setMethod(
   definition = function (x) names(x@unit.objects)
 )
 
-### unitobjects method for panelPomp signature
-#' Extract individual \code{pomp} objects from \code{panelPomp} objects.
-#'
-#' S4 method
-#'
-#' S4 method.
-#'
-#' @param object A \code{panelPomp} object.
-#' @param unitname unitname.
-#'
+#' @rdname panelPomp-methods
 #' @export
-#'
 setMethod(
   f = "unitobjects",
   signature = signature(object = "panelPomp"),
