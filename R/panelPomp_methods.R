@@ -3,11 +3,21 @@
 #' @include panelPomp.R
 NULL
 
-## 'coef' method for panelPomp signature
-#' @title Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
-#' @description Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
-#' @details Extract coefficients from the \code{pParams} slot of \code{panelPomp} objects.
-#' @param object A \code{panelPomp} object.
+#' @title Manipulating \code{panelPomp} objects
+#' @name panelPomp-methods
+#' @description Tools for applying particle filtering algorithms to panel data.
+#' @param object An object of class \code{panelPomp} or inheriting class 
+#' \code{panelPomp}.
+#' @section Methods:
+#' \describe{
+#'   \item{coef}{Extracts coefficients of \code{panelPomp} objects.}
+#'   \item{pParams}{Extracts coefficients from the \code{pParams} slot of 
+#'   \code{panelPomp} objects.}
+#'   }
+#' @family panelPomp methods
+NULL
+
+#' @rdname panelPomp-methods
 #' @export
 setMethod(
   "coef",

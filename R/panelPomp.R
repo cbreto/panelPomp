@@ -3,7 +3,7 @@
 #' @include panel_logmeanexp.R
 NULL
 
-#' @title Constructor of panelPomp objects
+#' @title Constructing \code{panelPomp} objects
 #' @name panelPomp
 #' @description This function constructs a \code{panelPomp} object. It also 
 #' redefine shared/specific configuration of a \code{panelPomp} object.

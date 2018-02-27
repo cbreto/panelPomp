@@ -7,7 +7,7 @@
 \alias{pfilter,panelPomp-method}
 \alias{logLik,pfilterd.ppomp-method}
 \alias{unitlogLik,pfilterd.ppomp-method}
-\title{Panel particle filter}
+\title{Particle filtering for panel data}
 \usage{
 \S4method{pfilter}{panelPomp}(object, shared, specific, params, Np,
   tol = 1e-17, verbose = getOption("verbose"), ...)
