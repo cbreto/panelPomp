@@ -114,15 +114,17 @@ setMethod(
 #' @rdname panelPomp_methods
 #' @export
 setMethod(
-  f = "window",
-  signature = signature(x = "panelPomp"),
-  definition = function (x, U, start, end) {
-    panelPomp(lapply(as(x, "list")[1:U],
-                     FUN = window,
-                     start = time(as(x, "list")[[1]])[start],
-                     end = time(as(x, "list")[[1]])[end]),
-              shared = x@pParams$shared,
-              specific = x@pParams$specific[, 1:U]
+  "window",
+  signature=signature(x="panelPomp"),
+  definition=function (x, U, start, end) {
+    if (missing(U)) U <- length(x)
+    po <- as(x,"list")[[1]]
+    if (missing(start)) start <- 1
+    if (missing(end)) end <- length(time(po))
+    panelPomp(
+      lapply(as(x,"list")[1:U],FUN=window,start=time(po)[start],
+             end=time(po)[end]),
+      shared=x@pParams$shared,specific=x@pParams$specific[,1:U,drop=FALSE]
     )
   }
 )

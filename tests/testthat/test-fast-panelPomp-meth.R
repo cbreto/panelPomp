@@ -281,26 +281,3 @@ test_that(
     )
   }
 )
-
-
-context("Test unitobjects()")
-test_that(
-  "unitobjects returns specified unit",
-  {
-    res <- try(unitobjects(object = pg, unit = "unit1"), silent = TRUE)
-    expect_true(object = identical(x = is(res), y = "pomp"))
-  }
-)
-
-
-context("Test window()")
-test_that(
-  "window fails",
-  {
-    U <- 3; start <- 1; end <- 2
-    res <- try(window(pg,U=U,start=start,end=end),silent=TRUE)
-    expect_true(class(res)=="panelPomp")
-    expect_true(length(res)==U)
-    expect_true(length(time(as(res,"list")[[1]]))==(end-start+1))
-  }
-)

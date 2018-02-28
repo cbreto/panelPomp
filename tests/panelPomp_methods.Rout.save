@@ -1,0 +1,91 @@
+
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(panelPomp)
+Loading required package: pomp
+> 
+> TESTS_PASS <- NULL
+> 
+> ppo <- pompExample(prw,envir=NULL)[[1]]
+> pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
++             specific=matrix(c(0,0.1),nr=1,
++                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
+> ppo <- new("panelPomp",unit.objects=unitobjects(ppo),pParams=pP2)
+> 
+> # coef,panelPomp-method
+> c(TESTS_PASS,identical(coef(ppo),setNames(c(1,2,0,0.1),c("sigmaX","sigmaY",
++   sprintf("X.0[rw1]"),sprintf("X.0[rw2]")))) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> # coef<-,panelPomp-method
+> # length,panelPomp-method
+> c(TESTS_PASS,(length(ppo)==2) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> # names,panelPomp-method
+> c(TESTS_PASS,identical(names(ppo),c("rw1","rw2")) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> # pparams,panelPomp-method
+> c(TESTS_PASS,identical(pparams(ppo),pP2) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> # unitobjects,panelPomp-method
+> c(TESTS_PASS,identical(unitobjects(ppo),ppo@unit.objects) -> PASSES
++ ) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> c(TESTS_PASS,identical(unitobjects(ppo,unit="rw1"),ppo@unit.objects[["rw1"]]
++ ) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> # window,panelPomp-method
+> c(TESTS_PASS,(length(window(ppo,U=1))==1) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> c(TESTS_PASS,identical(
++   coef(window(ppo,U=1)),
++   setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]")))) -> PASSES
++ ) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> c(TESTS_PASS,identical(
++   lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4),rw2=c(2,3,4))
++   ) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> c(TESTS_PASS,identical(
++   lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2))
++ ) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> c(TESTS_PASS,(length(window(ppo,U=1,start=1,end=2))==1) -> PASSES
++ ) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> c(TESTS_PASS,identical(
++   lapply(as(window(ppo,U=1,start=1,end=2),"list"),time),list(rw1=c(1,2))
++ ) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> 
+> stopifnot(all(TESTS_PASS))
+> all(TESTS_PASS)#?
+[1] TRUE
+> 
