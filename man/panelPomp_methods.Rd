@@ -23,7 +23,7 @@
 
 \S4method{pparams}{panelPomp}(object)
 
-pParams(value, ppo)
+pParams(value, object)
 
 \S4method{unitobjects}{panelPomp}(object, unitname)
 

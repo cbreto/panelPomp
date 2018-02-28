@@ -98,20 +98,20 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @export
-pParams <- function (value,ppo) {
+pParams <- function (value,object) {
   ep <- "in 'pParams': "
   nn <- grep("^.+\\[.+?\\]$",names(value),perl=TRUE,value=TRUE)
   pp <- sub(pattern="^(.+?)\\[.+?\\]$",replacement="\\1",x=nn,perl=TRUE)
-  uU <- names(ppo)
+  uU <- names(object)
   pU <- sort(unique(pp))
   ## check name validity
-  if (!identical(character(0),setdiff(pU,rownames(ppo@pParams$specific)))) 
+  if (!identical(character(0),setdiff(pU,rownames(object@pParams$specific)))) 
     stop(sQuotes("some values in 'value' are being ignored."),
          call.=FALSE)
   pParams <- list(shared=numeric(),specific=NULL)
   pParams$specific <- array(dim=c(length(pU),length(uU)),
                             dimnames=list(param=pU,unit=uU))
-  pvec <- setNames(numeric(length(ppo@pParams$specific)),
+  pvec <- setNames(numeric(length(object@pParams$specific)),
                    outer(pU,uU,sprintf,fmt="%s[%s]"))
   unitpar <- intersect(names(value),names(pvec))
   sharedpar <- setdiff(names(value),unitpar)
@@ -119,7 +119,7 @@ pParams <- function (value,ppo) {
   pParams$specific[,] <- pvec
   pParams$shared <- value[sort(sharedpar)]
   ## is pParams compatible with object?
-  tryCatch(panelPomp(unitobjects(ppo),pParams=pParams),
+  tryCatch(panelPomp(unitobjects(object),params=pParams),
            error=function (e) {stop(ep,conditionMessage(e),call.=FALSE)})
   pParams
 }
