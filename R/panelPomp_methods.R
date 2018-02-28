@@ -98,6 +98,34 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @export
+pParams <- function (value,ppo) {
+  ep <- "in 'pParams': "
+  nn <- grep("^.+\\[.+?\\]$",names(value),perl=TRUE,value=TRUE)
+  pp <- sub(pattern="^(.+?)\\[.+?\\]$",replacement="\\1",x=nn,perl=TRUE)
+  uU <- names(ppo)
+  pU <- sort(unique(pp))
+  ## check name validity
+  if (!identical(character(0),setdiff(pU,rownames(ppo@pParams$specific)))) 
+    stop(sQuotes("some values in 'value' are being ignored."),
+         call.=FALSE)
+  pParams <- list(shared=numeric(),specific=NULL)
+  pParams$specific <- array(dim=c(length(pU),length(uU)),
+                            dimnames=list(param=pU,unit=uU))
+  pvec <- setNames(numeric(length(ppo@pParams$specific)),
+                   outer(pU,uU,sprintf,fmt="%s[%s]"))
+  unitpar <- intersect(names(value),names(pvec))
+  sharedpar <- setdiff(names(value),unitpar)
+  pvec[unitpar] <- value[unitpar]
+  pParams$specific[,] <- pvec
+  pParams$shared <- value[sort(sharedpar)]
+  ## is pParams compatible with object?
+  tryCatch(panelPomp(unitobjects(ppo),pParams=pParams),
+           error=function (e) {stop(ep,conditionMessage(e),call.=FALSE)})
+  pParams
+}
+
+#' @rdname panelPomp_methods
+#' @export
 setMethod(
   f = "unitobjects",
   signature = signature(object = "panelPomp"),

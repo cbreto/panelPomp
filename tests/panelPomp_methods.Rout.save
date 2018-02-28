@@ -46,6 +46,27 @@ Loading required package: pomp
 > c(TESTS_PASS,identical(pparams(ppo),pP2) -> PASSES) -> TESTS_PASS
 > PASSES#?
 [1] TRUE
+> c(TESTS_PASS,identical(pParams(coef(ppo),ppo),pP2) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
+> #c(TESTS_PASS,
+> #  try(
+> #    pParams(setNames(c(coef(ppo),5),c(names(coef(ppo)),sprintf("x[rw1]"))),ppo),
+> #    silent=TRUE)[1]==sQuotes(
+> #      "Error : in 'pParams': some values in 'value' are being ignored.\n"
+> #      ) -> PASSES#?
+> #) -> TESTS_PASS
+> #PASSES#?
+> #c(TESTS_PASS,
+> #  try(
+> #    pParams(setNames(c(coef(ppo),5),c(names(coef(ppo)),sprintf("X.0[x]"))),ppo),
+> #    silent=TRUE)[1]==sQuotes(
+> #      Error: in 'pParams': invalid class “panelPomp” object: All parameters in the pomp objects of ‘unit.objects’ slot must be in ‘pParams’ and viceversa (validity check)
+> #      
+> #      "Error : in 'pParams': some values in 'value' are being ignored.\n"
+> #    ) -> PASSES#?
+> #) -> TESTS_PASS
+> #PASSES#?
 > # unitobjects,panelPomp-method
 > c(TESTS_PASS,identical(unitobjects(ppo),ppo@unit.objects) -> PASSES
 + ) -> TESTS_PASS

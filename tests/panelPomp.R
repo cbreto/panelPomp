@@ -9,8 +9,9 @@ pPs <- ppo@pParams
 
 pog <- pompExample(gompertz,envir=NULL)[[1]]
 
-# test validity function
+# test panelPomp class (validity function)
 
+# test panelPomp function
 c(TESTS_PASS,
   try(panelPomp(),silent=TRUE)[1]==sQuotes(
     "Error : in 'panelPomp': 'object' is a required argument.\n") -> PASSES#?
@@ -28,7 +29,6 @@ c(TESTS_PASS,
             " and 'specific'.\n") -> PASSES#?
 ) -> TESTS_PASS
 PASSES#?
-## does panelPomp construct objects as expected?
 ## object = pompList
 c(TESTS_PASS,identical(
   panelPomp(pos)@pParams,
@@ -49,13 +49,19 @@ c(TESTS_PASS,
   ) -> PASSES) -> TESTS_PASS
 PASSES#?
 ## object = pomp
+c(TESTS_PASS,
+  try(panelPomp(ppo,sh="sigmaX",params=pPs),silent=TRUE)[1]==
+    sQuotes("Error : in 'panelPomp': if 'shared' is a character vector (or ",
+            "NULL), unit specific parameters are taken from 'object'.\n"
+    ) -> PASSES) -> TESTS_PASS
+PASSES#?
 c(TESTS_PASS,identical(
-  panelPomp(ppo,shared="sigmaX")@pParams,
+  panelPomp(ppo,sh="sigmaX")@pParams,
   list(shared=pPs$sh["sigmaX"],specific=rbind(sigmaY=pPs$sh["sigmaY"],pPs$sp))
   ) -> PASSES) -> TESTS_PASS
 PASSES#?
 c(TESTS_PASS,identical(
-  panelPomp(ppo,shared=NULL)@pParams,
+  panelPomp(ppo,sh=NULL)@pParams,
   list(shared=numeric(),
        specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp))
 ) -> PASSES) -> TESTS_PASS

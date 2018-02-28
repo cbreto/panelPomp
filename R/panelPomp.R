@@ -164,7 +164,11 @@ panelPomp <- function (object, shared = numeric(0),
     ## if character 'shared': make them shared and make the rest specific
     ## if NULL 'shared': make all specific
     if (!missing(shared) && (is.character(shared)) || is.null(shared)) {
-      ## modify the panelPomp
+      if (!missing(specific) || !missing(params)) 
+        stop(sQuotes(ep,"if 'shared' is a character vector (or NULL), unit ",
+                     "specific parameters are taken from 'object'."),
+             call.=FALSE)
+      ## modify the panelPomp object
       parnames <- c(names(object@pParams$shared),row.names(object@pParams$sp))
       stopifnot(all(shared%in%parnames))
       sp <- parnames[!parnames%in%shared]
@@ -179,8 +183,10 @@ panelPomp <- function (object, shared = numeric(0),
       ## make vector from object@pParams$sp[1,] to be c()d to object@pParams$sh
       all.sh <- c(object@pParams$shared,object@pParams$specific[,1])
       pParams <- list(shared=all.sh[shared],specific=all.sp[sp,])
-      if (is.null(shared)) pParams$shared <- numeric()
+      if (is.null(shared)) pParams$shared <- numeric() ## if NULL, remove names
     } else {
+      ## check for params format
+      ##if (is.numeric(params)) params <- pParams(params)
       pParams <- params
       if (!missing(shared)) pParams$shared <- shared
       if (!missing(specific)) pParams$specific <- specific

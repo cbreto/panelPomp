@@ -8,6 +8,7 @@
 \alias{length,panelPomp-method}
 \alias{names,panelPomp-method}
 \alias{pparams,panelPomp-method}
+\alias{pParams}
 \alias{unitobjects,panelPomp-method}
 \alias{window,panelPomp-method}
 \title{Manipulating \code{panelPomp} objects}
@@ -21,6 +22,8 @@
 \S4method{names}{panelPomp}(x)
 
 \S4method{pparams}{panelPomp}(object)
+
+pParams(value, ppo)
 
 \S4method{unitobjects}{panelPomp}(object, unitname)
 

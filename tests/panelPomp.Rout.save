@@ -1,7 +1,7 @@
 
-R version 3.3.3 (2017-03-06) -- "Another Canoe"
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
 Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin13.4.0 (64-bit)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -29,8 +29,9 @@ Loading required package: pomp
 > 
 > pog <- pompExample(gompertz,envir=NULL)[[1]]
 > 
-> # test validity function
+> # test panelPomp class (validity function)
 > 
+> # test panelPomp function
 > c(TESTS_PASS,
 +   try(panelPomp(),silent=TRUE)[1]==sQuotes(
 +     "Error : in 'panelPomp': 'object' is a required argument.\n") -> PASSES#?
@@ -51,7 +52,6 @@ Loading required package: pomp
 + ) -> TESTS_PASS
 > PASSES#?
 [1] TRUE
-> ## does panelPomp construct objects as expected?
 > ## object = pompList
 > c(TESTS_PASS,identical(
 +   panelPomp(pos)@pParams,
@@ -77,14 +77,21 @@ Loading required package: pomp
 > PASSES#?
 [1] TRUE
 > ## object = pomp
+> c(TESTS_PASS,
++   try(panelPomp(ppo,sh="sigmaX",params=pPs),silent=TRUE)[1]==
++     sQuotes("Error : in 'panelPomp': if 'shared' is a character vector (or ",
++             "NULL), unit specific parameters are taken from 'object'.\n"
++     ) -> PASSES) -> TESTS_PASS
+> PASSES#?
+[1] TRUE
 > c(TESTS_PASS,identical(
-+   panelPomp(ppo,shared="sigmaX")@pParams,
++   panelPomp(ppo,sh="sigmaX")@pParams,
 +   list(shared=pPs$sh["sigmaX"],specific=rbind(sigmaY=pPs$sh["sigmaY"],pPs$sp))
 +   ) -> PASSES) -> TESTS_PASS
 > PASSES#?
 [1] TRUE
 > c(TESTS_PASS,identical(
-+   panelPomp(ppo,shared=NULL)@pParams,
++   panelPomp(ppo,sh=NULL)@pParams,
 +   list(shared=numeric(),
 +        specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp))
 + ) -> PASSES) -> TESTS_PASS

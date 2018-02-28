@@ -3,6 +3,7 @@
 export(fromVectorPparams)
 export(get_col)
 export(get_row)
+export(pParams)
 export(panelPomp)
 export(panel_logmeanexp)
 export(pparams)
