@@ -341,9 +341,10 @@ setMethod(
                          tol = 1e-17,
                          verbose = getOption("verbose"), 
                          ...) {
-    
     ep <- paste0("in ", sQuote("mif2"), ": ")
     et <- paste0(" (", sQuote("mif2,panelPomp-method"), ")")
+    ## check for start (i.e., params) format
+    if (!missing(start) && is.numeric(start)) start <- pParams(start)
     
     if (!missing(shared.start)&&!missing(specific.start)&&!missing(start)) 
       stop(ep,"specify either ",sQuote("start")," only, ",sQuote("start"),

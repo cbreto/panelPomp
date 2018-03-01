@@ -40,24 +40,18 @@ setClass(
 )
 
 # pPfilter algorithm internal functions
-pfilter.internal <- function(object,
-                             params,
-                             Np,
-                             tol,
-                             verbose = FALSE,
-                             ...) {
+pfilter.internal <- function(object, params, Np, 
+                             tol, verbose = FALSE, ...) {
   # Turn params list into a matrix
   matrixpParams <- toMatrixPparams(params)
   U <- length(object)
-  pfilterd.pomp.list <- setNames(
-    vector(mode="list",length=U),names(unitobjects(object))
-    )
+  pfilterd.pomp.list <- setNames(vector(mode="list",length=U),
+                                 names(unitobjects(object)))
   if (length(tol)==1) {
     tol <- setNames(rep(tol,U),names(unitobjects(object)))
   } else if (length(tol) != U) {
-    stop("in ",sQuote("pfilter"),": ",sQuote("tol"),
-         " must be a single positive scalar or a vector of length ",
-         U,call.=FALSE)
+    stop(sQuotes("in 'pfilter': 'tol' must be a single positive scalar or a",
+                 "vector of length ",U),call.=FALSE)
   }
   for (i.u in 1:U) {
     pfilterd.pomp.list[[i.u]] <-
@@ -96,8 +90,10 @@ setMethod(
                         tol = 1e-17,
                         verbose = getOption("verbose"),
                         ...) {
-    ep <- paste0(sQuote("panelPomp::pfilter")," error: ")
-    
+    ep <- sQuotes("'panelPomp::pfilter' error: ")
+    ## check for params format
+    if (!missing(params) && is.numeric(params)) params <- pParams(params)
+
     if (!missing(shared) && !missing(specific) && !missing(params)) 
       stop(ep,"specify either ",sQuote("params")," only, ",sQuote("params"),
            " and ",sQuote("shared")," , or ",sQuote("params")," and ",
@@ -127,8 +123,8 @@ setMethod(
            " or as part of ",sQuote("params"),".",call.=FALSE
       )
     }
-    # If the pParams slot is not empty, check that the shared and specific structure of any 
-    # provided starting values match the pParams slot
+    # if the pParams slot is not empty, check that the shared and specific 
+    # structure of any provided starting values match the pParams slot
     if (!is.null(object@pParams$shared)){
       if (
         !identical(
