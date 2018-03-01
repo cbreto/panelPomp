@@ -21,70 +21,43 @@ Type 'q()' to quit R.
 Loading required package: pomp
 > 
 > TESTS_PASS <- NULL
+> test <- function(...,all="TESTS_PASS",env=parent.frame()) 
++   panelPomp:::test(...,all=all,env=env)
 > 
-> TESTS_PASS <- c(
-+   TESTS_PASS,# for single word (with ')
-+   sQuotes("'Error'")==paste0(sQuote("Error")) -> PASSES#?
-+ )
-> PASSES#?
+> ## check for ' in different positions in the character
+> test(sQuotes("'Error'")==paste0(sQuote("Error")))
 [1] TRUE
-> TESTS_PASS <- c(
-+   TESTS_PASS,# for single word (no ')
-+   sQuotes("Error")=="Error" -> PASSES#?
-+ )
-> PASSES#?
+> test(sQuotes("Error")=="Error")
 [1] TRUE
-> TESTS_PASS <- c(
-+   TESTS_PASS,# for multiple words (starting with ')
-+   sQuotes("'Error' : in")==paste0(sQuote("Error")," : in") -> PASSES#?
-+ )
-> PASSES#?
+> test(sQuotes("'Error' : in")==paste0(sQuote("Error")," : in"))
 [1] TRUE
-> TESTS_PASS <- c(
-+   TESTS_PASS,# for multiple words (starting without ')
-+   sQuotes("Error : in 'fn'")==paste0("Error : in ",sQuote("fn")) -> PASSES#?
-+ )
-> PASSES#?
+> test(sQuotes("Error : in 'fn'")==paste0("Error : in ",sQuote("fn")))
 [1] TRUE
-> TESTS_PASS <- c(
-+   TESTS_PASS,# for multiple ' (starting with ')
-+   sQuotes("'Error' : in 'fn': 'object' is a required argument")==paste0(
+> test(sQuotes("'Error' : in 'fn': 'object' is a required argument")==paste0(
 +     sQuote("Error")," : in ",sQuote("fn"),": ",sQuote("object"),
-+     " is a required argument") -> PASSES#?
-+ )
-> PASSES#?
++     " is a required argument"))
 [1] TRUE
-> TESTS_PASS <- c(
-+   TESTS_PASS,# for multiple ' (starting without ')
-+   sQuotes("Error : in 'fn': 'object' is a required argument"
-+   )==paste0("Error : in ",sQuote("fn"),": ",sQuote("object"),
-+             " is a required argument") -> PASSES#?
-+ )
-> PASSES#?
+> test(sQuotes("Error : in 'fn': 'object' is a required argument"
++ )==paste0("Error : in ",sQuote("fn"),": ",sQuote("object"),
++           " is a required argument"))
 [1] TRUE
-> TESTS_PASS <- c(
-+   TESTS_PASS,# for multiple arguments
-+   sQuotes("in 'fn'",": 'object' is"," a required argument"," Error : in",
-+           " 'fn': 'object' is a required argument")==
+> test(sQuotes("in 'fn'",": 'object' is"," a required argument"," Error : in",
++              " 'fn': 'object' is a required argument")==
 +     paste0("in ",sQuote("fn"),": ",sQuote("object")," is a required argument",
 +            " Error : in ",sQuote("fn"),": ",sQuote("object"),
-+            " is a required argument") -> PASSES#?
-+ )
-> PASSES#?
++            " is a required argument"))
 [1] TRUE
-> TESTS_PASS <- c(
-+   TESTS_PASS,# for use with stop()
-+   as.character(
+> ## test passing sQuotes as first argument to stop
+> test(as.character(
 +     attr(try(stop(sQuotes("in 'fn': 'object' is a required argument")),
 +              silent=TRUE),"condition"))==
 +     paste0(
 +       "Error in doTryCatch(return(expr), name, parentenv, handler): in ",
-+       sQuote("fn"),": ",sQuote("object")," is a required argument\n") -> PASSES#?
-+ )
-> PASSES#?
++       sQuote("fn"),": ",sQuote("object")," is a required argument\n"))
 [1] TRUE
 > 
-> stopifnot(all(TESTS_PASS))
-> all(TESTS_PASS)#?
+> ## check whether all tests passed
+> all(get(eval(formals(test))$all))
 [1] TRUE
+> if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 > 

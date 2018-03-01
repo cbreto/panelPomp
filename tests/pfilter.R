@@ -1,5 +1,10 @@
 library(panelPomp)
 
+TESTS_PASS <- NULL
+test <- function(...,all="TESTS_PASS",env=parent.frame()) 
+  panelPomp:::test(...,all=all,env=env)
+
+
 ppo <- pompExample(prw,envir=NULL)[[1]]
 pos <- as(ppo,"list")
 po <- pos[[1]]
@@ -13,10 +18,12 @@ print(unitlogLik(pf))
 print(logLik(pf))
 }
 
-error_req_obj <- paste0(
-  "Error : in ",sQuote("pfilter"),": ",sQuote("object")," is a required argument\n"
-)
-try(pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10),
-    silent=TRUE)[1]==error_req_obj
-try(pfilter(params=coef(ppo),Np=10),
-    silent=TRUE)[1]==error_req_obj
+
+err <- sQuotes("Error : in 'pfilter': 'object' is a required argument\n")
+test(try(pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10),silent=TRUE)[1]==err)
+test(try(pfilter(params=coef(ppo),Np=10),silent=TRUE)[1]==err)
+rm(err)
+
+## check whether all tests passed
+all(get(eval(formals(test))$all))
+if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")

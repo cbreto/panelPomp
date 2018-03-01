@@ -21,6 +21,8 @@ Type 'q()' to quit R.
 Loading required package: pomp
 > 
 > TESTS_PASS <- NULL
+> test <- function(...,all="TESTS_PASS",env=parent.frame()) 
++   panelPomp:::test(...,all=all,env=env)
 > 
 > ppo <- pompExample(prw,envir=NULL)[[1]]
 > pos <- as(ppo,"list")
@@ -29,76 +31,52 @@ Loading required package: pomp
 > 
 > pog <- pompExample(gompertz,envir=NULL)[[1]]
 > 
-> # test panelPomp class (validity function)
+> ## test checks in validity function for panelPomp class
 > 
-> # test panelPomp function
-> c(TESTS_PASS,
-+   try(panelPomp(),silent=TRUE)[1]==sQuotes(
-+     "Error : in 'panelPomp': 'object' is a required argument.\n") -> PASSES#?
-+ ) -> TESTS_PASS
-> PASSES#?
+> ## test checks for missing arguments in panelPomp function
+> test(try(panelPomp(),silent=TRUE)[1]==sQuotes(
++   "Error : in 'panelPomp': 'object' is a required argument.\n"))
 [1] TRUE
-> c(TESTS_PASS,
-+   try(panelPomp(list(a=1)),silent=TRUE)[1]==sQuotes(
-+     "Error : in 'panelPomp': 'object' must be a either a 'panelPomp' ",
-+     "object or a list of 'pomp' objects.\n") -> PASSES#?
-+ ) -> TESTS_PASS
-> PASSES#?
+> test(try(panelPomp(list(a=1)),silent=TRUE)[1]==sQuotes(
++   "Error : in 'panelPomp': 'object' must be a either a 'panelPomp' ",
++   "object or a list of 'pomp' objects.\n"))
 [1] TRUE
-> c(TESTS_PASS,
-+   try(panelPomp(pos,sh=2*pPs$sh,sp=2*pPs$sp,params=pPs),silent=TRUE)[1]==
-+     sQuotes("Error : in 'panelPomp': do not specify all of 'params', 'shared'",
-+             " and 'specific'.\n") -> PASSES#?
-+ ) -> TESTS_PASS
-> PASSES#?
+> test(try(panelPomp(pos,sh=2*pPs$sh,sp=2*pPs$sp,params=pPs),silent=TRUE)[1]==
++        sQuotes("Error : in 'panelPomp': do not specify all of 'params', ",
++                "'shared' and 'specific'.\n"))
 [1] TRUE
-> ## object = pompList
-> c(TESTS_PASS,identical(
-+   panelPomp(pos)@pParams,
-+   list(shared=numeric(),specific=sapply(pos,coef))) -> PASSES) -> TESTS_PASS
-> PASSES#?
+> ## test construction of pParams slot ...
+> ## ... when is(object,"pompList") ...
+> test(identical(panelPomp(pos)@pParams,
++                list(shared=numeric(),specific=sapply(pos,coef))))
 [1] TRUE
-> c(TESTS_PASS,identical(panelPomp(pos,sh=2*pPs$sh,par=pPs)@pParams$sh,2*pPs$sh
-+ ) -> PASSES) -> TESTS_PASS
-> PASSES#?
+> test(identical(panelPomp(pos,sh=2*pPs$sh,par=pPs)@pParams$sh,2*pPs$sh)) 
 [1] TRUE
-> c(TESTS_PASS,
-+   identical(panelPomp(pos,sh=pPs$sh,par=lapply(pPs,`*`,2))@pParams$sp,2*pPs$sp
-+   ) -> PASSES) -> TESTS_PASS
-> PASSES#?
+> test(identical(panelPomp(pos,sh=pPs$sh,par=lapply(pPs,`*`,2))@pParams$sp,
++                2*pPs$sp))
 [1] TRUE
-> c(TESTS_PASS,identical(panelPomp(pos,sp=2*pPs$sp,par=pPs)@pParams$sp,2*pPs$sp
-+ ) -> PASSES) -> TESTS_PASS
-> PASSES#?
+> test(identical(panelPomp(pos,sp=2*pPs$sp,par=pPs)@pParams$sp,2*pPs$sp)) 
 [1] TRUE
-> c(TESTS_PASS,
-+   identical(panelPomp(pos,sp=pPs$sp,par=lapply(pPs,`*`,2))@pParams$sh,2*pPs$sh
-+   ) -> PASSES) -> TESTS_PASS
-> PASSES#?
+> test(identical(panelPomp(pos,sp=pPs$sp,par=lapply(pPs,`*`,2))@pParams$sh,
++                2*pPs$sh))
 [1] TRUE
-> ## object = pomp
-> c(TESTS_PASS,
-+   try(panelPomp(ppo,sh="sigmaX",params=pPs),silent=TRUE)[1]==
-+     sQuotes("Error : in 'panelPomp': if 'shared' is a character vector (or ",
-+             "NULL), unit specific parameters are taken from 'object'.\n"
-+     ) -> PASSES) -> TESTS_PASS
-> PASSES#?
+> ## ... and when is(object,"pomp")
+> test(try(panelPomp(ppo,sh="sigmaX",params=pPs),silent=TRUE)[1]==
++        sQuotes("Error : in 'panelPomp': if 'shared' is a character vector (or",
++                " NULL), unit specific parameters are taken from 'object'.\n"))
 [1] TRUE
-> c(TESTS_PASS,identical(
+> test(identical(
 +   panelPomp(ppo,sh="sigmaX")@pParams,
-+   list(shared=pPs$sh["sigmaX"],specific=rbind(sigmaY=pPs$sh["sigmaY"],pPs$sp))
-+   ) -> PASSES) -> TESTS_PASS
-> PASSES#?
++   list(shared=pPs$sh["sigmaX"],specific=rbind(sigmaY=pPs$sh["sigmaY"],pPs$sp))))
 [1] TRUE
-> c(TESTS_PASS,identical(
+> test(identical(
 +   panelPomp(ppo,sh=NULL)@pParams,
 +   list(shared=numeric(),
-+        specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp))
-+ ) -> PASSES) -> TESTS_PASS
-> PASSES#?
++        specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp))))
 [1] TRUE
 > 
-> stopifnot(all(TESTS_PASS))
-> all(TESTS_PASS)#?
+> ## check whether all tests passed
+> all(get(eval(formals(test))$all))
 [1] TRUE
+> if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 > 
