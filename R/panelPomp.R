@@ -152,7 +152,6 @@ panelPomp.internal <- function(pompList,pParams,
 panelPomp <- function (object, shared = numeric(0),
                        specific = array(numeric(0), dim = c(0,0)),
                        params = list(shared = shared, specific = specific)) {
-  ## Error prefix
   ep <- sQuotes("in 'panelPomp': ")
   if (missing(object)) 
     stop(sQuotes(ep,"'object' is a required argument."),call.=FALSE)
@@ -186,22 +185,25 @@ panelPomp <- function (object, shared = numeric(0),
       if (is.null(shared)) pParams$shared <- numeric() ## if NULL, remove names
     } else {
       ## check for params format
-      ##if (is.numeric(params)) params <- pParams(params)
+      if (is.numeric(params)) params <- pParams(params)
       pParams <- params
       if (!missing(shared)) pParams$shared <- shared
       if (!missing(specific)) pParams$specific <- specific
     }
   } else {## is(object,"pompList")) should be TRUE!
-    ## construct a panelPomp
     if (!all(sapply(as(object,"list"),is,"pomp"))) 
       stop(sQuotes(ep,"'object' must be a either a 'panelPomp' object or a ",
                    "list of 'pomp' objects."),
            call.=FALSE)
-    ## if no parameters explicitely provided, make all parameters unit-specific
-    ## and equal to value from pomps
+    ## construct a panelPomp
+    ## if no parameters provided, ...
     if (missing(shared) && missing(specific) && missing(params)) {
+      ## make all parameters unit-specific and take their values from pomps
       pParams <- list(shared=numeric(),specific=sapply(object,coef))
-    } else {## use if provided at least one of params, shared or specific
+    } else {
+      ## use provided params, shared or specific
+      ## check for params format
+      if (is.numeric(params)) params <- pParams(params)
       pParams <- params
       if (!missing(shared)) pParams$shared <- shared
       if (!missing(specific)) pParams$specific <- specific
