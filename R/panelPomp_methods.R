@@ -55,6 +55,14 @@ setMethod(
   "coef<-",
   signature=signature(object="panelPomp"),
   definition=function (object, ..., value) {
+    ## check names(value)
+    ep <- sQuotes("in 'coef<-': ")
+    if (!identical(character(0),setdiff(names(value),names(coef(object))))) 
+      stop(sQuotes(ep,"part of 'value' is not part of 'coef(object)'."),
+           call.=FALSE)
+    if (!identical(character(0),setdiff(names(coef(object)),names(value)))) 
+      stop(sQuotes(ep,"part of 'coef(object)' is not specified in 'value'."),
+           call.=FALSE)
     nn <- grep("^.+\\[.+?\\]$",names(value),perl=TRUE,value=TRUE)
     pp <- sub(pattern="^(.+?)\\[.+?\\]$",replacement="\\1",x=nn,perl=TRUE)
     uU <- names(object@unit.objects)
@@ -68,6 +76,9 @@ setMethod(
     pvec[unitpar] <- value[unitpar]
     object@pParams$specific[,] <- pvec
     object@pParams$shared <- value[sort(sharedpar)]
+    ## is the new object valid?
+    #tryCatch(validObject(object),
+    #         error=function (e) {stop(ep,conditionMessage(e),call.=FALSE)})
     object
   }
 )
@@ -98,29 +109,22 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @export
-pParams <- function (value,object) {
-  ep <- "in 'pParams': "
+pParams <- function (value) {
   nn <- grep("^.+\\[.+?\\]$",names(value),perl=TRUE,value=TRUE)
+  shs <- names(value)[!names(value)%in%nn]
   pp <- sub(pattern="^(.+?)\\[.+?\\]$",replacement="\\1",x=nn,perl=TRUE)
-  uU <- names(object)
-  pU <- sort(unique(pp))
-  ## check name validity
-  if (!identical(character(0),setdiff(pU,rownames(object@pParams$specific)))) 
-    stop(sQuotes("some values in 'value' are being ignored."),
-         call.=FALSE)
-  pParams <- list(shared=numeric(),specific=NULL)
-  pParams$specific <- array(dim=c(length(pU),length(uU)),
-                            dimnames=list(param=pU,unit=uU))
-  pvec <- setNames(numeric(length(object@pParams$specific)),
-                   outer(pU,uU,sprintf,fmt="%s[%s]"))
-  unitpar <- intersect(names(value),names(pvec))
-  sharedpar <- setdiff(names(value),unitpar)
-  pvec[unitpar] <- value[unitpar]
-  pParams$specific[,] <- pvec
-  pParams$shared <- value[sort(sharedpar)]
-  ## is pParams compatible with object?
-  tryCatch(panelPomp(unitobjects(object),params=pParams),
-           error=function (e) {stop(ep,conditionMessage(e),call.=FALSE)})
+  sps <- sort(unique(pp))
+  uu <- sub(pattern="^(.+?)\\[(.+?)\\]$",replacement="\\2",x=nn,perl=TRUE)
+  us <- sort(unique(uu))
+  pParams <- list(shared=numeric(0),specific=array(numeric(0),dim=c(0,0)))
+  if (length(shs)>0) pParams$shared <- value[shs]
+  if (length(sps)>0) {
+    pParams$specific <- array(dim=c(length(sps),length(us)),
+                              dimnames=list(param=sps,unit=us))
+    for (sp in sps) {
+      pParams$specific[sp,us] <- value[paste0(sp,"[",us,"]")]
+    }
+  }
   pParams
 }
 
