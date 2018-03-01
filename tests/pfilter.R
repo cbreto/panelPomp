@@ -1,8 +1,8 @@
-library(panelPomp)
+library(panelPomp,quietly=TRUE)
 
 TESTS_PASS <- NULL
-test <- function(...,all="TESTS_PASS",env=parent.frame()) 
-  panelPomp:::test(...,all=all,env=env)
+test <- function(expr,all="TESTS_PASS",env=parent.frame(),...) 
+  panelPomp:::test(expr,all=all,env=env,...)
 
 
 ppo <- pompExample(prw,envir=NULL)[[1]]

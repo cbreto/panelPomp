@@ -1,12 +1,11 @@
-library(panelPomp)
+library(panelPomp,quietly=TRUE)
 
 TESTS_PASS <- NULL
-test <- function(...,all="TESTS_PASS",env=parent.frame()) 
-  panelPomp:::test(...,all=all,env=env)
+test <- function(expr,all="TESTS_PASS",env=parent.frame(),...) 
+  panelPomp:::test(expr,all=all,env=env,...)
 
 ppo <- pompExample(prw,envir=NULL)[[1]]
 pos <- as(ppo,"list")
-po <- pos[[1]]
 pPs <- ppo@pParams
 
 pog <- pompExample(gompertz,envir=NULL)[[1]]
@@ -32,6 +31,7 @@ test(identical(panelPomp(pos,sh=pPs$sh,par=lapply(pPs,`*`,2))@pParams$sp,
 test(identical(panelPomp(pos,sp=2*pPs$sp,par=pPs)@pParams$sp,2*pPs$sp)) 
 test(identical(panelPomp(pos,sp=pPs$sp,par=lapply(pPs,`*`,2))@pParams$sh,
                2*pPs$sh))
+
 ## ... and when is(object,"pomp")
 test(try(panelPomp(ppo,sh="sigmaX",params=pPs),silent=TRUE)[1]==
        sQuotes("Error : in 'panelPomp': if 'shared' is a character vector (or",

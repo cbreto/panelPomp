@@ -17,12 +17,11 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-> library(panelPomp)
-Loading required package: pomp
+> library(panelPomp,quietly=TRUE)
 > 
 > TESTS_PASS <- NULL
-> test <- function(...,all="TESTS_PASS",env=parent.frame()) 
-+   panelPomp:::test(...,all=all,env=env)
+> test <- function(expr,all="TESTS_PASS",env=parent.frame(),...) 
++   panelPomp:::test(expr,all=all,env=env,...)
 > 
 > ppo <- pompExample(prw,envir=NULL)[[1]]
 > pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
