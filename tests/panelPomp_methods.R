@@ -8,43 +8,54 @@ ppo <- pompExample(prw,envir=NULL)[[1]]
 pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
             specific=matrix(c(0,0.1),nr=1,
                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
+# ppo <- panelPomp(unitobjects(ppo),params=pP2)
 ppo <- new("panelPomp",unit.objects=unitobjects(ppo),pParams=pP2)
 
 ## test coef,panelPomp-method
 test(identical(
   coef(ppo),setNames(c(1,2,0,0.1),c("sigmaX","sigmaY",
                                     sprintf("X.0[rw1]"),sprintf("X.0[rw2]")))))
-#
 ## coef<-,panelPomp-method
-# tests for 'coef<-' with right and wrong parameter configurations
-#pParams(ppo@pParams$shared)# all sh ()
-#coef(ppo) # both
-#setNames(c(coef(ppo),5),c(names(coef(ppo)),"xsh"))
-#setNames(c(coef(ppo),5,6,7),c(names(coef(ppo)),sprintf("xsp[rw1]"),sprintf("xsp[rw2]"),"xsh"))
-#coef(ppo)[-c(1:2)] # all sp
-#setNames(c(coef(ppo)[-c(1:2)],5,6),c(names(coef(ppo)[-c(1:2)]),sprintf("xsp[rw1]"),sprintf("xsp[rw2]")))
-test(try(coef(ppo) <- c(ppo@pParams$shared,xsh=5),silent=TRUE)[1]==sQuotes(
-  "Error : in 'coef<-': part of 'value' is not part of 'coef(object)'.\n"))
+test(identical(coef(ppo),{coef(ppo) <- coef(ppo);coef(ppo)}))
+err <- sQuotes("Error : in 'coef<-': part of 'value' is not part of ",
+               "'coef(object)'.\n")
+test(try(coef(ppo) <- c(ppo@pParams$shared,xsh=5),silent=TRUE)[1]==err)
+test(try(coef(ppo) <- c(coef(ppo),xsh=5),silent=TRUE)[1]==err)
 test(try(coef(ppo) <- setNames(
   c(coef(ppo),5,6),c(names(coef(ppo)),
                      sprintf("xsp[rw1]"),sprintf("xsp[rw2]"))),
-  silent=TRUE)[1]==sQuotes(
-    "Error : in 'coef<-': part of 'value' is not part of 'coef(object)'.\n"))
+  silent=TRUE)[1]==err)
+test(try(coef(ppo) <- setNames(
+  c(coef(ppo),5,6,7),c(names(coef(ppo)),
+                       sprintf("xsp[rw1]"),sprintf("xsp[rw2]"),"xsh")),
+  silent=TRUE)[1]==err)
+test(try(coef(ppo) <- setNames(
+  c(coef(ppo)[-c(1:2)],5,6),c(names(coef(ppo)[-c(1:2)]),
+                              sprintf("xsp[rw1]"),sprintf("xsp[rw2]"))),
+  silent=TRUE)[1]==err)
+err <- sQuotes("Error : in 'coef<-': part of 'coef(object)' is not specified ",
+               "in 'value'.\n")
+test(try(coef(ppo) <- coef(ppo)[-c(1:2)],silent=TRUE)[1]==err)
+test(try(coef(ppo) <- ppo@pParams$shared,silent=TRUE)[1]==err)
+#err <- sQuotes(
+#  "Error : in 'coef<-': invalid class ",dQuote("panelPomp")," object: All ",
+#  "parameters in the pomp objects of 'unit.objects' slot must be in 'pParams'",
+#  "and viceversa (validity check)\n")
+rm(err)
 ## test length,panelPomp-method
 test(length(ppo)==2)
 ## test names,panelPomp-method
 test(identical(names(ppo),c("rw1","rw2")))
 ## test pparams,panelPomp-method
-test(identical(pparams(ppo),pP2))
-test(identical(
-  pParams(ppo@pParams$shared), ## all sh
+test(identical(pparams(ppo),ppo@pParams))
+## test pParams function
+test(identical( ## all sh
+  pParams(coef(ppo)[grep("^.+\\[.+?\\]$",names(coef(ppo)),perl=TRUE,
+                         value=TRUE,invert=TRUE)]),
   list(shared=ppo@pParams$shared,specific=array(numeric(0),dim=c(0,0)))))
-test(identical(
-  pParams(ppo@pParams$shared), ## all sh
-  list(shared=ppo@pParams$shared,specific=array(numeric(0),dim=c(0,0)))))
-test(identical(
-  pParams(coef(ppo)[-c(1:2)]), ## all sp
-  list(shared=numeric(0),specific=ppo@pParams$specific)))
+test(identical( ## all sp
+  pParams(coef(ppo)[grep("^.+\\[.+?\\]$",names(coef(ppo)),perl=TRUE,value=TRUE
+  )]),list(shared=numeric(0),specific=ppo@pParams$specific)))
 test(identical(pParams(coef(ppo)),ppo@pParams)) ## both sh & sp
 ## test unitobjects,panelPomp-method
 test(identical(unitobjects(ppo),ppo@unit.objects))

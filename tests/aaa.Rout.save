@@ -17,14 +17,14 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
+> ## basic usage:
 > library(panelPomp)
 Loading required package: pomp
-> 
-> ## basic usage: define test function, ...
-> TESTS_PASS <- NULL
+> TESTS_PASS <- NULL 
+> ## alternatively: assign(eval(formals(test))$all,NULL) (after defining test)
+> ## define test function, ...
 > test <- function(...,all="TESTS_PASS",env=parent.frame()) 
 +   panelPomp:::test(...,all=all,env=env)
-> ## alternatively to 'TESTS_PASS <- NULL': assign(eval(formals(test))$all,NULL)
 > ## ..., perform tests, and ...
 > test(identical(NULL,NULL))
 [1] TRUE
@@ -32,6 +32,16 @@ Loading required package: pomp
 > all(get(eval(formals(test))$all))
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+> 
+> 
+> 
+> ## refresh <- expression({
+> ##   rm(list=ls()[!(ls() %in% c('test','TESTS_PASS','refresh'))])
+> ##   refreshed <- NULL
+> ## })
+> ## eval(refresh)
+> 
+> 
 > 
 > ## complete tests for 'test':
 > ## test stop for wrong 'all'
@@ -42,7 +52,6 @@ Loading required package: pomp
 +     "Error : in 'test': missing vector to accumulate logical test results.\n")))
 [1] TRUE
 > rm(test_test)
-> 
 > ## test if results are added to 'all'
 > test(length(get(eval(formals(test))$all))==2)
 [1] TRUE
@@ -50,4 +59,5 @@ Loading required package: pomp
 > ## final check: do all tests pass?
 > all(get(eval(formals(test))$all))
 [1] TRUE
+> if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 > 
