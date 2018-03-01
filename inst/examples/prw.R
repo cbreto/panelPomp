@@ -43,6 +43,7 @@ for (u in seq_len(U)) {
 panelPomp(pos,shared=coef(rw)[c("sigmaX","sigmaY") -> shnm],
           specific=matrix(coef(rw)[!names(coef(rw))%in%shnm] -> spparams,
                           nrow=length(spparams),ncol=U,
-                          dimnames=list(names(spparams),names(pos)))) -> prw
+                          dimnames=list(param=names(spparams),
+                                        unit=names(pos)))) -> prw
 # check prw panelPomp object (see panelPomp/tests/prw.R)
 c("prw")

@@ -58,7 +58,8 @@ Type 'q()' to quit R.
 > test(identical(panelPomp(pos,sp=pPs$sp,par=lapply(pPs,`*`,2))@pParams$sh,
 +                2*pPs$sh))
 [1] TRUE
-> 
+> test(identical(panelPomp(pos,params=coef(ppo)),ppo))
+[1] TRUE
 > ## ... and when is(object,"pomp")
 > test(try(panelPomp(ppo,sh="sigmaX",params=pPs),silent=TRUE)[1]==
 +        sQuotes("Error : in 'panelPomp': if 'shared' is a character vector (or",
@@ -73,7 +74,8 @@ Type 'q()' to quit R.
 +   list(shared=numeric(),
 +        specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp))))
 [1] TRUE
-> 
+> test(identical(panelPomp(ppo,params=coef(ppo)),ppo))
+[1] TRUE
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))
 [1] TRUE

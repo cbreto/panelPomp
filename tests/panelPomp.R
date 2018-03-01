@@ -31,7 +31,7 @@ test(identical(panelPomp(pos,sh=pPs$sh,par=lapply(pPs,`*`,2))@pParams$sp,
 test(identical(panelPomp(pos,sp=2*pPs$sp,par=pPs)@pParams$sp,2*pPs$sp)) 
 test(identical(panelPomp(pos,sp=pPs$sp,par=lapply(pPs,`*`,2))@pParams$sh,
                2*pPs$sh))
-
+test(identical(panelPomp(pos,params=coef(ppo)),ppo))
 ## ... and when is(object,"pomp")
 test(try(panelPomp(ppo,sh="sigmaX",params=pPs),silent=TRUE)[1]==
        sQuotes("Error : in 'panelPomp': if 'shared' is a character vector (or",
@@ -43,7 +43,7 @@ test(identical(
   panelPomp(ppo,sh=NULL)@pParams,
   list(shared=numeric(),
        specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp))))
-
+test(identical(panelPomp(ppo,params=coef(ppo)),ppo))
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
