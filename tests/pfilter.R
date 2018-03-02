@@ -18,14 +18,23 @@ print(unitlogLik(pf))
 print(logLik(pf))
 }
 
-err <- sQuotes("Error : in 'pfilter': 'object' is a required argument\n")
-test(try(pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10),silent=TRUE)[1]==err)
-test(try(pfilter(params=coef(ppo),Np=10),silent=TRUE)[1]==err)
-rm(err)
-
-test(try(pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)),silent=TRUE)[1]==sQuotes(
-  "Error : in 'pfilter': 'tol' must be a single positive scalar or a",
-  " vector of length ",length(ppo),"\n"))
+sQuotes("Error : in 'pfilter': 'object' is a required argument\n") -> err
+test(err==try(
+  pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10),
+  silent=TRUE)[1])
+test(err==try(
+  pfilter(params=coef(ppo),Np=10),
+  silent=TRUE)[1])
+sQuotes("Error : in 'pfilter': 'tol' must be a single positive scalar or a",
+        " vector of length ",length(ppo),"\n") -> err
+test(err==try(
+  pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)),
+  silent=TRUE)[1])
+sQuotes("Error : 'panelPomp::pfilter' error: names of 'shared' must match ",
+        "those of 'object@pParams$shared'.\n") -> err
+test(err==try(
+  pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10),
+  silent=TRUE)[1])
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))

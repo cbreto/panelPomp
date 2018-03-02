@@ -18,18 +18,32 @@ print(unitlogLik(mf))
 print(logLik(mf))
 }
 ## test checks for missing arguments
-test(try(mif2(Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5),
-         silent=TRUE)[1]==sQuotes(
-           "Error : in 'mif2': 'object' is a required argument\n"))
-test(try(
+sQuotes("Error : in 'mif2': 'object' is a required argument\n") -> err
+test(err==try(
+  mif2(Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5),
+  silent=TRUE)[1])
+sQuotes("Error : in 'mif2': Missing 'Np' argument. ('mif2,panelPomp-method')",
+        "\n") -> err
+test(err==try(
   mif2(ppo,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5),
-  silent=TRUE)[1]==sQuotes(
-    "Error : in 'mif2': Missing 'Np' argument. ('mif2,panelPomp-method')\n")) 
-test(try(mif2(ppo,Np=10,cooling.fraction.50=0.5),silent=TRUE)[1]==sQuotes(
-  "Error : in 'mif2': missing 'rw.sd' argument. ('mif2,panelPomp-method')\n"))
-test(try(mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5)),silent=TRUE
-         )[1]==sQuotes("Error : in 'mif2': Missing 'cooling.fraction.50' ",
-                       "argument. ('mif2,panelPomp-method')\n"))
+  silent=TRUE)[1]) 
+sQuotes("Error : in 'mif2': missing 'rw.sd' argument. ('mif2,panelPomp-method'",
+        ")\n") -> err
+test(err==try(
+  mif2(ppo,Np=10,cooling.fraction.50=0.5),
+  silent=TRUE)[1])
+sQuotes("Error : in 'mif2': Missing 'cooling.fraction.50' argument. ",
+        "('mif2,panelPomp-method')\n") -> err
+test(err==try(
+  mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5)),
+  silent=TRUE)[1])
+sQuotes("Error : in 'mif2': names of 'shared.start' must match those of ",
+        "'object@pParams$shared'. ('mif2,panelPomp-method')\n") -> err
+test(err==try(
+  mif2(panelPomp(unitobjects(ppo)),Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),
+       cooling.fraction.50=0.5,sh=pparams(ppo)$sh),
+  silent=TRUE)[1])
+
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
