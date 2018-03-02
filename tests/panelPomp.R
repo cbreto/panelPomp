@@ -44,6 +44,14 @@ test(identical(
   list(shared=numeric(),
        specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp))))
 test(identical(panelPomp(ppo,params=coef(ppo)),ppo))
+
+## the panelPomp construction below should be valid! (i.e., all shared)
+## it seems to fail to add the unit names as colnames of the otherwise empty sp 
+## matrix
+#test(identical(
+#  names(coef(panelPomp(unitobjects(ppo),params=c(names(pPs$sh),rownames(pPs$sp))))),
+#  c(names(pPs$sh),rownames(pPs$sp))))
+
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")

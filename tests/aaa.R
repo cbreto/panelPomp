@@ -45,6 +45,14 @@ test(identical(
     "Error in exists(all, envir = env) : invalid 'envir' argument\n"))
 rm(test_test)
 
+## tests for .onAttach
+test(identical(
+  tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
+  c("panelPomp","examples")))
+## tests for .onDetach
+detach("package:panelPomp", unload=TRUE)
+test(is.na(options("pomp.examples")$pomp.examples[2]))
+
 ## final check: do all tests pass?
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")

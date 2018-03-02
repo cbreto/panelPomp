@@ -371,12 +371,13 @@ setMethod(
     #       " or as part of ",sQuote("start"),".",et,call.=FALSE
     #  )
     #}
-    if (identical(specific.start,array(numeric(0),dim=c(0,0)))) {
-      stop(ep,"if ",sQuote("object@pParams$specific")," is empty, specific 
-           parameters must be specified in either ",sQuote("specific.start"),
-           " or as part of ",sQuote("start"),".",et,call.=FALSE
-      )
-    }
+    # Obsolete check: valid panelPomps won't have completely empty sp matrix
+    #if (identical(specific.start,array(numeric(0),dim=c(0,0)))) {
+    #  stop(ep,"if ",sQuote("object@pParams$specific")," is empty, specific 
+    #       parameters must be specified in either ",sQuote("specific.start"),
+    #       " or as part of ",sQuote("start"),".",et,call.=FALSE
+    #  )
+    #}
     # If the object pParams slot is not empty, check that the shared and 
     # specific structure of any provided starting values match the pParams 
     # slot

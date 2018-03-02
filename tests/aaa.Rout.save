@@ -1,7 +1,7 @@
 
-R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
+R version 3.3.3 (2017-03-06) -- "Another Canoe"
 Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -71,6 +71,16 @@ Type 'q()' to quit R.
 +     "Error in exists(all, envir = env) : invalid 'envir' argument\n"))
 [1] TRUE
 > rm(test_test)
+> 
+> ## tests for .onAttach
+> test(identical(
++   tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
++   c("panelPomp","examples")))
+[1] TRUE
+> ## tests for .onDetach
+> detach("package:panelPomp", unload=TRUE)
+> test(is.na(options("pomp.examples")$pomp.examples[2]))
+[1] TRUE
 > 
 > ## final check: do all tests pass?
 > all(get(eval(formals(test))$all))

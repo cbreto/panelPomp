@@ -50,7 +50,7 @@ pfilter.internal <- function(object, params, Np,
   if (length(tol)==1) {
     tol <- setNames(rep(tol,U),names(unitobjects(object)))
   } else if (length(tol) != U) {
-    stop(sQuotes("in 'pfilter': 'tol' must be a single positive scalar or a",
+    stop(sQuotes("in 'pfilter': 'tol' must be a single positive scalar or a ",
                  "vector of length ",U),call.=FALSE)
   }
   for (i.u in 1:U) {
@@ -110,19 +110,21 @@ setMethod(
       else specific <- object@pParams$specific
     }
     
-    # This causes an unintended stop in panelPomp objects that genuinely have no shared parameters      
+    # This causes an unintended stop in panelPomp objects that genuinely have 
+    # no shared parameters      
     #if (identical(shared,numeric(0))) {
     #  stop(ep,"if ",sQuote("object@pParams$shared")," is empty, shared 
     #       parameters must be specified in either ",sQuote("shared"),
     #       " or as part of ",sQuote("params"),".",call.=FALSE
     #  )
     #}
-    if (identical(specific,array(numeric(0),dim=c(0,0)))) {
-      stop(ep,"if ",sQuote("object@pParams$specific")," is empty, specific 
-           parameters must be specified in either ",sQuote("specific"),
-           " or as part of ",sQuote("params"),".",call.=FALSE
-      )
-    }
+    # Obsolete check: valid panelPomps won't have completely empty sp matrix
+    #if (identical(specific,array(numeric(0),dim=c(0,0)))) {
+    #  stop(ep,"if ",sQuote("object@pParams$specific")," is empty, specific 
+    #       parameters must be specified in either ",sQuote("specific"),
+    #       " or as part of ",sQuote("params"),".",call.=FALSE
+    #  )
+    #}
     # if the pParams slot is not empty, check that the shared and specific 
     # structure of any provided starting values match the pParams slot
     if (!is.null(object@pParams$shared)){
