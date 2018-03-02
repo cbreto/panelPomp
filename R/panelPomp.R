@@ -39,11 +39,12 @@ setClass(
     pParams=list(shared=numeric(0),specific=array(numeric(0),dim=c(0,0)))
   ),
   validity=function (object) {
+    et <- " (validity check)"
     retval <- character(0)
     ## check that mandatory arguments have the required format
     if (!all(sapply(object@unit.objects,is,"pomp"))) {
       retval <- append(retval, sQuotes("'unit.objects' must be a list of ",
-                                       "'pomp' objects (validity check)"))
+                                       "'pomp' objects",et))
     } else {
       if (length(object) > 1) {
         for (i.u in 2:length(object)) {
@@ -53,7 +54,7 @@ setClass(
             retval <- append(
               retval,
               sQuotes("'pomp' objects with different parameter names cannot ",
-                      "be combined (validity check)"))
+                      "be combined",et))
           }
         }
       }
@@ -62,12 +63,12 @@ setClass(
     if (!identical(list(), object@pParams)) {
       if (!is.list(object@pParams)) {
         retval <- append(
-          retval,sQuotes("'pParams' must be a list (validity check)"))
+          retval,sQuotes("'pParams' must be a list",et))
       } else {
         if (!(length(object@pParams) == 2)) {
           retval <-
             append(retval,
-                   sQuotes("'pParams' must be of length two (validity check)"))
+                   sQuotes("'pParams' must be of length two",et))
         } else {
           right.list.structure <-
             any(all(sapply(object@pParams,class) == c('numeric','matrix'))
@@ -80,36 +81,33 @@ setClass(
             retval <- append(
               retval,
               sQuotes("The elements of 'pParams' must be a numeric vector ",
-                      "named 'shared' and a matrix named 'specific' ",
-                      "(validity check)"))
+                      "named 'shared' and a matrix named 'specific'",et))
           } else {
             if (!dim(object@pParams[["specific"]])[2] == length(object@unit.objects)) {
               retval <- append(
                 retval,
                 sQuotes("The number of columns of the 'specific' matrix in ",
                         "'pParams' must match the length of the list in the ",
-                        "'unit.object' slot (validity check)"))
+                        "'unit.object' slot",et))
             } else {
               if (!identical(dimnames(object@pParams$specific)[[2]], names(object@unit.objects))) {
                 retval <- append(
                   retval,
                   sQuotes("The names of columns of the 'specific' matrix in",
                           "'pParams' must match those of the list in the ",
-                          "'unit.object' slot (validity check)"))
+                          "'unit.object' slot",et))
               } else {
                 if (is.null(dimnames(object@pParams$specific)[[2]])) {
                   retval <- append(
                     retval,
                     sQuotes("The column names of the 'specific' matrix in the",
-                            "'pParams' slot must be non-empty (validity check)"
-                    )
-                  )
+                            "'pParams' slot must be non-empty",et))
                 } else {
                   if (is.null(names(object@unit.objects))) {
                     retval <- append(
                       retval,
                       sQuotes("The names of the 'list' in the 'unit.object' ",
-                              "slot must be non-empty (validity check)"))
+                              "slot must be non-empty",et))
                   } else {
                     pParams.names <-c(
                       names(object@pParams$shared),
@@ -121,7 +119,7 @@ setClass(
                         retval,
                         sQuotes("All parameters in the pomp objects of ",
                                 "'unit.objects' slot must be in 'pParams' and",
-                                " viceversa (validity check)"))
+                                " viceversa",et))
                   }
                 }
               }

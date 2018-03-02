@@ -67,8 +67,8 @@ Type 'q()' to quit R.
 +   pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)),
 +   silent=TRUE)[1])
 [1] TRUE
-> sQuotes("Error : 'panelPomp::pfilter' error: names of 'shared' must match ",
-+         "those of 'object@pParams$shared'.\n") -> err
+> sQuotes("Error : in 'pfilter': names of 'shared' must match those of ",
++         "'object@pParams$shared'.\n") -> err
 > test(err==try(
 +   pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10),
 +   silent=TRUE)[1])

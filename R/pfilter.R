@@ -90,7 +90,7 @@ setMethod(
                         tol = 1e-17,
                         verbose = getOption("verbose"),
                         ...) {
-    ep <- sQuotes("'panelPomp::pfilter' error: ")
+    ep <- sQuotes("in 'pfilter': ")
     ## check for params format
     if (!missing(params) && is.numeric(params)) params <- pParams(params)
 

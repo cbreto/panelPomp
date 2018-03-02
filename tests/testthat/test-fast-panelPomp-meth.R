@@ -276,7 +276,7 @@ test_that(
         params=pp@pParams,
         Np=10
       ),
-      regexp="panelPomp::pfilter",
+      regexp="pfilter",
       fixed=T
     )
   }
