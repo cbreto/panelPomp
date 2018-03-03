@@ -2,20 +2,20 @@
 % Please edit documentation in R/panel_logmeanexp.R
 \name{panel_logmeanexp}
 \alias{panel_logmeanexp}
-\title{Log-mean-exp for panels.}
+\title{Log-mean-exp for panels}
 \usage{
 panel_logmeanexp(x, MARGIN, se = FALSE)
 }
 \arguments{
-\item{x}{Matrix with the same number of replicated estimates for each panel unit loglikelihood.}
+\item{x}{Matrix with the same number of replicated estimates for each panel 
+unit loglikelihood.}
 
-\item{MARGIN}{The dimension of the matrix that corresponds to a panel unit and over which averaging occurs (1 indicates rows, 2 indicates columns).}
+\item{MARGIN}{The dimension of the matrix that corresponds to a panel unit 
+and over which averaging occurs (1 indicates rows, 2 indicates columns).}
 
-\item{se}{logical; whether to give standard errors}
+\item{se}{logical; whether to give standard errors.}
 }
 \description{
-Log-mean-exp for panels.
-}
-\details{
-When \code{se = TRUE}, the jackknife se's from \code{logmeanexp} are squared, summed and the squared root is taken.
+\code{se = TRUE}, the jackknife se's from \code{logmeanexp} are
+ squared, summed and the squared root is taken.
 }
