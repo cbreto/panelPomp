@@ -39,4 +39,4 @@ Collate:
     'mif2_methods.R'
     'params.R'
     'runif_EstimationScale.R'
-    'sQuotes.R'
+    'wQuotes.R'

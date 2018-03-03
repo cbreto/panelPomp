@@ -56,13 +56,13 @@ setMethod(
   signature=signature(object="panelPomp"),
   definition=function (object, ..., value) {
     ## check names(value)
-    ep <- sQuotes("in 'coef<-': ")
+    ep <- paste0("in ",sQuote("coef<-"),": ")
     if (!identical(character(0),setdiff(names(value),names(coef(object))))) 
-      stop(sQuotes(ep,"part of 'value' is not part of 'coef(object)'."),
-           call.=FALSE)
+      stop(paste0(ep,"part of ",sQuote("value")," is not part of ",
+                  sQuote("coef(object)"),"."),call.=FALSE)
     if (!identical(character(0),setdiff(names(coef(object)),names(value)))) 
-      stop(sQuotes(ep,"part of 'coef(object)' is not specified in 'value'."),
-           call.=FALSE)
+      stop(paste0(ep,"part of ",sQuote("coef(object)")," is not specified in ",
+                  sQuote("value"),"."),call.=FALSE)
     nn <- grep("^.+\\[.+?\\]$",names(value),perl=TRUE,value=TRUE)
     pp <- sub(pattern="^(.+?)\\[.+?\\]$",replacement="\\1",x=nn,perl=TRUE)
     uU <- names(object@unit.objects)

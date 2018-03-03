@@ -50,8 +50,8 @@ pfilter.internal <- function(object, params, Np,
   if (length(tol)==1) {
     tol <- setNames(rep(tol,U),names(unitobjects(object)))
   } else if (length(tol) != U) {
-    stop(sQuotes("in 'pfilter': 'tol' must be a single positive scalar or a ",
-                 "vector of length ",U),call.=FALSE)
+    stop(wQuotes("in ''pfilter'': ''tol'' must be a single positive scalar or",
+                 " a vector of length ",U),call.=FALSE)
   }
   for (i.u in 1:U) {
     pfilterd.pomp.list[[i.u]] <-
@@ -90,7 +90,7 @@ setMethod(
                         tol = 1e-17,
                         verbose = getOption("verbose"),
                         ...) {
-    ep <- sQuotes("in 'pfilter': ")
+    ep <- wQuotes("in ''pfilter'': ")
     ## check for params format
     if (!missing(params) && is.numeric(params)) params <- pParams(params)
 

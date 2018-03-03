@@ -151,8 +151,8 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
   ##  # END DEBUG
   
   # Error prefix
-  ep <- sQuotes("in 'mif2': ")
-  et <- sQuotes(" (panelPomp:::mif2.internal)")
+  ep <- wQuotes("in ''mif2'': ")
+  et <- wQuotes(" (panelPomp:::mif2.internal)")
   
   # PRELIMS & BASIC CHECKS
   U <- as.integer(length(object))

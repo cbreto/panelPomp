@@ -3,14 +3,13 @@ library(panelPomp,quietly=TRUE)
 TESTS_PASS <- NULL 
 ## alternatively: assign(eval(formals(test))$all,NULL) (after defining test)
 ## define test function, ...
-test <- function(expr,all="TESTS_PASS",env=parent.frame(),...) 
-  panelPomp:::test(expr,all=all,env=env,...)
+test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
+  panelPomp:::test(expr1,expr2,all=all,env=env,...)
 ## ..., perform tests, and ...
 test(identical(NULL,NULL))
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-
 
 
 ## refresh <- expression({
@@ -20,35 +19,35 @@ if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 ## eval(refresh)
 
 
-
 ## complete tests for 'test':
 ## test if results are added to 'all'
-test(identical(NULL,NULL))
+test(NULL,NULL)
 test(length(get(eval(formals(test))$all))==2)
+test(length(get(eval(formals(test))$all)),3L)
+## test order of expr1 and expr2
+test(4L,length(get(eval(formals(test))$all)))
 ## test stop for wrong parameters
-test(identical(
-  try(test(invalid_expr),silent=TRUE)[1],paste0(sQuotes(
-    "Error : in 'test': object")," 'invalid_expr' not found\n")))
-test(identical(
-  try(test(NULL),silent=TRUE)[1],sQuotes(
-    "Error : in 'test': 'expr' does not evaluate to an object of class ",
-    "'logical'.\n")))
-test_test <- function(expr,all="wrong_all",env=parent.frame(),...) 
-  panelPomp:::test(expr,all=all,env=env,...)
-test(identical(
-  try(test_test(identical(NULL,NULL)),silent=TRUE)[1],sQuotes(
-    "Error : in 'test': missing vector to accumulate logical test results.\n")))
-test_test <- function(expr,all=eval(formals(test))$all,env="wrong_env",...) 
-  panelPomp:::test(expr,all=all,env=env,...)
-test(identical(
-  try(test_test(identical(NULL,NULL)),silent=TRUE)[1],
-    "Error in exists(all, envir = env) : invalid 'envir' argument\n"))
-rm(test_test)
+test(wQuotes("Error : in ''test'': object 'invalid_expr' not found\n"),
+     test(invalid_expr))
+test(wQuotes("Error : in ''test'': non-logical test result!\n"),test(NULL))
+test(wQuotes("Error : in ''test'': missing vector to accumulate logical test ",
+             "results.\n"),
+     panelPomp:::test(identical(NULL,NULL),all="wrong_all",env=parent.frame()))
+test("Error in exists(all, envir = env) : invalid 'envir' argument\n",
+     panelPomp:::test(
+       identical(NULL,NULL),all=eval(formals(test))$all,env="no_env"))
+## test identical for range of objects
+test(NA,NA)
+test(1,1)
+test(1L,1L)
+test("a","a")
+test(matrix(1,nrow=2) -> m,m)
+test(list(a="a",b="b") -> l,l)
+test(c(TRUE,TRUE) -> L,L)
 
 ## tests for .onAttach
-test(identical(
-  tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
-  c("panelPomp","examples")))
+test(tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
+     c("panelPomp","examples"))
 ## tests for .onDetach
 detach("package:panelPomp", unload=TRUE)
 test(is.na(options("pomp.examples")$pomp.examples[2]))

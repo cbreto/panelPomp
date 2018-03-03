@@ -1,7 +1,7 @@
 
-R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
+R version 3.3.3 (2017-03-06) -- "Another Canoe"
 Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -20,99 +20,91 @@ Type 'q()' to quit R.
 > library(panelPomp,quietly=TRUE)
 > 
 > TESTS_PASS <- NULL
-> test <- function(expr,all="TESTS_PASS",env=parent.frame(),...) 
-+   panelPomp:::test(expr,all=all,env=env,...)
+> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
++   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 > 
 > ppo <- pompExample(prw,envir=NULL)[[1]]
 > pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
 +             specific=matrix(c(0,0.1),nr=1,
 +                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
-> # ppo <- panelPomp(unitobjects(ppo),params=pP2)
-> ppo <- new("panelPomp",unit.objects=unitobjects(ppo),pParams=pP2)
+> ppo <- panelPomp(unitobjects(ppo),params=pP2)
 > 
 > ## test coef,panelPomp-method
-> test(identical(
-+   coef(ppo),setNames(c(1,2,0,0.1),c("sigmaX","sigmaY",
-+                                     sprintf("X.0[rw1]"),sprintf("X.0[rw2]")))))
+> test(coef(ppo),setNames(c(1,2,0,0.1),c("sigmaX","sigmaY",
++                                        sprintf("X.0[rw1]"),sprintf("X.0[rw2]"))))
 [1] TRUE
 > ## coef<-,panelPomp-method
-> test(identical(coef(ppo),{coef(ppo) <- coef(ppo);coef(ppo)}))
+> test(coef(ppo),{coef(ppo) <- coef(ppo);coef(ppo)})
 [1] TRUE
-> err <- sQuotes("Error : in 'coef<-': part of 'value' is not part of ",
-+                "'coef(object)'.\n")
-> test(try(coef(ppo) <- c(ppo@pParams$shared,xsh=5),silent=TRUE)[1]==err)
+> wQuotes("Error : in ''coef<-'': part of ''value'' is not part of ",
++                "''coef(object)''.\n") -> err
+> test(coef(ppo) <- c(ppo@pParams$shared,xsh=5),err)
 [1] TRUE
-> test(try(coef(ppo) <- c(coef(ppo),xsh=5),silent=TRUE)[1]==err)
+> test(coef(ppo) <- c(coef(ppo),xsh=5),err)
 [1] TRUE
-> test(try(coef(ppo) <- setNames(
+> test({coef(ppo) <- setNames(
 +   c(coef(ppo),5,6),c(names(coef(ppo)),
-+                      sprintf("xsp[rw1]"),sprintf("xsp[rw2]"))),
-+   silent=TRUE)[1]==err)
++                      sprintf("xsp[rw1]"),sprintf("xsp[rw2]")))},err)
 [1] TRUE
-> test(try(coef(ppo) <- setNames(
+> test({coef(ppo) <- setNames(
 +   c(coef(ppo),5,6,7),c(names(coef(ppo)),
-+                        sprintf("xsp[rw1]"),sprintf("xsp[rw2]"),"xsh")),
-+   silent=TRUE)[1]==err)
++                        sprintf("xsp[rw1]"),sprintf("xsp[rw2]"),"xsh"))},err)
 [1] TRUE
-> test(try(coef(ppo) <- setNames(
+> test({coef(ppo) <- setNames(
 +   c(coef(ppo)[-c(1:2)],5,6),c(names(coef(ppo)[-c(1:2)]),
-+                               sprintf("xsp[rw1]"),sprintf("xsp[rw2]"))),
-+   silent=TRUE)[1]==err)
++                               sprintf("xsp[rw1]"),sprintf("xsp[rw2]")))},err)
 [1] TRUE
-> err <- sQuotes("Error : in 'coef<-': part of 'coef(object)' is not specified ",
-+                "in 'value'.\n")
-> test(try(coef(ppo) <- coef(ppo)[-c(1:2)],silent=TRUE)[1]==err)
+> wQuotes("Error : in ''coef<-'': part of ''coef(object)'' is not specified ",
++                "in ''value''.\n") -> err
+> test(coef(ppo) <- coef(ppo)[-c(1:2)],err)
 [1] TRUE
-> test(try(coef(ppo) <- ppo@pParams$shared,silent=TRUE)[1]==err)
+> test(coef(ppo) <- ppo@pParams$shared,err)
 [1] TRUE
-> #err <- sQuotes(
+> #err <- wQuotes(
 > #  "Error : in 'coef<-': invalid class ",dQuote("panelPomp")," object: All ",
 > #  "parameters in the pomp objects of 'unit.objects' slot must be in 'pParams'",
 > #  "and viceversa (validity check)\n")
-> rm(err)
 > ## test length,panelPomp-method
-> test(length(ppo)==2)
+> test(length(ppo),2L)
 [1] TRUE
 > ## test names,panelPomp-method
-> test(identical(names(ppo),c("rw1","rw2")))
+> test(names(ppo),c("rw1","rw2"))
 [1] TRUE
 > ## test pparams,panelPomp-method
-> test(identical(pparams(ppo),ppo@pParams))
+> test(pparams(ppo),ppo@pParams)
 [1] TRUE
 > ## test pParams function
-> test(identical( ## all sh
-+   pParams(coef(ppo)[grep("^.+\\[.+?\\]$",names(coef(ppo)),perl=TRUE,
-+                          value=TRUE,invert=TRUE)]),
-+   list(shared=ppo@pParams$shared,specific=array(numeric(0),dim=c(0,0)))))
+> ## all sh
+> test(pParams(coef(ppo)[grep("^.+\\[.+?\\]$",names(coef(ppo)),perl=TRUE,
++                             value=TRUE,invert=TRUE)]),
++      list(shared=ppo@pParams$shared,specific=array(numeric(0),dim=c(0,0))))
 [1] TRUE
-> test(identical( ## all sp
-+   pParams(coef(ppo)[grep("^.+\\[.+?\\]$",names(coef(ppo)),perl=TRUE,value=TRUE
-+   )]),list(shared=numeric(0),specific=ppo@pParams$specific)))
+> ## all sp
+> test(list(shared=numeric(0),specific=ppo@pParams$specific),
++      pParams(coef(ppo)[grep("^.+\\[.+?\\]$",names(coef(ppo)),perl=TRUE,
++                             value=TRUE)]))
 [1] TRUE
-> test(identical(pParams(coef(ppo)),ppo@pParams)) ## both sh & sp
+> ## both sh & sp
+> test(pParams(coef(ppo)),ppo@pParams)
 [1] TRUE
 > ## test unitobjects,panelPomp-method
-> test(identical(unitobjects(ppo),ppo@unit.objects))
+> test(unitobjects(ppo),ppo@unit.objects)
 [1] TRUE
-> test(identical(unitobjects(ppo,unit="rw1"),ppo@unit.objects[["rw1"]]))
+> test(unitobjects(ppo,unit="rw1"),ppo@unit.objects[["rw1"]])
 [1] TRUE
 > ## test window,panelPomp-method
-> test(length(window(ppo,U=1))==1)
+> test(length(window(ppo,U=1))==1L)
 [1] TRUE
-> test(identical(
-+   coef(window(ppo,U=1)),
-+   setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]")))))
+> test(setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]"))),
++      coef(window(ppo,U=1)))
 [1] TRUE
-> test(identical(
-+   lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4),rw2=c(2,3,4))))
+> test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4),rw2=c(2,3,4)))
 [1] TRUE
-> test(identical(
-+   lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))) 
+> test(lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))
 [1] TRUE
-> test(length(window(ppo,U=1,start=1,end=2))==1) 
+> test(length(window(ppo,U=1,start=1,end=2)),1L) 
 [1] TRUE
-> test(identical(
-+   lapply(as(window(ppo,U=1,start=1,end=2),"list"),time),list(rw1=c(1,2))))
+> test(lapply(as(window(ppo,U=1,start=1,end=2),"list"),time),list(rw1=c(1,2)))
 [1] TRUE
 > 
 > ## check whether all tests passed

@@ -1,8 +1,8 @@
 library(panelPomp,quietly=TRUE)
 
 TESTS_PASS <- NULL
-test <- function(expr,all="TESTS_PASS",env=parent.frame(),...) 
-  panelPomp:::test(expr,all=all,env=env,...)
+test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
+  panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
 ppo <- pompExample(prw,envir=NULL)[[1]]
 pos <- as(ppo,"list")
@@ -18,23 +18,17 @@ print(unitlogLik(pf))
 print(logLik(pf))
 }
 
-sQuotes("Error : in 'pfilter': 'object' is a required argument\n") -> err
-test(err==try(
-  pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10),
-  silent=TRUE)[1])
-test(err==try(
-  pfilter(params=coef(ppo),Np=10),
-  silent=TRUE)[1])
-sQuotes("Error : in 'pfilter': 'tol' must be a single positive scalar or a",
-        " vector of length ",length(ppo),"\n") -> err
-test(err==try(
-  pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)),
-  silent=TRUE)[1])
-sQuotes("Error : in 'pfilter': names of 'shared' must match those of ",
-        "'object@pParams$shared'.\n") -> err
-test(err==try(
-  pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10),
-  silent=TRUE)[1])
+test(wQuotes("Error : in ''pfilter'': ''object'' is a required argument\n"),
+  pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10))
+test(wQuotes("Error : in ''pfilter'': ''object'' is a required argument\n"),
+  pfilter(params=coef(ppo),Np=10))
+
+test(wQuotes("Error : in ''pfilter'': ''tol'' must be a single positive ",
+             "scalar or a vector of length ",length(ppo),"\n"),
+     pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)))
+test(wQuotes("Error : in ''pfilter'': names of ''shared'' must match those of ",
+             "''object@pParams$shared''.\n"),
+     pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10))
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
