@@ -39,6 +39,6 @@ test <- function (expr1, expr2, all, env, verbose = TRUE, ...) {
                                               call.=FALSE)})
   if (!is.logical(PASSES))
     stop(paste0("in ",sQuote("test"),": non-logical test result!"),call.=FALSE)
-  assign(all,value=c(get(all),PASSES),envir=env)
+  assign(all,value=c(get(all,envir=env),PASSES),envir=env)
   if (verbose) PASSES
 }

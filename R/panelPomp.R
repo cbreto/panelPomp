@@ -139,7 +139,7 @@ panelPomp.internal <- function(pompList,pParams,
     pParams$specific <- array(
       numeric(0),
       dim=c(0,length(pompList)),
-      dimnames=list(params=character(0),unit=names(pompList))
+      dimnames=list(param=character(0),unit=names(pompList))
     )
   }
   new("panelPomp",unit.objects=pompList,pParams=pParams)

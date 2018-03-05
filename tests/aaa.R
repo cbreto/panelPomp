@@ -44,15 +44,14 @@ test("a","a")
 test(matrix(1,nrow=2) -> m,m)
 test(list(a="a",b="b") -> l,l)
 test(c(TRUE,TRUE) -> L,L)
-test(test(not_found),wQuotes("Error : in ''test'': object 'not_found' not found\n"))
+test(wQuotes("Error : in ''test'': object 'not_found' not found\n"),test(not_found))
 ## tests for .onAttach
 test(tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
      c("panelPomp","examples"))
+## tests for .onDetach
+detach("package:panelPomp",unload=TRUE)
+is.na(options("pomp.examples")$pomp.examples[2])
 
 ## final check: do all tests pass?
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-
-## tests for .onDetach
-detach("package:panelPomp",unload=TRUE)
-#test(is.na(options("pomp.examples")$pomp.examples[2]))

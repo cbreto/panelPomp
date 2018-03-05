@@ -8,6 +8,9 @@ test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
 m1x1 <- matrix(
   paste0(rep(paste0(1:c(r=1),"_"),times=c(c=1)),rep(seq(1,c(c=1)),each=c(r=1))),
   nrow=c(r=1),dimnames=list(paste0("r",1:c(r=1)),c(paste0("c",1:c(c=1)))))
+m1x2 <- matrix( ## named rownames and colnames!
+  paste0(rep(paste0(1:c(r=1),"_"),times=c(c=2)),rep(seq(1,c(c=2)),each=c(r=1))),
+  nrow=c(r=1),dimnames=list(rnm=paste0("r",1:c(r=1)),cnm=c(paste0("c",1:c(c=2)))))
 m2x5 <- matrix(
   paste0(rep(paste0(1:c(r=2),"_"),times=c(c=5)),rep(seq(1,c(c=5)),each=c(r=2))),
   nrow=c(r=2),dimnames=list(paste0("r",1:c(r=2)),c(paste0("c",1:c(c=5)))))
@@ -16,6 +19,10 @@ m2x5 <- matrix(
 ############################################[rows,col]###############[rows]
 test(get_col(m1x1,rows=1,col=1),
      setNames(m1x1[rows=1,col=1],nm=rownames(m1x1)[rows=1]))
+test(get_col(m1x2,rows=1,col=1),
+     setNames(m1x2[rows=1,col=1],nm=rownames(m1x2)[rows=1]))
+test(get_col(m1x2,rows=1,col=1),
+     setNames(m1x2[rows=1,col=1],nm=rownames(m1x2)[rows=1]))
 test(get_col(m2x5,rows=1,col=1),
      setNames(m2x5[rows=1,col=1],nm=rownames(m2x5)[rows=1]))
 test(get_col(m2x5,,col=1),setNames(m2x5[,col=1],nm=rownames(m2x5)[]))

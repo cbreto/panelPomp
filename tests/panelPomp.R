@@ -6,7 +6,7 @@ test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
 
 ppo <- pompExample(prw,envir=NULL)[[1]]
 pos <- as(ppo,"list")
-pPs <- ppo@pParams
+pPs <- pparams(ppo)
 
 pog <- pompExample(gompertz,envir=NULL)[[1]]
 
@@ -29,7 +29,7 @@ test(panelPomp(pos,sh=pPs$sh,par=lapply(pPs,`*`,2))@pParams$sp,2*pPs$sp)
 test(panelPomp(pos,sp=2*pPs$sp,par=pPs)@pParams$sp,2*pPs$sp)
 test(panelPomp(pos,sp=pPs$sp,par=lapply(pPs,`*`,2))@pParams$sh,2*pPs$sh)
 test(panelPomp(pos,params=coef(ppo)),ppo)
-## ... and when is(object,"pomp")
+## ... and when is(object,"panelPomp")
 test(wQuotes("Error : in ''panelPomp'': if ''shared'' is a character vector ",
              "(or NULL), unit specific parameters are taken from ''object''.\n"),
      panelPomp(ppo,sh="sigmaX",params=pPs))
@@ -39,14 +39,13 @@ test(panelPomp(ppo,sh=NULL)@pParams,
      list(shared=numeric(),
           specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp)))
 test(panelPomp(ppo,params=coef(ppo)),ppo)
-
-## the panelPomp construction below should be valid! (i.e., all shared)
-## it seems to fail to add the unit names as colnames of the otherwise empty sp 
-## matrix
-#test(identical(
-#  names(coef(panelPomp(unitobjects(ppo),params=c(names(pPs$sh),rownames(pPs$sp))))),
-#  c(names(pPs$sh),rownames(pPs$sp))))
-
+test(
+  {all_sh <- c(pPs$sh,get_col(pPs$sp,col=1,rows=seq_along(dim(pPs$sp)[1])))
+  pparams(panelPomp(object=unitobjects(ppo),params=all_sh))},
+  list(shared=all_sh,specific=
+         array(numeric(0),dim=c(0,length(pos)),dimnames=list(param=character(0),
+                                                             unit=names(pos)))
+       ));rm(all_sh)
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
