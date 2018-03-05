@@ -1,7 +1,7 @@
 
-R version 3.3.3 (2017-03-06) -- "Another Canoe"
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
 Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin13.4.0 (64-bit)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -27,75 +27,6 @@ Type 'q()' to quit R.
 > pos <- as(ppo,"list")
 > po <- pos[[1]]
 > 
-> ## check reproducibility over a range of randomly chosen seeds
-> seeds <- c(21125715L,81902071L,86680005L,29971689L,73376915L)
-> for (s in seq_along(seeds)) {
-+ set.seed(seeds[s])
-+ mf <- mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5)
-+ print(mf@pParams)
-+ print(unitlogLik(mf))
-+ print(logLik(mf))
-+ }
-$shared
-   sigmaX    sigmaY 
-0.9347312 1.0000000 
-
-$specific
-        unit
-variable       rw1      rw2
-     X.0 0.7497272 1.382096
-
-      rw1       rw2 
--6.233398 -7.337460 
-[1] -13.57086
-$shared
-   sigmaX    sigmaY 
-0.6823591 1.0000000 
-
-$specific
-        unit
-variable      rw1       rw2
-     X.0 2.036246 0.7224989
-
-      rw1       rw2 
--6.035492 -9.112446 
-[1] -15.14794
-$shared
-   sigmaX    sigmaY 
-0.9306918 1.0000000 
-
-$specific
-        unit
-variable      rw1      rw2
-     X.0 1.138423 1.940188
-
-      rw1       rw2 
--6.598711 -9.563772 
-[1] -16.16248
-$shared
- sigmaX  sigmaY 
-1.02656 1.00000 
-
-$specific
-        unit
-variable       rw1       rw2
-     X.0 0.3563674 0.6888846
-
-      rw1       rw2 
--6.711310 -8.261035 
-[1] -14.97235
-$shared
-  sigmaX   sigmaY 
-1.028849 1.000000 
-
-$specific
-        unit
-variable       rw1      rw2
-     X.0 0.4838207 1.954455
-
-      rw1       rw2 
--5.972903 -8.108347 
-[1] -14.08125
 > ## test checks for missing arguments
 > test(mif2(Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5),
 +      wQuotes("Error : in ''mif2'': ''object'' is a required argument\n"))

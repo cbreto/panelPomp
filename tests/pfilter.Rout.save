@@ -1,7 +1,7 @@
 
-R version 3.3.3 (2017-03-06) -- "Another Canoe"
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
 Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin13.4.0 (64-bit)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -27,30 +27,6 @@ Type 'q()' to quit R.
 > pos <- as(ppo,"list")
 > po <- pos[[1]]
 > pPs <- pparams(ppo)
-> 
-> # check reproducibility over a range of randomly chosen seeds
-> seeds <- c(21125715L,81902071L,86680005L,29971689L,73376915L)
-> for (s in seq_along(seeds)) {
-+ set.seed(seeds[s])
-+ pf <- pfilter(ppo,Np=10)
-+ print(unitlogLik(pf))
-+ print(logLik(pf))
-+ }
-      rw1       rw2 
--5.989446 -8.714786 
-[1] -14.70423
-      rw1       rw2 
--6.427359 -8.675708 
-[1] -15.10307
-      rw1       rw2 
--6.922634 -7.845590 
-[1] -14.76822
-      rw1       rw2 
--6.391707 -9.008469 
-[1] -15.40018
-      rw1       rw2 
--7.189965 -8.640094 
-[1] -15.83006
 > 
 > test(wQuotes("Error : in ''pfilter'': ''object'' is a required argument\n"),
 +   pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10))

@@ -9,15 +9,6 @@ pos <- as(ppo,"list")
 po <- pos[[1]]
 pPs <- pparams(ppo)
 
-# check reproducibility over a range of randomly chosen seeds
-seeds <- c(21125715L,81902071L,86680005L,29971689L,73376915L)
-for (s in seq_along(seeds)) {
-set.seed(seeds[s])
-pf <- pfilter(ppo,Np=10)
-print(unitlogLik(pf))
-print(logLik(pf))
-}
-
 test(wQuotes("Error : in ''pfilter'': ''object'' is a required argument\n"),
   pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10))
 test(wQuotes("Error : in ''pfilter'': ''object'' is a required argument\n"),

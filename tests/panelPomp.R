@@ -9,6 +9,8 @@ pos <- as(ppo,"list")
 pPs <- pparams(ppo)
 
 pog <- pompExample(gompertz,envir=NULL)[[1]]
+all_sh <- c(pPs$sh,get_col(pPs$sp,col=1,rows=seq_along(dim(pPs$sp)[1])))
+pos_noparams <- lapply(unitobjects(ppo),function (pp) pomp(pp,params=numeric(0)))
 
 ## test checks in validity function for panelPomp class
 
@@ -39,13 +41,16 @@ test(panelPomp(ppo,sh=NULL)@pParams,
      list(shared=numeric(),
           specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp)))
 test(panelPomp(ppo,params=coef(ppo)),ppo)
-test(
-  {all_sh <- c(pPs$sh,get_col(pPs$sp,col=1,rows=seq_along(dim(pPs$sp)[1])))
-  pparams(panelPomp(object=unitobjects(ppo),params=all_sh))},
-  list(shared=all_sh,specific=
-         array(numeric(0),dim=c(0,length(pos)),dimnames=list(param=character(0),
-                                                             unit=names(pos)))
-       ));rm(all_sh)
+# all parameters shared
+test(pparams(panelPomp(object=unitobjects(ppo),params=all_sh)),
+     list(shared=all_sh,specific=
+            array(numeric(0),dim=c(0,length(pos)),dimnames=list(param=character(0),
+                                                                unit=names(pos)))
+     ))
+# empty params in pompList
+test(panelPomp(pos_noparams),
+     wQuotes("Error : in ''panelPomp'': when parameters come from a list of ",
+             "''pomps,'' all ''pomps'' must have non-empty ''params'' slot\n"))
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")

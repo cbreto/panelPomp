@@ -197,7 +197,13 @@ panelPomp <- function (object, shared = numeric(0),
     ## if no parameters provided, ...
     if (missing(shared) && missing(specific) && missing(params)) {
       ## make all parameters unit-specific and take their values from pomps
-      pParams <- list(shared=numeric(),specific=sapply(object,coef))
+      ## check for missing params ...
+      MISS <- sapply(lapply(object,coef),identical,numeric(0))
+      if (any(MISS)) {
+        stop(ep,wQuotes("when parameters come from a list of ''pomps,'' all ",
+                        "''pomps'' must have non-empty ''params'' slot"),
+                        call.=FALSE)
+      } else pParams <- list(shared=numeric(),specific=sapply(object,coef))
     } else {
       ## use provided params, shared or specific
       ## check for params format
