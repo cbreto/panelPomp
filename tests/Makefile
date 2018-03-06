@@ -25,4 +25,4 @@ routsaves:
 	$(R_CMD) BATCH --no-restore --no-save --no-timing $*.R $*.Rout
 
 %.Rout.save: %.R
-	$(R_CMD) BATCH --no-restore --no-save --no-timing --quiet $*.R $*.Rout.save
+	$(R_CMD) BATCH --no-restore --no-save --no-timing $*.R $*.Rout.save
