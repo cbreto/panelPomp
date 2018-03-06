@@ -20,13 +20,14 @@
 \item{object}{An object of class \code{panelPomp} or inheriting class 
 \code{panelPomp}.}
 
-\item{shared}{either (matching the \code{object} argument above) (i) a named 
-\code{numeric vector}; or (ii) a character vector of names for parameters to 
-be set to shared. Parameters that were not originally shared are copied from 
-the specific parameters from the first panel unit (in the second case, it 
-defaults to \code{NULL}, which implies all parameters are specific).}
+\item{shared}{optional; either (matching the \code{object} argument above) 
+(i) a named \code{numeric vector}; or (ii) a character vector of names for 
+parameters to be set to shared. Parameters that were not originally shared 
+are copied from the specific parameters from the first panel unit (in the 
+second case, it defaults to \code{NULL}, which implies all parameters are 
+specific).}
 
-\item{specific}{a \code{matrix} with parameters on named rows and panel 
+\item{specific}{optional; a \code{matrix} with parameters on named rows and panel 
 units on named columns.}
 
 \item{params}{optional; a list with (named) 'shared' and 'specific' elements.}

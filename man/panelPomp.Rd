@@ -7,29 +7,30 @@
 \alias{panelPomp}
 \title{Constructing \code{panelPomp} objects}
 \usage{
-panelPomp(object, shared = numeric(0), specific = array(numeric(0), dim =
-  c(0, 0)), params = list(shared = shared, specific = specific))
+panelPomp(object, shared = new("panelPomp")@pParams$shared,
+  specific = new("panelPomp")@pParams$specific, params = list(shared =
+  shared, specific = specific))
 }
 \arguments{
-\item{object}{either (i) a named \code{list} of \code{pomp} objects; or (ii) 
-an object of class \code{panelPomp} or inheriting class \code{panelPomp}. In  
-the second case, the function \code{panelPomp} will manipulate the provided 
-object.}
+\item{object}{required; either (i) a named \code{list} of \code{pomp} 
+objects; or (ii) an object of class \code{panelPomp} or inheriting class 
+\code{panelPomp}. In the second case, the function \code{panelPomp} allows 
+modifying the provided object.}
 
-\item{shared}{either (matching the \code{object} argument above) (i) a named 
-\code{numeric vector}; or (ii) a character vector of names for parameters to 
-be set to shared. Parameters that were not originally shared are copied from 
-the specific parameters from the first panel unit (in the second case, it 
-defaults to \code{NULL}, which implies all parameters are specific).}
+\item{shared}{optional; either (matching the \code{object} argument above) 
+(i) a named \code{numeric vector}; or (ii) a character vector of names for 
+parameters to be set to shared. Parameters that were not originally shared 
+are copied from the specific parameters from the first panel unit (in the 
+second case, it defaults to \code{NULL}, which implies all parameters are 
+specific).}
 
-\item{specific}{a \code{matrix} with parameters on named rows and panel 
+\item{specific}{optional; a \code{matrix} with parameters on named rows and panel 
 units on named columns.}
 
 \item{params}{optional; a list with (named) 'shared' and 'specific' elements.}
 }
 \description{
-This function constructs a \code{panelPomp} object. It also 
-redefine shared/specific configuration of a \code{panelPomp} object.
+This function constructs a \code{panelPomp} object.
 }
 \references{
 \breto2017

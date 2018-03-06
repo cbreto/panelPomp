@@ -1,22 +1,3 @@
-
-R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
-Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under certain conditions.
-Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
-
-R is a collaborative project with many contributors.
-Type 'contributors()' for more information and
-'citation()' on how to cite R or R packages in publications.
-
-Type 'demo()' for some demos, 'help()' for on-line help, or
-'help.start()' for an HTML browser interface to help.
-Type 'q()' to quit R.
-
 > library(panelPomp,quietly=TRUE)
 > 
 > TESTS_PASS <- NULL
@@ -29,21 +10,46 @@ Type 'q()' to quit R.
 > 
 > pog <- pompExample(gompertz,envir=NULL)[[1]]
 > all_sh <- c(pPs$sh,get_col(pPs$sp,col=1,rows=seq_along(dim(pPs$sp)[1])))
-> pos_noparams <- lapply(unitobjects(ppo),function (pp) pomp(pp,params=numeric(0)))
+> noparams <- lapply(unitobjects(ppo),pomp,params=numeric(0))
+> somepars <- setNames(c(as(ppo,"list"),noparams[[1]]),c(names(ppo),"rw3"))
 > 
 > ## test checks in validity function for panelPomp class
+> #test(new("panelPomp",unit.objects=list(pog)),
+> #     wQuotes("Error in validObject(.Object) : \n  invalid class ",
+> #             "*panelPomp* object: ''unit.object''",
+> #             "must have names\n"))
+> #
+> #new("panelPomp",unit.objects=list(a=1))
 > 
+> # test ''pomps'' with same parameters
+> # one unit panels
+> test(pparams(panelPomp(noparams[1])),pparams(new("panelPomp")))
+[1] TRUE
+> test(pparams(panelPomp(somepars[1]))$shared,pparams(new("panelPomp"))$shared)
+[1] TRUE
+> test(pparams(panelPomp(somepars[1]))$sp[names(all_sh),1],all_sh)
+[1] TRUE
+> 
+> #unit.objects <- noparams
+> 
+> #unit.objects <- unitobjects(ppo)
+> #rw <- as(ppo,"list")[[1]]
+> #unit.objects[[1]] <- pomp(rw,params=c(X.0=2,sigmaX=1.2,sigmaY=3.1))
+> #unit.objects[[2]] <- pomp(rw,params=c(sigmaY=0.31,sigmaX=0.12,X.0=0.2))
+> #unit.objects <- somepars
+> 
+> ep <- "Error : in ''panelPomp'': "
 > ## test checks for missing arguments in panelPomp function
-> test(wQuotes("Error : in ''panelPomp'': ''object'' is a required argument.\n"),
+> test(wQuotes(ep,"''object'' is a required argument.\n"),
 +      panelPomp())
 [1] TRUE
-> test(panelPomp(list(a=1)),
-+      wQuotes("Error : in ''panelPomp'': ''object'' must be a either a ",
-+              "''panelPomp'' object or a list of ''pomp'' objects.\n"))
+> test(try(panelPomp(list(a=1)),silent=TRUE)[1],
++      wQuotes(ep,"''object'' must be a either a ''panelPomp'' object or a",
++              " list of ''pomp'' objects.","\n"))
 [1] TRUE
 > test(panelPomp(pos,sh=2*pPs$sh,sp=2*pPs$sp,params=pPs),
-+      wQuotes("Error : in ''panelPomp'': do not specify all of ''params'', ",
-+              "''shared'' and ''specific''.\n"))
++      wQuotes(ep,"do not specify all of ''params'', ''shared'' and ",
++              "''specific''.\n"))
 [1] TRUE
 > ## test construction of pParams slot ...
 > ## ... when is(object,"pompList") ...
@@ -59,9 +65,20 @@ Type 'q()' to quit R.
 [1] TRUE
 > test(panelPomp(pos,params=coef(ppo)),ppo)
 [1] TRUE
+> # noparams
+> test(pparams(panelPomp(noparams)),pparams(new("panelPomp")))
+[1] TRUE
+> test(unitobjects(panelPomp(noparams)),lapply(pos,`coef<-`,value=numeric(0)))
+[1] TRUE
+> # someparams
+> test(panelPomp(somepars),
++      wQuotes(ep,"the parameter names of all ''pomp'' objects ",
++              "must be the same (albeit ''pomp'' codes can ignore ",
++              "parameters that are irrelevant to any given unit)\n"))
+[1] TRUE
 > ## ... and when is(object,"panelPomp")
-> test(wQuotes("Error : in ''panelPomp'': if ''shared'' is a character vector ",
-+              "(or NULL), unit specific parameters are taken from ''object''.\n"),
+> test(wQuotes(ep,"if ''shared'' is a character vector (or NULL), unit specific ",
++              "parameters are taken from ''object''.\n"),
 +      panelPomp(ppo,sh="sigmaX",params=pPs))
 [1] TRUE
 > test(panelPomp(ppo,sh="sigmaX")@pParams,
@@ -73,18 +90,14 @@ Type 'q()' to quit R.
 [1] TRUE
 > test(panelPomp(ppo,params=coef(ppo)),ppo)
 [1] TRUE
-> # all parameters shared
+> # all_sh
 > test(pparams(panelPomp(object=unitobjects(ppo),params=all_sh)),
 +      list(shared=all_sh,specific=
 +             array(numeric(0),dim=c(0,length(pos)),dimnames=list(param=character(0),
 +                                                                 unit=names(pos)))
 +      ))
 [1] TRUE
-> # empty params in pompList
-> test(panelPomp(pos_noparams),
-+      wQuotes("Error : in ''panelPomp'': when parameters come from a list of ",
-+              "''pomps,'' all ''pomps'' must have non-empty ''params'' slot\n"))
-[1] TRUE
+> 
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))
 [1] TRUE
