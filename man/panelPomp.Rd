@@ -12,25 +12,45 @@ panelPomp(object, shared = new("panelPomp")@pParams$shared,
   shared, specific = specific))
 }
 \arguments{
-\item{object}{required; either (i) a named \code{list} of \code{pomp} 
-objects; or (ii) an object of class \code{panelPomp} or inheriting class 
-\code{panelPomp}. In the second case, the function \code{panelPomp} allows 
+\item{object}{required; either (i) a \code{list} of \code{pomp} objects; or 
+(ii) an object of class \code{panelPomp} or inheriting class 
+\code{panelPomp}.
+
+If a \code{list} of \code{pomp}s is provided, the list must be named. All 
+these \code{pomp}s must either have no parameters or have the same parameter
+ names. (This requirement doesn't prevent \code{pomp} codes from ignoring 
+any parameter irrelevant to any given panel unit.)
+
+If  \code{panelPomp} object is provided, the function \code{panelPomp} allows 
 modifying the provided object.}
 
-\item{shared}{optional; either (matching the \code{object} argument above) 
-(i) a named \code{numeric vector}; or (ii) a character vector of names for 
-parameters to be set to shared. Parameters that were not originally shared 
-are copied from the specific parameters from the first panel unit (in the 
-second case, it defaults to \code{NULL}, which implies all parameters are 
-specific).}
+\item{shared, specific, params}{optional; the role of and requirements on 
+these arguments depend on the type of object provided in the \code{object} 
+argument.
 
-\item{specific}{optional; a \code{matrix} with parameters on named rows and panel 
-units on named columns.}
+If \code{object} is a \code{list} of \code{pomp}s, \code{shared} must be a 
+numeric vector specifying parameter values shared among panel units; 
+\code{specific} must be a \code{matrix} with parameter values that are 
+unit-specific with rows naming parameters and columns naming units (these 
+names must match those of \code{object}); \code{params} allows to specify 
+both \code{shared} and \code{specific} as a single argument: a list with 
+elements named 'shared' and 'specific.' If no values are specified and the 
+\code{list} of \code{pomp}s has parameter values, the latter are set to be 
+unit-specific.
 
-\item{params}{optional; a list with (named) 'shared' and 'specific' elements.}
+If \code{object} is a \code{panelPomp} object, these arguments can still be 
+used as described above. In addition, a character \code{shared} argument 
+sets these parameter as shared (values for parameters that were not 
+originally shared are taken from the specific parameters of the first panel 
+unit). \code{shared=NULL} sets all parameters as unit-specific.}
 }
 \description{
-This function constructs a \code{panelPomp} object.
+This function constructs \code{panelPomp} objects, representing
+ PanelPOMP models (as defined in Breto et al., 2018). PanelPOMP models 
+involve multiple units, each of which can in turn be modeled by a POMP 
+model. Such POMP models can be encoded as a \code{list} of \code{pomp} 
+objects, a cornerstone that the \code{panelPomp} function can use to 
+construct the corresponding \code{panelPomp} object.
 }
 \references{
 \breto2017
