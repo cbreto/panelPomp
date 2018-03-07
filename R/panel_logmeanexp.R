@@ -9,6 +9,7 @@ NULL
 #' @param MARGIN The dimension of the matrix that corresponds to a panel unit 
 #' and over which averaging occurs (1 indicates rows, 2 indicates columns).
 #' @param se logical; whether to give standard errors.
+#' @seealso panel_loglik
 #' @export
 panel_logmeanexp <- function (x, MARGIN, se = FALSE)
 {

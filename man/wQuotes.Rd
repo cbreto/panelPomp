@@ -8,8 +8,7 @@ character objects}
 wQuotes(...)
 }
 \arguments{
-\item{...}{character objects (or other objects to be passed to 
-\code{strsplit}.}
+\item{...}{objects to be passed to \code{strsplit}.}
 }
 \description{
 Concatenate character objects and replace singles quotes with 

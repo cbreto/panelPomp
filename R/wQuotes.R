@@ -6,8 +6,7 @@ NULL
 #' @description Concatenate character objects and replace singles quotes with 
 #' \code{sQuote()}s and asterisks with \code{dQuote()}s: \code{sQuote("x")} and
 #' \code{dQuote("x")} can be written as just ''x'' and *x*.
-#' @param ... character objects (or other objects to be passed to 
-#' \code{strsplit}.
+#' @param ... objects to be passed to \code{strsplit}.
 #' @examples
 #' wQuotes("in ''fn'': *object* is 'a' required argument")
 #' paste0("in ",sQuote("fn"),": ",dQuote("object")," is 'a' required argument")

@@ -1,5 +1,4 @@
 tests/Makefile
-tests/(.+?)\.Rout$
 README\.md$
 TODO\.md$
 

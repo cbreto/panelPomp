@@ -19,3 +19,6 @@ and over which averaging occurs (1 indicates rows, 2 indicates columns).}
 \code{se = TRUE}, the jackknife se's from \code{logmeanexp} are
  squared, summed and the squared root is taken.
 }
+\seealso{
+panel_loglik
+}
