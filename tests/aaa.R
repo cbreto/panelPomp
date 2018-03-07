@@ -36,9 +36,15 @@ test("a","a")
 test(matrix(1,nrow=2),matrix(1,nrow=2))
 test(list(a="a",b="b"),list(a="a",b="b"))
 test(c(TRUE,TRUE),c(TRUE,TRUE))
+
+## test runif.EstimationScale
+test(class(panelPomp:::runif.EstimationScale(centers=c(th=1),widths=2))[1],
+     "numeric")
+
 ## tests for .onAttach
 test(tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
      c("panelPomp","examples"))
+
 ## tests for .onDetach
 detach("package:panelPomp",unload=TRUE)
 is.na(options("pomp.examples")$pomp.examples[2])

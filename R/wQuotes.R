@@ -1,4 +1,4 @@
-#' @include runif_EstimationScale.R
+#' @include params.R
 NULL
 
 #' @title Interpret shortcuts for \code{sQuote()}s and \code{dQuote()}s in 

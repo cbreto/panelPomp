@@ -71,10 +71,17 @@ Type 'q()' to quit R.
 [1] TRUE
 > test(c(TRUE,TRUE),c(TRUE,TRUE))
 [1] TRUE
+> 
+> ## test runif.EstimationScale
+> test(class(panelPomp:::runif.EstimationScale(centers=c(th=1),widths=2))[1],
++      "numeric")
+[1] TRUE
+> 
 > ## tests for .onAttach
 > test(tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
 +      c("panelPomp","examples"))
 [1] TRUE
+> 
 > ## tests for .onDetach
 > detach("package:panelPomp",unload=TRUE)
 > is.na(options("pomp.examples")$pomp.examples[2])
