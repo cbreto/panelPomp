@@ -10,6 +10,13 @@ pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
 ppo <- panelPomp(unitobjects(ppo),params=pP2)
 
+# other definitions from old test file
+pg <- try(pompExample(pangomp,envir=NULL)[[1]])
+g <- pompExample(gompertz,envir=NULL)[[1]]
+pp <- panelPomp(list(unit1=g,unit2=g),shared=pg@pParams$shared,
+                specific=pg@pParams$specific[,1:2])
+
+
 ## test coef,panelPomp-method
 test(coef(ppo),setNames(c(1,2,0,0.1),c("sigmaX","sigmaY",
                                        sprintf("X.0[rw1]"),sprintf("X.0[rw2]"))))
@@ -32,10 +39,6 @@ wQuotes("Error : in ''coef<-'': part of ''coef(object)'' is not specified ",
                "in ''value''.\n") -> err
 test(coef(ppo) <- coef(ppo)[-c(1:2)],err)
 test(coef(ppo) <- ppo@pParams$shared,err)
-#err <- wQuotes(
-#  "Error : in 'coef<-': invalid class ",dQuote("panelPomp")," object: All ",
-#  "parameters in the pomp objects of 'unit.objects' slot must be in 'pParams'",
-#  "and viceversa (validity check)\n")
 ## test length,panelPomp-method
 test(length(ppo),2L)
 ## test names,panelPomp-method
@@ -64,6 +67,10 @@ test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4),rw2=c(2,3,4))
 test(lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))
 test(length(window(ppo,U=1,start=1,end=2)),1L) 
 test(lapply(as(window(ppo,U=1,start=1,end=2),"list"),time),list(rw1=c(1,2)))
+
+## as(,'list') returns list of units
+test(as(pg,"list"),pg@unit.objects)
+
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))

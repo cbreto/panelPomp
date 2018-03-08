@@ -341,17 +341,15 @@ setMethod(
                          tol = 1e-17,
                          verbose = getOption("verbose"), 
                          ...) {
-    ep <- paste0("in ", sQuote("mif2"), ": ")
-    et <- paste0(" (", sQuote("mif2,panelPomp-method"), ")")
+    ep <- wQuotes("in ''mif2'': ")
+    et <- wQuotes(" (''mif2,panelPomp-method'')")
     ## check for start (i.e., params) format
     if (!missing(start) && is.numeric(start)) start <- pParams(start)
     
     if (!missing(shared.start)&&!missing(specific.start)&&!missing(start)) 
-      stop(ep,"specify either ",sQuote("start")," only, ",sQuote("start"),
-           " and ",sQuote("shared.start")," , or ",sQuote("start")," and ",
-           sQuote("specific.start"),".",et,call.=FALSE
-      )
-    
+      stop(wQuotes(ep,"specify either ''start'' only, ''start'' and ",
+                   "''shared.start'', or ''start'' and ''specific.start''.",
+                   et),call.=FALSE)
     # Get starting parameter values from 'object,' 'start,' or 
     # 'shared/specific.start'
     if (missing(shared.start)){
@@ -362,7 +360,6 @@ setMethod(
       if (!missing(start)) specific.start <- start$specific 
       else specific.start <- object@pParams$specific
     }
-    
     # This causes an unintended stop in panelPomp objects that genuinely 
     # have no shared parameters
     #if (identical(shared.start,numeric(0))) {
@@ -390,9 +387,8 @@ setMethod(
         &
         !(is.null(names(object@pParams$shared))&is.null(names(shared.start)))
       ) {
-        stop(ep,"names of ",sQuote("shared.start")," must match those of ", 
-             sQuote("object@pParams$shared"),".",et,call.=FALSE
-        )
+        stop(wQuotes(ep,"part of ''shared.start'' is not a shared parameter",
+                     " of ''object''.",et),call.=FALSE)
       }
     }
     if (!is.null(object@pParams$specific)){
@@ -406,10 +402,9 @@ setMethod(
           &
           is.null(rownames(specific.start))
         )
-      ){
-        stop(ep,"rownames of ",sQuote("specific.start")," must match those ",
-             "of ",sQuote("object@pParams$specific"),".",et,call.=FALSE
-        )
+      ) {
+        stop(wQuotes(ep,"part of ''specific.start'' is not a specific parameter",
+                     " of ''object''."),et,call.=FALSE)
       }
       if (!identical(
         colnames(object@pParams$specific),
