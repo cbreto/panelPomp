@@ -41,6 +41,30 @@ test(c(TRUE,TRUE),c(TRUE,TRUE))
 test(class(panelPomp:::runif.EstimationScale(centers=c(th=1),widths=2))[1],
      "numeric")
 
+## check for ' in different positions in the character
+test(wQuotes("''Error''")==paste0(sQuote("Error")))
+test(wQuotes("Error")=="Error")
+test(wQuotes("''Error'' : in")==paste0(sQuote("Error")," : in"))
+test(wQuotes("Error : in ''fn''")==paste0("Error : in ",sQuote("fn")))
+test(wQuotes("''Error'' : in ''fn'': ''object'' is a required argument"),
+     paste0(sQuote("Error")," : in ",sQuote("fn"),": ",sQuote("object"),
+            " is a required argument"))
+test(wQuotes("Error : in ''fn'': ''object'' is a required argument"),
+     paste0("Error : in ",sQuote("fn"),": ",sQuote("object"),
+            " is a required argument"))
+test(wQuotes("in ''fn''",": ''object'' is"," a required argument"," Error : in",
+             " ''fn'': ''object'' is a required argument"),
+     paste0("in ",sQuote("fn"),": ",sQuote("object")," is a required argument",
+            " Error : in ",sQuote("fn"),": ",sQuote("object"),
+            " is a required argument"))
+## test passing sQuotes as first argument to stop
+test(as.character(
+  attr(try(stop(wQuotes("in ''fn'': ''object'' is a required argument")),
+           silent=TRUE),"condition")),
+  paste0(
+    "Error in doTryCatch(return(expr), name, parentenv, handler): in ",
+    sQuote("fn"),": ",sQuote("object")," is a required argument\n"))
+
 ## tests for .onAttach
 test(tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
      c("panelPomp","examples"))
