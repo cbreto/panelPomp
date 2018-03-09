@@ -22,8 +22,6 @@ Type 'q()' to quit R.
 > library(panelPomp,quietly=TRUE)
 > 
 > ppo <- pompExample(prw,envir=NULL)[[1]]
-> pos <- as(ppo,"list")
-> po <- pos[[1]]
 > 
 > seeds <- c(21125715L,81902071L,86680005L,29971689L,73376915L)
 > 
@@ -51,69 +49,162 @@ Type 'q()' to quit R.
 > 
 > for (s in seq_along(seeds)) {
 +   set.seed(seeds[s])
-+   mf <- mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5)
++   mf <- mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),
++              cooling.fraction.50=0.5,cooling.type="geometric")
 +   print(mf@pParams)
 +   print(unitlogLik(mf))
 +   print(logLik(mf))
++   print(mf@pconv.rec)
++   print(mf@pconv.rec.array)
 + }
 $shared
    sigmaX    sigmaY 
-0.9347312 1.0000000 
+0.9348033 1.0000000 
 
 $specific
         unit
 variable       rw1      rw2
-     X.0 0.7497272 1.382096
+     X.0 0.7494607 1.380992
 
       rw1       rw2 
--6.233398 -7.337460 
-[1] -13.57086
+-6.233642 -7.336813 
+[1] -13.57046
+         variable
+iteration    loglik nfail    sigmaX sigmaY
+        0 -13.57046     0 1.0000000      1
+        1        NA    NA 0.9348033      1
+, , unit = rw1
+
+         variable
+iteration    loglik unitNfail unitLoglik       X.0
+        0 -13.57046         0  -6.233642 1.0000000
+        1        NA        NA         NA 0.7494607
+
+, , unit = rw2
+
+         variable
+iteration    loglik unitNfail unitLoglik      X.0
+        0 -13.57046         0  -7.336813 1.000000
+        1        NA        NA         NA 1.380992
+
 $shared
    sigmaX    sigmaY 
-0.6823591 1.0000000 
+0.6828127 1.0000000 
 
 $specific
         unit
 variable      rw1       rw2
-     X.0 2.036246 0.7224989
+     X.0 2.034284 0.7221263
 
       rw1       rw2 
--6.035492 -9.112446 
-[1] -15.14794
+-6.034874 -9.113273 
+[1] -15.14815
+         variable
+iteration    loglik nfail    sigmaX sigmaY
+        0 -15.14815     0 1.0000000      1
+        1        NA    NA 0.6828127      1
+, , unit = rw1
+
+         variable
+iteration    loglik unitNfail unitLoglik      X.0
+        0 -15.14815         0  -6.034874 1.000000
+        1        NA        NA         NA 2.034284
+
+, , unit = rw2
+
+         variable
+iteration    loglik unitNfail unitLoglik       X.0
+        0 -15.14815         0  -9.113273 1.0000000
+        1        NA        NA         NA 0.7221263
+
 $shared
    sigmaX    sigmaY 
-0.9306918 1.0000000 
+0.9309536 1.0000000 
 
 $specific
         unit
-variable      rw1      rw2
-     X.0 1.138423 1.940188
+variable      rw1     rw2
+     X.0 1.139014 1.93792
 
       rw1       rw2 
--6.598711 -9.563772 
-[1] -16.16248
+-6.598561 -9.566110 
+[1] -16.16467
+         variable
+iteration    loglik nfail    sigmaX sigmaY
+        0 -16.16467     0 1.0000000      1
+        1        NA    NA 0.9309536      1
+, , unit = rw1
+
+         variable
+iteration    loglik unitNfail unitLoglik      X.0
+        0 -16.16467         0  -6.598561 1.000000
+        1        NA        NA         NA 1.139014
+
+, , unit = rw2
+
+         variable
+iteration    loglik unitNfail unitLoglik     X.0
+        0 -16.16467         0   -9.56611 1.00000
+        1        NA        NA         NA 1.93792
+
 $shared
- sigmaX  sigmaY 
-1.02656 1.00000 
+  sigmaX   sigmaY 
+1.026614 1.000000 
 
 $specific
         unit
 variable       rw1       rw2
-     X.0 0.3563674 0.6888846
+     X.0 0.3549989 0.6878978
 
       rw1       rw2 
--6.711310 -8.261035 
-[1] -14.97235
+-6.709911 -8.262543 
+[1] -14.97245
+         variable
+iteration    loglik nfail   sigmaX sigmaY
+        0 -14.97245     0 1.000000      1
+        1        NA    NA 1.026614      1
+, , unit = rw1
+
+         variable
+iteration    loglik unitNfail unitLoglik       X.0
+        0 -14.97245         0  -6.709911 1.0000000
+        1        NA        NA         NA 0.3549989
+
+, , unit = rw2
+
+         variable
+iteration    loglik unitNfail unitLoglik       X.0
+        0 -14.97245         0  -8.262543 1.0000000
+        1        NA        NA         NA 0.6878978
+
 $shared
   sigmaX   sigmaY 
-1.028849 1.000000 
+1.028653 1.000000 
 
 $specific
         unit
 variable       rw1      rw2
-     X.0 0.4838207 1.954455
+     X.0 0.4824871 1.952893
 
       rw1       rw2 
--5.972903 -8.108347 
-[1] -14.08125
+-5.973952 -8.109600 
+[1] -14.08355
+         variable
+iteration    loglik nfail   sigmaX sigmaY
+        0 -14.08355     0 1.000000      1
+        1        NA    NA 1.028653      1
+, , unit = rw1
+
+         variable
+iteration    loglik unitNfail unitLoglik       X.0
+        0 -14.08355         0  -5.973952 1.0000000
+        1        NA        NA         NA 0.4824871
+
+, , unit = rw2
+
+         variable
+iteration    loglik unitNfail unitLoglik      X.0
+        0 -14.08355         0    -8.1096 1.000000
+        1        NA        NA         NA 1.952893
+
 > 

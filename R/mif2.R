@@ -326,7 +326,6 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
 ## mif2,panelPomp-method
 #' @rdname mif2
 #' @export
-#'
 setMethod(
   "mif2",
   signature=signature(object="panelPomp"),

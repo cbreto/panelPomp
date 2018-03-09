@@ -52,6 +52,12 @@ Type 'q()' to quit R.
 > test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,sp=2*ppo@pParams$sp,Np=10),
 +              "list")[[1]]),c(2*ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
 [1] TRUE
+> test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,Np=10),"list")[[1]]),
++      c(2*ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
+[1] TRUE
+> test(coef(as(pfilter(ppo,sp=2*ppo@pParams$sp,Np=10),"list")[[1]]),
++      c(ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
+[1] TRUE
 > test(coef(as(pfilter(ppo,params=lapply(ppo@pParams,`*`,2),Np=10),
 +              "list")[[1]]),2*c(ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
 [1] TRUE

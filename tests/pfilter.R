@@ -26,6 +26,10 @@ test(wQuotes(ep,"Missing ''Np'' argument.\n"),pfilter(ppo))
 test(coef(pfilter(ppo,Np=10)),coef(ppo))
 test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,sp=2*ppo@pParams$sp,Np=10),
              "list")[[1]]),c(2*ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
+test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,Np=10),"list")[[1]]),
+     c(2*ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
+test(coef(as(pfilter(ppo,sp=2*ppo@pParams$sp,Np=10),"list")[[1]]),
+     c(ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
 test(coef(as(pfilter(ppo,params=lapply(ppo@pParams,`*`,2),Np=10),
              "list")[[1]]),2*c(ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
 ## resolve multiple params
