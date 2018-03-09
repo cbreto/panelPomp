@@ -7,22 +7,25 @@ test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 ## ..., perform tests, and ...
 test(NULL,NULL)
+## test unevaluated multiple-line expression
+test(quote({a_multi_line_expression <- NA
+"where_objects_are_defined" -> is_not_evald
+NULL}),NULL)
+test(exists("is_not_evald"),FALSE)
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 
 ## complete tests for 'test':
-## test if results are added to 'all'
-test(NULL,NULL)
-## if only one argument, try(,silent=T)[1] 
-## (not necessarily logical; hence, all is not changed!)
-test(length(get(eval(formals(test))$all))==2)
-test(length(get(eval(formals(test))$all)),2L)
+## if only one argument ...
+test(length(get(eval(formals(test))$all))==3)
+## ... the result isn't necessarily logical: hence, 'all' is not changed!
+test(length(get(eval(formals(test))$all)),3L)
 ## test order of expr1 and expr2
-test(3L,length(get(eval(formals(test))$all)))
+test(4L,length(get(eval(formals(test))$all)))
 ## test stop for wrong parameters
-test(wQuotes("Error in try(expr1, silent = TRUE) : object 'invalid_expr' not ",
-             "found\n"),test(invalid_expr))
+test(wQuotes("Error in eval(expr1) : object 'invalid_expr' not found\n"),
+     test(invalid_expr))
 test(wQuotes("Error : in ''test'': missing vector to accumulate logical test ",
              "results.\n"),
      panelPomp:::test(NULL,expr2=NULL,all="wrong_all",env=parent.frame()))
@@ -57,7 +60,7 @@ test(wQuotes("in ''fn''",": ''object'' is"," a required argument"," Error : in",
      paste0("in ",sQuote("fn"),": ",sQuote("object")," is a required argument",
             " Error : in ",sQuote("fn"),": ",sQuote("object"),
             " is a required argument"))
-## test passing sQuotes as first argument to stop
+## test passing wQuotes as first argument to stop
 test(as.character(
   attr(try(stop(wQuotes("in ''fn'': ''object'' is a required argument")),
            silent=TRUE),"condition")),

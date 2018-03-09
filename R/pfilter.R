@@ -165,7 +165,7 @@ setMethod(
         )
       }
     }
-    if (missing(Np)) stop(ep,"Missing 'Np' argument.")
+    if (missing(Np)) stop(wQuotes(ep,"Missing ''Np'' argument."),call.=FALSE)
     # Check that all parameters in the pomp objects have been provided either as shared or specific ...
     if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared), rownames(specific)))) 
       stop(ep, "At least one 'pomp' parameter needs to be added to the (shared. or specific.) 
