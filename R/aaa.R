@@ -2,16 +2,21 @@
 NULL
 
 .onAttach <- function (...) {
-  exampleDir <- getOption("pomp.examples")
+  pompExDir <- getOption("pomp.examples")
+  pPompExDir <- getOption("panelPomp.examples")
   newDir <- system.file("examples",package="panelPomp")
-  options(pomp.examples=c(exampleDir,newDir,recursive=TRUE))
+  if (!newDir%in%pompExDir) options(pomp.examples=c(pompExDir,newDir))
+  if (!newDir%in%pPompExDir) options(panelPomp.examples=c(pPompExDir,newDir))
 }
 
 .onDetach <- function (...) {
-  exampleDir <- getOption("pomp.examples")
+  pompExDir <- getOption("pomp.examples")
+  pPompExDir <- getOption("panelPomp.examples")
   newDir <- system.file("examples",package="panelPomp")
-  exampleDir <- exampleDir[exampleDir!=newDir]
-  options(pomp.examples=exampleDir)
+  pompExDir <- pompExDir[pompExDir!=newDir]
+  pPompExDir <- pPompExDir[pPompExDir!=newDir]
+  options(pomp.examples=pompExDir)
+  options(panelPomp.examples=pPompExDir)
 }
 
 ## Uniform random draws in the transformed scale: give centers and widths
