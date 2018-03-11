@@ -16,7 +16,7 @@ test(exists("is_not_evald"),FALSE)
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 
-## complete tests for 'test':
+## complete tests for test():
 ## if only one argument ...
 test(length(get(eval(formals(test))$all))==3)
 ## ... the result isn't necessarily logical: hence, 'all' is not changed!
@@ -40,10 +40,11 @@ test(matrix(1,nrow=2),matrix(1,nrow=2))
 test(list(a="a",b="b"),list(a="a",b="b"))
 test(c(TRUE,TRUE),c(TRUE,TRUE))
 
-## test runif.EstimationScale
+## test runif.EstimationScale()
 test(class(panelPomp:::runif.EstimationScale(centers=c(th=1),widths=2))[1],
      "numeric")
 
+## test wQuotes()
 ## check for ' in different positions in the character
 test(wQuotes("''Error''")==paste0(sQuote("Error")))
 test(wQuotes("Error")=="Error")
@@ -67,6 +68,8 @@ test(as.character(
   paste0(
     "Error in doTryCatch(return(expr), name, parentenv, handler): in ",
     sQuote("fn"),": ",sQuote("object")," is a required argument\n"))
+## test quoting variables 
+test(wQuotes("''",TESTS_PASS[1],"''")==sQuote("TRUE"))
 
 ## tests for .onAttach
 test(tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
