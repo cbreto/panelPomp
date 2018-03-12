@@ -27,17 +27,28 @@ Type 'q()' to quit R.
 > ## ..., perform tests, and ...
 > test(NULL,NULL)
 [1] TRUE
-> ## test unevaluated multiple-line expression
+> ## ... more ellaborate test, e.g., ...
+> ## ... test unevaluated multiple-line expression, ...
 > test(quote({a_multi_line_expression <- NA
 + "where_objects_are_defined" -> is_not_evald
 + NULL}),NULL)
 [1] TRUE
 > test(exists("is_not_evald"),FALSE)
 [1] TRUE
-> ## check whether all tests passed
+> ## ..., capture warnings, ...
+> ## warn <- options(warn=2) # to convert warnings to errors
+> ## test()
+> ## options(warn)
+> ## 
+> ## ..., partially match error messages, ...
+> ## test(grepl(wQuotes("Error "),test(),fixed=TRUE),TRUE)
+> 
+> ## ... and check whether all tests passed
 > all(get(eval(formals(test))$all))
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+> 
+> 
 > 
 > ## complete tests for test():
 > ## if only one argument ...
@@ -124,7 +135,7 @@ Type 'q()' to quit R.
 > 
 > ## tests for .onDetach
 > detach("package:panelPomp",unload=TRUE)
-> is.na(options("pomp.examples")$pomp.examples[2])
+> is.na(unname(options("pomp.examples")$pomp.examples)[2])
 [1] TRUE
 > 
 > ## final check: do all tests pass?

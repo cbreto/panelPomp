@@ -1,0 +1,132 @@
+
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(panelPomp,quietly=TRUE)
+> 
+> ## list examples (avoiding listing package installation folder for R CMD check)
+> capture.output(panelPompExample())[2]
+[1] "[1] \"pancon\"   \"pangomp\"  \"pantest\"  \"panuni\"   \"panunivp\" \"prw\"     "
+> ppo <- panelPompExample("prw")
+> ppo
+An object of class "panelPomp"
+Slot "unit.objects":
+$rw1
+4 records of 1 observables, recorded from t = 1 to 4 
+summary of data:
+       Y        
+ Min.   :1.419  
+ 1st Qu.:1.921  
+ Median :2.161  
+ Mean   :2.286  
+ 3rd Qu.:2.526  
+ Max.   :3.402  
+zero time, t0 = 0
+process model simulator, rprocess = function (xstart, times, params, ..., zeronames = character(0), 
+    tcovar, covar, .getnativesymbolinfo = TRUE) 
+{
+    tryCatch(.Call(euler_model_simulator, func = efun, xstart = xstart, 
+        times = times, params = params, deltat = object@delta.t, 
+        method = 2L, zeronames = zeronames, tcovar = tcovar, 
+        covar = covar, args = pairlist(...), gnsi = .getnativesymbolinfo), 
+        error = function(e) {
+            stop(ep, conditionMessage(e), call. = FALSE)
+        })
+}
+<bytecode: 0x7f99db59d9b8>
+<environment: 0x7f99d9989190>
+process model density, dprocess = function (x, times, params, log = FALSE, ...) 
+stop(sQuote("dprocess"), " not specified", call. = FALSE)
+<bytecode: 0x7f99db86c4a0>
+<environment: 0x7f99db858f78>
+measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
+measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
+prior simulator, rprior = not specified
+prior density, dprior = native function ‘_pomp_default_dprior’, dynamically loaded from ‘pomp’
+skeleton = not specified
+initializer = not specified
+parameter transformation (to estimation scale) = not specified
+parameter transformation (from estimation scale) = not specified
+parameter(s):
+sigmaY sigmaX    X.0 
+     1      1      1 
+
+$rw2
+4 records of 1 observables, recorded from t = 1 to 4 
+summary of data:
+       Y         
+ Min.   :0.9374  
+ 1st Qu.:1.4988  
+ Median :1.8004  
+ Mean   :2.3173  
+ 3rd Qu.:2.6189  
+ Max.   :4.7310  
+zero time, t0 = 0
+process model simulator, rprocess = function (xstart, times, params, ..., zeronames = character(0), 
+    tcovar, covar, .getnativesymbolinfo = TRUE) 
+{
+    tryCatch(.Call(euler_model_simulator, func = efun, xstart = xstart, 
+        times = times, params = params, deltat = object@delta.t, 
+        method = 2L, zeronames = zeronames, tcovar = tcovar, 
+        covar = covar, args = pairlist(...), gnsi = .getnativesymbolinfo), 
+        error = function(e) {
+            stop(ep, conditionMessage(e), call. = FALSE)
+        })
+}
+<bytecode: 0x7f99db59d9b8>
+<environment: 0x7f99da408cd8>
+process model density, dprocess = function (x, times, params, log = FALSE, ...) 
+stop(sQuote("dprocess"), " not specified", call. = FALSE)
+<bytecode: 0x7f99db86c4a0>
+<environment: 0x7f99db612068>
+measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
+measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
+prior simulator, rprior = not specified
+prior density, dprior = native function ‘_pomp_default_dprior’, dynamically loaded from ‘pomp’
+skeleton = not specified
+initializer = not specified
+parameter transformation (to estimation scale) = not specified
+parameter transformation (from estimation scale) = not specified
+parameter(s):
+sigmaY sigmaX    X.0 
+     1      1      1 
+
+
+Slot "pParams":
+$shared
+sigmaX sigmaY 
+     1      1 
+
+$specific
+     unit
+param rw1 rw2
+  X.0   1   1
+
+
+> lapply(as(ppo,"list"),obs)
+$rw1
+        time
+variable        1        2        3        4
+       Y 2.088409 1.419219 3.401755 2.233692
+
+$rw2
+        time
+variable        1         2        3        4
+       Y 1.685896 0.9374439 4.731045 1.914812
+
+> 

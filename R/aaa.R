@@ -5,8 +5,10 @@ NULL
   pompExDir <- getOption("pomp.examples")
   pPompExDir <- getOption("panelPomp.examples")
   newDir <- system.file("examples",package="panelPomp")
-  if (!newDir%in%pompExDir) options(pomp.examples=c(pompExDir,newDir))
-  if (!newDir%in%pPompExDir) options(panelPomp.examples=c(pPompExDir,newDir))
+  if (!newDir%in%pompExDir) 
+    options(pomp.examples=c(pomp=pompExDir,panelPomp=newDir))
+  if (!newDir%in%pPompExDir) 
+    options(panelPomp.examples=c(panelPomp=pPompExDir,panelPomp=newDir))
 }
 
 .onDetach <- function (...) {

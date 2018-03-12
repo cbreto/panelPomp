@@ -25,6 +25,7 @@ RoxygenNote: 6.0.1
 Collate: 
     'package.R'
     'aaa.R'
+    'example.R'
     'generics.R'
     'get_col_row.R'
     'panel_loglik.R'

@@ -1,6 +1,6 @@
 ## generic functions
 
-#' @include aaa.R
+#' @include example.R
 NULL
 
 #' @title \code{pParams} generic.

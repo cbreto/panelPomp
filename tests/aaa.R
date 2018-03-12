@@ -7,14 +7,25 @@ test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 ## ..., perform tests, and ...
 test(NULL,NULL)
-## test unevaluated multiple-line expression
+## ... more ellaborate test, e.g., ...
+## ... test unevaluated multiple-line expression, ...
 test(quote({a_multi_line_expression <- NA
 "where_objects_are_defined" -> is_not_evald
 NULL}),NULL)
 test(exists("is_not_evald"),FALSE)
-## check whether all tests passed
+## ..., capture warnings, ...
+## warn <- options(warn=2) # to convert warnings to errors
+## test()
+## options(warn)
+## 
+## ..., partially match error messages, ...
+## test(grepl(wQuotes("Error "),test(),fixed=TRUE),TRUE)
+
+## ... and check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+
+
 
 ## complete tests for test():
 ## if only one argument ...
@@ -77,7 +88,7 @@ test(tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
 
 ## tests for .onDetach
 detach("package:panelPomp",unload=TRUE)
-is.na(options("pomp.examples")$pomp.examples[2])
+is.na(unname(options("pomp.examples")$pomp.examples)[2])
 
 ## final check: do all tests pass?
 all(get(eval(formals(test))$all))
