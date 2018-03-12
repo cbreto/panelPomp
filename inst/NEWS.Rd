@@ -1,5 +1,11 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 0.5.6}{
+  \itemize{
+    \item \code{panelPompExamples()} now allows creating \code{panelPomp} objects that come with the package.
+    \item New documentation and tests.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.5.5}{
   \itemize{
     \item New documentation and tests.
