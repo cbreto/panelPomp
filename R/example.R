@@ -24,11 +24,6 @@ panelPompExample <- function (example) {
   objExample(example,pckg="panelPomp")
 }
 
-pompExample <- function (example) {
-  example <- as.character(substitute(example))
-  objExample(example,pckg="pomp")
-}
-
 objExample <- function (example, pckg) {
   ep <- wQuotes("in ''",pckg,"Example'': ")
   dirs <- getOption(paste0(pckg,".examples"))

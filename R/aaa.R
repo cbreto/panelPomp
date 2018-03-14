@@ -16,7 +16,9 @@ NULL
   pPompExDir <- getOption("panelPomp.examples")
   newDir <- system.file("examples",package="panelPomp")
   pompExDir <- pompExDir[pompExDir!=newDir]
+  if (unname(pompExDir)==character()) pompExDir <- NULL
   pPompExDir <- pPompExDir[pPompExDir!=newDir]
+  if (unname(pPompExDir)==character()) pPompExDir <- NULL
   options(pomp.examples=pompExDir)
   options(panelPomp.examples=pPompExDir)
 }
