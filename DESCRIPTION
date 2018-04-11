@@ -1,7 +1,7 @@
 Package: panelPomp
 Type: Package
 Title: Statistical Inference for PanelPOMPs (Panel Partially Observed Markov   Processes)
-Version: 0.5.6
+Version: 0.5.7
 Date: 2018-03-12
 Author: Carles Breto, Edward L. Ionides, Aaron A. King
 Maintainer: Carles Breto <cbreto@umich.edu>
