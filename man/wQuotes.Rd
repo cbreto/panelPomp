@@ -19,3 +19,4 @@ Concatenate character objects and replace singles quotes with
 wQuotes("in ''fn'': *object* is 'a' required argument")
 paste0("in ",sQuote("fn"),": ",dQuote("object")," is 'a' required argument")
 }
+\keyword{internal}

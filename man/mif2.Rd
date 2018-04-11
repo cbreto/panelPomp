@@ -73,7 +73,7 @@ documentation inherited from 'pomp' package).}
 }
 \description{
 Tools for applying iterated filtering algorithms to panel data.
-The panel iterated filtering of Breto et al. (2017) extends to 
+The panel iterated filtering of Breto et al. (2018) extends to 
 panel models the improved iterated filtering algorithm (Ionides et al., 
 2015) for estimating parameters of a partially observed Markov process.
 Iterated filtering algorithms rely on extending a partially observed Markov 
@@ -85,7 +85,7 @@ procedures that iterate this search over the parameter space while
 diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 }
 \references{
-\breto2017
+\breto2018
 
 \ionides2006
 

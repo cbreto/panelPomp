@@ -33,11 +33,11 @@ provides algorithms for
 \enumerate{
 \item particle filtering of panel data (AKA sequential Monte Carlo or 
 sequential importance sampling), as proposed in Breto, Ionides and King 
-(2017). This reference provides the fundamental theoretical support for the 
+(2018). This reference provides the fundamental theoretical support for the 
 averaging of Monte Carlo replicates of panel unit likelihoods as implemented 
 in \pkg{panelPomp}; see \code{\link{pfilter}}
 \item the panel iterated filtering method of Breto, Ionides and King 
-(2017). This reference provides the fundamental theoretical support for the 
+(2018). This reference provides the fundamental theoretical support for the 
 extensions of the iterated filtering ideas of Ionides et al. (2006, 2011, 
 2015) to panel data as implemented in \pkg{panelPomp}; see 
 \code{\link{mif2}}
@@ -85,7 +85,7 @@ To see a list of the examples included both in \pkg{panelPomp} and
 }
 
 \references{
-\breto2017
+\breto2018
 }
 \seealso{
 \link[=pomp-package]{pomp package}, \link{panelPomp}

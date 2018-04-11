@@ -16,9 +16,9 @@ NULL
   pPompExDir <- getOption("panelPomp.examples")
   newDir <- system.file("examples",package="panelPomp")
   pompExDir <- pompExDir[pompExDir!=newDir]
-  if (unname(pompExDir)==character()) pompExDir <- NULL
+  if (identical(unname(pompExDir),character())) pompExDir <- NULL
   pPompExDir <- pPompExDir[pPompExDir!=newDir]
-  if (unname(pPompExDir)==character()) pPompExDir <- NULL
+  if (identical(unname(pPompExDir),character())) pPompExDir <- NULL
   options(pomp.examples=pompExDir)
   options(panelPomp.examples=pPompExDir)
 }
@@ -64,6 +64,7 @@ test <- function (expr1, expr2, all, env, verbose = TRUE) {
 #' \code{sQuote()}s and asterisks with \code{dQuote()}s: \code{sQuote("x")} and
 #' \code{dQuote("x")} can be written as just ''x'' and *x*.
 #' @param ... objects to be passed to \code{strsplit}.
+#' @keywords internal
 #' @examples
 #' wQuotes("in ''fn'': *object* is 'a' required argument")
 #' paste0("in ",sQuote("fn"),": ",dQuote("object")," is 'a' required argument")

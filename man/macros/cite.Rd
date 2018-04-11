@@ -1,7 +1,7 @@
 % unlike in latex, new lines within \newcommand end the command (even using %)
 \newcommand{\arulampalam2002}{Arulampalam, M. S., Maskell, S., Gordon, N. and Clapp, T. (2002) A Tutorial on Particle Filters for Online Nonlinear/Non-Gaussian Bayesian Tracking. \emph{IEEE Trans. Sig. Proc.}, \bold{50(2)}, 174--188.}
 
-\newcommand{\breto2017}{Breto, C., Ionides, E. L. and King, A. A. (2017) Panel Data Analysis via Mechanistic Models. \emph{arXiv:1801.05695}.}
+\newcommand{\breto2018}{Breto, C., Ionides, E. L. and King, A. A. (2018) Panel Data Analysis via Mechanistic Models. \emph{arXiv:1801.05695}.}
 
 \newcommand{\ionides2006}{Ionides, E. L., Breto, C. and King, A. A. (2006) Inference for nonlinear dynamical systems. \emph{Proceedings of the National Academy of Sciences}, \bold{103(49)}, 18438--18443. \acronym{DOI}: 10.1073/pnas.0603181103}
 

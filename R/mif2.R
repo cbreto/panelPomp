@@ -5,7 +5,7 @@ NULL
 
 #' @title PIF: Panel iterated filtering
 #' @description Tools for applying iterated filtering algorithms to panel data.
-#' The panel iterated filtering of Breto et al. (2017) extends to 
+#' The panel iterated filtering of Breto et al. (2018) extends to 
 #' panel models the improved iterated filtering algorithm (Ionides et al., 
 #' 2015) for estimating parameters of a partially observed Markov process.
 #' Iterated filtering algorithms rely on extending a partially observed Markov 
@@ -34,7 +34,7 @@ NULL
 #' @param transform logical; if TRUE, optimization is performed on the 
 #' estimation scale (see \code{pomp} documentation).
 #' @name mif2
-#' @references \breto2017
+#' @references \breto2018
 #' 
 #' \ionides2006
 #' 

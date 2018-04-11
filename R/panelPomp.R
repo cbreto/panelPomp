@@ -45,7 +45,7 @@ NULL
 #' a naming convention: names ending in \dQuote{\code{[unit_name]}} are assumed 
 #' to specify unit-specific parameters; all other names specify shared 
 #' parameters.
-#' @references \breto2017
+#' @references \breto2018
 #' 
 #' \king2015
 #' @family panelPomp workhorse functions

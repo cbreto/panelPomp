@@ -15,7 +15,7 @@ NULL
 #'   }
 #' @references \arulampalam2002
 #' 
-#' \breto2017
+#' \breto2018
 #' @family panelPomp workhorse functions
 #' @seealso \pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
 NULL

@@ -58,7 +58,7 @@ objects, a cornerstone that the \code{panelPomp} function can use to
 construct the corresponding \code{panelPomp} object.
 }
 \references{
-\breto2017
+\breto2018
 
 \king2015
 }
