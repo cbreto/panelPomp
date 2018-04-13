@@ -215,6 +215,12 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
   ###########################################################
   # LOOP OVER MIF ITERATIONS AND PANEL UNITS
   ###########################################################
+  for (unit in names(object@unit.objects)) {
+    coef(object@unit.objects[[unit]]) <- c(
+      start$shared,
+      setNames(start$specific[spnames,unit],spnames)
+    )
+  }
   
   unit.seq <- seq_len(U)
   
