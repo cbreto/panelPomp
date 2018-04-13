@@ -54,8 +54,7 @@ Tools for manipulating \code{panelPomp} objects.
   \item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
   \item{length}{Count the number of units in \code{panelPomp} objects.}
   \item{names}{Get the unit names of \code{panelPomp} objects.}
-  \item{pparams}{Extracts coefficients from the \code{pParams} slot of 
-  \code{panelPomp} objects.}
+  \item{pparams}{Extracts coefficients from \code{panelPomp} objects.}
   \item{unitobjects}{Extracts \code{pomp} objects from \code{panelPomp} 
   objects.}
   \item{window}{Subset \code{panelPomp} objects by changing start time, 

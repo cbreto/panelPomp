@@ -19,41 +19,45 @@ test(wQuotes(ep,"''tol'' must be a single positive ",
              "scalar or a vector of length ",length(ppo),"\n"),
      pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)))
 test(wQuotes(ep,"names of ''shared'' must match those of ",
-             "''object@pParams$shared''.\n"),
+             "''object@shared''.\n"),
      pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10))
 test(wQuotes(ep,"Missing ''Np'' argument.\n"),pfilter(ppo))
 ## assign parameters
 test(coef(pfilter(ppo,Np=10)),coef(ppo))
-test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,sp=2*ppo@pParams$sp,Np=10),
-             "list")[[1]]),c(2*ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
-test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,Np=10),"list")[[1]]),
-     c(2*ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
-test(coef(as(pfilter(ppo,sp=2*ppo@pParams$sp,Np=10),"list")[[1]]),
-     c(ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
-test(coef(as(pfilter(ppo,params=lapply(ppo@pParams,`*`,2),Np=10),
-             "list")[[1]]),2*c(ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
+test(coef(as(pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,Np=10),
+             "list")[[1]]),c(2*ppo@shared,2*get_col(ppo@specific,1,1)))
+test(coef(as(pfilter(ppo,sh=2*ppo@shared,Np=10),"list")[[1]]),
+     c(2*ppo@shared,get_col(ppo@specific,1,1)))
+test(coef(as(pfilter(ppo,sp=2*ppo@specific,Np=10),"list")[[1]]),
+     c(ppo@shared,2*get_col(ppo@specific,1,1)))
+test(coef(as(pfilter(ppo,Np=10,
+  params=list(shared=2*ppo@shared,specific=2*ppo@specific)),
+             "list")[[1]]),2*c(ppo@shared,get_col(ppo@specific,1,1)))
 ## resolve multiple params
-test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,params=ppo@pParams,Np=10),
-             "list")[[1]]),c(2*ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
-test(coef(as(pfilter(ppo,sp=2*ppo@pParams$sp,params=ppo@pParams,Np=10),
-             "list")[[1]]),c(ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
+test(coef(as(pfilter(ppo,sh=2*ppo@shared,Np=10,
+  params=list(shared=ppo@shared,specific=ppo@specific)),
+             "list")[[1]]),c(2*ppo@shared,get_col(ppo@specific,1,1)))
+test(coef(as(pfilter(ppo,sp=2*ppo@specific,
+  params=list(shared=ppo@shared,specific=ppo@specific),Np=10),
+             "list")[[1]]),c(ppo@shared,2*get_col(ppo@specific,1,1)))
 test(wQuotes(ep,"specify either ''params'' only, ''params'' and ''shared'' , ",
-             "or ''params'' and ''specific''.\n"),
-     pfilter(ppo,sh=2*ppo@pParams$sh,sp=2*ppo@pParams$sp,params=ppo@pParams,
-             Np=10))
+  "or ''params'' and ''specific''.\n"),
+  pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,
+    params=list(shared=ppo@shared,specific=ppo@specific),
+    Np=10))
 ## wrong unit names
 test(wQuotes(ep,"colnames of ''specific'' must be identical to those of ",
-             "''object@pParams$specific''.\n"),
-     quote({sp <- ppo@pParams$sp;colnames(sp) <- paste0(colnames(sp), "_")
+             "''object@specific''.\n"),
+     quote({sp <- ppo@specific;colnames(sp) <- paste0(colnames(sp), "_")
      pfilter(ppo,sp=sp,Np=10)}))
 ## wrong unit-specific names
 test(wQuotes(ep,"rownames of ''specific'' must match those of ",
-             "''object@pParams$specific''.\n"),
-     quote({sp <- ppo@pParams$sp;rownames(sp) <- c("some_wrong_name")
+             "''object@specific''.\n"),
+     quote({sp <- ppo@specific;rownames(sp) <- c("some_wrong_name")
      pfilter(ppo,sp=sp,Np=10)}))
 ##  wrong shared names
 test(wQuotes(ep,"names of ''shared'' must match those of ",
-             "''object@pParams$shared''.\n"),
+             "''object@shared''.\n"),
      pfilter(ppo,sh=c(sth = 0),Np=10))
 
 ## check whether all tests passed

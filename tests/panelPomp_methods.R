@@ -8,13 +8,13 @@ ppo <- pompExample(prw,envir=NULL)[[1]]
 pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
             specific=matrix(c(0,0.1),nr=1,
                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
-ppo <- panelPomp(unitobjects(ppo),params=pP2)
+ppo <- panelPomp(unitobjects(ppo),shared=pP2$shared,specific=pP2$specific)
 
 # other definitions from old test file
 pg <- try(pompExample(pangomp,envir=NULL)[[1]])
 g <- pompExample(gompertz,envir=NULL)[[1]]
-pp <- panelPomp(list(unit1=g,unit2=g),shared=pg@pParams$shared,
-                specific=pg@pParams$specific[,1:2])
+pp <- panelPomp(list(g,g),shared=pg@shared,
+                specific=pg@specific[,1:2])
 
 
 ## test coef,panelPomp-method
@@ -24,7 +24,7 @@ test(coef(ppo),setNames(c(1,2,0,0.1),c("sigmaX","sigmaY",
 test(coef(ppo),{coef(ppo) <- coef(ppo);coef(ppo)})
 wQuotes("Error : in ''coef<-'': part of ''value'' is not part of ",
                "''coef(object)''.\n") -> err
-test(coef(ppo) <- c(ppo@pParams$shared,xsh=5),err)
+test(coef(ppo) <- c(ppo@shared,xsh=5),err)
 test(coef(ppo) <- c(coef(ppo),xsh=5),err)
 test({coef(ppo) <- setNames(
   c(coef(ppo),5,6),c(names(coef(ppo)),
@@ -38,24 +38,24 @@ test({coef(ppo) <- setNames(
 wQuotes("Error : in ''coef<-'': part of ''coef(object)'' is not specified ",
                "in ''value''.\n") -> err
 test(coef(ppo) <- coef(ppo)[-c(1:2)],err)
-test(coef(ppo) <- ppo@pParams$shared,err)
+test(coef(ppo) <- ppo@shared,err)
 ## test length,panelPomp-method
 test(length(ppo),2L)
 ## test names,panelPomp-method
 test(names(ppo),c("rw1","rw2"))
 ## test pparams,panelPomp-method
-test(pparams(ppo),ppo@pParams)
+test(pparams(ppo),list(shared=ppo@shared,specific=ppo@specific))
 ## test pParams function
 ## all sh
 test(pParams(coef(ppo)[grep("^.+\\[.+?\\]$",names(coef(ppo)),perl=TRUE,
                             value=TRUE,invert=TRUE)]),
-     list(shared=ppo@pParams$shared,specific=array(numeric(0),dim=c(0,0))))
+     list(shared=ppo@shared,specific=array(numeric(0),dim=c(0,0))))
 ## all sp
-test(list(shared=numeric(0),specific=ppo@pParams$specific),
+test(list(shared=numeric(0),specific=ppo@specific),
      pParams(coef(ppo)[grep("^.+\\[.+?\\]$",names(coef(ppo)),perl=TRUE,
                             value=TRUE)]))
 ## both sh & sp
-test(pParams(coef(ppo)),ppo@pParams)
+test(pParams(coef(ppo)),list(shared=ppo@shared,specific=ppo@specific))
 ## test unitobjects,panelPomp-method
 test(unitobjects(ppo),ppo@unit.objects)
 test(unitobjects(ppo,unit="rw1"),ppo@unit.objects[["rw1"]])
@@ -75,3 +75,4 @@ test(as(pg,"list"),pg@unit.objects)
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+

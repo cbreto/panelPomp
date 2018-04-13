@@ -1,7 +1,7 @@
 
-R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
-Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -25,6 +25,7 @@ Type 'q()' to quit R.
 > ppo <- pompExample(pangomp,envir=NULL)[[1]]
 > 
 > po <- as(ppo,"list")[[1]]
+> coef(po) <- c(ppo@shared,ppo@specific[,1])
 > po <- window(po,start=time(po)[1],end=time(po)[1])
 > lapply(as(ppo,"list"),obs)
 $unit1
@@ -2325,6 +2326,7 @@ variable         1
 > ppo <- pompExample(pancon,envir=NULL)[[1]]
 > 
 > po <- as(ppo,"list")[[1]]
+> coef(po) <- c(ppo@shared,ppo@specific[,1])
 > po <- window(po,start=time(po)[1],end=time(po)[1])
 > lapply(as(ppo,"list"),obs)
 $unit1
@@ -6744,14 +6746,4 @@ variable 1 2 3 4
         time
 variable  1
        y 10
-> 
-> #ppo <- pompExample(panpol,envir=NULL)[[1]]
-> #
-> #po <- as(ppo,"list")[[1]]
-> #po <- window(po,start=time(po)[1],end=time(po)[1])
-> #lapply(as(ppo,"list"),obs)
-> #for (s in seq_along(seeds)) {
-> #  set.seed(seeds[s])
-> #  print(obs(simulate(po)))
-> #}
 > 

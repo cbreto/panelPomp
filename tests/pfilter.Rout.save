@@ -1,7 +1,7 @@
 
-R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
-Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -41,7 +41,7 @@ Type 'q()' to quit R.
 +      pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)))
 [1] TRUE
 > test(wQuotes(ep,"names of ''shared'' must match those of ",
-+              "''object@pParams$shared''.\n"),
++              "''object@shared''.\n"),
 +      pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10))
 [1] TRUE
 > test(wQuotes(ep,"Missing ''Np'' argument.\n"),pfilter(ppo))
@@ -49,45 +49,49 @@ Type 'q()' to quit R.
 > ## assign parameters
 > test(coef(pfilter(ppo,Np=10)),coef(ppo))
 [1] TRUE
-> test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,sp=2*ppo@pParams$sp,Np=10),
-+              "list")[[1]]),c(2*ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
+> test(coef(as(pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,Np=10),
++              "list")[[1]]),c(2*ppo@shared,2*get_col(ppo@specific,1,1)))
 [1] TRUE
-> test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,Np=10),"list")[[1]]),
-+      c(2*ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
+> test(coef(as(pfilter(ppo,sh=2*ppo@shared,Np=10),"list")[[1]]),
++      c(2*ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
-> test(coef(as(pfilter(ppo,sp=2*ppo@pParams$sp,Np=10),"list")[[1]]),
-+      c(ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
+> test(coef(as(pfilter(ppo,sp=2*ppo@specific,Np=10),"list")[[1]]),
++      c(ppo@shared,2*get_col(ppo@specific,1,1)))
 [1] TRUE
-> test(coef(as(pfilter(ppo,params=lapply(ppo@pParams,`*`,2),Np=10),
-+              "list")[[1]]),2*c(ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
+> test(coef(as(pfilter(ppo,Np=10,
++   params=list(shared=2*ppo@shared,specific=2*ppo@specific)),
++              "list")[[1]]),2*c(ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > ## resolve multiple params
-> test(coef(as(pfilter(ppo,sh=2*ppo@pParams$sh,params=ppo@pParams,Np=10),
-+              "list")[[1]]),c(2*ppo@pParams$sh,get_col(ppo@pParams$sp,1,1)))
+> test(coef(as(pfilter(ppo,sh=2*ppo@shared,Np=10,
++   params=list(shared=ppo@shared,specific=ppo@specific)),
++              "list")[[1]]),c(2*ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
-> test(coef(as(pfilter(ppo,sp=2*ppo@pParams$sp,params=ppo@pParams,Np=10),
-+              "list")[[1]]),c(ppo@pParams$sh,2*get_col(ppo@pParams$sp,1,1)))
+> test(coef(as(pfilter(ppo,sp=2*ppo@specific,
++   params=list(shared=ppo@shared,specific=ppo@specific),Np=10),
++              "list")[[1]]),c(ppo@shared,2*get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(wQuotes(ep,"specify either ''params'' only, ''params'' and ''shared'' , ",
-+              "or ''params'' and ''specific''.\n"),
-+      pfilter(ppo,sh=2*ppo@pParams$sh,sp=2*ppo@pParams$sp,params=ppo@pParams,
-+              Np=10))
++   "or ''params'' and ''specific''.\n"),
++   pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,
++     params=list(shared=ppo@shared,specific=ppo@specific),
++     Np=10))
 [1] TRUE
 > ## wrong unit names
 > test(wQuotes(ep,"colnames of ''specific'' must be identical to those of ",
-+              "''object@pParams$specific''.\n"),
-+      quote({sp <- ppo@pParams$sp;colnames(sp) <- paste0(colnames(sp), "_")
++              "''object@specific''.\n"),
++      quote({sp <- ppo@specific;colnames(sp) <- paste0(colnames(sp), "_")
 +      pfilter(ppo,sp=sp,Np=10)}))
 [1] TRUE
 > ## wrong unit-specific names
 > test(wQuotes(ep,"rownames of ''specific'' must match those of ",
-+              "''object@pParams$specific''.\n"),
-+      quote({sp <- ppo@pParams$sp;rownames(sp) <- c("some_wrong_name")
++              "''object@specific''.\n"),
++      quote({sp <- ppo@specific;rownames(sp) <- c("some_wrong_name")
 +      pfilter(ppo,sp=sp,Np=10)}))
 [1] TRUE
 > ##  wrong shared names
 > test(wQuotes(ep,"names of ''shared'' must match those of ",
-+              "''object@pParams$shared''.\n"),
++              "''object@shared''.\n"),
 +      pfilter(ppo,sh=c(sth = 0),Np=10))
 [1] TRUE
 > 

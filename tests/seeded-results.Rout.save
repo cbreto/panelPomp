@@ -1,7 +1,7 @@
 
-R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
-Copyright (C) 2017 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -51,21 +51,18 @@ Type 'q()' to quit R.
 +   set.seed(seeds[s])
 +   mf <- mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),
 +              cooling.fraction.50=0.5,cooling.type="geometric")
-+   print(mf@pParams)
++   print(mf@shared)
++   print(mf@specific)
 +   print(unitlogLik(mf))
 +   print(logLik(mf))
 +   print(mf@pconv.rec)
 +   print(mf@pconv.rec.array)
 + }
-$shared
    sigmaX    sigmaY 
 0.9348033 1.0000000 
-
-$specific
         unit
 variable       rw1      rw2
      X.0 0.7494607 1.380992
-
       rw1       rw2 
 -6.233642 -7.336813 
 [1] -13.57046
@@ -87,15 +84,11 @@ iteration    loglik unitNfail unitLoglik      X.0
         0 -13.57046         0  -7.336813 1.000000
         1        NA        NA         NA 1.380992
 
-$shared
    sigmaX    sigmaY 
 0.6828127 1.0000000 
-
-$specific
         unit
 variable      rw1       rw2
      X.0 2.034284 0.7221263
-
       rw1       rw2 
 -6.034874 -9.113273 
 [1] -15.14815
@@ -117,15 +110,11 @@ iteration    loglik unitNfail unitLoglik       X.0
         0 -15.14815         0  -9.113273 1.0000000
         1        NA        NA         NA 0.7221263
 
-$shared
    sigmaX    sigmaY 
 0.9309536 1.0000000 
-
-$specific
         unit
 variable      rw1     rw2
      X.0 1.139014 1.93792
-
       rw1       rw2 
 -6.598561 -9.566110 
 [1] -16.16467
@@ -147,15 +136,11 @@ iteration    loglik unitNfail unitLoglik     X.0
         0 -16.16467         0   -9.56611 1.00000
         1        NA        NA         NA 1.93792
 
-$shared
   sigmaX   sigmaY 
 1.026614 1.000000 
-
-$specific
         unit
 variable       rw1       rw2
      X.0 0.3549989 0.6878978
-
       rw1       rw2 
 -6.709911 -8.262543 
 [1] -14.97245
@@ -177,15 +162,11 @@ iteration    loglik unitNfail unitLoglik       X.0
         0 -14.97245         0  -8.262543 1.0000000
         1        NA        NA         NA 0.6878978
 
-$shared
   sigmaX   sigmaY 
 1.028653 1.000000 
-
-$specific
         unit
 variable       rw1      rw2
      X.0 0.4824871 1.952893
-
       rw1       rw2 
 -5.973952 -8.109600 
 [1] -14.08355

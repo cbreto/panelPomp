@@ -20,47 +20,47 @@
 \item{object}{An object of class \code{panelPomp} or inheriting class 
 \code{panelPomp}.}
 
-\item{shared}{optional; these arguments depend on the type 
+\item{shared}{optional; these arguments depend on the type
 of \code{object}.
 
-If \code{object} is a \code{list} of \code{pomp}s, \code{shared} must be a 
+If \code{object} is a \code{list} of \code{pomp}s, \code{shared} must be a
 numeric vector specifying parameter values shared among panel units.
-\code{specific} must be a \code{matrix} with parameter values that are 
-unit-specific with rows naming parameters and columns naming units (these 
-names must match those of \code{object}). If no values are specified and 
+\code{specific} must be a \code{matrix} with parameter values that are
+unit-specific with rows naming parameters and columns naming units (these
+names must match those of \code{object}). If no values are specified and
 \code{object} has parameter values, these are set to be all unit-specific.
 
-If \code{object} is a \code{panelPomp} object, these arguments can still be 
-used as described above to modify the parameters of \code{object}. 
-Alternatively, the parameter configuration of \code{object} can be modified 
-providing only a character \code{shared} naming parameters of \code{object} 
-that should be shared (with values for parameters not originally shared 
-taken from the unit-specific parameters of the first panel unit of 
+If \code{object} is a \code{panelPomp} object, these arguments can still be
+used as described above to modify the parameters of \code{object}.
+Alternatively, the parameter configuration of \code{object} can be modified
+providing only a character \code{shared} naming parameters of \code{object}
+that should be shared (with values for parameters not originally shared
+taken from the unit-specific parameters of the first panel unit of
 \code{object}). \code{shared=NULL} sets all parameters as unit-specific.}
 
-\item{specific}{optional; these arguments depend on the type 
+\item{specific}{optional; these arguments depend on the type
 of \code{object}.
 
-If \code{object} is a \code{list} of \code{pomp}s, \code{shared} must be a 
+If \code{object} is a \code{list} of \code{pomp}s, \code{shared} must be a
 numeric vector specifying parameter values shared among panel units.
-\code{specific} must be a \code{matrix} with parameter values that are 
-unit-specific with rows naming parameters and columns naming units (these 
-names must match those of \code{object}). If no values are specified and 
+\code{specific} must be a \code{matrix} with parameter values that are
+unit-specific with rows naming parameters and columns naming units (these
+names must match those of \code{object}). If no values are specified and
 \code{object} has parameter values, these are set to be all unit-specific.
 
-If \code{object} is a \code{panelPomp} object, these arguments can still be 
-used as described above to modify the parameters of \code{object}. 
-Alternatively, the parameter configuration of \code{object} can be modified 
-providing only a character \code{shared} naming parameters of \code{object} 
-that should be shared (with values for parameters not originally shared 
-taken from the unit-specific parameters of the first panel unit of 
+If \code{object} is a \code{panelPomp} object, these arguments can still be
+used as described above to modify the parameters of \code{object}.
+Alternatively, the parameter configuration of \code{object} can be modified
+providing only a character \code{shared} naming parameters of \code{object}
+that should be shared (with values for parameters not originally shared
+taken from the unit-specific parameters of the first panel unit of
 \code{object}). \code{shared=NULL} sets all parameters as unit-specific.}
 
-\item{params}{optional; a list with elements named 'shared' and 'specific' 
-to be passed as \code{shared} and \code{specific} arguments. Alternatively, 
-a numeric vector. In this case, the nature of parameters is determined via 
-a naming convention: names ending in \dQuote{\code{[unit_name]}} are assumed 
-to specify unit-specific parameters; all other names specify shared 
+\item{params}{optional; a list with elements named 'shared' and 'specific'
+to be passed as \code{shared} and \code{specific} arguments. Alternatively,
+a numeric vector. In this case, the nature of parameters is determined via
+a naming convention: names ending in \dQuote{\code{[unit_name]}} are assumed
+to specify unit-specific parameters; all other names specify shared
 parameters.}
 
 \item{Np}{
