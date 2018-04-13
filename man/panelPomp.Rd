@@ -40,12 +40,10 @@ that should be shared (with values for parameters not originally shared
 taken from the unit-specific parameters of the first panel unit of
 \code{object}). \code{shared=NULL} sets all parameters as unit-specific.}
 
-\item{params}{optional; a list with elements named 'shared' and 'specific'
-to be passed as \code{shared} and \code{specific} arguments. Alternatively,
-a numeric vector. In this case, the nature of parameters is determined via
-a naming convention: names ending in \dQuote{\code{[unit_name]}} are assumed
-to specify unit-specific parameters; all other names specify shared
-parameters.}
+\item{params}{optional; a named numeric vector. In this case, the nature of 
+parameters is determined via a naming convention: names ending in 
+\dQuote{\code{[unit_name]}} are assumed to denote unit-specific parameters;
+all other names specify shared parameters.}
 }
 \description{
 This function constructs \code{panelPomp} objects, representing
