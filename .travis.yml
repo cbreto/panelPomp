@@ -15,11 +15,28 @@ matrix:
     - os: linux
       env: RVERSION=release
       r_github_packages:
-        - kingaa/pomp
         - jimhester/covr
       after_success:
         - travis_wait 30 Rscript -e 'covr::codecov()'
+        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
     - os: linux
       env: RVERSION=3.1.2
+      after_success:
+        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
     - os: linux
       env: RVERSION=devel
+      after_success:
+        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
+    - os: osx
+      env: RVERSION=release
+      after_success:
+        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
+    - os: osx
+      env: RVERSION=devel
+      after_success:
+        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
+    - os: osx
+      osx_image: xcode9.3beta
+      env: RVERSION=devel
+      after_success:
+        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
