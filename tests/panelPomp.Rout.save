@@ -26,6 +26,7 @@ Type 'q()' to quit R.
 > g <- pompExample(gompertz,envir=NULL)[[1]]
 > pg <- panelPompExample(pangomp)
 > pg <- panelPomp(window(pg,U=3))
+> pgl <- as(pg,"list")
 > coef(g)
     K     r sigma   tau   X.0 
   1.0   0.1   0.1   0.1   1.0 
@@ -56,8 +57,37 @@ tau[unit3] X.0[unit3]
        0.1        1.0        0.1        1.0        0.1        1.0        0.1 
 X.0[unit2]   r[unit2]   K[unit3] tau[unit3] X.0[unit3]   r[unit3] 
        1.0        0.1        1.0        0.1        1.0        0.1 
-> test(coef(panelPomp(pg,params=coef(g))),coef(g))
-[1] TRUE
+> try(panelPomp(pg,specific=c("tau","X.0"),params=c(r=3,K=1)))
+Error : in ‘panelPomp’: specify EITHER ‘params’ OR ‘shared’ and/or ‘specific’.
+> stopifnot(all.equal(coef(panelPomp(pg,params=coef(g))),coef(g)))
+> try(panelPomp(pg,params=list(bob=3,nancy="A")))
+Error : in ‘panelPomp’: ‘params’ must be a named numeric vector
+> try(panelPomp(pg,shared=c("r","K")))
+Error : in ‘panelPomp’: ‘shared’ must be a named numeric vector or NULL
+> try(panelPomp(pg,specific=c(0.3)))
+Error : in ‘panelPomp’: if given as a vector, ‘specific’ must have names
+> coef(panelPomp(pg,specific=c(r=0.3)))
+   sigma r[unit1] r[unit2] r[unit3] 
+     0.1      0.3      0.3      0.3 
+> try(panelPomp(pg,specific="h"))
+Error : in ‘panelPomp’: the following parameters are to be treated as specific, but no values for them are specified: ‘h’
+> try(panelPomp(pg,specific="h",shared=c(r=33)))
+Error : in ‘panelPomp’: the following parameters are to be treated as specific, but no values for them are specified: ‘h’
+> try(panelPomp(pg,specific=list(r=0.3,K=9)))
+Error : in ‘panelPomp’: ‘specific’ must be furnished as a numeric matrix, a numeric vector, or a character vector
+> coef(panelPomp(pg,specific=c("tau","X.0"),shared=c(r=3,K=1)))
+         r          K tau[unit1] X.0[unit1] tau[unit2] X.0[unit2] tau[unit3] 
+       3.0        1.0        0.1        1.0        0.1        1.0        0.1 
+X.0[unit3] 
+       1.0 
+> try(panelPomp(setNames(pgl,c("a","b",""))))
+Error : in ‘panelPomp’: empty unit names are not permitted
+> coef(pgl[[2]]) <- c(h=3)
+> try(po <- panelPomp(pgl))
+Warning message:
+in ‘panelPomp’: NAs in specific parameters 
+> try(panelPomp(pgl[[1]]))
+Error : in ‘panelPomp’: ‘object’ must be either a ‘panelPomp’ object or a list of ‘pomp’ objects.
 > 
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))

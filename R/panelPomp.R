@@ -39,12 +39,10 @@ NULL
 #' that should be shared (with values for parameters not originally shared
 #' taken from the unit-specific parameters of the first panel unit of
 #' \code{object}). \code{shared=NULL} sets all parameters as unit-specific.
-#' @param params optional; a list with elements named 'shared' and 'specific'
-#' to be passed as \code{shared} and \code{specific} arguments. Alternatively,
-#' a numeric vector. In this case, the nature of parameters is determined via
-#' a naming convention: names ending in \dQuote{\code{[unit_name]}} are assumed
-#' to specify unit-specific parameters; all other names specify shared
-#' parameters.
+#' @param params optional; a named numeric vector. In this case, the nature of 
+#' parameters is determined via a naming convention: names ending in 
+#' \dQuote{\code{[unit_name]}} are assumed to denote unit-specific parameters;
+#' all other names specify shared parameters.
 #' @references \breto2018
 #'
 #' \king2015
@@ -155,7 +153,7 @@ panelPomp <- function (object, shared, specific, params) {
       specific=specp
     )
   } else if (!is(object,"panelPomp")) {
-    stop(wQuotes(ep,"''object'' must be a either a ''panelPomp'' object or a",
+    stop(wQuotes(ep,"''object'' must be either a ''panelPomp'' object or a",
       " list of ''pomp'' objects."),
       call.=FALSE)
   }
@@ -236,7 +234,7 @@ panelPomp <- function (object, shared, specific, params) {
               paste(sQuote(msps),collapse=","),call.=FALSE)
           }
           osps <- intersect(osp.names,sp.names)
-          nsps <- setdiff(osh.names,sp.names)
+          nsps <- intersect(osh.names,sp.names)
           object <- new(
             "panelPomp",
             unit.objects=unitobjects(object),
@@ -283,13 +281,12 @@ panelPomp <- function (object, shared, specific, params) {
             specific=specific
           )
         } else {
+          nshs <- setdiff(osh.names,sp.names)
           object <- new(
             "panelPomp",
             unit.objects=unitobjects(object),
-            pParams=list(
-              shared=object@shared,
-              specific=specific
-            )
+            shared=object@shared[nshs],
+            specific=specific
           )
         }
       }
