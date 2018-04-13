@@ -21,8 +21,7 @@ NULL
 #'   \item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
 #'   \item{length}{Count the number of units in \code{panelPomp} objects.}
 #'   \item{names}{Get the unit names of \code{panelPomp} objects.}
-#'   \item{pparams}{Extracts coefficients from the \code{pParams} slot of 
-#'   \code{panelPomp} objects.}
+#'   \item{pparams}{Extracts coefficients from \code{panelPomp} objects.}
 #'   \item{unitobjects}{Extracts \code{pomp} objects from \code{panelPomp} 
 #'   objects.}
 #'   \item{window}{Subset \code{panelPomp} objects by changing start time, 
@@ -38,9 +37,9 @@ setMethod(
   "coef",
   signature=signature(object="panelPomp"),
   definition = function (object) {
-    pmat <- object@pParams$specific
+    pmat <- object@specific
     c(
-      object@pParams$shared,
+      object@shared,
       setNames(
         as.numeric(pmat),
         outer(rownames(pmat),colnames(pmat),sprintf,fmt="%s[%s]")
@@ -67,15 +66,15 @@ setMethod(
     pp <- sub(pattern="^(.+?)\\[.+?\\]$",replacement="\\1",x=nn,perl=TRUE)
     uU <- names(object@unit.objects)
     pU <- sort(unique(pp))
-    object@pParams$specific <- array(dim=c(length(pU),length(uU)),
+    object@specific <- array(dim=c(length(pU),length(uU)),
                                      dimnames=list(param=pU,unit=uU))
-    pvec <- setNames(numeric(length(object@pParams$specific)),
+    pvec <- setNames(numeric(length(object@specific)),
                      outer(pU,uU,sprintf,fmt="%s[%s]"))
     unitpar <- intersect(names(value),names(pvec))
     sharedpar <- setdiff(names(value),unitpar)
     pvec[unitpar] <- value[unitpar]
-    object@pParams$specific[,] <- pvec
-    object@pParams$shared <- value[sort(sharedpar)]
+    object@specific[,] <- pvec
+    object@shared <- value[sort(sharedpar)]
     ## is the new object valid?
     #tryCatch(validObject(object),
     #         error=function (e) {stop(ep,conditionMessage(e),call.=FALSE)})
@@ -104,7 +103,8 @@ setMethod(
 setMethod(
   "pparams",
   signature=signature(object="panelPomp"),
-  definition = function (object) slot(object,"pParams")
+  definition = function (object) 
+    list(shared=object@shared,specific=object@specific)
 )
 
 #' @rdname panelPomp_methods
@@ -156,7 +156,8 @@ setMethod(
     panelPomp(
       lapply(as(x,"list")[1:U],FUN=window,start=time(po)[start],
              end=time(po)[end]),
-      shared=x@pParams$shared,specific=x@pParams$specific[,1:U,drop=FALSE]
+      shared=x@shared,
+      specific=x@specific[,1:U,drop=FALSE]
     )
   }
 )

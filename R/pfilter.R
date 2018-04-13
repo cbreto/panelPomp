@@ -68,7 +68,8 @@ pfilter.internal <- function(object, params, Np,
   new(
     Class = "pfilterd.ppomp",
     unit.objects = pfilterd.pomp.list,
-    pParams = params,
+    shared = params$shared,
+    specific = params$specific,
     ploglik = pfilter.internal.loglik,
     unit.logliks = pfilter.internal.unit.logliks,
     tol = tol
@@ -103,77 +104,69 @@ setMethod(
     # Get starting parameter values from 'object,' 'start,' or 'params'
     if (missing(shared)){
       if (!missing(params)) shared <- params$shared 
-      else shared <- object@pParams$shared
+      else shared <- object@shared
     } 
     if (missing(specific)){
       if (!missing(params)) specific <- params$specific 
-      else specific <- object@pParams$specific
+      else specific <- object@specific
     }
     
     # This causes an unintended stop in panelPomp objects that genuinely have 
     # no shared parameters      
     #if (identical(shared,numeric(0))) {
-    #  stop(ep,"if ",sQuote("object@pParams$shared")," is empty, shared 
+    #  stop(ep,"if ",sQuote("object@shared")," is empty, shared 
     #       parameters must be specified in either ",sQuote("shared"),
     #       " or as part of ",sQuote("params"),".",call.=FALSE
     #  )
     #}
     # Obsolete check: valid panelPomps won't have completely empty sp matrix
     #if (identical(specific,array(numeric(0),dim=c(0,0)))) {
-    #  stop(ep,"if ",sQuote("object@pParams$specific")," is empty, specific 
+    #  stop(ep,"if ",sQuote("object@specific")," is empty, specific 
     #       parameters must be specified in either ",sQuote("specific"),
     #       " or as part of ",sQuote("params"),".",call.=FALSE
     #  )
     #}
     # if the pParams slot is not empty, check that the shared and specific 
     # structure of any provided starting values match the pParams slot
-    if (!is.null(object@pParams$shared)){
+    if (!is.null(object@shared)){
       if (
         !identical(
           character(0),
-          setdiff(names(object@pParams$shared),names(shared))
+          setdiff(names(object@shared),names(shared))
         )
         &
-        !(is.null(names(object@pParams$shared))&is.null(names(shared)))
+        !(is.null(names(object@shared))&is.null(names(shared)))
       ) {
         stop(ep, "names of ", sQuote("shared"), " must match those of ", 
-             sQuote("object@pParams$shared"),".", call.=FALSE
+             sQuote("object@shared"),".", call.=FALSE
         )
       }
     }
-    if (!is.null(object@pParams$specific)){
+    if (!is.null(object@specific)){
       if (
         !identical(
           character(0),
-          setdiff(rownames(object@pParams$specific),
+          setdiff(rownames(object@specific),
                   rownames(specific))
         )
         &
         !(
-          is.null(rownames(object@pParams$specific))
+          is.null(rownames(object@specific))
           &
           is.null(rownames(specific))
         )
       ) {
         stop(ep,"rownames of ",sQuote("specific")," must match those of ", 
-             sQuote("object@pParams$specific"),".",call.=FALSE
+             sQuote("object@specific"),".",call.=FALSE
         )
       }
-      if (!identical(x = colnames(object@pParams$specific), y = colnames(specific))){
+      if (!identical(x = colnames(object@specific), y = colnames(specific))){
         stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
-             sQuote("object@pParams$specific"),".", call.=FALSE
+             sQuote("object@specific"),".", call.=FALSE
         )
       }
     }
     if (missing(Np)) stop(wQuotes(ep,"Missing ''Np'' argument."),call.=FALSE)
-    # Check that all parameters in the pomp objects have been provided either as shared or specific ...
-    if(!all(names(coef(unitobjects(object)[[1]])) %in% c(names(shared), rownames(specific)))) 
-      stop(ep, "At least one 'pomp' parameter needs to be added to the (shared. or specific.) 
-           start argument.")
-    # ... and viceversa.
-    if(!all(c(names(shared), rownames(specific))  %in% names(coef(unitobjects(object)[[1]]))))
-      stop(ep, "At least one parameter in the (shared. or specific.) start argument is not 
-           being used.")
     
     pfilter.internal(
       object = object,

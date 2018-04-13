@@ -7,54 +7,52 @@
 \alias{panelPomp}
 \title{Constructing \code{panelPomp} objects}
 \usage{
-panelPomp(object, shared = new("panelPomp")@pParams$shared,
-  specific = new("panelPomp")@pParams$specific, params = list(shared =
-  shared, specific = specific))
+panelPomp(object, shared, specific, params)
 }
 \arguments{
-\item{object}{required; either (i) a \code{list} of \code{pomp} objects; or 
-(ii) an object of class \code{panelPomp} or inheriting class 
+\item{object}{required; either (i) a \code{list} of \code{pomp} objects; or
+(ii) an object of class \code{panelPomp} or inheriting class
 \code{panelPomp}.
 
-If \code{object} is a \code{list} of \code{pomp}s, the list must be named. 
-All these \code{pomp}s must either have no parameters or have the same 
-parameter names. (This is just a format requirement. \code{pomp} codes can 
+If \code{object} is a \code{list} of \code{pomp}s, the list must be named.
+All these \code{pomp}s must either have no parameters or have the same
+parameter names. (This is just a format requirement. \code{pomp} codes can
 ignore any parameter that is irrelevant to any given panel unit.)
 
-If \code{object} is a \code{panelPomp} object, the function allows modifying 
+If \code{object} is a \code{panelPomp} object, the function allows modifying
 the shared and unit-specific configuration of \code{object}.}
 
-\item{shared, specific}{optional; these arguments depend on the type 
+\item{shared, specific}{optional; these arguments depend on the type
 of \code{object}.
 
-If \code{object} is a \code{list} of \code{pomp}s, \code{shared} must be a 
+If \code{object} is a \code{list} of \code{pomp}s, \code{shared} must be a
 numeric vector specifying parameter values shared among panel units.
-\code{specific} must be a \code{matrix} with parameter values that are 
-unit-specific with rows naming parameters and columns naming units (these 
-names must match those of \code{object}). If no values are specified and 
+\code{specific} must be a \code{matrix} with parameter values that are
+unit-specific with rows naming parameters and columns naming units (these
+names must match those of \code{object}). If no values are specified and
 \code{object} has parameter values, these are set to be all unit-specific.
 
-If \code{object} is a \code{panelPomp} object, these arguments can still be 
-used as described above to modify the parameters of \code{object}. 
-Alternatively, the parameter configuration of \code{object} can be modified 
-providing only a character \code{shared} naming parameters of \code{object} 
-that should be shared (with values for parameters not originally shared 
-taken from the unit-specific parameters of the first panel unit of 
+If \code{object} is a \code{panelPomp} object, these arguments can still be
+used as described above to modify the parameters of \code{object}.
+Alternatively, the parameter configuration of \code{object} can be modified
+providing only a character \code{shared} naming parameters of \code{object}
+that should be shared (with values for parameters not originally shared
+taken from the unit-specific parameters of the first panel unit of
 \code{object}). \code{shared=NULL} sets all parameters as unit-specific.}
 
-\item{params}{optional; a list with elements named 'shared' and 'specific' 
-to be passed as \code{shared} and \code{specific} arguments. Alternatively, 
-a numeric vector. In this case, the nature of parameters is determined via 
-a naming convention: names ending in \dQuote{\code{[unit_name]}} are assumed 
-to specify unit-specific parameters; all other names specify shared 
+\item{params}{optional; a list with elements named 'shared' and 'specific'
+to be passed as \code{shared} and \code{specific} arguments. Alternatively,
+a numeric vector. In this case, the nature of parameters is determined via
+a naming convention: names ending in \dQuote{\code{[unit_name]}} are assumed
+to specify unit-specific parameters; all other names specify shared
 parameters.}
 }
 \description{
-This function constructs \code{panelPomp} objects, representing 
-PanelPOMP models (as defined in Breto et al., 2018). PanelPOMP models 
-involve multiple units, each of which can in turn be modeled by a POMP 
-model. Such POMP models can be encoded as a \code{list} of \code{pomp} 
-objects, a cornerstone that the \code{panelPomp} function can use to 
+This function constructs \code{panelPomp} objects, representing
+PanelPOMP models (as defined in Breto et al., 2018). PanelPOMP models
+involve multiple units, each of which can in turn be modeled by a POMP
+model. Such POMP models can be encoded as a \code{list} of \code{pomp}
+objects, a cornerstone that the \code{panelPomp} function can use to
 construct the corresponding \code{panelPomp} object.
 }
 \references{
