@@ -6,7 +6,7 @@ test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
 
 g <- pompExample(gompertz,envir=NULL)[[1]]
 pg <- panelPompExample(pangomp)
-pg <- panelPomp(window(pg,U=3))
+pg <- panelPomp(pg[1:3])
 pgl <- as(pg,"list")
 coef(g)
 coef(pg)

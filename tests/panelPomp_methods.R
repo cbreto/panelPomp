@@ -58,15 +58,15 @@ test(list(shared=numeric(0),specific=ppo@specific),
 test(pParams(coef(ppo)),list(shared=ppo@shared,specific=ppo@specific))
 ## test unitobjects,panelPomp-method
 test(unitobjects(ppo),ppo@unit.objects)
-test(unitobjects(ppo,unit="rw1"),ppo@unit.objects[["rw1"]])
+coef(ppo[["rw1"]])
 ## test window,panelPomp-method
-test(length(window(ppo,U=1))==1L)
+test(length(ppo[1])==1L)
 test(setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]"))),
-     coef(window(ppo,U=1)))
+     coef(ppo[1]))
 test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4),rw2=c(2,3,4)))
 test(lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))
-test(length(window(ppo,U=1,start=1,end=2)),1L) 
-test(lapply(as(window(ppo,U=1,start=1,end=2),"list"),time),list(rw1=c(1,2)))
+test(length(window(ppo[1:2],start=1,end=2)),2L) 
+test(lapply(as(window(ppo[1],start=1,end=2),"list"),time),list(rw1=c(1,2)))
 
 ## as(,'list') returns list of units
 test(as(pg,"list"),pg@unit.objects)
