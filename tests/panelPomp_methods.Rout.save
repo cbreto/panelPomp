@@ -93,21 +93,22 @@ Type 'q()' to quit R.
 > ## test unitobjects,panelPomp-method
 > test(unitobjects(ppo),ppo@unit.objects)
 [1] TRUE
-> test(unitobjects(ppo,unit="rw1"),ppo@unit.objects[["rw1"]])
-[1] TRUE
+> coef(ppo[["rw1"]])
+sigmaX sigmaY    X.0 
+     1      2      0 
 > ## test window,panelPomp-method
-> test(length(window(ppo,U=1))==1L)
+> test(length(ppo[1])==1L)
 [1] TRUE
 > test(setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]"))),
-+      coef(window(ppo,U=1)))
++      coef(ppo[1]))
 [1] TRUE
 > test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4),rw2=c(2,3,4)))
 [1] TRUE
 > test(lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))
 [1] TRUE
-> test(length(window(ppo,U=1,start=1,end=2)),1L) 
+> test(length(window(ppo[1:2],start=1,end=2)),2L) 
 [1] TRUE
-> test(lapply(as(window(ppo,U=1,start=1,end=2),"list"),time),list(rw1=c(1,2)))
+> test(lapply(as(window(ppo[1],start=1,end=2),"list"),time),list(rw1=c(1,2)))
 [1] TRUE
 > 
 > ## as(,'list') returns list of units

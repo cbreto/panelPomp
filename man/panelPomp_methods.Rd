@@ -11,6 +11,8 @@
 \alias{pParams}
 \alias{unitobjects,panelPomp-method}
 \alias{window,panelPomp-method}
+\alias{[,panelPomp-method}
+\alias{[[,panelPomp-method}
 \title{Manipulating \code{panelPomp} objects}
 \usage{
 \S4method{coef}{panelPomp}(object)
@@ -25,9 +27,13 @@
 
 pParams(value)
 
-\S4method{unitobjects}{panelPomp}(object, unitname)
+\S4method{unitobjects}{panelPomp}(object)
 
-\S4method{window}{panelPomp}(x, U, start, end)
+\S4method{window}{panelPomp}(x, start, end)
+
+\S4method{[}{panelPomp}(x, i)
+
+\S4method{[[}{panelPomp}(x, i)
 }
 \arguments{
 \item{object, x}{An object of class \code{panelPomp} or inheriting class 
@@ -37,12 +43,9 @@ pParams(value)
 
 \item{value}{value to be assigned.}
 
-\item{unitname}{name of panel unit to be manipulated.}
-
-\item{U}{how many units to keep (starting from the first).
-and end the window.}
-
 \item{start, end}{position in original \code{times(pomp)} at which to start}
+
+\item{i}{unit index (indices) or name (names)}
 }
 \description{
 Tools for manipulating \code{panelPomp} objects.
@@ -55,8 +58,8 @@ Tools for manipulating \code{panelPomp} objects.
   \item{length}{Count the number of units in \code{panelPomp} objects.}
   \item{names}{Get the unit names of \code{panelPomp} objects.}
   \item{pparams}{Extracts coefficients from \code{panelPomp} objects.}
-  \item{unitobjects}{Extracts \code{pomp} objects from \code{panelPomp} 
-  objects.}
+  \item{[]}{Take a subset of units.}
+  \item{[[]]}{Select the pomp object for a single unit.}
   \item{window}{Subset \code{panelPomp} objects by changing start time, 
   end time, and number of units.}
   }

@@ -10,9 +10,7 @@ NULL
 #' @param object,x An object of class \code{panelPomp} or inheriting class 
 #' \code{panelPomp}.
 #' @param start,end position in original \code{times(pomp)} at which to start 
-#' @param U how many units to keep (starting from the first).
-#' and end the window.
-#' @param unitname name of panel unit to be manipulated.
+#' @param i unit index (indices) or name (names)
 #' @param value value to be assigned.
 #' @param ... ....
 #' @section Methods:
@@ -22,8 +20,8 @@ NULL
 #'   \item{length}{Count the number of units in \code{panelPomp} objects.}
 #'   \item{names}{Get the unit names of \code{panelPomp} objects.}
 #'   \item{pparams}{Extracts coefficients from \code{panelPomp} objects.}
-#'   \item{unitobjects}{Extracts \code{pomp} objects from \code{panelPomp} 
-#'   objects.}
+#'   \item{[]}{Take a subset of units.}
+#'   \item{[[]]}{Select the pomp object for a single unit.}
 #'   \item{window}{Subset \code{panelPomp} objects by changing start time, 
 #'   end time, and number of units.}
 #'   }
@@ -133,13 +131,8 @@ pParams <- function (value) {
 setMethod(
   f = "unitobjects",
   signature = signature(object = "panelPomp"),
-  definition = function(object,
-                        unitname) {
-    if (missing(unitname)) {
-      return(object@unit.objects)
-    } else {
-      return(object@unit.objects[unitname][[1]])
-    }
+  definition = function(object) {
+    object@unit.objects
   }
 )
 
@@ -148,19 +141,45 @@ setMethod(
 setMethod(
   "window",
   signature=signature(x="panelPomp"),
-  definition=function (x, U, start, end) {
-    if (missing(U)) U <- length(x)
+  definition=function (x, start, end) {
     po <- as(x,"list")[[1]]
-    if (missing(start)) start <- 1
-    if (missing(end)) end <- length(time(po))
+    tm <- time(po,t0=FALSE)
+    if (missing(start)) start <- tm[1]
+    if (missing(end)) end <- tm[length(tm)]
     panelPomp(
-      lapply(as(x,"list")[1:U],FUN=window,start=time(po)[start],
-             end=time(po)[end]),
+      lapply(as(x,"list"),FUN=window,start=start,end=end),
       shared=x@shared,
-      specific=x@specific[,1:U,drop=FALSE]
+      specific=x@specific
     )
   }
 )
+
+#' @rdname panelPomp_methods
+#' @export
+setMethod(
+  "[",
+  signature=signature(x="panelPomp"),
+  definition=function (x, i) {
+    panelPomp(
+      x@unit.objects[i],
+      shared=x@shared,
+      specific=x@specific[,i,drop=FALSE]
+    )
+  }
+)
+
+#' @rdname panelPomp_methods
+#' @export
+setMethod(
+  "[[",
+  signature=signature(x="panelPomp"),
+  definition=function (x, i) {
+    po <- x@unit.objects[[i]]
+    coef(po) <- c(x@shared,setNames(x@specific[,i],rownames(x@specific)))
+    po
+  }
+)
+
 
 ## "@rdname panelPomp_methods" doesn't seem to work with setAs()
 ## coerce method
