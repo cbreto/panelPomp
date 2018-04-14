@@ -25,7 +25,7 @@ Type 'q()' to quit R.
 > 
 > g <- pompExample(gompertz,envir=NULL)[[1]]
 > pg <- panelPompExample(pangomp)
-> pg <- panelPomp(window(pg,U=3))
+> pg <- panelPomp(pg[1:3])
 > pgl <- as(pg,"list")
 > coef(g)
     K     r sigma   tau   X.0 
