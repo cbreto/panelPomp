@@ -82,6 +82,11 @@ setClass(
           wQuotes("''unit.objects'' must be a list of ''pomp'' objects"))
       }
     }
+    
+    if (ncol(object@specific)!=length(object@unit.objects)) 
+      retval <- append(
+        retval,
+        wQuotes("there must be one column of specific parameters per unit"))
 
     sh.names <- names(object@shared)
     sp.names <- rownames(object@specific)
