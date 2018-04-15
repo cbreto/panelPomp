@@ -229,7 +229,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
       
       output[[unit]] <- tryCatch(
         pomp::mif2(
-          object = object@unit.objects[[unit]],
+          object = object[[unit]],
           Nmif = 1,
           Np = Np,
           rw.sd = rw.sd[[unit]],
