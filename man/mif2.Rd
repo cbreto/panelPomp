@@ -9,12 +9,12 @@
 \title{PIF: Panel iterated filtering}
 \usage{
 \S4method{mif2}{panelPomp}(object, Nmif = 1, shared.start, specific.start,
-  start = list(shared = shared.start, specific = specific.start), Np, rw.sd,
-  transform = FALSE, cooling.type = c("hyperbolic", "geometric"),
-  cooling.fraction.50, tol = 1e-17, verbose = getOption("verbose"), ...)
+  start, Np, rw.sd, transform = FALSE, cooling.type = c("hyperbolic",
+  "geometric"), cooling.fraction.50, tol = 1e-17,
+  verbose = getOption("verbose"), ...)
 
-\S4method{mif2}{mif2d.ppomp}(object, Nmif, shared.start, specific.start, Np,
-  rw.sd, transform, cooling.type, cooling.fraction.50, tol, ...)
+\S4method{mif2}{mif2d.ppomp}(object, Nmif, shared.start, specific.start, start,
+  Np, rw.sd, transform, cooling.type, cooling.fraction.50, tol, ...)
 }
 \arguments{
 \item{object}{An object of class \code{panelPomp} or inheriting class.}
@@ -23,14 +23,12 @@
     The number of filtering iterations to perform.
   }
 
-\item{shared.start}{named numerical vector; the starting guess of the shared
-parameters.}
+\item{shared.start}{named numerical vector; the starting guess of the shared parameters.}
 
-\item{specific.start}{matrix with row parameter names and column 
-unit names; the starting guess of the specific parameters.}
+\item{specific.start}{matrix with row parameter names and column unit names; 
+the starting guess of the specific parameters.}
 
-\item{start}{A \code{list} with starting guess of length 2 with elements 
-named \code{shared} and \code{specific}.}
+\item{start}{A named numeric vector of parameters at which to start the IF2 procedure.}
 
 \item{Np}{
     the number of particles to use in filtering.
