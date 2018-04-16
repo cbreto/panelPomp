@@ -235,7 +235,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
       output[[unit]] <- tryCatch(
         pomp::mif2(
           object = object[[unit]],
-          start = updated.paramMatrix[,unit],  # cheap pomp trick
+          start = setNames(nm=rownames(updated.paramMatrix)), # cheap pomp trick
           Nmif = 1,
           Np = Np,
           rw.sd = rw.sd[[unit]],
