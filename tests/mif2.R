@@ -75,7 +75,12 @@ try(mif2(ppo,Np=10,sh=c(sth=0),rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
 
 mf <- mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),
            cooling.fraction.50=0.5,cooling.type="geometric")
-mf <- mif2(mf,start=coef(mf))
+mf <- mif2(mf,Nmif=2,start=coef(mf))
+test(dim(conv.rec(mf)),c(3L,10L))
+test(dim(conv.rec(mf,c("loglik","sigmaY"))),c(3L,2L))
+test(dim(conv.rec(mf,c("loglik","sigmaY","X.0"))),c(3L,4L))
+test(dim(conv.rec(mf,c("loglik","unitLoglik"))),c(3L,3L))
+
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
