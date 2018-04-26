@@ -112,7 +112,16 @@ Error : in ‘mif2’: pomp's ‘mif2’ error message: in ‘mif2’: in ‘mif
 > 
 > mf <- mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),
 +            cooling.fraction.50=0.5,cooling.type="geometric")
-> mf <- mif2(mf,start=coef(mf))
+> mf <- mif2(mf,Nmif=2,start=coef(mf))
+> test(dim(conv.rec(mf)),c(3L,10L))
+[1] TRUE
+> test(dim(conv.rec(mf,c("loglik","sigmaY"))),c(3L,2L))
+[1] TRUE
+> test(dim(conv.rec(mf,c("loglik","sigmaY","X.0"))),c(3L,4L))
+[1] TRUE
+> test(dim(conv.rec(mf,c("loglik","unitLoglik"))),c(3L,3L))
+[1] TRUE
+> 
 > 
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))
