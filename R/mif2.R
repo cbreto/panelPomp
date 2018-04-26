@@ -74,79 +74,6 @@ setClass(
 mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE, 
   cooling.type, cooling.fraction.50, tol = 1e-17, verbose = FALSE, .ndone = 0L,
   ...) {
-  # BEGIN DEBUG
-  #require(panelPomp)
-  #pompExample(gompertz)
-  #two.obs.gompertz <- gompertz
-  #time(two.obs.gompertz) <- time(gompertz)[1:2]
-  #two.obs.gompertz@data <-
-  #  gompertz@data[, 1:length(time(two.obs.gompertz)), drop = FALSE]
-  #object <-
-  #  panelPomp(object = list(unit1 = two.obs.gompertz, unit2 = two.obs.gompertz))
-  #Nmif <- 2
-  #start <-
-  ##  # start with only one shared parameter
-  ##  list(
-  ##    shared = c(tau = 0.7),
-  ##    specific = array(
-  ##      data = c(11, 1, 0.1, 0.5, 22, 2, 0.2, 0.55),
-  ##      dim = c(4, length(object)),
-  ##      dimnames = list(c("X.0", "K", "r", "sigma"),
-  ##                      names(unitobjects(object)))
-  ##    )
-  ##  )
-  ##  
-  ## #  # start with both shared and specific parameters
-  ## #  list(
-  ##    shared = c(tau = 0.7, r = 0.1, sigma = 0.5),
-  ##    specific = array(
-  ##      data = c(11, 1, 22, 2),
-  ##      dim = c(2, length(object)),
-  ##      dimnames = list(c("X.0", "K"),
-  ##                      names(unitobjects(object)))
-  ##   )
-  ##  )
-  ##
-  #  # start with only one specific parameter
-  #  list(
-  #    shared = c(tau = 0.7, r = 0.1, sigma = 0.5, K = 1),
-  #    specific = array(
-  #      data = c(11, 22),
-  #      dim = c(1, length(object)),
-  #      dimnames = list(c("X.0"),
-  #                     names(unitobjects(object)))
-  #    )
-  #  )
-  #
-  ##  # start with no specific parameter
-  ##  list(
-  ##    shared = c(tau = 0.7, r = 0.1, sigma = 0.5, K = 1, X.0 = 11),
-  ##    specific = array(
-  ##      data = numeric(0),
-  ##      dim = c(0, length(object)),
-  ##      dimnames = list(NULL,
-  ##                      names(unitobjects(object)))
-  ##    )
-  ##  )
-  ##
-  ###  # start with no shared parameter
-  ##  list(shared = numeric(0),
-  ##       specific = array(
-  ##         data = c(11, 1, 0.71, 0.1, 0.5,
-  ##                  22, 2, 0.72, 0.2, 0.55),
-  ##         dim = c(5, length(object)),
-  ##         dimnames = list(c("X.0", "K", "tau", "r", "sigma"),
-  ##                         names(unitobjects(object)))
-  ##         )
-  ##       )
-  #Np <- 50
-  #rw.sd <- substitute(pomp::rw.sd(tau = 0.02, X.0 = ivp(0.2)))
-  #transform <- TRUE
-  #cooling.type <- "geometric"
-  #cooling.fraction.50 <- 0.5
-  #.ndone <- 0L
-  ##  # END DEBUG
-  
   # Error prefix
   ep <- wQuotes("in ''mif2'': ")
   et <- wQuotes(" (panelPomp:::mif2.internal)")
@@ -200,15 +127,15 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
   
   pconv.rec.array <- array(
     data = numeric(0),
-    dim = c(Nmif + 1, dim(start$specific)[1] + 3, U),
+    dim = c(Nmif + 1, dim(start$specific)[1] + 2, U),
     dimnames = list(
       iteration = seq.int(.ndone, .ndone + Nmif),
-      variable = c('loglik', 'unitNfail', 'unitLoglik', 
+      variable = c('unitNfail', 'unitLoglik', 
         dimnames(start$specific)[[1]]),
       unit = names(unitobjects(object))
     )
   )
-  pconv.rec.array[1L, -c(1:3), ] <- pparamArray[, 1 ,]
+  pconv.rec.array[1L, -c(1:2), ] <- pparamArray[, 1 ,]
   # Initialize output
   output <- vector(mode="list",length=U)
   # nameoutput
@@ -272,8 +199,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
         pconv.rec[mifiter, "nfail"] <- sum(sapply(X = output, slot, "nfail"))
         # ... and pconv.rec.array
         if (!is.null(spnames)) {
-          pconv.rec.array[mifiter + 1, -c(1:3), ] <- apply(X = pparamArray, MARGIN = c(1,3), FUN = mean)
-          pconv.rec.array[mifiter, "loglik", ] <- sum(sapply(X = output, FUN = logLik))
+          pconv.rec.array[mifiter + 1, -c(1:2), ] <- apply(X = pparamArray, MARGIN = c(1,3), FUN = mean)
           pconv.rec.array[mifiter, "unitLoglik", ] <- sapply(X = output, FUN = logLik)
           pconv.rec.array[mifiter, "unitNfail",] <- sapply(X = output, FUN = slot, "nfail")
         }
@@ -295,12 +221,12 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
   # shared parameter, R will then have dropped its name, which we fix by
   names(pParams$shared) <- dimnames(pconv.rec)$variable[-c(1:2)]
   pParams$specific <- aperm(
-    a = pconv.rec.array[nrow(pconv.rec), -c(1:3), , drop = FALSE],
+    a = pconv.rec.array[nrow(pconv.rec), -c(1:2), , drop = FALSE],
     perm = c(2, 3, 1)
   )
   dim(pParams$specific) <- dim(pParams$specific)[1:2]
   dimnames(pParams$specific) <- list( 
-    variable = colnames(pconv.rec.array)[-c(1:3)],
+    variable = colnames(pconv.rec.array)[-c(1:2)],
     unit = dimnames(pconv.rec.array)$unit
   )
   # To have unit-specific tolerances, one could use something like:
