@@ -1,5 +1,5 @@
 
-R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+R version 3.5.0 (2018-04-23) -- "Joy in Playing"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -48,12 +48,12 @@ process model simulator, rprocess = function (xstart, times, params, ..., zerona
             stop(ep, conditionMessage(e), call. = FALSE)
         })
 }
-<bytecode: 0x5026070>
-<environment: 0x52f2838>
+<bytecode: 0x33bf1c8>
+<environment: 0x28e9f78>
 process model density, dprocess = function (x, times, params, log = FALSE, ...) 
 stop(sQuote("dprocess"), " not specified", call. = FALSE)
-<bytecode: 0x4de1e88>
-<environment: 0x4f68350>
+<bytecode: 0x462c790>
+<environment: 0x26143e0>
 measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
 measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
 prior simulator, rprior = not specified
@@ -86,12 +86,12 @@ process model simulator, rprocess = function (xstart, times, params, ..., zerona
             stop(ep, conditionMessage(e), call. = FALSE)
         })
 }
-<bytecode: 0x5026070>
-<environment: 0x5a63410>
+<bytecode: 0x33bf1c8>
+<environment: 0x47607f0>
 process model density, dprocess = function (x, times, params, log = FALSE, ...) 
 stop(sQuote("dprocess"), " not specified", call. = FALSE)
-<bytecode: 0x4de1e88>
-<environment: 0x594fae8>
+<bytecode: 0x462c790>
+<environment: 0x4383ba0>
 measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
 measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
 prior simulator, rprior = not specified
