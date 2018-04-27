@@ -21,6 +21,5 @@ for (s in seq_along(seeds)) {
   print(mf@specific)
   print(unitlogLik(mf))
   print(logLik(mf))
-  print(mf@pconv.rec)
-  print(mf@pconv.rec.array)
+  print(conv.rec(mf))
 }
