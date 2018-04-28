@@ -10,9 +10,9 @@
 \alias{pparams,panelPomp-method}
 \alias{pParams}
 \alias{unitobjects,panelPomp-method}
-\alias{window,panelPomp-method}
 \alias{[,panelPomp-method}
 \alias{[[,panelPomp-method}
+\alias{window,panelPomp-method}
 \title{Manipulating \code{panelPomp} objects}
 \usage{
 \S4method{coef}{panelPomp}(object)
@@ -29,11 +29,11 @@ pParams(value)
 
 \S4method{unitobjects}{panelPomp}(object)
 
-\S4method{window}{panelPomp}(x, start, end)
-
 \S4method{[}{panelPomp}(x, i)
 
 \S4method{[[}{panelPomp}(x, i)
+
+\S4method{window}{panelPomp}(x, start, end)
 }
 \arguments{
 \item{object, x}{An object of class \code{panelPomp} or inheriting class 
@@ -43,9 +43,9 @@ pParams(value)
 
 \item{value}{value to be assigned.}
 
-\item{start, end}{position in original \code{times(pomp)} at which to start}
-
 \item{i}{unit index (indices) or name (names)}
+
+\item{start, end}{position in original \code{times(pomp)} at which to start}
 }
 \description{
 Tools for manipulating \code{panelPomp} objects.
