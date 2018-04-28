@@ -54,6 +54,7 @@ setMethod(
   definition=function (object, ..., value) {
     ## check names(value)
     ep <- paste0("in ",sQuote("coef<-"),": ")
+    if (is.list(value)) value <- unlist(value)
     if (!identical(character(0),setdiff(names(value),names(coef(object))))) 
       stop(paste0(ep,"part of ",sQuote("value")," is not part of ",
                   sQuote("coef(object)"),"."),call.=FALSE)
@@ -73,9 +74,6 @@ setMethod(
     pvec[unitpar] <- value[unitpar]
     object@specific[,] <- pvec
     object@shared <- value[sort(sharedpar)]
-    ## is the new object valid?
-    #tryCatch(validObject(object),
-    #         error=function (e) {stop(ep,conditionMessage(e),call.=FALSE)})
     object
   }
 )
@@ -85,7 +83,7 @@ setMethod(
 setMethod(
   "length",
   signature=signature(x="panelPomp"),
-  definition = function (x) length(unitobjects(x))
+  definition = function (x) length(x@unit.objects)
 )
 
 #' @rdname panelPomp_methods
@@ -139,24 +137,6 @@ setMethod(
 #' @rdname panelPomp_methods
 #' @export
 setMethod(
-  "window",
-  signature=signature(x="panelPomp"),
-  definition=function (x, start, end) {
-    po <- as(x,"list")[[1]]
-    tm <- time(po,t0=FALSE)
-    if (missing(start)) start <- tm[1]
-    if (missing(end)) end <- tm[length(tm)]
-    panelPomp(
-      lapply(as(x,"list"),FUN=window,start=start,end=end),
-      shared=x@shared,
-      specific=x@specific
-    )
-  }
-)
-
-#' @rdname panelPomp_methods
-#' @export
-setMethod(
   "[",
   signature=signature(x="panelPomp"),
   definition=function (x, i) {
@@ -180,6 +160,22 @@ setMethod(
   }
 )
 
+#' @rdname panelPomp_methods
+#' @export
+setMethod(
+  "window",
+  signature=signature(x="panelPomp"),
+  definition=function (x, start, end) {
+    tm <- time(x[[1]],t0=FALSE)
+    if (missing(start)) start <- tm[1]
+    if (missing(end)) end <- tm[length(tm)]
+    panelPomp(
+      lapply(x@unit.objects,FUN=window,start=start,end=end),
+      shared=x@shared,
+      specific=x@specific
+    )
+  }
+)
 
 ## "@rdname panelPomp_methods" doesn't seem to work with setAs()
 ## coerce method
