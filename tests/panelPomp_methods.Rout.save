@@ -115,6 +115,10 @@ sigmaX sigmaY    X.0
 > test(as(pg,"list"),pg@unit.objects)
 [1] TRUE
 > 
+> test(dim(as(pg,"data.frame")),c(5000L,3L))
+[1] TRUE
+> test(names(as(pg,"data.frame")),c("time","Y","unit"))
+[1] TRUE
 > 
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))
