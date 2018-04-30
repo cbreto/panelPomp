@@ -185,3 +185,19 @@ setMethod(
 #' @name as
 #' @family panelPomp methods
 setAs(from="panelPomp",to="list",def = function (from) from@unit.objects)
+
+## coerce method
+#' @title Coercing \code{panelPomp} objects as a \code{data.frame}
+#' @description Coerces a \code{panelPomp} into a data frame.
+#' @name as
+#' @family panelPomp methods
+setAs(from="panelPomp",to="data.frame",
+      def = function (from) {
+        x <- lapply(from@unit.objects,as,"data.frame")
+        for (u in seq_along(x)) {
+          x[[u]]$unit <- names(from@unit.objects)[[u]]
+        }
+        do.call(rbind,x)
+      }
+)
+

@@ -2,11 +2,16 @@
 % Please edit documentation in R/panelPomp_methods.R
 \name{as}
 \alias{as}
+\alias{as}
 \title{Coercing \code{panelPomp} objects as a \code{list}}
 \description{
 Extracts the \code{unit.objects} slot of \code{panelPomp} 
 objects.
+
+Coerces a \code{panelPomp} into a data frame.
 }
 \seealso{
+Other panelPomp methods: \code{\link{panelPomp_methods}}
+
 Other panelPomp methods: \code{\link{panelPomp_methods}}
 }

@@ -71,6 +71,8 @@ test(lapply(as(window(ppo[1],start=1,end=2),"list"),time),list(rw1=c(1,2)))
 ## as(,'list') returns list of units
 test(as(pg,"list"),pg@unit.objects)
 
+test(dim(as(pg,"data.frame")),c(5000L,3L))
+test(names(as(pg,"data.frame")),c("time","Y","unit"))
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
