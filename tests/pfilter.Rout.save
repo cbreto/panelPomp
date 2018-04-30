@@ -37,12 +37,12 @@ Type 'q()' to quit R.
 +   pfilter(params=coef(ppo),Np=10))
 [1] TRUE
 > test(wQuotes(ep,"''tol'' must be a single positive ",
-+              "scalar or a vector of length ",length(ppo),"\n"),
-+      pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)))
++   "scalar or a vector of length ",length(ppo),"\n"),
++   pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)))
 [1] TRUE
 > test(wQuotes(ep,"names of ''shared'' must match those of ",
-+              "''object@shared''.\n"),
-+      pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10))
++   "''object@shared''.\n"),
++   pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10))
 [1] TRUE
 > test(wQuotes(ep,"Missing ''Np'' argument.\n"),pfilter(ppo))
 [1] TRUE
@@ -50,26 +50,26 @@ Type 'q()' to quit R.
 > test(coef(pfilter(ppo,Np=10)),coef(ppo))
 [1] TRUE
 > test(coef(as(pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,Np=10),
-+              "list")[[1]]),c(2*ppo@shared,2*get_col(ppo@specific,1,1)))
++   "list")[[1]]),c(2*ppo@shared,2*get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(coef(as(pfilter(ppo,sh=2*ppo@shared,Np=10),"list")[[1]]),
-+      c(2*ppo@shared,get_col(ppo@specific,1,1)))
++   c(2*ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(coef(as(pfilter(ppo,sp=2*ppo@specific,Np=10),"list")[[1]]),
-+      c(ppo@shared,2*get_col(ppo@specific,1,1)))
++   c(ppo@shared,2*get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(coef(as(pfilter(ppo,Np=10,
 +   params=list(shared=2*ppo@shared,specific=2*ppo@specific)),
-+              "list")[[1]]),2*c(ppo@shared,get_col(ppo@specific,1,1)))
++   "list")[[1]]),2*c(ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > ## resolve multiple params
 > test(coef(as(pfilter(ppo,sh=2*ppo@shared,Np=10,
 +   params=list(shared=ppo@shared,specific=ppo@specific)),
-+              "list")[[1]]),c(2*ppo@shared,get_col(ppo@specific,1,1)))
++   "list")[[1]]),c(2*ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(coef(as(pfilter(ppo,sp=2*ppo@specific,
 +   params=list(shared=ppo@shared,specific=ppo@specific),Np=10),
-+              "list")[[1]]),c(ppo@shared,2*get_col(ppo@specific,1,1)))
++   "list")[[1]]),c(ppo@shared,2*get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(wQuotes(ep,"specify either ''params'' only, ''params'' and ''shared'' , ",
 +   "or ''params'' and ''specific''.\n"),
@@ -79,20 +79,26 @@ Type 'q()' to quit R.
 [1] TRUE
 > ## wrong unit names
 > test(wQuotes(ep,"colnames of ''specific'' must be identical to those of ",
-+              "''object@specific''.\n"),
-+      quote({sp <- ppo@specific;colnames(sp) <- paste0(colnames(sp), "_")
-+      pfilter(ppo,sp=sp,Np=10)}))
++   "''object@specific''.\n"),
++   quote({sp <- ppo@specific;colnames(sp) <- paste0(colnames(sp), "_")
++   pfilter(ppo,sp=sp,Np=10)}))
 [1] TRUE
 > ## wrong unit-specific names
 > test(wQuotes(ep,"rownames of ''specific'' must match those of ",
-+              "''object@specific''.\n"),
-+      quote({sp <- ppo@specific;rownames(sp) <- c("some_wrong_name")
-+      pfilter(ppo,sp=sp,Np=10)}))
++   "''object@specific''.\n"),
++   quote({sp <- ppo@specific;rownames(sp) <- c("some_wrong_name")
++   pfilter(ppo,sp=sp,Np=10)}))
 [1] TRUE
 > ##  wrong shared names
 > test(wQuotes(ep,"names of ''shared'' must match those of ",
-+              "''object@shared''.\n"),
-+      pfilter(ppo,sh=c(sth = 0),Np=10))
++   "''object@shared''.\n"),
++   pfilter(ppo,sh=c(sth = 0),Np=10))
+[1] TRUE
+> 
+> ppf <- pfilter(ppo,Np=10)
+> test(dim(as(ppf,"data.frame")),c(8L,5L))
+[1] TRUE
+> test(names(as(ppf,"data.frame")),c("time", "Y", "ess", "cond.loglik", "unit"))
 [1] TRUE
 > 
 > ## check whether all tests passed
