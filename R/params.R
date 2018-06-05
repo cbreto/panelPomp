@@ -1,6 +1,6 @@
 ## functions to manipulate params
 
-#' @include panel_logmeanexp.R
+#' @include abc_methods.R
 NULL
 
 #' @title Convert to and from a \code{panelPomp} object \code{pParams} slot format and a one-row \code{data.frame} 

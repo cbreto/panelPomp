@@ -1,4 +1,5 @@
 library(panelPomp,quietly=TRUE)
+if (file.exists("options.R")) source("options.R")
 
 TESTS_PASS <- NULL
 test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 

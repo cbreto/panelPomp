@@ -10,3 +10,9 @@
 \newcommand{\ionides2015}{Ionides, E. L., Nguyen, D., Atchade, Y., Stoev, S. and King, A. A. (2015) Inference via iterated, perturbed Bayes maps. \emph{Proceedings of the National Academy of Sciences}, \bold{112(3)}, 719--724. \acronym{DOI}: 10.1073/pnas.1410597112}
 
 \newcommand{\king2015}{King, A. A., Nguyen, D. and Ionides, E. L. (2016) Statistical Inference for Partially Observed Markov Processes via the R Package pomp. \emph{Journal of Statistical Software}, \bold{69(12)}, 1--43. \acronym{DOI}: 10.18637/jss.v069.i12}
+
+\newcommand{\sisson2007}{Sisson, S. A., Fan, Y. and Tanaka, M. M. (2007) Sequential Monte Carlo without likelihoods. \emph{Proceedings of the National Academy of Sciences}, \bold{104(6)}, 1760--1765. \acronym{DOI}: 10.1073/pnas.0607208104}
+
+\newcommand{\sisson2009}{Sisson, S. A., Fan, Y. and Tanaka, M. M. (2009) Correction for Sisson et al., Sequential Monte Carlo without likelihoods. \emph{Proceedings of the National Academy of Sciences}, \bold{106(39)}, 16889. \acronym{DOI}: 10.1073/pnas.0908847106}
+
+\newcommand{\tavare1997}{Tavare, S., Balding, D. J., Griffiths, R. C. and Donnelly, P. (1997) Inferring Coalescence Times from DNA Sequence Data. \emph{Genetics}, \bold{145(2)}, 505--518.}

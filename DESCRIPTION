@@ -36,4 +36,6 @@ Collate:
     'pfilter_methods.R'
     'mif2.R'
     'mif2_methods.R'
+    'abc.R'
+    'abc_methods.R'
     'params.R'

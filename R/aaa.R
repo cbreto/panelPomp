@@ -85,7 +85,6 @@ wQuotes<- function (...) {
       }
       ## replace by what
       ns <- seq(ifelse(ODD,1,2),length(chnks),by=2)
-      #for (n in ns) chnks[n] <- paste0(sQuote(chnks[n]))
       for (n in ns) chnks[n] <- paste0(do.call(swap[[sw]]$what,list(chnks[n])))
     }
     char <- do.call(paste0,as.list(chnks))
