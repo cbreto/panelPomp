@@ -46,26 +46,19 @@
     logical; if TRUE, print progress reports.
   }
 
-\item{pproposal}{optional list; list of same length as \code{object} with
-unit-specific values for the \code{proposal} argument of the \pkg{pomp}
-function \code{abc}. If not specified, the \code{proposal} argument must be
-specified and will be used for all units.}
+\item{pproposal}{\inheritArg{proposal}{abc}.}
 
-\item{pprobes}{optional list; list of same length as \code{object} with
-unit-specific values for the \code{probe} argument of the \pkg{pomp}
-function \code{abc}. If not specified, the \code{probe} argument must be
-specified and will be used for all units.}
+\item{pprobes}{\inheritArg{probe}{abc}.}
 
-\item{pscale}{optional list; list of same length as \code{object} with
-unit-specific values for the \code{scale} argument of the \pkg{pomp}
-function \code{abc}. If not specified, the \code{scale} argument must be
-specified and will be used for all units.}
+\item{pscale}{\inheritArg{scale}{abc}.}
 
 \item{...}{....}
 }
 \description{
 Tools for applying Approximate Bayesian Computation algorithms
 to panel data.
+
+\inheritDes{abc}.
 }
 \references{
 \tavare1997

@@ -6,21 +6,14 @@ NULL
 #' @title PABC: Panel Approximate Bayesian Computation
 #' @description Tools for applying Approximate Bayesian Computation algorithms
 #' to panel data.
+#' 
+#' \inheritDes{abc}.
 #' @inheritParams coef,panelPomp-method
 #' @inheritParams mif2,panelPomp-method
 #' @inheritParams pomp::abc
-#' @param pproposal optional list; list of same length as \code{object} with
-#' unit-specific values for the \code{proposal} argument of the \pkg{pomp}
-#' function \code{abc}. If not specified, the \code{proposal} argument must be
-#' specified and will be used for all units.
-#' @param pprobes optional list; list of same length as \code{object} with
-#' unit-specific values for the \code{probe} argument of the \pkg{pomp}
-#' function \code{abc}. If not specified, the \code{probe} argument must be
-#' specified and will be used for all units.
-#' @param pscale optional list; list of same length as \code{object} with
-#' unit-specific values for the \code{scale} argument of the \pkg{pomp}
-#' function \code{abc}. If not specified, the \code{scale} argument must be
-#' specified and will be used for all units.
+#' @param pproposal \inheritArg{proposal}{abc}.
+#' @param pprobes \inheritArg{probe}{abc}.
+#' @param pscale \inheritArg{scale}{abc}.
 #' @name abc
 #' @references \tavare1997
 #' 
@@ -143,10 +136,8 @@ abc.internal <- function (object, Nabc, start, proposal, probes, epsilon, scale,
   
   ## apply probes to data
   datval <- tryCatch(
-    .Call("apply_probe_data",object,probes#,
-          #PACKAGE="pomp"# This argument seems to be intended to be used by
-          # 'pomp' to be able to make sure that it uses its own 'apply_probe_sim'
-          ),
+    .Call("apply_probe_data",object,probes,
+          PACKAGE="panelPomp"),# to avoid conflict with pomp's apply_probe_data
     error = function (e) {
       stop(ep,"in ",sQuote("apply_probe_data"),": ",conditionMessage(e),et,
            call.=FALSE)
@@ -183,9 +174,8 @@ abc.internal <- function (object, Nabc, start, proposal, probes, epsilon, scale,
           params=theta.prop,
           seed=NULL,
           probes=probes,
-          datval=datval#,
-          #PACKAGE="pomp" # This argument seems to be intended to be used by
-          # 'pomp' to be able to make sure that it uses its own 'apply_probe_sim'
+          datval=datval,
+          PACKAGE="panelPomp"# to avoid conflict with pomp's apply_probe_sim
         ),
         error = function (e) {
           stop(ep,"in ",sQuote("apply_probe_sim"),": ",conditionMessage(e),et,
