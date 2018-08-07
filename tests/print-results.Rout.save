@@ -1,5 +1,5 @@
 
-R version 3.5.0 (2018-04-23) -- "Joy in Playing"
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -37,23 +37,8 @@ summary of data:
  3rd Qu.:2.526  
  Max.   :3.402  
 zero time, t0 = 0
-process model simulator, rprocess = function (xstart, times, params, ..., zeronames = character(0), 
-    tcovar, covar, .getnativesymbolinfo = TRUE) 
-{
-    tryCatch(.Call(euler_model_simulator, func = efun, xstart = xstart, 
-        times = times, params = params, deltat = object@delta.t, 
-        method = 2L, zeronames = zeronames, tcovar = tcovar, 
-        covar = covar, args = pairlist(...), gnsi = .getnativesymbolinfo), 
-        error = function(e) {
-            stop(ep, conditionMessage(e), call. = FALSE)
-        })
-}
-<bytecode: 0x304c910>
-<environment: 0x319d660>
-process model density, dprocess = function (x, times, params, log = FALSE, ...) 
-stop(sQuote("dprocess"), " not specified", call. = FALSE)
-<bytecode: 0x42c65f8>
-<environment: 0x2290b40>
+discrete-time process-model simulator, step.fun = native function ‘__pomp_stepfn’, defined by a Csnippet
+process model density, dprocess = not specified
 measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
 measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
 prior simulator, rprior = not specified
@@ -75,23 +60,8 @@ summary of data:
  3rd Qu.:2.6189  
  Max.   :4.7310  
 zero time, t0 = 0
-process model simulator, rprocess = function (xstart, times, params, ..., zeronames = character(0), 
-    tcovar, covar, .getnativesymbolinfo = TRUE) 
-{
-    tryCatch(.Call(euler_model_simulator, func = efun, xstart = xstart, 
-        times = times, params = params, deltat = object@delta.t, 
-        method = 2L, zeronames = zeronames, tcovar = tcovar, 
-        covar = covar, args = pairlist(...), gnsi = .getnativesymbolinfo), 
-        error = function(e) {
-            stop(ep, conditionMessage(e), call. = FALSE)
-        })
-}
-<bytecode: 0x304c910>
-<environment: 0x4412280>
-process model density, dprocess = function (x, times, params, log = FALSE, ...) 
-stop(sQuote("dprocess"), " not specified", call. = FALSE)
-<bytecode: 0x42c65f8>
-<environment: 0x402a008>
+discrete-time process-model simulator, step.fun = native function ‘__pomp_stepfn’, defined by a Csnippet
+process model density, dprocess = not specified
 measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
 measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
 prior simulator, rprior = not specified

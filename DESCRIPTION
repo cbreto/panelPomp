@@ -1,8 +1,8 @@
 Package: panelPomp
 Type: Package
 Title: Statistical Inference for PanelPOMPs (Panel Partially Observed Markov Processes)
-Version: 0.8.1
-Date: 2018-04-30
+Version: 0.8.2
+Date: 2018-08-07
 Author: Carles Breto, Edward L. Ionides, Aaron A. King
 Maintainer: Carles Breto <cbreto@umich.edu>
 Description: Tools for working with PanelPOMPs, i.e., with
@@ -18,7 +18,7 @@ License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
     R(>= 3.1.2),
-    pomp(>= 1.7.5.2)
+    pomp(>= 1.18.6.3)
 Imports:
     methods
 RoxygenNote: 6.0.1

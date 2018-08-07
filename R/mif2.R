@@ -156,13 +156,9 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, transform = FALSE,
       rownames(updated.paramMatrix) <- c(
         rownames(pParamMatrix), rownames(pparamArray))
       
-      ## note that we have to trick pomp into accepting the parameters through 
-      ## the .paramMatrix back-door.  If 'object' has no parameters and 'start' 
-      ## is not specified, then pomp::mif2 will throw an error.
       output[[unit]] <- tryCatch(
         pomp::mif2(
           object = object[[unit]],
-          start = setNames(nm=rownames(updated.paramMatrix)), # cheap pomp trick
           Nmif = 1,
           Np = Np,
           rw.sd = rw.sd[[unit]],
