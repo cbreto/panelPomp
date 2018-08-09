@@ -109,7 +109,7 @@ Error : in ‘mif2’: pomp's ‘mif2’ error message: in ‘mif2’: the follo
 > ##  wrong shared names
 > try(mif2(ppo,Np=10,sh=c(sth=0),rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
 +           cooling.type="geometric"))
-Error : in ‘mif2’: pomp's ‘mif2’ error message: in ‘mif2’: in ‘mif2.pfilter’: process simulation error: in ‘discrete.time.sim’ plugin: variable 'sigmaY' not found among the parameters (panelPomp:::mif2.internal)
+Error : in ‘mif2’: pomp's ‘mif2’ error message: in ‘mif2’: in ‘mif2.pfilter’: process simulation error: variable 'sigmaY' not found among the parameters (panelPomp:::mif2.internal)
 > 
 > mf <- mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),
 +            cooling.fraction.50=0.5,cooling.type="geometric")
