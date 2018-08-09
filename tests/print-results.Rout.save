@@ -48,7 +48,6 @@ summary of data:
  3rd Qu.:2.526  
  Max.   :3.402  
 zero time, t0 = 0
-<<<<<<< HEAD
 process model simulator, rprocess = function (xstart, times, params, ..., zeronames = character(0), 
     tcovar, covar, .getnativesymbolinfo = TRUE) 
 {
@@ -62,10 +61,6 @@ process model simulator, rprocess = function (xstart, times, params, ..., zerona
 }
 process model density, dprocess = function (x, times, params, log = FALSE, ...) 
 stop(sQuote("dprocess"), " not specified", call. = FALSE)
-=======
-discrete-time process-model simulator, step.fun = native function ‘__pomp_stepfn’, defined by a Csnippet
-process model density, dprocess = not specified
->>>>>>> e4d8e9d... accommodate changes in 'pomp' v 1.18.6.3: there is now no need to trick 'pomp::mif2' into accepting '.paramMatrix'.
 measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
 measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
 prior simulator, rprior = not specified
@@ -74,47 +69,9 @@ skeleton = not specified
 initializer = not specified
 parameter transformation (to estimation scale) = not specified
 parameter transformation (from estimation scale) = not specified
-<<<<<<< HEAD
 parameter(s):
 sigmaX sigmaY    X.0 
      1      1      1 
-=======
-parameter(s) unspecified
-
-$rw2
-4 records of 1 observables, recorded from t = 1 to 4 
-summary of data:
-       Y         
- Min.   :0.9374  
- 1st Qu.:1.4988  
- Median :1.8004  
- Mean   :2.3173  
- 3rd Qu.:2.6189  
- Max.   :4.7310  
-zero time, t0 = 0
-discrete-time process-model simulator, step.fun = native function ‘__pomp_stepfn’, defined by a Csnippet
-process model density, dprocess = not specified
-measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
-measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
-prior simulator, rprior = not specified
-prior density, dprior = native function ‘_pomp_default_dprior’, dynamically loaded from ‘pomp’
-skeleton = not specified
-initializer = not specified
-parameter transformation (to estimation scale) = not specified
-parameter transformation (from estimation scale) = not specified
-parameter(s) unspecified
-
-
-Slot "shared":
-sigmaX sigmaY 
-     1      1 
-
-Slot "specific":
-     unit
-param rw1 rw2
-  X.0   1   1
-
->>>>>>> e4d8e9d... accommodate changes in 'pomp' v 1.18.6.3: there is now no need to trick 'pomp::mif2' into accepting '.paramMatrix'.
 > lapply(as(ppo,"list"),obs)
 $rw1
         time
