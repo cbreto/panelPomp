@@ -19,7 +19,7 @@
     The number of ABC iterations to perform.
   }
 
-\item{start}{position in original \code{times(pomp)} at which to start}
+\item{start}{position in original \code{times(pomp)} at which to start.}
 
 \item{proposal}{
     optional function that draws from the proposal distribution.

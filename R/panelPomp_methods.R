@@ -9,8 +9,8 @@ NULL
 #' @description Tools for manipulating \code{panelPomp} objects.
 #' @param object,x An object of class \code{panelPomp} or inheriting class 
 #' \code{panelPomp}.
-#' @param start,end position in original \code{times(pomp)} at which to start 
-#' @param i unit index (indices) or name (names)
+#' @param start,end position in original \code{times(pomp)} at which to start.
+#' @param i unit index (indices) or name (names).
 #' @param value value to be assigned.
 #' @param ... ....
 #' @section Methods:
@@ -22,10 +22,10 @@ NULL
 #'   \item{pparams}{Extracts coefficients from \code{panelPomp} objects.}
 #'   \item{[]}{Take a subset of units.}
 #'   \item{[[]]}{Select the pomp object for a single unit.}
-#'   \item{window}{Subset \code{panelPomp} objects by changing start time, 
-#'   end time, and number of units.}
+#'   \item{window}{Subset \code{panelPomp} objects by changing start time and
+#'   end time.}
 #'   }
-#' @author Carles Breto and Aaron A. King.
+#' @author Carles Breto, Aaron A. King.
 #' @family panelPomp methods
 NULL
 
@@ -127,10 +127,58 @@ pParams <- function (value) {
 #' @rdname panelPomp_methods
 #' @export
 setMethod(
-  f = "unitobjects",
+  "print",
+  signature=signature(x="panelPomp"),
+  definition=function (x, ...) {
+    cat("<object of class ",sQuote("panelPomp"),">\n",sep="")
+    invisible(x)
+  }
+)
+
+#' @rdname panelPomp_methods
+#' @export
+setMethod(
+  "show",
+  signature=signature(object="panelPomp"),
+  definition=function (object) {
+    print(object)
+    cat("panel of",length(object),ifelse(length(object)>1,"units","unit"),"\n")
+    if (length(coef(object))>0) {
+      cat("parameter(s):\n")
+      print(pParams(coef(object)))
+    } else {
+      cat("parameter(s) unspecified\n");
+    }
+    cat(paste0("summary of first panel unit (\"",names(object)[1],"\"):","\n"))
+    show(object[[1]])
+    invisible(NULL)
+  }
+)
+
+#' @rdname panelPomp_methods
+#' @export
+setMethod(
+  "unitobjects",
   signature = signature(object = "panelPomp"),
   definition = function(object) {
     object@unit.objects
+  }
+)
+
+#' @rdname panelPomp_methods
+#' @export
+setMethod(
+  "window",
+  signature=signature(x="panelPomp"),
+  definition=function (x, start, end) {
+    tm <- time(x[[1]],t0=FALSE)
+    if (missing(start)) start <- tm[1]
+    if (missing(end)) end <- tm[length(tm)]
+    panelPomp(
+      lapply(x@unit.objects,FUN=window,start=start,end=end),
+      shared=x@shared,
+      specific=x@specific
+    )
   }
 )
 
@@ -157,23 +205,6 @@ setMethod(
     po <- x@unit.objects[[i]]
     coef(po) <- c(x@shared,setNames(x@specific[,i],rownames(x@specific)))
     po
-  }
-)
-
-#' @rdname panelPomp_methods
-#' @export
-setMethod(
-  "window",
-  signature=signature(x="panelPomp"),
-  definition=function (x, start, end) {
-    tm <- time(x[[1]],t0=FALSE)
-    if (missing(start)) start <- tm[1]
-    if (missing(end)) end <- tm[length(tm)]
-    panelPomp(
-      lapply(x@unit.objects,FUN=window,start=start,end=end),
-      shared=x@shared,
-      specific=x@specific
-    )
   }
 )
 

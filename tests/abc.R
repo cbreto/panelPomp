@@ -31,12 +31,14 @@ test(wQuotes(ep,"''object'' is a required argument\n"),
          proposal = mvn.diag.rw(c(r = 0.01, sigma = 0.01, tau = 0.01))))
 
 ## test that pomp's c code can be called
-test(as.character(.Call("apply_probe_data",po,plist)),"1.03092251026096")
+test(as.character(.Call("apply_probe_data",po,plist,PACKAGE='panelPomp')),
+     '1.03092251026096')
 
 ## test that abc runs
 test('abcd.ppomp',class(
   abc(ppo,Nabc = 1,probes = plist, epsilon = 1, scale = scale.dat,
-         proposal = mvn.diag.rw(c(r = 0.01, sigma = 0.01, tau = 0.01))))[1])
+      proposal = mvn.diag.rw(c(r = 0.01, sigma = 0.01, tau = 0.01)))
+)[1])
 
 
 ## ... and check whether all tests passed

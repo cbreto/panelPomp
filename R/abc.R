@@ -163,25 +163,26 @@ abc.internal <- function (object, Nabc, start, proposal, probes, epsilon, scale,
     
     if (is.finite(log.prior.prop) &&
         runif(1) < exp(log.prior.prop-log.prior)) {
-      
       ## compute the probes for the proposed new parameter values
-
-            simval <- tryCatch(
-        .Call(
-          "apply_probe_sim",
-          object=object,
-          nsim=1L,
-          params=theta.prop,
-          seed=NULL,
-          probes=probes,
-          datval=datval,
-          PACKAGE="panelPomp"# to avoid conflict with pomp's apply_probe_sim
-        ),
-        error = function (e) {
-          stop(ep,"in ",sQuote("apply_probe_sim"),": ",conditionMessage(e),et,
-               call.=FALSE)
-        }
-      )
+#      for (u in seq_len(length(object))) {
+        simval <- tryCatch(
+          .Call(
+            "apply_probe_sim",
+            object=object,
+            nsim=1L,
+            params=theta.prop,
+            seed=NULL,
+            probes=probes,
+            datval=datval,
+            PACKAGE="panelPomp"# to avoid conflict with pomp's apply_probe_sim
+          ),
+          error = function (e) {
+            stop(wQuotes(ep,"in ''apply_probe_sim'' (unit",names(object),
+                         "): "),conditionMessage(e),et,
+                 call.=FALSE)
+          }
+        )
+#      }
       
       ## ABC update rule
       distance <- sum(((datval-simval)/scale)^2)

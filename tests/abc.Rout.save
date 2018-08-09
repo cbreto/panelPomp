@@ -1,5 +1,5 @@
 
-R version 3.5.0 (2018-04-23) -- "Joy in Playing"
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
 
@@ -51,13 +51,15 @@ Type 'q()' to quit R.
 [1] TRUE
 > 
 > ## test that pomp's c code can be called
-> test(as.character(.Call("apply_probe_data",po,plist)),"1.03092251026096")
+> test(as.character(.Call("apply_probe_data",po,plist,PACKAGE='panelPomp')),
++      '1.03092251026096')
 [1] TRUE
 > 
 > ## test that abc runs
 > test('abcd.ppomp',class(
 +   abc(ppo,Nabc = 1,probes = plist, epsilon = 1, scale = scale.dat,
-+          proposal = mvn.diag.rw(c(r = 0.01, sigma = 0.01, tau = 0.01))))[1])
++       proposal = mvn.diag.rw(c(r = 0.01, sigma = 0.01, tau = 0.01)))
++ )[1])
 [1] TRUE
 > 
 > 

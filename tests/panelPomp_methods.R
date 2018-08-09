@@ -59,6 +59,8 @@ test(pParams(coef(ppo)),list(shared=ppo@shared,specific=ppo@specific))
 ## test unitobjects,panelPomp-method
 test(unitobjects(ppo),ppo@unit.objects)
 coef(ppo[["rw1"]])
+## test print function (tested in 'print-results.Rout.save')
+## test show function (tested in 'print-results.Rout.save')
 ## test window,panelPomp-method
 test(length(ppo[1])==1L)
 test(setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]"))),

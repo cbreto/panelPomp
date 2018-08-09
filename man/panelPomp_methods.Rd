@@ -9,10 +9,12 @@
 \alias{names,panelPomp-method}
 \alias{pparams,panelPomp-method}
 \alias{pParams}
+\alias{print,panelPomp-method}
+\alias{show,panelPomp-method}
 \alias{unitobjects,panelPomp-method}
+\alias{window,panelPomp-method}
 \alias{[,panelPomp-method}
 \alias{[[,panelPomp-method}
-\alias{window,panelPomp-method}
 \title{Manipulating \code{panelPomp} objects}
 \usage{
 \S4method{coef}{panelPomp}(object)
@@ -27,13 +29,17 @@
 
 pParams(value)
 
+\S4method{print}{panelPomp}(x, ...)
+
+\S4method{show}{panelPomp}(object)
+
 \S4method{unitobjects}{panelPomp}(object)
+
+\S4method{window}{panelPomp}(x, start, end)
 
 \S4method{[}{panelPomp}(x, i)
 
 \S4method{[[}{panelPomp}(x, i)
-
-\S4method{window}{panelPomp}(x, start, end)
 }
 \arguments{
 \item{object, x}{An object of class \code{panelPomp} or inheriting class 
@@ -43,9 +49,9 @@ pParams(value)
 
 \item{value}{value to be assigned.}
 
-\item{i}{unit index (indices) or name (names)}
+\item{start, end}{position in original \code{times(pomp)} at which to start.}
 
-\item{start, end}{position in original \code{times(pomp)} at which to start}
+\item{i}{unit index (indices) or name (names).}
 }
 \description{
 Tools for manipulating \code{panelPomp} objects.
@@ -60,8 +66,8 @@ Tools for manipulating \code{panelPomp} objects.
   \item{pparams}{Extracts coefficients from \code{panelPomp} objects.}
   \item{[]}{Take a subset of units.}
   \item{[[]]}{Select the pomp object for a single unit.}
-  \item{window}{Subset \code{panelPomp} objects by changing start time, 
-  end time, and number of units.}
+  \item{window}{Subset \code{panelPomp} objects by changing start time and
+  end time.}
   }
 }
 
@@ -69,5 +75,5 @@ Tools for manipulating \code{panelPomp} objects.
 Other panelPomp methods: \code{\link{as}}
 }
 \author{
-Carles Breto and Aaron A. King.
+Carles Breto, Aaron A. King.
 }
