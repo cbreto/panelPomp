@@ -14,7 +14,6 @@ SEXP apply_probe_sim (SEXP object, SEXP nsim, SEXP params, SEXP seed, SEXP probe
   return Apply_Probe_Sim(object,nsim,params,seed,probes,datval);
 }
 
-
 #define CALLDEF(name, n)  {#name, (DL_FUNC) &name, n}
 
 static const R_CallMethodDef R_CallDef[] = {
