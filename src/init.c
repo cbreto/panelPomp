@@ -24,8 +24,8 @@ static const R_CallMethodDef R_CallDef[] = {
 
 void R_init_panelPomp(DllInfo *info)
 {
-  Apply_Probe_Data = (apply_probe_data_t *) RGetCCallable("pomp","apply_probe_data");
-  Apply_Probe_Sim = (apply_probe_sim_t *) RGetCCallable("pomp","apply_probe_sim");
+  Apply_Probe_Data = (apply_probe_data_t *) R_GetCCallable("pomp","apply_probe_data");
+  Apply_Probe_Sim = (apply_probe_sim_t *) R_GetCCallable("pomp","apply_probe_sim");
   
   // Register routines
   R_registerRoutines(info, NULL, R_CallDef, NULL, NULL);
