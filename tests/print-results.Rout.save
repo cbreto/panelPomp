@@ -27,50 +27,10 @@ Type 'q()' to quit R.
 An object of class "panelPomp"
 Slot "unit.objects":
 $rw1
-4 records of 1 observables, recorded from t = 1 to 4 
-summary of data:
-       Y        
- Min.   :1.419  
- 1st Qu.:1.921  
- Median :2.161  
- Mean   :2.286  
- 3rd Qu.:2.526  
- Max.   :3.402  
-zero time, t0 = 0
-discrete-time process-model simulator, step.fun = native function ‘__pomp_stepfn’, defined by a Csnippet
-process model density, dprocess = not specified
-measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
-measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
-prior simulator, rprior = not specified
-prior density, dprior = native function ‘_pomp_default_dprior’, dynamically loaded from ‘pomp’
-skeleton = not specified
-initializer = not specified
-parameter transformation (to estimation scale) = not specified
-parameter transformation (from estimation scale) = not specified
-parameter(s) unspecified
+<object of class ‘pomp’>
 
 $rw2
-4 records of 1 observables, recorded from t = 1 to 4 
-summary of data:
-       Y         
- Min.   :0.9374  
- 1st Qu.:1.4988  
- Median :1.8004  
- Mean   :2.3173  
- 3rd Qu.:2.6189  
- Max.   :4.7310  
-zero time, t0 = 0
-discrete-time process-model simulator, step.fun = native function ‘__pomp_stepfn’, defined by a Csnippet
-process model density, dprocess = not specified
-measurement model simulator, rmeasure = native function ‘__pomp_rmeasure’, defined by a Csnippet
-measurement model density, dmeasure = native function ‘__pomp_dmeasure’, defined by a Csnippet
-prior simulator, rprior = not specified
-prior density, dprior = native function ‘_pomp_default_dprior’, dynamically loaded from ‘pomp’
-skeleton = not specified
-initializer = not specified
-parameter transformation (to estimation scale) = not specified
-parameter transformation (from estimation scale) = not specified
-parameter(s) unspecified
+<object of class ‘pomp’>
 
 
 Slot "shared":
