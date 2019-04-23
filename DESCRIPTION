@@ -35,3 +35,4 @@ Collate:
     'panelPomp_methods.R'
     'params.R'
     'pfilter.R'
+    'pfilter_methods.R'
