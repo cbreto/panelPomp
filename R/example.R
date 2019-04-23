@@ -9,14 +9,13 @@ NULL
 #' @param example a \code{character} object specifying one of the examples that 
 #' come with the \pkg{panelPomp} package. These examples can be listed using 
 #' \code{panelPompExamples()}.
-#' @details \code{panelPompExample} is related but different than its 
-#' \pkg{pomp} counterpart \code{\link[pomp]{pompExample}}.
+#' @details \code{panelPompExample} is related but different than its previous 
+#' (and eliminated as of version 2) \pkg{pomp} counterpart \code{pompExample}.
 #' The \file{examples} directory in the installed package has some 
 #' example files that can be listed using \code{panelPompExamples()}.
 #' @return By default, a \code{panelPomp} object. If \code{envir} is an 
 #' environment, this \code{panelPomp} object is created in that environment 
 #' and named \code{example}.
-#' @seealso \code{\link[pomp]{pompExample}}
 #' @author Carles Breto and Aaron A. King
 #' @export
 panelPompExample <- function (example) {

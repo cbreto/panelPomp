@@ -21,13 +21,10 @@ and named \code{example}.
 that come with the \pkg{panelPomp} package.
 }
 \details{
-\code{panelPompExample} is related but different than its 
-\pkg{pomp} counterpart \code{\link[pomp]{pompExample}}.
+\code{panelPompExample} is related but different than its previous 
+(and eliminated as of version 2) \pkg{pomp} counterpart \code{pompExample}.
 The \file{examples} directory in the installed package has some 
 example files that can be listed using \code{panelPompExamples()}.
-}
-\seealso{
-\code{\link[pomp]{pompExample}}
 }
 \author{
 Carles Breto and Aaron A. King

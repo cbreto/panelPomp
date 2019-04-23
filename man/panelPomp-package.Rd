@@ -74,9 +74,8 @@ please visit
 Examples are provided via the \code{\link{panelPompExample}} function.
 To see a list of the examples included in \pkg{panelPomp}, use
 \preformatted{panelPompExample()}
-To see a list of the examples included both in \pkg{panelPomp} and 
-\pkg{pomp}, use \pkg{pomp}'s
-\preformatted{pompExample()}
+A list of examples included \pkg{panelPomp} can be displayed via 
+\preformatted{panelPomp:::pompExample()}
 }
 
 \section{License}{

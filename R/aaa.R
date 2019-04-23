@@ -94,12 +94,12 @@ wQuotes<- function (...) {
 
 # The `pompExample` function has been eliminated in pomp version 2. For the sake 
 # of a more timely release of a pomp2 compatible version of panelPomp, the last
-# version of `pompExample` (as written by Aaron A. King) is temporarely 
+# version of `pompExample` (as written by Aaron A. King) is temporarily 
 # reproduced here. panelPomp will also soon move away from this approach of 
 # loading examples.
 pompExample <- function (example, ..., show = FALSE, envir = .GlobalEnv) {
   example <- as.character(substitute(example))
-  ep <- paste0("in ",sQuote("pompExample"),": ")
+  ep <- paste0("in ",sQuote("panelPomp:::pompExample"),": ")
   pomp.dir <- system.file("examples",package="pomp2")
   exampleDirs <- getOption("pomp.examples",default=pomp.dir)
   names(exampleDirs) <- exampleDirs
