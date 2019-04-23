@@ -27,7 +27,7 @@ setMethod(
                        aver = "logmeanexp", se = FALSE) {
     if (first=="aver" & aver=="logmeanexp") {
       logmeanexps <- apply(object,MARGIN=ifelse(repMargin==1,2,1),
-                          FUN=pomp::logmeanexp,se=TRUE)
+                          FUN=pomp2::logmeanexp,se=TRUE)
       summed <- sum(logmeanexps[1,])
       ll <- summed
       ll.se <- sqrt(sum(unname(logmeanexps[2,])^2))
