@@ -9,13 +9,13 @@
 \alias{conv.rec,mif2d.ppomp-method}
 \title{PIF: Panel iterated filtering}
 \usage{
-\S4method{mif2}{panelPomp}(object, Nmif = 1, shared.start, specific.start,
-  start, Np, rw.sd, transform = FALSE, cooling.type = c("hyperbolic",
-  "geometric"), cooling.fraction.50, tol = 1e-17,
-  verbose = getOption("verbose"), ...)
+\S4method{mif2}{panelPomp}(object, Nmif = 1, shared.start,
+  specific.start, start, Np, rw.sd, transform = FALSE,
+  cooling.type = c("hyperbolic", "geometric"), cooling.fraction.50,
+  tol = 1e-17, verbose = getOption("verbose"), ...)
 
-\S4method{mif2}{mif2d.ppomp}(object, Nmif, shared.start, specific.start, start,
-  Np, rw.sd, transform, cooling.type, cooling.fraction.50, tol, ...)
+\S4method{mif2}{mif2d.ppomp}(object, Nmif, shared.start, specific.start,
+  start, Np, rw.sd, transform, cooling.type, cooling.fraction.50, tol, ...)
 
 \S4method{conv.rec}{mif2d.ppomp}(object, pars, ...)
 }
@@ -105,3 +105,4 @@ diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 Other panelPomp workhorse functions: \code{\link{panelPomp}},
   \code{\link{panel_loglik}}, \code{\link{pfilter}}
 }
+\concept{panelPomp workhorse functions}

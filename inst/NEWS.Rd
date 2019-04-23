@@ -1,5 +1,10 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 0.8.3}{
+  \itemize{
+    \item Improvements to the interface.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.7}{
   \itemize{
     \item A new \code{conv.rec} method.

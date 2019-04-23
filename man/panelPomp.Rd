@@ -4,7 +4,6 @@
 \name{panelPomp}
 \alias{panelPomp}
 \alias{panelPomp-class}
-\alias{panelPomp}
 \title{Constructing \code{panelPomp} objects}
 \usage{
 panelPomp(object, shared, specific, params)
@@ -64,3 +63,4 @@ construct the corresponding \code{panelPomp} object.
 Other panelPomp workhorse functions: \code{\link{mif2}},
   \code{\link{panel_loglik}}, \code{\link{pfilter}}
 }
+\concept{panelPomp workhorse functions}

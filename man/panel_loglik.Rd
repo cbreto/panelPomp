@@ -36,3 +36,4 @@ When \code{se = TRUE}, the jackknife se's from
 Other panelPomp workhorse functions: \code{\link{mif2}},
   \code{\link{panelPomp}}, \code{\link{pfilter}}
 }
+\concept{panelPomp workhorse functions}

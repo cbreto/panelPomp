@@ -102,3 +102,4 @@ Tools for applying particle filtering algorithms to panel data.
 Other panelPomp workhorse functions: \code{\link{mif2}},
   \code{\link{panelPomp}}, \code{\link{panel_loglik}}
 }
+\concept{panelPomp workhorse functions}

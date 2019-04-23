@@ -1,27 +1,28 @@
 Package: panelPomp
 Type: Package
 Title: Statistical Inference for PanelPOMPs (Panel Partially Observed Markov Processes)
-Version: 0.8.2
-Date: 2018-08-07
+Version: 0.8.3
+Date: 2019-04-23
 Author: Carles Breto, Edward L. Ionides, Aaron A. King
 Maintainer: Carles Breto <cbreto@umich.edu>
-Description: Tools for working with PanelPOMPs, i.e., with
+Description: Tools for working with PanelPOMP models, i.e., with
     Partially Observed Markov Processes (AKA state-space models, stochastic
     dynamical systems) involving multiple, independent units (or individuals) for
     each of which (potentially multivariate) time series data is available. The
-    basic idea driving 'ppomp' is to apply to a collection of units (or individuals)
-    some of the 'pomp' package facilities for implementing POMP models, simulating
+    basic idea driving panelPomp is to apply to a collection of units (or individuals)
+    some of the pomp package facilities for implementing POMP models, simulating
     them, and fitting them to time series data. Regarding fitting, only the
-    iterated filtering (mif2) algorithm has currently been extended to the 'ppomp'
-    longitudinal/panel setting. (Alpha release version.)
+    iterated filtering (mif2) algorithm has currently been extended to the 
+    panelPomp longitudinal/panel setting. (Alpha release version.)
 License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
-    R(>= 3.1.2),
-    pomp(>= 1.18.6.3)
+    R(>= 3.5.0),
+    pomp(>= 1.19)
 Imports:
     methods
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
+Encoding: UTF-8
 Collate: 
     'package.R'
     'aaa.R'
@@ -32,10 +33,8 @@ Collate:
     'panel_logmeanexp.R'
     'panelPomp.R'
     'panelPomp_methods.R'
+    'params.R'
     'pfilter.R'
     'pfilter_methods.R'
     'mif2.R'
     'mif2_methods.R'
-    'abc.R'
-    'abc_methods.R'
-    'params.R'
