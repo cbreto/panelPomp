@@ -11,7 +11,7 @@ params <- c(sigmaY=1,sigmaX=1,X.0=1)
 paramnm <- c("sigmaY","sigmaX")
 statenm <- c("X")
 pomp(data.frame(t=times,Y=NA),times="t",t0=t0,
-     rprocess=discrete.time.sim(step.fun=rproc,delta.t=delta_t),rmeasure=rmeas,
+     rprocess=discrete_time(step.fun=rproc,delta.t=delta_t),rmeasure=rmeas,
      dmeasure=dmeas,params=params,paramnames=paramnm,statenames=statenm) -> rw
 
 # construct panelPomp object with simulated data
@@ -35,7 +35,7 @@ rw_sim <- read.csv2(
 pos <- setNames(vector("list",length=U),nm=paste0("rw",1:U))
 for (u in seq_len(U)) {
   pomp(data.frame(t=times,Y=as.numeric(rw_sim[,paste0("rw",u)])),times="t",
-       t0=t0,rprocess=discrete.time.sim(step.fun=rproc,delta.t=delta_t),
+       t0=t0,rprocess=discrete_time(step.fun=rproc,delta.t=delta_t),
        rmeasure=rmeas,dmeasure=dmeas,params=params,paramnames=paramnm,
        statenames=statenm) -> pos[[u]]
 }
