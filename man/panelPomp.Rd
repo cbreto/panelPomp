@@ -60,7 +60,6 @@ construct the corresponding \code{panelPomp} object.
 \seealso{
 \pkg{pomp}'s constructor at \link[=pomp]{pomp}
 
-Other panelPomp workhorse functions: \code{\link{mif2}},
-  \code{\link{panel_loglik}}, \code{\link{pfilter}}
+Other panelPomp workhorse functions: \code{\link{panel_loglik}}
 }
 \concept{panelPomp workhorse functions}
