@@ -1,0 +1,69 @@
+library(panelPomp,quietly=TRUE)
+
+TESTS_PASS <- NULL
+test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
+  panelPomp:::test(expr1,expr2,all=all,env=env,...)
+
+ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+pos <- as(ppo,"list")
+po <- pos[[1]]
+pPs <- pparams(ppo)
+
+ep <- wQuotes("Error : in ''pfilter'': ")
+
+test(wQuotes(ep,"''data'' is a required argument.\n"),
+  pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10))
+test(wQuotes(ep,"''data'' is a required argument.\n"),
+  pfilter(params=coef(ppo),Np=10))
+test(wQuotes(ep,"''tol'' must be a single positive ",
+  "scalar or a vector of length ",length(ppo),"\n"),
+  pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)))
+test(wQuotes(ep,"names of ''shared'' must match those of ",
+  "''object@shared''.\n"),
+  pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10))
+test(wQuotes(ep,"Missing ''Np'' argument.\n"),pfilter(ppo))
+## assign parameters
+test(coef(pfilter(ppo,Np=10)),coef(ppo))
+test(coef(as(pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,Np=10),
+  "list")[[1]]),c(2*ppo@shared,2*get_col(ppo@specific,1,1)))
+test(coef(as(pfilter(ppo,sh=2*ppo@shared,Np=10),"list")[[1]]),
+  c(2*ppo@shared,get_col(ppo@specific,1,1)))
+test(coef(as(pfilter(ppo,sp=2*ppo@specific,Np=10),"list")[[1]]),
+  c(ppo@shared,2*get_col(ppo@specific,1,1)))
+test(coef(as(pfilter(ppo,Np=10,
+  params=list(shared=2*ppo@shared,specific=2*ppo@specific)),
+  "list")[[1]]),2*c(ppo@shared,get_col(ppo@specific,1,1)))
+## resolve multiple params
+test(coef(as(pfilter(ppo,sh=2*ppo@shared,Np=10,
+  params=list(shared=ppo@shared,specific=ppo@specific)),
+  "list")[[1]]),c(2*ppo@shared,get_col(ppo@specific,1,1)))
+test(coef(as(pfilter(ppo,sp=2*ppo@specific,
+  params=list(shared=ppo@shared,specific=ppo@specific),Np=10),
+  "list")[[1]]),c(ppo@shared,2*get_col(ppo@specific,1,1)))
+test(wQuotes(ep,"specify either ''params'' only, ''params'' and ''shared'' , ",
+  "or ''params'' and ''specific''.\n"),
+  pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,
+    params=list(shared=ppo@shared,specific=ppo@specific),
+    Np=10))
+## wrong unit names
+test(wQuotes(ep,"colnames of ''specific'' must be identical to those of ",
+  "''object@specific''.\n"),
+  quote({sp <- ppo@specific;colnames(sp) <- paste0(colnames(sp), "_")
+  pfilter(ppo,sp=sp,Np=10)}))
+## wrong unit-specific names
+test(wQuotes(ep,"rownames of ''specific'' must match those of ",
+  "''object@specific''.\n"),
+  quote({sp <- ppo@specific;rownames(sp) <- c("some_wrong_name")
+  pfilter(ppo,sp=sp,Np=10)}))
+##  wrong shared names
+test(wQuotes(ep,"names of ''shared'' must match those of ",
+  "''object@shared''.\n"),
+  pfilter(ppo,sh=c(sth = 0),Np=10))
+
+ppf <- pfilter(ppo,Np=10)
+test(dim(as(ppf,"data.frame")),c(8L,5L))
+test(names(as(ppf,"data.frame")),c("t", "Y", "ess", "cond.loglik", "unit"))
+
+## check whether all tests passed
+all(get(eval(formals(test))$all))
+if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")

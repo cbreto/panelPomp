@@ -44,8 +44,8 @@ test <- function (expr1, expr2, all, env, verbose = TRUE) {
   # verbose: optional; should the result be returned?
   ep <- paste0("in ",sQuote("test"),": ")
   if (!exists(all,envir=env))
-    stop(paste0(ep,"missing vector to accumulate logical ",
-                "test results."),call.=FALSE)
+    stop(paste0(ep,"missing vector to accumulate logical test results."),
+         call.=FALSE)
   tryexpr1 <- try(eval(expr1),silent=TRUE)
   if (is(tryexpr1,"try-error")) tryexpr1 <- tryexpr1[1]
   PASSES <- tryexpr1
