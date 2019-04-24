@@ -33,7 +33,7 @@ When \code{se = TRUE}, the jackknife se's from
 \code{pomp::logmeanexp} are squared, summed and the squared root is taken.
 }
 \seealso{
-Other panelPomp workhorse functions: \code{\link{panelPomp}},
-  \code{\link{pfilter}}
+Other panelPomp workhorse functions: \code{\link{mif2}},
+  \code{\link{panelPomp}}, \code{\link{pfilter}}
 }
 \concept{panelPomp workhorse functions}

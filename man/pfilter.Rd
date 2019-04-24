@@ -98,7 +98,7 @@ Tools for applying particle filtering algorithms to panel data.
 \seealso{
 \pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
 
-Other panelPomp workhorse functions: \code{\link{panelPomp}},
-  \code{\link{panel_loglik}}
+Other panelPomp workhorse functions: \code{\link{mif2}},
+  \code{\link{panelPomp}}, \code{\link{panel_loglik}}
 }
 \concept{panelPomp workhorse functions}
