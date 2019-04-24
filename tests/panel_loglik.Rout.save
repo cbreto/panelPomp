@@ -47,6 +47,16 @@ For information on upgrading your pomp version < 2 code, see the
 +   chck.agm==c(exp.ll,exp.se))))
 [1] TRUE
 > 
+> ## test se=FALSE
+> test(c("","se"),
++      names(
++        logLik(ulls,repMargin=repMargin,first="aver",aver="logmeanexp",se=TRUE)
++      ))
+[1] TRUE
+> test(unit1.ll+unit2.ll,
++      logLik(ulls,repMargin=repMargin,first="aver",aver="logmeanexp",se=FALSE))
+[1] TRUE
+> 
 > ## test first='aver' & aver='logmeanexp' for logLik, matrix-method
 > repMargin <- 2
 > unit1.ll <- 2

@@ -45,6 +45,12 @@ test(wQuotes(ep,"specify either ''params'' only, ''params'' and ''shared'' , ",
   pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,
     params=list(shared=ppo@shared,specific=ppo@specific),
     Np=10))
+## provide params without shared nor specific
+set.seed(21125715L)
+ppf <- pfilter(ppo,sh=ppo@shared,sp=ppo@specific,Np=10)
+set.seed(21125715L)
+ppf_<-pfilter(ppo,params=list(shared=ppo@shared,specific=ppo@specific),Np=10)
+test(logLik(ppf),logLik(ppf_))
 ## wrong unit names
 test(wQuotes(ep,"colnames of ''specific'' must be identical to those of ",
   "''object@specific''.\n"),
