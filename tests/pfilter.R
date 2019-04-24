@@ -51,6 +51,11 @@ ppf <- pfilter(ppo,sh=ppo@shared,sp=ppo@specific,Np=10)
 set.seed(21125715L)
 ppf_<-pfilter(ppo,params=list(shared=ppo@shared,specific=ppo@specific),Np=10)
 test(logLik(ppf),logLik(ppf_))
+numeric_names <- setNames(rep(1,4),c(names(ppo@shared),"X.0[rw1]","X.0[rw2]"))
+identical(pPs,pParams(numeric_names))
+set.seed(21125715L)
+ppf__<-pfilter(ppo,params=numeric_names,Np=10)
+test(logLik(ppf),logLik(ppf__))
 ## wrong unit names
 test(wQuotes(ep,"colnames of ''specific'' must be identical to those of ",
   "''object@specific''.\n"),
