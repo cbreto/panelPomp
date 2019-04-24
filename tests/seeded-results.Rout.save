@@ -1,0 +1,143 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # check reproducibility over a range of randomly chosen seeds
+> 
+> library(panelPomp,quietly=TRUE)
+Welcome to pomp version 2!
+For information on upgrading your pomp version < 2 code, see the
+‘pomp version 2 upgrade guide’ at https://kingaa.github.io/pomp/.
+> 
+> ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+> 
+> seeds <- c(21125715L,81902071L,86680005L,29971689L,73376915L)
+> 
+> for (s in seq_along(seeds)) {
++   set.seed(seeds[s])
++   pf <- pfilter(ppo,Np=10)
++   print(unitlogLik(pf))
++   print(logLik(pf))
++ }
+      rw1       rw2 
+-5.989446 -8.714786 
+[1] -14.70423
+      rw1       rw2 
+-6.427359 -8.675708 
+[1] -15.10307
+      rw1       rw2 
+-6.922634 -7.845590 
+[1] -14.76822
+      rw1       rw2 
+-6.391707 -9.008469 
+[1] -15.40018
+      rw1       rw2 
+-7.189965 -8.640094 
+[1] -15.83006
+> 
+> for (s in seq_along(seeds)) {
++   set.seed(seeds[s])
++   mf <- mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),
++              cooling.fraction.50=0.5,cooling.type="geometric")
++   print(mf@shared)
++   print(mf@specific)
++   print(unitlogLik(mf))
++   print(logLik(mf))
++   print(traces(mf))
++ }
+   sigmaX    sigmaY 
+0.9348033 1.0000000 
+        unit
+variable       rw1      rw2
+     X.0 0.7494607 1.380992
+      rw1       rw2 
+-6.233642 -7.336813 
+[1] -13.57046
+         variable
+iteration    loglik nfail    sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
+        0 -13.57046     0 1.0000000      1              0       -6.233642
+        1        NA    NA 0.9348033      1             NA              NA
+         variable
+iteration  X.0[rw1] unitNfail[rw2] unitLoglik[rw2] X.0[rw2]
+        0 1.0000000              0       -7.336813 1.000000
+        1 0.7494607             NA              NA 1.380992
+   sigmaX    sigmaY 
+0.6828127 1.0000000 
+        unit
+variable      rw1       rw2
+     X.0 2.034284 0.7221263
+      rw1       rw2 
+-6.034874 -9.113273 
+[1] -15.14815
+         variable
+iteration    loglik nfail    sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
+        0 -15.14815     0 1.0000000      1              0       -6.034874
+        1        NA    NA 0.6828127      1             NA              NA
+         variable
+iteration X.0[rw1] unitNfail[rw2] unitLoglik[rw2]  X.0[rw2]
+        0 1.000000              0       -9.113273 1.0000000
+        1 2.034284             NA              NA 0.7221263
+   sigmaX    sigmaY 
+0.9309536 1.0000000 
+        unit
+variable      rw1     rw2
+     X.0 1.139014 1.93792
+      rw1       rw2 
+-6.598561 -9.566110 
+[1] -16.16467
+         variable
+iteration    loglik nfail    sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
+        0 -16.16467     0 1.0000000      1              0       -6.598561
+        1        NA    NA 0.9309536      1             NA              NA
+         variable
+iteration X.0[rw1] unitNfail[rw2] unitLoglik[rw2] X.0[rw2]
+        0 1.000000              0        -9.56611  1.00000
+        1 1.139014             NA              NA  1.93792
+  sigmaX   sigmaY 
+1.026614 1.000000 
+        unit
+variable       rw1       rw2
+     X.0 0.3549989 0.6878978
+      rw1       rw2 
+-6.709911 -8.262543 
+[1] -14.97245
+         variable
+iteration    loglik nfail   sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
+        0 -14.97245     0 1.000000      1              0       -6.709911
+        1        NA    NA 1.026614      1             NA              NA
+         variable
+iteration  X.0[rw1] unitNfail[rw2] unitLoglik[rw2]  X.0[rw2]
+        0 1.0000000              0       -8.262543 1.0000000
+        1 0.3549989             NA              NA 0.6878978
+  sigmaX   sigmaY 
+1.028653 1.000000 
+        unit
+variable       rw1      rw2
+     X.0 0.4824871 1.952893
+      rw1       rw2 
+-5.973952 -8.109600 
+[1] -14.08355
+         variable
+iteration    loglik nfail   sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
+        0 -14.08355     0 1.000000      1              0       -5.973952
+        1        NA    NA 1.028653      1             NA              NA
+         variable
+iteration  X.0[rw1] unitNfail[rw2] unitLoglik[rw2] X.0[rw2]
+        0 1.0000000              0         -8.1096 1.000000
+        1 0.4824871             NA              NA 1.952893
+> 
