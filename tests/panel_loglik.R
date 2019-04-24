@@ -24,6 +24,14 @@ test(TRUE,all(c(
   chck.agl==c(exp.ll,exp.se),
   chck.agm==c(exp.ll,exp.se))))
 
+## test se=FALSE
+test(c("","se"),
+     names(
+       logLik(ulls,repMargin=repMargin,first="aver",aver="logmeanexp",se=TRUE)
+     ))
+test(unit1.ll+unit2.ll,
+     logLik(ulls,repMargin=repMargin,first="aver",aver="logmeanexp",se=FALSE))
+
 ## test first='aver' & aver='logmeanexp' for logLik, matrix-method
 repMargin <- 2
 unit1.ll <- 2

@@ -80,6 +80,13 @@ For information on upgrading your pomp version < 2 code, see the
 +     params=list(shared=ppo@shared,specific=ppo@specific),
 +     Np=10))
 [1] TRUE
+> ## provide params without shared nor specific
+> set.seed(21125715L)
+> ppf <- pfilter(ppo,sh=ppo@shared,sp=ppo@specific,Np=10)
+> set.seed(21125715L)
+> ppf_<-pfilter(ppo,params=list(shared=ppo@shared,specific=ppo@specific),Np=10)
+> test(logLik(ppf),logLik(ppf_))
+[1] TRUE
 > ## wrong unit names
 > test(wQuotes(ep,"colnames of ''specific'' must be identical to those of ",
 +   "''object@specific''.\n"),
