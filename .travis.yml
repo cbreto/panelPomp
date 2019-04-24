@@ -1,41 +1,42 @@
-language: R
+language: r
 sudo: false
 cache: packages
+file_glob: true
+latex: false
+pandoc: false
+warnings_are_errors: true
 
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+r-packages:
+  - roxygen2
 
 r_github_packages:
   - kingaa/pomp
 
-matrix:
+addons:
+  apt:
+    packages:
+    - libgit2-dev
+  homebrew:
+    packages:
+    - libgit2
+
+stages:
+- coverage
+
+jobs:
   include:
-    - os: linux
-      env: RVERSION=release
-      after_success:
-        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
-    - os: linux
-      env: RVERSION=3.5.1
-      after_success:
-        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
-    - os: linux
-      env: RVERSION=devel
-      after_success:
-        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
-    - os: osx
-      env: RVERSION=release
-      r_github_packages:
-        - jimhester/covr
-      after_success:
-        - travis_wait 30 Rscript -e 'covr::codecov()'      
-        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
-    - os: osx
-      env: RVERSION=3.5.1
-      after_success:
-        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
-    - os: osx
-      env: RVERSION=devel
-      after_success:
-        - grep -q -R "warning" "${RCHECK_DIR}/00install.out"
+  - r: release
+    os: linux
+  - r: devel
+    os: linux
+  - r: 3.5.0
+    os: linux
+  - r: release
+    os: osx
+  - stage: coverage
+    r: release
+    os: linux
+    r_packages:
+    - covr
+    script:
+    - travis_wait 30 Rscript -e 'covr::codecov()'
