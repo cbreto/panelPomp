@@ -1,0 +1,56 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(panelPomp,quietly=TRUE)
+Welcome to pomp version 2!
+For information on upgrading your pomp version < 2 code, see the
+‘pomp version 2 upgrade guide’ at https://kingaa.github.io/pomp/.
+> if (file.exists("options.R")) source("options.R")
+> 
+> ## list examples (avoiding listing package installation folder for R CMD check)
+> capture.output(panelPompExample())[2]
+[1] "[1] \"pancon\"  \"pangomp\" \"prw\"    "
+> ppo <- panelPompExample("prw")
+> ppo
+<object of class ‘panelPomp’>
+panel of 2 units 
+parameter(s):
+$shared
+sigmaX sigmaY 
+     1      1 
+
+$specific
+     unit
+param rw1 rw2
+  X.0   1   1
+
+summary of first panel unit ("rw1"):
+<object of class ‘pomp’>
+> lapply(as(ppo,"list"),obs)
+$rw1
+        time
+variable     [,1]     [,2]     [,3]     [,4]
+       Y 2.088409 1.419219 3.401755 2.233692
+
+$rw2
+        time
+variable     [,1]      [,2]     [,3]     [,4]
+       Y 1.685896 0.9374439 4.731045 1.914812
+
+> 
