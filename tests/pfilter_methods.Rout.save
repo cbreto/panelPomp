@@ -1,0 +1,55 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(panelPomp,quietly=TRUE)
+Welcome to pomp version 2!
+For information on upgrading your pomp version < 2 code, see the
+‘pomp version 2 upgrade guide’ at https://kingaa.github.io/pomp/.
+> 
+> TESTS_PASS <- NULL
+> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
++   panelPomp:::test(expr1,expr2,all=all,env=env,...)
+> 
+> ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+> 
+> ##  check whether pfiltering a pfilterd.ppomp returns the same object
+> set.seed(21125715L)
+> ppf <- pfilter(ppo,Np=10)
+> logLik(ppf)
+[1] -14.70423
+> unitlogLik(ppf)
+      rw1       rw2 
+-5.989446 -8.714786 
+> set.seed(21125715L)
+> ppf_ <- pfilter(ppf,Np=10)
+> logLik(ppf_)
+[1] -14.70423
+> unitlogLik(ppf_)
+      rw1       rw2 
+-5.989446 -8.714786 
+> 
+> test(ppf,ppf_)
+[1] TRUE
+> 
+> 
+> ## check whether all tests passed
+> all(get(eval(formals(test))$all))
+[1] TRUE
+> if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+> 
