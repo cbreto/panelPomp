@@ -135,12 +135,16 @@ For information on upgrading your pomp version < 2 code, see the
 [1] TRUE
 > 
 > ## .onAttach
-> test(
-+   tail(strsplit(options("pomp.examples")$pomp.examples["panelPomp"],"/")[[1]],2),
+> test(tail(strsplit(
++   options("panelPomp.examples")$panelPomp.examples["panelPomp"],"/")[[1]],2),
 +   c("panelPomp","examples"))
 [1] TRUE
 > 
 > ## temporary tests for 'pompExample' borrowed from defunct pomp function
+> test(tail(strsplit(
++   options("pomp.examples")$pomp.examples["pomp"],"/")[[1]],2),
++   c("panelPomp","examples"))
+[1] TRUE
 > test("[1] pancon  pangomp prw    ",
 +      gsub("\\\"","",capture.output(panelPomp:::pompExample())[2]))
 [1] TRUE
