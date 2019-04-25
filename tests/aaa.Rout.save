@@ -148,10 +148,6 @@ For information on upgrading your pomp version < 2 code, see the
 > test("[1] pancon  pangomp prw    ",
 +      gsub("\\\"","",capture.output(panelPomp:::pompExample())[2]))
 [1] TRUE
-> test(wQuotes(
-+   "Error : in ''panelPomp:::pompExample'': cannot find file ''a.R''\n"),
-+   panelPomp:::pompExample(a))
-[1] TRUE
 > panelPomp:::pompExample(prw,show=TRUE) ## covers !is.null(envir) & show
 library(panelPomp)
 
@@ -203,6 +199,15 @@ panelPomp(pos,shared=coef(rw)[c("sigmaX","sigmaY") -> shnm],
 # check prw panelPomp object (see panelPomp/tests/prw.R)
 c("prw")
 
+> test(wQuotes("newly created object(s):"),
++      capture.output(panelPomp:::pompExample(prw,envir=new.env()))[1])
+[1] TRUE
+> ep <- "Error : in ''panelPomp:::pompExample'': "
+> test(wQuotes(ep,"cannot find file ''a.R''\n"),panelPomp:::pompExample(a))
+[1] TRUE
+> test(wQuotes(ep,"''envir'' must be an environment or NULL\n"),
++      capture.output(panelPomp:::pompExample(prw,envir="no_env"))[1])
+[1] TRUE
 > 
 > 
 > 

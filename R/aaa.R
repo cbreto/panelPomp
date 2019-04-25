@@ -121,9 +121,9 @@ pompExample <- function (example, ..., show = FALSE, envir = .GlobalEnv) {
       stop(ep,"cannot find file ",
            sQuote(paste0(example,".R")),call.=FALSE)
     }
-    if (length(file)>1) {
-      warning(ep,"using ",sQuote(file[1])," from ",sQuote(names(file)[1]),call.=FALSE)
-    }
+    #if (length(file)>1) {
+    #  warning(ep,"using ",sQuote(file[1])," from ",sQuote(names(file)[1]),call.=FALSE)
+    #}
     if (show) {
       file.show(file[1])
       return(invisible(NULL))
