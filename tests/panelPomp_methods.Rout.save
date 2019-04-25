@@ -17,6 +17,8 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
+> ## test codes in R/panelPomp_methods.R
+> 
 > library(panelPomp,quietly=TRUE)
 Welcome to pomp version 2!
 For information on upgrading your pomp version < 2 code, see the
@@ -31,7 +33,6 @@ For information on upgrading your pomp version < 2 code, see the
 +             specific=matrix(c(0,0.1),nr=1,
 +                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
 > ppo <- panelPomp(unitobjects(ppo),shared=pP2$shared,specific=pP2$specific)
-> 
 > # other definitions from old test file
 > pg <- panelPompExample(pangomp)
 > pgl <- as(pg,"list")
@@ -41,12 +42,20 @@ For information on upgrading your pomp version < 2 code, see the
 > 
 > 
 > 
-> ## test coef,panelPomp-method
-> test(coef(ppo),setNames(c(1,2,0,0.1),c("sigmaX","sigmaY",
-+                                        sprintf("X.0[rw1]"),sprintf("X.0[rw2]"))))
+> ## coef,panelPomp-method
+> test(coef(ppo),
++      setNames(c(1,2,0,0.1),c("sigmaX","sigmaY","X.0[rw1]","X.0[rw2]")))
 [1] TRUE
+> 
+> 
+> 
 > ## coef<-,panelPomp-method
-> test(coef(ppo),{coef(ppo) <- coef(ppo);coef(ppo)})
+> test(coef(ppo),{coef(ppo) <- 2*coef(ppo);coef(ppo) <- coef(ppo)/2;coef(ppo)})
+[1] TRUE
+> test(coef(ppo),
++      {coef(ppo) <- as.list(
++        setNames(c(1,2,0,0.1),c("sigmaX","sigmaY","X.0[rw1]","X.0[rw2]")))
++      coef(ppo)})
 [1] TRUE
 > wQuotes("Error : in ''coef<-'': part of ''value'' is not part of ",
 +                "''coef(object)''.\n") -> err
@@ -118,18 +127,41 @@ sigmaX sigmaY    X.0
 > test(lapply(as(window(ppo[1],start=1,end=2),"list"),time),list(rw1=c(1,2)))
 [1] TRUE
 > 
+> 
+> 
 > ## as(,'list') returns list of units
 > test(as(pg,"list"),pg@unit.objects)
 [1] TRUE
-> 
 > test(dim(as(pg,"data.frame")),c(5000L,3L))
 [1] TRUE
 > test(names(as(pg,"data.frame")),c("t","Y","unit"))
 [1] TRUE
 > 
+> ## show
+> show(ppo)
+<object of class ‘panelPomp’>
+panel of 2 units 
+parameter(s):
+$shared
+sigmaX sigmaY 
+     1      2 
+
+$specific
+     unit
+param rw1 rw2
+  X.0   0 0.1
+
+summary of first panel unit ("rw1"):
+<object of class ‘pomp’>
+> show(panelPomp(unitobjects(ppo)))
+<object of class ‘panelPomp’>
+panel of 2 units 
+parameter(s) unspecified
+summary of first panel unit ("rw1"):
+<object of class ‘pomp’>
+> 
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-> 
 > 
