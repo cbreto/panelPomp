@@ -99,6 +99,9 @@ test(wQuotes(ep,
      dimnames(sp_rw3)$unit <- c("rw1","rw3")
      panelPomp(ppo,shared=ppo@shared,specific=sp_rw3)})
 
+test(wQuotes(ep,"a parameter cannot be both shared and specific!\n"),
+     panelPomp(ppo,shared=ppo@shared,specific=c("X.0","sigmaX")))
+
 test(wQuotes(
   "Error in validObject(.Object) : \n  invalid class *panelPomp* object: a ",
   "parameter cannot be both shared and specific!\n"),

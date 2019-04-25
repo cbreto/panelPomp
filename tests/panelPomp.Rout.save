@@ -170,6 +170,10 @@ Error : in ‘panelPomp’: ‘object’ must be either a ‘panelPomp’ object
 +      panelPomp(ppo,shared=ppo@shared,specific=sp_rw3)})
 [1] TRUE
 > 
+> test(wQuotes(ep,"a parameter cannot be both shared and specific!\n"),
++      panelPomp(ppo,shared=ppo@shared,specific=c("X.0","sigmaX")))
+[1] TRUE
+> 
 > test(wQuotes(
 +   "Error in validObject(.Object) : \n  invalid class *panelPomp* object: a ",
 +   "parameter cannot be both shared and specific!\n"),
