@@ -91,10 +91,11 @@ test(
   c("panelPomp","examples"))
 
 ## temporary tests for 'pompExample' borrowed from defunct pomp function
-panelPomp:::pompExample()
-test(panelPomp:::pompExample(a),
-     wQuotes(
-       "Error : in ''panelPomp:::pompExample'': cannot find file ''a.R''\n"))
+test("[1] pancon  pangomp prw    ",
+     gsub("\\\"","",capture.output(panelPomp:::pompExample())[2]))
+test(wQuotes(
+  "Error : in ''panelPomp:::pompExample'': cannot find file ''a.R''\n"),
+  panelPomp:::pompExample(a))
 panelPomp:::pompExample(prw,show=TRUE) ## covers !is.null(envir) & show
 
 

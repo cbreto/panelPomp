@@ -141,12 +141,12 @@ For information on upgrading your pomp version < 2 code, see the
 [1] TRUE
 > 
 > ## temporary tests for 'pompExample' borrowed from defunct pomp function
-> panelPomp:::pompExample()
-examples in /Users/cbreto/.R/_LIBS_USER/3.5.1/panelPomp/examples:
-[1] "pancon"  "pangomp" "prw"    
-> test(panelPomp:::pompExample(a),
-+      wQuotes(
-+        "Error : in ''panelPomp:::pompExample'': cannot find file ''a.R''\n"))
+> test("[1] pancon  pangomp prw    ",
++      gsub("\\\"","",capture.output(panelPomp:::pompExample())[2]))
+[1] TRUE
+> test(wQuotes(
++   "Error : in ''panelPomp:::pompExample'': cannot find file ''a.R''\n"),
++   panelPomp:::pompExample(a))
 [1] TRUE
 > panelPomp:::pompExample(prw,show=TRUE) ## covers !is.null(envir) & show
 library(panelPomp)
