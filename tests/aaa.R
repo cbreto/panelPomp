@@ -86,11 +86,14 @@ test(as.character(
 test(wQuotes("''",TESTS_PASS[1],"''")==sQuote("TRUE"))
 
 ## .onAttach
-test(
-  tail(strsplit(options("pomp.examples")$pomp.examples["panelPomp"],"/")[[1]],2),
+test(tail(strsplit(
+  options("panelPomp.examples")$panelPomp.examples["panelPomp"],"/")[[1]],2),
   c("panelPomp","examples"))
 
 ## temporary tests for 'pompExample' borrowed from defunct pomp function
+test(tail(strsplit(
+  options("pomp.examples")$pomp.examples["pomp"],"/")[[1]],2),
+  c("panelPomp","examples"))
 test("[1] pancon  pangomp prw    ",
      gsub("\\\"","",capture.output(panelPomp:::pompExample())[2]))
 test(wQuotes(

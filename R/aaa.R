@@ -6,7 +6,7 @@ NULL
   pPompExDir <- getOption("panelPomp.examples")
   newDir <- system.file("examples",package="panelPomp")
   if (!newDir%in%pompExDir) 
-    options(pomp.examples=c(pomp=pompExDir,panelPomp=newDir))
+    options(pomp.examples=c(pomp=pompExDir,pomp=newDir))
   if (!newDir%in%pPompExDir) 
     options(panelPomp.examples=c(panelPomp=pPompExDir,panelPomp=newDir))
 }
