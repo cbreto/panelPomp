@@ -81,7 +81,7 @@
 #' 
 #' @import methods
 #' @import pomp2
-#' @useDynLib panelPomp, .registration=TRUE
+# @useDynLib panelPomp, .registration=TRUE
 #' @importFrom stats dnorm runif setNames var
 #' @importFrom utils tail
 NULL        # replacing NULL by "_PACKAGE" results in roxygen2 adding an 
