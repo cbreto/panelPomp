@@ -92,10 +92,14 @@ test(tail(strsplit(
   c("panelPomp","examples"))
 test("[1] pancon  pangomp prw    ",
      gsub("\\\"","",capture.output(panelPomp:::pompExample())[2]))
-test(wQuotes(
-  "Error : in ''panelPomp:::pompExample'': cannot find file ''a.R''\n"),
-  panelPomp:::pompExample(a))
 panelPomp:::pompExample(prw,show=TRUE) ## covers !is.null(envir) & show
+test(wQuotes("newly created object(s):"),
+     capture.output(panelPomp:::pompExample(prw,envir=new.env()))[1])
+ep <- "Error : in ''panelPomp:::pompExample'': "
+test(wQuotes(ep,"cannot find file ''a.R''\n"),panelPomp:::pompExample(a))
+test(wQuotes(ep,"''envir'' must be an environment or NULL\n"),
+     capture.output(panelPomp:::pompExample(prw,envir="no_env"))[1])
+
 
 
 ## tests for .onDetach
