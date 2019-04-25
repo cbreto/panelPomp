@@ -1,3 +1,5 @@
+## test codes in R/panelPomp_methods.R
+
 library(panelPomp,quietly=TRUE)
 
 TESTS_PASS <- NULL
@@ -9,7 +11,6 @@ pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
             specific=matrix(c(0,0.1),nr=1,
                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
 ppo <- panelPomp(unitobjects(ppo),shared=pP2$shared,specific=pP2$specific)
-
 # other definitions from old test file
 pg <- panelPompExample(pangomp)
 pgl <- as(pg,"list")
@@ -19,11 +20,18 @@ pp <- panelPomp(list(g,g),shared=pg@shared,
 
 
 
-## test coef,panelPomp-method
-test(coef(ppo),setNames(c(1,2,0,0.1),c("sigmaX","sigmaY",
-                                       sprintf("X.0[rw1]"),sprintf("X.0[rw2]"))))
+## coef,panelPomp-method
+test(coef(ppo),
+     setNames(c(1,2,0,0.1),c("sigmaX","sigmaY","X.0[rw1]","X.0[rw2]")))
+
+
+
 ## coef<-,panelPomp-method
-test(coef(ppo),{coef(ppo) <- coef(ppo);coef(ppo)})
+test(coef(ppo),{coef(ppo) <- 2*coef(ppo);coef(ppo) <- coef(ppo)/2;coef(ppo)})
+test(coef(ppo),
+     {coef(ppo) <- as.list(
+       setNames(c(1,2,0,0.1),c("sigmaX","sigmaY","X.0[rw1]","X.0[rw2]")))
+     coef(ppo)})
 wQuotes("Error : in ''coef<-'': part of ''value'' is not part of ",
                "''coef(object)''.\n") -> err
 test(coef(ppo) <- c(ppo@shared,xsh=5),err)
@@ -72,13 +80,17 @@ test(lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))
 test(length(window(ppo[1:2],start=1,end=2)),2L) 
 test(lapply(as(window(ppo[1],start=1,end=2),"list"),time),list(rw1=c(1,2)))
 
+
+
 ## as(,'list') returns list of units
 test(as(pg,"list"),pg@unit.objects)
-
 test(dim(as(pg,"data.frame")),c(5000L,3L))
 test(names(as(pg,"data.frame")),c("t","Y","unit"))
+
+## show
+show(ppo)
+show(panelPomp(unitobjects(ppo)))
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-
