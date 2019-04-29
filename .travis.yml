@@ -25,14 +25,6 @@ stages:
 
 jobs:
   include:
-  - r: release
-    os: linux
-  - r: devel
-    os: linux
-  - r: 3.5.0
-    os: linux
-  - r: release
-    os: osx
   - stage: coverage
     r: release
     os: linux
