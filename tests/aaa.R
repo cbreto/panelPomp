@@ -1,33 +1,22 @@
-## basic usage:
+## test aaa.R
+
 library(panelPomp,quietly=TRUE)
-TESTS_PASS <- NULL 
+TESTS_PASS <- NULL  
 ## alternatively: assign(eval(formals(test))$all,NULL) (after defining test)
-## define test function, ...
+
+## first test: does panelPomp:::test (used to test all other codes) work?
 test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
-## ..., perform tests, and ...
+
 test(NULL,NULL)
-## ... more ellaborate test, e.g., ...
-## ... test unevaluated multiple-line expression, ...
-test(quote({a_multi_line_expression <- NA
-"where_objects_are_defined" -> is_not_evald
-NULL}),NULL)
+## unevaluated multi-line expression
+test(
+  quote(
+    {a_multi_line_expression <- NA
+    "where_objects_are_defined" -> is_not_evald
+    NULL}),
+  NULL)
 test(exists("is_not_evald"),FALSE)
-## ..., capture warnings, ...
-## warn <- options(warn=2) # to convert warnings to errors
-## test()
-## options(warn)
-## 
-## ..., partially match error messages, ...
-## test(grepl(wQuotes("Error "),test(),fixed=TRUE),TRUE)
-
-## ... and check whether all tests passed
-all(get(eval(formals(test))$all))
-if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-
-
-
-## complete tests for test():
 ## if only one argument ...
 test(length(get(eval(formals(test))$all))==3)
 ## ... the result isn't necessarily logical: hence, 'all' is not changed!
@@ -49,13 +38,27 @@ test(1L,1L)
 test("a","a")
 test(matrix(1,nrow=2),matrix(1,nrow=2))
 test(list(a="a",b="b"),list(a="a",b="b"))
-test(c(TRUE,TRUE),c(TRUE,TRUE))
+test(c(TRUE,FALSE),c(TRUE,FALSE))
+## consider further testing panelPomp:::test ...
+## capturing warnings, ...
+## warn <- options(warn=2) # to convert warnings to errors
+## test()
+## options(warn)
+## partially matching error messages, ...
+## test(grepl(wQuotes("Error "),test(),fixed=TRUE),TRUE)
 
-## test runif.EstimationScale()
+## if all tests for panelPomp:::test passed ...
+all(get(eval(formals(test))$all))
+if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+## ... continue testing the rest of the code
+
+
+
+## runif.EstimationScale
 test(class(panelPomp:::runif.EstimationScale(centers=c(th=1),widths=2))[1],
      "numeric")
 
-## test wQuotes()
+## wQuotes
 ## check for ' in different positions in the character
 test(wQuotes("''Error''")==paste0(sQuote("Error")))
 test(wQuotes("Error")=="Error")
@@ -82,9 +85,10 @@ test(as.character(
 ## test quoting variables 
 test(wQuotes("''",TESTS_PASS[1],"''")==sQuote("TRUE"))
 
-## tests for .onAttach
-#test(tail(strsplit(options("pomp.examples")$pomp.examples[2],"/")[[1]],2),
-#     c("panelPomp","examples"))
+## .onAttach
+test(tail(strsplit(
+  options("panelPomp.examples")$panelPomp.examples["panelPomp"],"/")[[1]],2),
+  c("panelPomp","examples"))
 
 ## temporary tests for 'pompExample' borrowed from defunct pomp function
 test(tail(strsplit(
@@ -102,9 +106,9 @@ test(wQuotes(ep,"''envir'' must be an environment or NULL\n"),
 
 
 
-## tests for .onDetach
+## .onDetach (run very last test because it detaches panelPomp!)
 detach("package:panelPomp",unload=TRUE)
-is.null(unname(options("pomp.examples")$pomp.examples)[2])
+test(options("pomp.examples")$pomp.examples,NULL)
 
 ## final check: do all tests pass?
 all(get(eval(formals(test))$all))
