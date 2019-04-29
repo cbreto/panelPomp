@@ -1,0 +1,224 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ## test aaa.R
+> 
+> library(panelPomp,quietly=TRUE)
+Welcome to pomp version 2!
+For information on upgrading your pomp version < 2 code, see the
+‘pomp version 2 upgrade guide’ at https://kingaa.github.io/pomp/.
+> TESTS_PASS <- NULL 
+> ## alternatively: assign(eval(formals(test))$all,NULL) (after defining test)
+> ## does panelPomp:::test (used to test all other codes) work?
+> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
++   panelPomp:::test(expr1,expr2,all=all,env=env,...)
+> 
+> test(NULL,NULL)
+[1] TRUE
+> ## ... test unevaluated multiple-line expression, ...
+> test(
++   quote(
++     {a_multi_line_expression <- NA
++     "where_objects_are_defined" -> is_not_evald
++     NULL}),NULL)
+[1] TRUE
+> test(exists("is_not_evald"),FALSE)
+[1] TRUE
+> ## if only one argument ...
+> test(length(get(eval(formals(test))$all))==3)
+[1] TRUE
+> ## ... the result isn't necessarily logical: hence, 'all' is not changed!
+> test(length(get(eval(formals(test))$all)),3L)
+[1] TRUE
+> ## test order of expr1 and expr2
+> test(4L,length(get(eval(formals(test))$all)))
+[1] TRUE
+> ## test stop for wrong parameters
+> test(wQuotes("Error in eval(expr1) : object 'invalid_expr' not found\n"),
++      test(invalid_expr))
+[1] TRUE
+> test(wQuotes("Error : in ''test'': missing vector to accumulate logical test ",
++              "results.\n"),
++      panelPomp:::test(NULL,expr2=NULL,all="wrong_all",env=parent.frame()))
+[1] TRUE
+> test("Error in exists(all, envir = env) : invalid 'envir' argument\n",
++      panelPomp:::test(NULL,NULL,all=eval(formals(test))$all,env="no_env"))
+[1] TRUE
+> ## test identical for range of objects
+> test(NA,NA)
+[1] TRUE
+> test(1,1)
+[1] TRUE
+> test(1L,1L)
+[1] TRUE
+> test("a","a")
+[1] TRUE
+> test(matrix(1,nrow=2),matrix(1,nrow=2))
+[1] TRUE
+> test(list(a="a",b="b"),list(a="a",b="b"))
+[1] TRUE
+> test(c(TRUE,FALSE),c(TRUE,FALSE))
+[1] TRUE
+> ## consider further testing panelPomp:::test ...
+> ## capturing warnings, ...
+> ## warn <- options(warn=2) # to convert warnings to errors
+> ## test()
+> ## options(warn)
+> ## partially matching error messages, ...
+> ## test(grepl(wQuotes("Error "),test(),fixed=TRUE),TRUE)
+> 
+> ## if all tests for panelPomp:::test passed ...
+> all(get(eval(formals(test))$all))
+[1] TRUE
+> if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+> ## ... continue testing the rest of the code
+> 
+> 
+> ## runif.EstimationScale
+> test(class(panelPomp:::runif.EstimationScale(centers=c(th=1),widths=2))[1],
++      "numeric")
+[1] TRUE
+> 
+> ## wQuotes
+> ## check for ' in different positions in the character
+> test(wQuotes("''Error''")==paste0(sQuote("Error")))
+[1] TRUE
+> test(wQuotes("Error")=="Error")
+[1] TRUE
+> test(wQuotes("''Error'' : in")==paste0(sQuote("Error")," : in"))
+[1] TRUE
+> test(wQuotes("Error : in ''fn''")==paste0("Error : in ",sQuote("fn")))
+[1] TRUE
+> test(wQuotes("''Error'' : in ''fn'': ''object'' is a required argument"),
++      paste0(sQuote("Error")," : in ",sQuote("fn"),": ",sQuote("object"),
++             " is a required argument"))
+[1] TRUE
+> test(wQuotes("Error : in ''fn'': ''object'' is a required argument"),
++      paste0("Error : in ",sQuote("fn"),": ",sQuote("object"),
++             " is a required argument"))
+[1] TRUE
+> test(wQuotes("in ''fn''",": ''object'' is"," a required argument"," Error : in",
++              " ''fn'': ''object'' is a required argument"),
++      paste0("in ",sQuote("fn"),": ",sQuote("object")," is a required argument",
++             " Error : in ",sQuote("fn"),": ",sQuote("object"),
++             " is a required argument"))
+[1] TRUE
+> ## test passing wQuotes as first argument to stop
+> test(as.character(
++   attr(try(stop(wQuotes("in ''fn'': ''object'' is a required argument")),
++            silent=TRUE),"condition")),
++   paste0(
++     "Error in doTryCatch(return(expr), name, parentenv, handler): in ",
++     sQuote("fn"),": ",sQuote("object")," is a required argument\n"))
+[1] TRUE
+> ## test quoting variables 
+> test(wQuotes("''",TESTS_PASS[1],"''")==sQuote("TRUE"))
+[1] TRUE
+> 
+> ## .onAttach
+> test(tail(strsplit(
++   options("panelPomp.examples")$panelPomp.examples["panelPomp"],"/")[[1]],2),
++   c("panelPomp","examples"))
+[1] TRUE
+> 
+> ## temporary tests for 'pompExample' borrowed from defunct pomp function
+> test(tail(strsplit(
++   options("pomp.examples")$pomp.examples["pomp"],"/")[[1]],2),
++   c("panelPomp","examples"))
+[1] TRUE
+> test("[1] pancon  pangomp prw    ",
++      gsub("\\\"","",capture.output(panelPomp:::pompExample())[2]))
+[1] TRUE
+> panelPomp:::pompExample(prw,show=TRUE) ## covers !is.null(envir) & show
+library(panelPomp)
+
+# construct pomp object for random walk plus noise model
+times <- 1:4
+t0 <- 0
+rproc <- Csnippet("X = X + rnorm(0,sigmaX);")
+delta_t <- 1
+rmeas <- Csnippet("Y = rnorm(X,sigmaY);")
+dmeas <- Csnippet("lik = dnorm(Y,X,sigmaY,give_log);")
+params <- c(sigmaY=1,sigmaX=1,X.0=1)
+paramnm <- c("sigmaY","sigmaX")
+statenm <- c("X")
+pomp(data.frame(t=times,Y=NA),times="t",t0=t0,
+     rprocess=discrete_time(step.fun=rproc,delta.t=delta_t),rmeasure=rmeas,
+     dmeasure=dmeas,params=params,paramnames=paramnm,statenames=statenm) -> rw
+
+# construct panelPomp object with simulated data
+# write & read simulation to facilitate robust reproducibility
+U <- 2
+#rws <- setNames(vector("list",length=U),nm=paste0("rw",1:U))
+#set.seed(17375288L,kind="Mersenne-Twister",normal.kind="Inversion")
+#packageVersion("pomp")
+#[1] ‘1.16.1.1’
+#for (u in seq_len(U)) rws[[u]] <- simulate(rw)
+#rw_obs <- as.data.frame(sapply(rws,obs))
+#write.csv2(rw_obs,row.names=FALSE)
+rw_sim <- read.csv2(
+  text = '"rw1";"rw2"
+  2,08840863858374;1,68589578877002
+  1,41921888369371;0,93744394535246
+  3,40175540743253;4,731044919332
+  2,23369156038638;1,91481177346194',
+  header = TRUE
+)
+pos <- setNames(vector("list",length=U),nm=paste0("rw",1:U))
+for (u in seq_len(U)) {
+  pomp(data.frame(t=times,Y=as.numeric(rw_sim[,paste0("rw",u)])),times="t",
+       t0=t0,rprocess=discrete_time(step.fun=rproc,delta.t=delta_t),
+       rmeasure=rmeas,dmeasure=dmeas,params=params,paramnames=paramnm,
+       statenames=statenm) -> pos[[u]]
+}
+# check pomp objects in pos (see panelPomp/tests/prw.R)
+panelPomp(pos,shared=coef(rw)[c("sigmaX","sigmaY") -> shnm],
+          specific=matrix(coef(rw)[!names(coef(rw))%in%shnm] -> spparams,
+                          nrow=length(spparams),ncol=U,
+                          dimnames=list(param=names(spparams),
+                                        unit=names(pos)))) -> prw
+# check prw panelPomp object (see panelPomp/tests/prw.R)
+c("prw")
+
+> ep <- "Error : in ''panelPomp:::pompExample'': "
+> test(wQuotes(ep,"cannot find file ''a.R''\n"),panelPomp:::pompExample(a))
+[1] TRUE
+> test(wQuotes(ep,"''envir'' must be an environment or NULL\n"),
++      capture.output(panelPomp:::pompExample(prw,envir="no_env"))[1])
+[1] TRUE
+> ## partial tests:
+> test(wQuotes("newly created object(s):"),
++      capture.output(panelPomp:::pompExample(prw,envir=new.env()))[1])
+[1] TRUE
+> test(wQuotes("<object of class ''panelPomp''>"),
++      capture.output(panelPomp:::pompExample(prw,envir=NULL)[1])[2])
+[1] TRUE
+> 
+> ## .onDetach (run very last test because it detaches panelPomp!)
+> detach("package:panelPomp",unload=TRUE)
+> is.null(unname(options("pomp.examples")$pomp.examples)[2]) 
+[1] TRUE
+> ## DON'T test(unname(options("pomp.examples")$pomp.examples)[2],NULL) 
+> ## it returns TRUE but breaks 'covr::package_coverage' and 'covr::codecovr'
+> 
+> ## final check: do all tests pass?
+> all(get(eval(formals(test))$all))
+[1] TRUE
+> if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+> 
