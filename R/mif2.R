@@ -17,7 +17,7 @@ NULL
 #' diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 #' @inheritParams mif2,panelPomp-method 
 #' @inheritParams coef,panelPomp-method 
-#' @inheritParams pomp2::mif2
+#' @inheritParams pomp::mif2
 #' @param data An object of class \code{panelPomp} or inheriting class.
 #' @param shared.start named numerical vector; the starting guess of the shared parameters.
 #' @param specific.start matrix with row parameter names and column unit names; 
@@ -153,7 +153,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
         rownames(pParamMatrix), rownames(pparamArray))
       
       output[[unit]] <- tryCatch(
-        pomp2::mif2(
+        pomp::mif2(
           object[[unit]],
           Nmif = 1,
           Np = Np,

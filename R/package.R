@@ -75,12 +75,12 @@
 #' @references \breto2018
 #' @author Carles Breto
 #' 
-#' @seealso \link[=pomp2-package]{pomp package}, \link{panelPomp}
+#' @seealso \link[=pomp-package]{pomp package}, \link{panelPomp}
 #' 
 #' @keywords models datasets ts
 #' 
 #' @import methods
-#' @import pomp2
+#' @import pomp
 # @useDynLib panelPomp, .registration=TRUE
 #' @importFrom stats dnorm runif setNames var
 #' @importFrom utils tail

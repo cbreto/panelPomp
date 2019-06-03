@@ -55,7 +55,7 @@ pfilter.internal <- function(object, params, Np,
   }
   for (i.u in 1:U) {
     pfilterd.pomp.list[[i.u]] <-
-      pomp2::pfilter(
+      pomp::pfilter(
         object@unit.objects[[i.u]],
         params = matrixpParams[, i.u],
         Np = Np,
@@ -79,7 +79,7 @@ pfilter.internal <- function(object, params, Np,
 #' @rdname pfilter
 #' @inheritParams coef,panelPomp-method 
 #' @inheritParams panelPomp
-#' @inheritParams pomp2::mif2
+#' @inheritParams pomp::mif2
 #' @param tol filtering tolerance for all units.
 #' @param ... additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.
 #' @export
