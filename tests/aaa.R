@@ -1,5 +1,6 @@
 ## test aaa.R
 
+if (file.exists("_options.R")) source("_options.R")
 library(panelPomp,quietly=TRUE)
 TESTS_PASS <- NULL 
 ## alternatively: assign(eval(formals(test))$all,NULL) (after defining test)

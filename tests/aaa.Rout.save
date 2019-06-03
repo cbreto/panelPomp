@@ -19,10 +19,8 @@ Type 'q()' to quit R.
 
 > ## test aaa.R
 > 
+> if (file.exists("_options.R")) source("_options.R")
 > library(panelPomp,quietly=TRUE)
-Welcome to pomp version 2!
-For information on upgrading your pomp version < 2 code, see the
-‘pomp version 2 upgrade guide’ at https://kingaa.github.io/pomp/.
 > TESTS_PASS <- NULL 
 > ## alternatively: assign(eval(formals(test))$all,NULL) (after defining test)
 > ## does panelPomp:::test (used to test all other codes) work?

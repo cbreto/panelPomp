@@ -30,4 +30,3 @@ options(warn); rm(warn)
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-
