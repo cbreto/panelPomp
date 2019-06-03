@@ -87,7 +87,7 @@ A list of examples included \pkg{panelPomp} can be displayed via
 \breto2018
 }
 \seealso{
-\link[=pomp2-package]{pomp package}, \link{panelPomp}
+\link[=pomp-package]{pomp package}, \link{panelPomp}
 }
 \author{
 Carles Breto
