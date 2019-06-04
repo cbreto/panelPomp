@@ -1,1 +1,1 @@
-suppressPackageStartupMessages(library(pomp2))
+suppressPackageStartupMessages(library(pomp))
