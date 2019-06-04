@@ -1,5 +1,20 @@
 _N_e_w_s _f_o_r _p_a_c_k_a_g_e '_p_a_n_e_l_P_o_m_p'
 
+_C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n _0._9._1:
+
+        • The minimum version of ‘pomp’ supported is now ‘2.1’. While
+          this is likely to imply substantial changes in ‘pomp’ objects
+          (on which ‘panelPomp’ objects rely) there are only three
+          fundamental changes that break panelPomp's backwards
+          compatibility:
+
+        • The first argument ‘pfilter(object, ...)’ changes to ‘data’.
+
+        • The first argument ‘mif2(object, ...)’ changes to ‘data’.
+
+        • The ‘conv.rec’ method has been deprecated, replaced by the
+          new ‘traces’ method.
+
 _C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n _0._8._3:
 
         • Improvements to the interface.
