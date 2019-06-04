@@ -1,5 +1,17 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 0.9.1}{
+  \itemize{
+    \item The minimum version of \pkg{pomp} supported is now \code{2.1}. While 
+    this is likely to imply substantial changes in \pkg{pomp} objects (on which 
+    \pkg{panelPomp} objects rely) there are only three fundamental changes that 
+    break panelPomp's backwards compatibility: 
+    \item The first argument \code{pfilter(object, ...)} changes to \code{data}.
+    \item The first argument \code{mif2(object, ...)} changes to \code{data}.
+    \item The ‘conv.rec’ method has been deprecated, replaced by the new 
+    ‘traces’ method.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.8.3}{
   \itemize{
     \item Improvements to the interface.
