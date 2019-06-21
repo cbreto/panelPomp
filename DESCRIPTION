@@ -29,6 +29,7 @@ Collate:
     'example.R'
     'generics.R'
     'get_col_row.R'
+    'mcap.R'
     'panel_loglik.R'
     'panel_logmeanexp.R'
     'panelPomp.R'
