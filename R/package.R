@@ -82,7 +82,7 @@
 #' @import methods
 #' @import pomp
 # @useDynLib panelPomp, .registration=TRUE
-#' @importFrom stats dnorm runif setNames var
+#' @importFrom stats dnorm lm loess predict qchisq runif setNames var vcov
 #' @importFrom utils tail
 NULL        # replacing NULL by "_PACKAGE" results in roxygen2 adding an 
             # \alias{} with the package name, conflicting with functions named 

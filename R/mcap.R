@@ -31,9 +31,9 @@ mcap <- function(lp,parameter,confidence=0.95,lambda=0.75,Ngrid=1000){
   dist <- abs(parameter-smooth_arg_max)
   included <- dist < sort(dist)[trunc(lambda*length(dist))]
   maxdist <- max(dist[included])
-  weight <- rep(0,length(parameter))
-  weight[included] <- (1-(dist[included]/maxdist)^3)^3
-  quadratic_fit <- lm(lp ~ a + b, weight=weight,
+  weights <- rep(0,length(parameter))
+  weights[included] <- (1-(dist[included]/maxdist)^3)^3
+  quadratic_fit <- lm(lp ~ a + b, weights=weights,
     data = data.frame(lp=lp,b=parameter,a=-parameter^2)
   )
   b <- unname(coef(quadratic_fit)["b"] )
