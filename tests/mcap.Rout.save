@@ -1,0 +1,36 @@
+
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-redhat-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> 
+> library(panelPomp,quietly=TRUE)
+Welcome to pomp version 2!
+For information on upgrading your pomp version < 2 code, see the
+‘pomp version 2 upgrade guide’ at https://kingaa.github.io/pomp/.
+> 
+> TESTS_PASS <- NULL
+> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
++   panelPomp:::test(expr1,expr2,all=all,env=env,...)
+> 
+> m1 <- mcap( lp=-(-5:5)^2,parameter=-5:5,Ngrid=120)
+Warning message:
+In summary.lm(object) : essentially perfect fit: summary may be unreliable
+> test(round(m1$mle,1),0)
+[1] TRUE
+> 
+> 
