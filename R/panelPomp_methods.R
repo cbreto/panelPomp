@@ -116,7 +116,7 @@ pParams <- function (value) {
   if (length(shs)>0) pParams$shared <- value[shs]
   if (length(sps)>0) {
     pParams$specific <- array(dim=c(length(sps),length(us)),
-                              dimnames=list(param=sps,unit=us))
+                              dimnames=list(sps,us))
     for (sp in sps) {
       pParams$specific[sp,us] <- value[paste0(sp,"[",us,"]")]
     }

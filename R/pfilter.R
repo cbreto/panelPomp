@@ -161,7 +161,7 @@ setMethod(
              sQuote("object@specific"),".",call.=FALSE
         )
       }
-      if (!identical(x = colnames(object@specific), y = colnames(specific))){
+      if (!setequal(x = colnames(object@specific), y = colnames(specific))){
         stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
              sQuote("object@specific"),".", call.=FALSE
         )
