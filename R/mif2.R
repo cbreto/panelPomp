@@ -113,25 +113,25 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
   # Initialize pconv.rec and pconv.rec.array
   pconv.rec <- array(
     data = numeric(0),
-    dim = c(Nmif + 1, length(start$shared) + 2),
+    dim = c(Nmif + 1, length(start$shared) + 1),
     dimnames = list(
       iteration = seq.int(.ndone, .ndone + Nmif),
-      variable = c('loglik', 'nfail', names(start$shared))
+      variable = c('loglik', names(start$shared))
     )
   )
-  pconv.rec[1L,-c(1:2)] <- start$shared
+  pconv.rec[1L,-1L] <- start$shared
   
   pconv.rec.array <- array(
     data = numeric(0),
-    dim = c(Nmif + 1, dim(start$specific)[1] + 2, U),
+    dim = c(Nmif + 1, dim(start$specific)[1] + 1, U),
     dimnames = list(
       iteration = seq.int(.ndone, .ndone + Nmif),
-      variable = c('unitNfail', 'unitLoglik', 
+      variable = c('unitLoglik', 
         dimnames(start$specific)[[1]]),
       unit = names(unitobjects(object))
     )
   )
-  pconv.rec.array[1L, -c(1:2), ] <- pparamArray[, 1 ,]
+  pconv.rec.array[1L, -1L, ] <- pparamArray[, 1L,]
   # Initialize output
   output <- vector(mode="list",length=U)
   # nameoutput
@@ -184,14 +184,12 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
       # Finish by passing the updates onto pconv.rec and pconv.rec.array when appropriate
       if (unit == tail(x = unit.seq, n = 1)) {
         # ... pconv.rec ...
-        pconv.rec[mifiter + 1, -c(1:2)] <- apply(X = pParamMatrix, MARGIN = 1, FUN = mean)
+        pconv.rec[mifiter + 1, -1L] <- apply(X = pParamMatrix, MARGIN = 1, FUN = mean)
         pconv.rec[mifiter, "loglik"] <- sum(sapply(X = output, FUN = logLik))
-        pconv.rec[mifiter, "nfail"] <- sum(sapply(X = output, slot, "nfail"))
         # ... and pconv.rec.array
         if (!is.null(spnames)) {
-          pconv.rec.array[mifiter + 1, -c(1:2), ] <- apply(X = pparamArray, MARGIN = c(1,3), FUN = mean)
+          pconv.rec.array[mifiter + 1, -1L, ] <- apply(X = pparamArray, MARGIN = c(1L,3L), FUN = mean)
           pconv.rec.array[mifiter, "unitLoglik", ] <- sapply(X = output, FUN = logLik)
-          pconv.rec.array[mifiter, "unitNfail",] <- sapply(X = output, FUN = slot, "nfail")
         }
       }
     }
@@ -206,17 +204,17 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
   ploglik <- sum(unit.logliks)
   # create pParams slot from last mif iteration values in pconv.rec
   pParams <- list()
-  pParams$shared <- pconv.rec[nrow(pconv.rec), -c(1:2)]
+  pParams$shared <- pconv.rec[nrow(pconv.rec), -1L]
   # Here, we want to drop the iteration dimension but, if there was only one 
   # shared parameter, R will then have dropped its name, which we fix by
-  names(pParams$shared) <- dimnames(pconv.rec)$variable[-c(1:2)]
+  names(pParams$shared) <- dimnames(pconv.rec)$variable[-1L]
   pParams$specific <- aperm(
-    a = pconv.rec.array[nrow(pconv.rec), -c(1:2), , drop = FALSE],
+    a = pconv.rec.array[nrow(pconv.rec), -1L, , drop = FALSE],
     perm = c(2, 3, 1)
   )
   dim(pParams$specific) <- dim(pParams$specific)[1:2]
   dimnames(pParams$specific) <- list( 
-    variable = colnames(pconv.rec.array)[-c(1:2)],
+    variable = colnames(pconv.rec.array)[-1L],
     unit = dimnames(pconv.rec.array)$unit
   )
   
