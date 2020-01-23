@@ -28,38 +28,29 @@ setClass(
   slots = c(
     Np = 'numeric',
     ploglik = 'numeric',
-    tol = 'numeric',
     unit.logliks = 'numeric'
   ),
   prototype = prototype(
     Np = as.integer(NA),
     ploglik = as.double(NA),
-    tol = as.double(NA),
     unit.logliks = numeric(0)
   )
 )
 
 # pPfilter algorithm internal functions
 pfilter.internal <- function(object, params, Np, 
-                             tol, verbose = FALSE, ...) {
+                             verbose = FALSE, ...) {
   # Turn params list into a matrix
   matrixpParams <- toMatrixPparams(params)
   U <- length(object)
   pfilterd.pomp.list <- setNames(vector(mode="list",length=U),
                                  names(unitobjects(object)))
-  if (length(tol)==1) {
-    tol <- setNames(rep(tol,U),names(unitobjects(object)))
-  } else if (length(tol) != U) {
-    stop(wQuotes("in ''pfilter'': ''tol'' must be a single positive scalar or",
-                 " a vector of length ",U),call.=FALSE)
-  }
   for (i.u in 1:U) {
     pfilterd.pomp.list[[i.u]] <-
       pomp::pfilter(
         object@unit.objects[[i.u]],
         params = matrixpParams[, i.u],
         Np = Np,
-        tol = unname(tol[i.u]),
         ...
       )
   }
@@ -71,8 +62,7 @@ pfilter.internal <- function(object, params, Np,
     shared = params$shared,
     specific = params$specific,
     ploglik = pfilter.internal.loglik,
-    unit.logliks = pfilter.internal.unit.logliks,
-    tol = tol
+    unit.logliks = pfilter.internal.unit.logliks
   )
 }
 
@@ -80,7 +70,6 @@ pfilter.internal <- function(object, params, Np,
 #' @inheritParams coef,panelPomp-method 
 #' @inheritParams panelPomp
 #' @inheritParams pomp::mif2
-#' @param tol filtering tolerance for all units.
 #' @param ... additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.
 #' @export
 #'
@@ -88,7 +77,6 @@ setMethod(
   "pfilter",
   signature=signature(data="panelPomp"),
   definition = function(data, shared, specific, params, Np, 
-                        tol = 1e-17,
                         verbose = getOption("verbose"),
                         ...) {
     object <- data # the argument name 'data' is fixed by pomp's generic
@@ -173,7 +161,6 @@ setMethod(
       object = object, # internally, 'object' is used, not 'data'
       params = list(shared = shared, specific = specific),
       Np = Np,
-      tol = tol,
       verbose = verbose,
       ...
     )

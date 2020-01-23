@@ -9,8 +9,15 @@
 \alias{unitlogLik,pfilterd.ppomp-method}
 \title{Particle filtering for panel data}
 \usage{
-\S4method{pfilter}{panelPomp}(data, shared, specific, params, Np,
-  tol = 1e-17, verbose = getOption("verbose"), ...)
+\S4method{pfilter}{panelPomp}(
+  data,
+  shared,
+  specific,
+  params,
+  Np,
+  verbose = getOption("verbose"),
+  ...
+)
 
 \S4method{logLik}{pfilterd.ppomp}(object, ...)
 
@@ -70,8 +77,6 @@ representing the number of particles to be used at the \code{n}-th timestep:
 \code{Np(2)}, from \code{time(object)[1]} to \code{time(object)[2]},
 and so on.}
 
-\item{tol}{filtering tolerance for all units.}
-
 \item{verbose}{logical; if \code{TRUE}, diagnostic messages will be printed to the console.}
 
 \item{...}{additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.}
@@ -98,7 +103,9 @@ Tools for applying particle filtering algorithms to panel data.
 \seealso{
 \pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
 
-Other panelPomp workhorse functions: \code{\link{mif2}},
-  \code{\link{panelPomp}}, \code{\link{panel_loglik}}
+Other panelPomp workhorse functions: 
+\code{\link{mif2}()},
+\code{\link{panelPomp}},
+\code{\link{panel_loglik}}
 }
 \concept{panelPomp workhorse functions}

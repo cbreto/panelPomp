@@ -1,7 +1,7 @@
 
-R version 3.5.1 (2018-07-02) -- "Feather Spray"
-Copyright (C) 2018 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -59,31 +59,31 @@ For information on upgrading your pomp version < 2 code, see the
 > ## assign parameters
 > test(# no start (get from object)
 +   traces(as(mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
-+                  cooling.type="geometric"),"list")[[1]])[1,-(1:2)],
++                  cooling.type="geometric"),"list")[[1]])[1,-1],
 +   c(ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(# start shared & specific
 +   traces(as(mif2(ppo,sh=2*ppo@shared,sp=2*ppo@specific,Np=10,
 +                  rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
-+                  cooling.type="geometric"),"list")[[1]])[1,-(1:2)],
++                  cooling.type="geometric"),"list")[[1]])[1,-1],
 +   2*c(ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(# start shared only
 +   traces(as(mif2(ppo,shared.start=2*ppo@shared,Np=10,rw.sd=rw.sd(X.0=0.2),
 +                  cooling.fraction.50=0.5,cooling.type="geometric"),
-+             "list")[[1]])[1,-(1:2)],
++             "list")[[1]])[1,-1],
 +   c(2*ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(# start specific only
 +   traces(as(mif2(ppo,sp=2*ppo@specific,Np=10,rw.sd=rw.sd(X.0=0.2),
 +                  cooling.fraction.50=0.5,cooling.type="geometric"),
-+             "list")[[1]])[1,-(1:2)],
++             "list")[[1]])[1,-1],
 +   c(ppo@shared,2*get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(# start with list
 +   traces(as(mif2(ppo,st=list(shared=2*ppo@shared,specific=2*ppo@specific),
 +                  Np=10,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
-+                  cooling.type="geometric"),"list")[[1]])[1,-(1:2)],
++                  cooling.type="geometric"),"list")[[1]])[1,-1],
 +   2*c(ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(# start with numeric vector
@@ -93,7 +93,7 @@ For information on upgrading your pomp version < 2 code, see the
 +                 c(names(ppo@shared),"X.0[rw1]","X.0[rw2]")),
 +     Np=10,rw.sd=rw.sd(X.0=0.2),
 +     cooling.fraction.50=0.5,
-+     cooling.type="geometric"),"list")[[1]])[1,-(1:2)],
++     cooling.type="geometric"),"list")[[1]])[1,-1],
 +   c(ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > ## resolve multiple params
@@ -156,7 +156,7 @@ For information on upgrading your pomp version < 2 code, see the
 > test(err,mif2(mf,Nmif=2,start=coef(mf),sh=2*ppo@shared))
 [1] TRUE
 > 
-> test(dim(traces(mf)),c(3L,10L))
+> test(dim(traces(mf)),c(3L,7L))
 [1] TRUE
 > test(dim(traces(mf,c("loglik","sigmaY"))),c(3L,2L))
 [1] TRUE
@@ -170,5 +170,4 @@ For information on upgrading your pomp version < 2 code, see the
 > all(get(eval(formals(test))$all))
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-> 
 > 
