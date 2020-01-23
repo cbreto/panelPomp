@@ -9,13 +9,32 @@
 \alias{traces,mif2d.ppomp-method}
 \title{PIF: Panel iterated filtering}
 \usage{
-\S4method{mif2}{panelPomp}(data, Nmif = 1, shared.start, specific.start,
-  start, Np, rw.sd, cooling.type = c("hyperbolic", "geometric"),
-  cooling.fraction.50, tol = 1e-17, verbose = getOption("verbose"),
-  ...)
+\S4method{mif2}{panelPomp}(
+  data,
+  Nmif = 1,
+  shared.start,
+  specific.start,
+  start,
+  Np,
+  rw.sd,
+  cooling.type = c("hyperbolic", "geometric"),
+  cooling.fraction.50,
+  verbose = getOption("verbose"),
+  ...
+)
 
-\S4method{mif2}{mif2d.ppomp}(data, Nmif, shared.start, specific.start,
-  start, Np, rw.sd, cooling.type, cooling.fraction.50, tol, ...)
+\S4method{mif2}{mif2d.ppomp}(
+  data,
+  Nmif,
+  shared.start,
+  specific.start,
+  start,
+  Np,
+  rw.sd,
+  cooling.type,
+  cooling.fraction.50,
+  ...
+)
 
 \S4method{traces}{mif2d.ppomp}(object, pars, ...)
 }
@@ -52,10 +71,6 @@ See below (under \dQuote{Specifying the perturbations}) for more detail.}
 
 \item{cooling.fraction.50}{cooling.fraction.50 (seems to cause an error if 
 documentation inherited from 'pomp' package).}
-
-\item{tol}{positive numeric scalar;
-particles with likelihood less than \code{tol} are considered to be incompatible with the data.
-See the section on \emph{Filtering Failures} for more information.}
 
 \item{verbose}{logical; if \code{TRUE}, diagnostic messages will be printed to the console.}
 
@@ -100,7 +115,9 @@ diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 \pkg{pomp}'s mif2 at \link[=mif2,pomp-method]{mif2}, 
 \link{panel_loglik}
 
-Other panelPomp workhorse functions: \code{\link{panelPomp}},
-  \code{\link{panel_loglik}}, \code{\link{pfilter}}
+Other panelPomp workhorse functions: 
+\code{\link{panelPomp}},
+\code{\link{panel_loglik}},
+\code{\link{pfilter}()}
 }
 \concept{panelPomp workhorse functions}

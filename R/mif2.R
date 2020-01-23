@@ -68,7 +68,7 @@ setClass(
 
 # pmif2 algorithm internal functions
 mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type, 
-                           cooling.fraction.50, tol = 1e-17, verbose = FALSE, 
+                           cooling.fraction.50, verbose = FALSE, 
                            .ndone = 0L, ...) {
   # Error prefix
   ep <- wQuotes("in ''mif2'': ")
@@ -160,7 +160,6 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
           rw.sd = rw.sd[[unit]],
           cooling.type = cooling.type,
           cooling.fraction.50 = cooling.fraction.50,
-          tol = tol,
           verbose = verbose,
           .paramMatrix = updated.paramMatrix,
           .indices = seq.int(Np),
@@ -220,8 +219,6 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
     variable = colnames(pconv.rec.array)[-c(1:2)],
     unit = dimnames(pconv.rec.array)$unit
   )
-  # To have unit-specific tolerances, one could use something like:
-  #ptol <- sapply(output, slot, "tol")
   
   # Return the end "mif2d.ppomp" object
   return(
@@ -234,7 +231,6 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
       # pfilterd.ppomp
       Np = Np,
       ploglik = ploglik,
-      tol = tol,
       unit.logliks = unit.logliks,      
       # mif2d.ppomp
       Nmif = Nmif,
@@ -255,7 +251,7 @@ setMethod(
   signature=signature(data="panelPomp"),
   definition = function (data, Nmif = 1, shared.start, specific.start, start,
                          Np, rw.sd, cooling.type = c("hyperbolic", "geometric"), 
-                         cooling.fraction.50, tol = 1e-17,  
+                         cooling.fraction.50, 
                          verbose = getOption("verbose"), ...) {
     object <- data
     ep <- wQuotes("in ''mif2'': ")
@@ -291,7 +287,6 @@ setMethod(
       rw.sd=rw.sd,
       cooling.type=cooling.type,
       cooling.fraction.50=cooling.fraction.50,
-      tol=tol,
       verbose=verbose,
       ...
     )
@@ -304,7 +299,7 @@ setMethod(
   "mif2",
   signature=signature(data="mif2d.ppomp"),
   definition = function (data, Nmif, shared.start, specific.start, start,
-                         Np, rw.sd, cooling.type, cooling.fraction.50, tol, 
+                         Np, rw.sd, cooling.type, cooling.fraction.50,
                          ...) {
     object <- data
     ep <- wQuotes("in ''mif2'': ")
@@ -325,11 +320,10 @@ setMethod(
     if (missing(cooling.type)) cooling.type <- object@cooling.type
     if (missing(cooling.fraction.50)) 
       cooling.fraction.50 <- object@cooling.fraction.50
-    if (missing(tol)) tol <- object@tol
     
     f <- selectMethod("mif2",signature="panelPomp")
     f(object,shared.start=shared.start,specific.start=specific.start,Np=Np,
       Nmif=Nmif,cooling.type=cooling.type,
-      cooling.fraction.50=cooling.fraction.50,rw.sd=rw.sd,tol=tol,...)
+      cooling.fraction.50=cooling.fraction.50,rw.sd=rw.sd,...)
   }
 )

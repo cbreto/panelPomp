@@ -10,8 +10,10 @@ objects.
 Coerces a \code{panelPomp} into a data frame.
 }
 \seealso{
-Other panelPomp methods: \code{\link{panelPomp_methods}}
+Other panelPomp methods: 
+\code{\link{panelPomp_methods}}
 
-Other panelPomp methods: \code{\link{panelPomp_methods}}
+Other panelPomp methods: 
+\code{\link{panelPomp_methods}}
 }
 \concept{panelPomp methods}
