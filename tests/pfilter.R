@@ -15,9 +15,6 @@ test(wQuotes(ep,"''data'' is a required argument.\n"),
   pfilter(sh=coef(ppo)$sh,sp=coef(ppo)$sp,Np=10))
 test(wQuotes(ep,"''data'' is a required argument.\n"),
   pfilter(params=coef(ppo),Np=10))
-test(wQuotes(ep,"''tol'' must be a single positive ",
-  "scalar or a vector of length ",length(ppo),"\n"),
-  pfilter(ppo,Np=10,tol=rep(1e-7,length(ppo)+1)))
 test(wQuotes(ep,"names of ''shared'' must match those of ",
   "''object@shared''.\n"),
   pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10))

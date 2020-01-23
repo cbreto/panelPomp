@@ -1,7 +1,7 @@
 
-R version 3.5.1 (2018-07-02) -- "Feather Spray"
-Copyright (C) 2018 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -69,13 +69,13 @@ variable       rw1      rw2
 -6.233642 -7.336813 
 [1] -13.57046
          variable
-iteration    loglik nfail    sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
-        0 -13.57046     0 1.0000000      1              0       -6.233642
-        1        NA    NA 0.9348033      1             NA              NA
+iteration    loglik    sigmaX sigmaY unitLoglik[rw1]  X.0[rw1] unitLoglik[rw2]
+        0 -13.57046 1.0000000      1       -6.233642 1.0000000       -7.336813
+        1        NA 0.9348033      1              NA 0.7494607              NA
          variable
-iteration  X.0[rw1] unitNfail[rw2] unitLoglik[rw2] X.0[rw2]
-        0 1.0000000              0       -7.336813 1.000000
-        1 0.7494607             NA              NA 1.380992
+iteration X.0[rw2]
+        0 1.000000
+        1 1.380992
    sigmaX    sigmaY 
 0.6828127 1.0000000 
         unit
@@ -85,13 +85,13 @@ variable      rw1       rw2
 -6.034874 -9.113273 
 [1] -15.14815
          variable
-iteration    loglik nfail    sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
-        0 -15.14815     0 1.0000000      1              0       -6.034874
-        1        NA    NA 0.6828127      1             NA              NA
+iteration    loglik    sigmaX sigmaY unitLoglik[rw1] X.0[rw1] unitLoglik[rw2]
+        0 -15.14815 1.0000000      1       -6.034874 1.000000       -9.113273
+        1        NA 0.6828127      1              NA 2.034284              NA
          variable
-iteration X.0[rw1] unitNfail[rw2] unitLoglik[rw2]  X.0[rw2]
-        0 1.000000              0       -9.113273 1.0000000
-        1 2.034284             NA              NA 0.7221263
+iteration  X.0[rw2]
+        0 1.0000000
+        1 0.7221263
    sigmaX    sigmaY 
 0.9309536 1.0000000 
         unit
@@ -101,13 +101,13 @@ variable      rw1     rw2
 -6.598561 -9.566110 
 [1] -16.16467
          variable
-iteration    loglik nfail    sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
-        0 -16.16467     0 1.0000000      1              0       -6.598561
-        1        NA    NA 0.9309536      1             NA              NA
+iteration    loglik    sigmaX sigmaY unitLoglik[rw1] X.0[rw1] unitLoglik[rw2]
+        0 -16.16467 1.0000000      1       -6.598561 1.000000        -9.56611
+        1        NA 0.9309536      1              NA 1.139014              NA
          variable
-iteration X.0[rw1] unitNfail[rw2] unitLoglik[rw2] X.0[rw2]
-        0 1.000000              0        -9.56611  1.00000
-        1 1.139014             NA              NA  1.93792
+iteration X.0[rw2]
+        0  1.00000
+        1  1.93792
   sigmaX   sigmaY 
 1.026614 1.000000 
         unit
@@ -117,13 +117,13 @@ variable       rw1       rw2
 -6.709911 -8.262543 
 [1] -14.97245
          variable
-iteration    loglik nfail   sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
-        0 -14.97245     0 1.000000      1              0       -6.709911
-        1        NA    NA 1.026614      1             NA              NA
+iteration    loglik   sigmaX sigmaY unitLoglik[rw1]  X.0[rw1] unitLoglik[rw2]
+        0 -14.97245 1.000000      1       -6.709911 1.0000000       -8.262543
+        1        NA 1.026614      1              NA 0.3549989              NA
          variable
-iteration  X.0[rw1] unitNfail[rw2] unitLoglik[rw2]  X.0[rw2]
-        0 1.0000000              0       -8.262543 1.0000000
-        1 0.3549989             NA              NA 0.6878978
+iteration  X.0[rw2]
+        0 1.0000000
+        1 0.6878978
   sigmaX   sigmaY 
 1.028653 1.000000 
         unit
@@ -133,11 +133,11 @@ variable       rw1      rw2
 -5.973952 -8.109600 
 [1] -14.08355
          variable
-iteration    loglik nfail   sigmaX sigmaY unitNfail[rw1] unitLoglik[rw1]
-        0 -14.08355     0 1.000000      1              0       -5.973952
-        1        NA    NA 1.028653      1             NA              NA
+iteration    loglik   sigmaX sigmaY unitLoglik[rw1]  X.0[rw1] unitLoglik[rw2]
+        0 -14.08355 1.000000      1       -5.973952 1.0000000         -8.1096
+        1        NA 1.028653      1              NA 0.4824871              NA
          variable
-iteration  X.0[rw1] unitNfail[rw2] unitLoglik[rw2] X.0[rw2]
-        0 1.0000000              0         -8.1096 1.000000
-        1 0.4824871             NA              NA 1.952893
+iteration X.0[rw2]
+        0 1.000000
+        1 1.952893
 > 

@@ -31,27 +31,27 @@ test(wQuotes(ep,"pomp's ''mif2'' error message: in ''mif2'': 'arg' must be ",
 ## assign parameters
 test(# no start (get from object)
   traces(as(mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
-                 cooling.type="geometric"),"list")[[1]])[1,-(1:2)],
+                 cooling.type="geometric"),"list")[[1]])[1,-1],
   c(ppo@shared,get_col(ppo@specific,1,1)))
 test(# start shared & specific
   traces(as(mif2(ppo,sh=2*ppo@shared,sp=2*ppo@specific,Np=10,
                  rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
-                 cooling.type="geometric"),"list")[[1]])[1,-(1:2)],
+                 cooling.type="geometric"),"list")[[1]])[1,-1],
   2*c(ppo@shared,get_col(ppo@specific,1,1)))
 test(# start shared only
   traces(as(mif2(ppo,shared.start=2*ppo@shared,Np=10,rw.sd=rw.sd(X.0=0.2),
                  cooling.fraction.50=0.5,cooling.type="geometric"),
-            "list")[[1]])[1,-(1:2)],
+            "list")[[1]])[1,-1],
   c(2*ppo@shared,get_col(ppo@specific,1,1)))
 test(# start specific only
   traces(as(mif2(ppo,sp=2*ppo@specific,Np=10,rw.sd=rw.sd(X.0=0.2),
                  cooling.fraction.50=0.5,cooling.type="geometric"),
-            "list")[[1]])[1,-(1:2)],
+            "list")[[1]])[1,-1],
   c(ppo@shared,2*get_col(ppo@specific,1,1)))
 test(# start with list
   traces(as(mif2(ppo,st=list(shared=2*ppo@shared,specific=2*ppo@specific),
                  Np=10,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
-                 cooling.type="geometric"),"list")[[1]])[1,-(1:2)],
+                 cooling.type="geometric"),"list")[[1]])[1,-1],
   2*c(ppo@shared,get_col(ppo@specific,1,1)))
 test(# start with numeric vector
   traces(as(mif2(
@@ -60,7 +60,7 @@ test(# start with numeric vector
                 c(names(ppo@shared),"X.0[rw1]","X.0[rw2]")),
     Np=10,rw.sd=rw.sd(X.0=0.2),
     cooling.fraction.50=0.5,
-    cooling.type="geometric"),"list")[[1]])[1,-(1:2)],
+    cooling.type="geometric"),"list")[[1]])[1,-1],
   c(ppo@shared,get_col(ppo@specific,1,1)))
 ## resolve multiple params
 test(wQuotes(ep,"specify EITHER ''start'' only OR ''shared.start'' and/or",
@@ -113,7 +113,7 @@ test(err,mif2(mf,Nmif=2,start=coef(mf),sh=2*ppo@shared,sp=2*ppo@specific))
 test(err,mif2(mf,Nmif=2,start=coef(mf),sp=2*ppo@specific))
 test(err,mif2(mf,Nmif=2,start=coef(mf),sh=2*ppo@shared))
 
-test(dim(traces(mf)),c(3L,10L))
+test(dim(traces(mf)),c(3L,7L))
 test(dim(traces(mf,c("loglik","sigmaY"))),c(3L,2L))
 test(dim(traces(mf,c("loglik","sigmaY","X.0"))),c(3L,4L))
 test(dim(traces(mf,c("loglik","unitLoglik"))),c(3L,3L))
@@ -122,4 +122,3 @@ test(dim(traces(mf,c("loglik","unitLoglik"))),c(3L,3L))
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-

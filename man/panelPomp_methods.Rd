@@ -72,7 +72,8 @@ Tools for manipulating \code{panelPomp} objects.
 }
 
 \seealso{
-Other panelPomp methods: \code{\link{as}}
+Other panelPomp methods: 
+\code{\link{as}()}
 }
 \author{
 Carles Breto, Aaron A. King.
