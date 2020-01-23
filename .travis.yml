@@ -10,7 +10,7 @@ r-packages:
   - roxygen2
 
 r_github_packages:
-  - kingaa/pomp
+  - kingaa/pomp@zero_tolerance
 
 addons:
   apt:
