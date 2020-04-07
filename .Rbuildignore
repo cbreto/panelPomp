@@ -15,3 +15,8 @@ TODO\.md$
 ^javascripts$
 ^params\.json$
 ^stylesheets$
+
+lib
+library
+check
+www
