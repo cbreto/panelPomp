@@ -23,6 +23,8 @@ NULL
 #' @param specific.start matrix with row parameter names and column unit names; 
 #' the starting guess of the specific parameters.
 #' @param start A named numeric vector of parameters at which to start the IF2 procedure.
+#' @param block A logical variable determining whther to carry out block
+#' resampling of unit-specific parameters.
 #' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to 
 #' be used for all panel units. If a \code{list} of such expressions of the 
 #' same length as the \code{object} argument is provided, each list element 
@@ -55,21 +57,23 @@ setClass(
     cooling.type = 'character',
     cooling.fraction.50 = 'numeric',
     pconv.rec = 'matrix',
-    pconv.rec.array = 'array'),
+    pconv.rec.array = 'array'
+    block = 'logical'),
   prototype = prototype(
     Nmif = integer(0),
     prw.sd = list(),
     cooling.type = character(0),
     cooling.fraction.50 = numeric(0),
     pconv.rec = array(data = numeric(0), dim = c(0, 0)),
-    pconv.rec.array = array(data = numeric(0), dim = c(0, 0, 0))
+    pconv.rec.array = array(data = numeric(0), dim = c(0, 0, 0)),
+    block = FALSE
   )
 )
 
 # pmif2 algorithm internal functions
 mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type, 
                            cooling.fraction.50, verbose = FALSE, 
-                           .ndone = 0L, ...) {
+                           .ndone = 0L, block, ...) {
   # Error prefix
   ep <- wQuotes("in ''mif2'': ")
   et <- wQuotes(" (panelPomp:::mif2.internal)")
@@ -177,8 +181,9 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
       # first for the current unit ...
       pparamArray[spnames, , unit] <- output[[unit]]@paramMatrix[spnames, , drop = FALSE]
       # ... then, resample all other units using the mif2d.pomp indices
-      pparamArray[spnames, , -unit] <- pparamArray[spnames, output[[unit]]@indices, -unit, drop = FALSE]
-      
+      if(!block){
+        pparamArray[spnames, , -unit] <- pparamArray[spnames, output[[unit]]@indices, -unit, drop = FALSE]
+      }
       # Cleaning up: remove the paramMatrix slot from the mif2d.pomp object to minimize memory requirements
       output[[unit]]@paramMatrix <- array(data = numeric(0), dim = c(0, 0))
       # Finish by passing the updates onto pconv.rec and pconv.rec.array when appropriate
@@ -236,7 +241,8 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
       cooling.type = cooling.type,
       cooling.fraction.50 = cooling.fraction.50,
       pconv.rec = pconv.rec,
-      pconv.rec.array = pconv.rec.array
+      pconv.rec.array = pconv.rec.array,
+      block=block
     )
   )
 }
@@ -250,7 +256,8 @@ setMethod(
   definition = function (data, Nmif = 1, shared.start, specific.start, start,
                          Np, rw.sd, cooling.type = c("hyperbolic", "geometric"), 
                          cooling.fraction.50, 
-                         verbose = getOption("verbose"), ...) {
+                         verbose = getOption("verbose"),
+			 block=FALSE, ...) {
     object <- data
     ep <- wQuotes("in ''mif2'': ")
     et <- wQuotes(" (''mif2,panelPomp-method'')")
@@ -286,6 +293,7 @@ setMethod(
       cooling.type=cooling.type,
       cooling.fraction.50=cooling.fraction.50,
       verbose=verbose,
+      block=block,
       ...
     )
   }
@@ -298,6 +306,7 @@ setMethod(
   signature=signature(data="mif2d.ppomp"),
   definition = function (data, Nmif, shared.start, specific.start, start,
                          Np, rw.sd, cooling.type, cooling.fraction.50,
+			 block,
                          ...) {
     object <- data
     ep <- wQuotes("in ''mif2'': ")
@@ -318,10 +327,11 @@ setMethod(
     if (missing(cooling.type)) cooling.type <- object@cooling.type
     if (missing(cooling.fraction.50)) 
       cooling.fraction.50 <- object@cooling.fraction.50
+    if (missing(block)) block <- object@block 
     
     f <- selectMethod("mif2",signature="panelPomp")
     f(object,shared.start=shared.start,specific.start=specific.start,Np=Np,
       Nmif=Nmif,cooling.type=cooling.type,
-      cooling.fraction.50=cooling.fraction.50,rw.sd=rw.sd,...)
+      cooling.fraction.50=cooling.fraction.50,rw.sd=rw.sd,block=block,...)
   }
 )
