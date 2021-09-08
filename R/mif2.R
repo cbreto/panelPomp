@@ -57,7 +57,7 @@ setClass(
     cooling.type = 'character',
     cooling.fraction.50 = 'numeric',
     pconv.rec = 'matrix',
-    pconv.rec.array = 'array'
+    pconv.rec.array = 'array',
     block = 'logical'),
   prototype = prototype(
     Nmif = integer(0),
