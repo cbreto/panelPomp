@@ -20,6 +20,7 @@
   cooling.type = c("hyperbolic", "geometric"),
   cooling.fraction.50,
   verbose = getOption("verbose"),
+  block = FALSE,
   ...
 )
 
@@ -33,6 +34,7 @@
   rw.sd,
   cooling.type,
   cooling.fraction.50,
+  block,
   ...
 )
 
@@ -50,14 +52,14 @@ the starting guess of the specific parameters.}
 
 \item{start}{A named numeric vector of parameters at which to start the IF2 procedure.}
 
-\item{Np}{the number of particles to use in filtering.
+\item{Np}{the number of particles to use.
 This may be specified as a single positive integer, in which case the same number of particles will be used at each timestep.
-Alternatively, if one wishes the number of particles to vary across timestep, one may specify \code{Np} either as a vector of positive integers (of length \code{length(time(object))}) or as a function taking a positive integer argument.
-In the latter case, \code{Np(n)} must be a single positive integer,
-representing the number of particles to be used at the \code{n}-th timestep:
-\code{Np(1)} is the number of particles to use going from \code{timezero(object)} to \code{time(object)[1]},
-\code{Np(2)}, from \code{time(object)[1]} to \code{time(object)[2]},
-and so on.}
+Alternatively, if one wishes the number of particles to vary across timesteps, one may specify \code{Np} either as a vector of positive integers of length \preformatted{length(time(object,t0=TRUE))} or as a function taking a positive integer argument.
+In the latter case, \code{Np(k)} must be a single positive integer, representing the number of particles to be used at the \code{k}-th timestep:
+\code{Np(0)} is the number of particles to use going from \code{timezero(object)} to \code{time(object)[1]},
+\code{Np(1)}, from \code{timezero(object)} to \code{time(object)[1]},
+and so on,
+while when \code{T=length(time(object))}, \code{Np(T)} is the number of particles to sample at the end of the time-series.}
 
 \item{rw.sd}{An unevaluated expression of the form \code{quote(rw.sd())} to 
 be used for all panel units. If a \code{list} of such expressions of the 
@@ -73,6 +75,9 @@ See below (under \dQuote{Specifying the perturbations}) for more detail.}
 documentation inherited from 'pomp' package).}
 
 \item{verbose}{logical; if \code{TRUE}, diagnostic messages will be printed to the console.}
+
+\item{block}{A logical variable determining whther to carry out block
+resampling of unit-specific parameters.}
 
 \item{...}{....}
 
