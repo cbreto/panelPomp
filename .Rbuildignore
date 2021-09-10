@@ -11,6 +11,8 @@ TODO\.md$
 
 ^codecov\.yml$
 ^\.travis\.yml$
+^covr\.html$
+^covr\.rds$
 
 ^index\.html$
 ^javascripts$
