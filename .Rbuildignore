@@ -1,4 +1,5 @@
 Makefile
+rules.mk
 tests/Makefile
 README\.md$
 TODO\.md$
