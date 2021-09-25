@@ -20,6 +20,7 @@
   cooling.type = c("hyperbolic", "geometric"),
   cooling.fraction.50,
   verbose = getOption("verbose"),
+  block = FALSE,
   ...
 )
 
@@ -33,6 +34,7 @@
   rw.sd,
   cooling.type,
   cooling.fraction.50,
+  block,
   ...
 )
 
@@ -73,6 +75,9 @@ See below (under \dQuote{Specifying the perturbations}) for more detail.}
 documentation inherited from 'pomp' package).}
 
 \item{verbose}{logical; if \code{TRUE}, diagnostic messages will be printed to the console.}
+
+\item{block}{A logical variable determining whther to carry out block
+resampling of unit-specific parameters.}
 
 \item{...}{....}
 
