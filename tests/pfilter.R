@@ -70,7 +70,7 @@ test(wQuotes(ep,"names of ''shared'' must match those of ",
 
 ppf <- pfilter(ppo,Np=10)
 test(dim(as(ppf,"data.frame")),c(8L,5L))
-test(names(as(ppf,"data.frame")),c("t", "Y", "ess", "cond.loglik", "unit"))
+test(names(as(ppf,"data.frame")),c("t", "Y", "ess", "cond.logLik", "unit"))
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))

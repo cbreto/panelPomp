@@ -3,7 +3,6 @@
 export(fromVectorPparams)
 export(get_col)
 export(get_row)
-export(mcap)
 export(pParams)
 export(panelGompertz)
 export(panelPomp)
