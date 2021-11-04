@@ -26,6 +26,7 @@ Encoding: UTF-8
 Collate: 
     'package.R'
     'aaa.R'
+    'contacts.R'
     'example.R'
     'generics.R'
     'get_col_row.R'
