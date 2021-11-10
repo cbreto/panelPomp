@@ -5,44 +5,44 @@ NULL
 
 #' @title PIF: Panel iterated filtering
 #' @description Tools for applying iterated filtering algorithms to panel data.
-#' The panel iterated filtering of Breto et al. (2018) extends to 
-#' panel models the improved iterated filtering algorithm (Ionides et al., 
+#' The panel iterated filtering of Breto et al. (2018) extends to
+#' panel models the improved iterated filtering algorithm (Ionides et al.,
 #' 2015) for estimating parameters of a partially observed Markov process.
-#' Iterated filtering algorithms rely on extending a partially observed Markov 
-#' process model of interest by introducing random perturbations to the model 
-#' parameters. The space where the original parameters live is then explored 
-#' at each iteration by running a particle filter. Convergence to a maximum 
-#' likelihood estimate has been established for appropriately constructed 
-#' procedures that iterate this search over the parameter space while 
+#' Iterated filtering algorithms rely on extending a partially observed Markov
+#' process model of interest by introducing random perturbations to the model
+#' parameters. The space where the original parameters live is then explored
+#' at each iteration by running a particle filter. Convergence to a maximum
+#' likelihood estimate has been established for appropriately constructed
+#' procedures that iterate this search over the parameter space while
 #' diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
-#' @inheritParams mif2,panelPomp-method 
-#' @inheritParams coef,panelPomp-method 
+#' @inheritParams mif2,panelPomp-method
+#' @inheritParams coef,panelPomp-method
 #' @inheritParams pomp::mif2
 #' @param data An object of class \code{panelPomp} or inheriting class.
 #' @param shared.start named numerical vector; the starting guess of the shared parameters.
-#' @param specific.start matrix with row parameter names and column unit names; 
+#' @param specific.start matrix with row parameter names and column unit names;
 #' the starting guess of the specific parameters.
 #' @param start A named numeric vector of parameters at which to start the IF2 procedure.
 #' @param block A logical variable determining whther to carry out block
 #' resampling of unit-specific parameters.
-#' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to 
-#' be used for all panel units. If a \code{list} of such expressions of the 
-#' same length as the \code{object} argument is provided, each list element 
+#' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to
+#' be used for all panel units. If a \code{list} of such expressions of the
+#' same length as the \code{object} argument is provided, each list element
 #' will be used for the corresponding panel unit.
-#' @param cooling.fraction.50 cooling.fraction.50 (seems to cause an error if 
+#' @param cooling.fraction.50 cooling.fraction.50 (seems to cause an error if
 #' documentation inherited from 'pomp' package).
 #' @name mif2
 #' @references \breto2018
-#' 
+#'
 #' \ionides2006
-#' 
+#'
 #' \ionides2011
-#' 
+#'
 #' \ionides2015
-#' 
+#'
 #' \king2015
 #' @family panelPomp workhorse functions
-#' @seealso \pkg{pomp}'s mif2 at \link[=mif2,pomp-method]{mif2}, 
+#' @seealso \pkg{pomp}'s mif2 at \link[=mif2,pomp-method]{mif2},
 #' \link{panel_loglik}
 NULL
 
@@ -66,41 +66,41 @@ setClass(
     cooling.fraction.50 = numeric(0),
     pconv.rec = array(data = numeric(0), dim = c(0, 0)),
     pconv.rec.array = array(data = numeric(0), dim = c(0, 0, 0)),
-    block = FALSE
+    block = logical(0)
   )
 )
 
 # pmif2 algorithm internal functions
-mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type, 
-                           cooling.fraction.50, verbose = FALSE, 
-                           .ndone = 0L, block, ...) {
+mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
+                           cooling.fraction.50, block, verbose = FALSE,
+                           .ndone = 0L, ...) {
   # Error prefix
   ep <- wQuotes("in ''mif2'': ")
   et <- wQuotes(" (panelPomp:::mif2.internal)")
-  
+
   # PRELIMS & BASIC CHECKS
   U <- as.integer(length(object))
   Nmif <- as.integer(Nmif)
   # Check rw.sd: if it is not a list, make it one
   if (!is.list(rw.sd)) rw.sd <- rep(list(rw.sd), U)
-  
+
   shnames <- names(start$shared)
   spnames <- rownames(start$specific)
-  
+
   if (!setequal(names(object@unit.objects),colnames(start$specific)))
     stop(ep,wQuotes("specific parameter column-names must match the names of the units"),call.=FALSE)
   start$specific <- start$specific[,names(object@unit.objects),drop=FALSE]
-  
+
   ########################################################
   # Initialize objects
   ########################################################
-  
+
   # Initialize pParamMatrix
   pParamMatrix <- array(
     data = start$shared,
     dim = c(length(shnames), Np),
     dimnames = list(
-      variable = shnames, 
+      variable = shnames,
       rep = NULL
     )
   )
@@ -124,13 +124,13 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
     )
   )
   pconv.rec[1L,-1L] <- start$shared
-  
+
   pconv.rec.array <- array(
     data = numeric(0),
     dim = c(Nmif + 1, dim(start$specific)[1] + 1, U),
     dimnames = list(
       iteration = seq.int(.ndone, .ndone + Nmif),
-      variable = c('unitLoglik', 
+      variable = c('unitLoglik',
         dimnames(start$specific)[[1]]),
       unit = names(unitobjects(object))
     )
@@ -140,22 +140,22 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
   output <- vector(mode="list",length=U)
   # nameoutput
   names(output) <- names(unitobjects(object))
-  
+
   ###########################################################
   # LOOP OVER MIF ITERATIONS AND PANEL UNITS
   ###########################################################
-  
+
   unit.seq <- seq_len(U)
-  
+
   for (mifiter in seq_len(Nmif)) {
     for (unit in unit.seq) {
       # Create a (n updated) paramMatrix to pass to mif2 on next panel unit
       updated.paramMatrix <- rbind(pParamMatrix, pparamArray[, , unit])
-      # Here, we want to drop the unit dimension but, if there was only one 
+      # Here, we want to drop the unit dimension but, if there was only one
       # specific parameter, R will then have dropped its name, which we fix by
       rownames(updated.paramMatrix) <- c(
         rownames(pParamMatrix), rownames(pparamArray))
-      
+
       output[[unit]] <- tryCatch(
         pomp::mif2(
           object[[unit]],
@@ -174,7 +174,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
             et,call.=FALSE)
         }
       )
-      
+
       # Update (panelPomp) pParamMatrix with (pomp) paramMatrix ...
       pParamMatrix <- output[[unit]]@paramMatrix[shnames, , drop = FALSE]
       # ... and update pparamArray:
@@ -199,18 +199,18 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
       }
     }
   }
-  
+
   #######################################################
   # BEFORE RETURNING OUTPUT, PERFORM FINAL ARRANGEMENTS #
   #######################################################
-  
+
   # Extract loglikelihoods
   unit.logliks <- sapply(X = output, FUN = logLik)
   ploglik <- sum(unit.logliks)
   # create pParams slot from last mif iteration values in pconv.rec
   pParams <- list()
   pParams$shared <- pconv.rec[nrow(pconv.rec), -1L]
-  # Here, we want to drop the iteration dimension but, if there was only one 
+  # Here, we want to drop the iteration dimension but, if there was only one
   # shared parameter, R will then have dropped its name, which we fix by
   names(pParams$shared) <- dimnames(pconv.rec)$variable[-1L]
   pParams$specific <- aperm(
@@ -218,11 +218,11 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
     perm = c(2, 3, 1)
   )
   dim(pParams$specific) <- dim(pParams$specific)[1:2]
-  dimnames(pParams$specific) <- list( 
+  dimnames(pParams$specific) <- list(
     variable = colnames(pconv.rec.array)[-1L],
     unit = dimnames(pconv.rec.array)$unit
   )
-  
+
   # Return the end "mif2d.ppomp" object
   return(
     new(
@@ -234,7 +234,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
       # pfilterd.ppomp
       Np = Np,
       ploglik = ploglik,
-      unit.logliks = unit.logliks,      
+      unit.logliks = unit.logliks,
       # mif2d.ppomp
       Nmif = Nmif,
       prw.sd = rw.sd,
@@ -242,7 +242,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
       cooling.fraction.50 = cooling.fraction.50,
       pconv.rec = pconv.rec,
       pconv.rec.array = pconv.rec.array,
-      block=block
+      block = block
     )
   )
 }
@@ -254,10 +254,9 @@ setMethod(
   "mif2",
   signature=signature(data="panelPomp"),
   definition = function (data, Nmif = 1, shared.start, specific.start, start,
-                         Np, rw.sd, cooling.type = c("hyperbolic", "geometric"), 
-                         cooling.fraction.50, 
-                         verbose = getOption("verbose"),
-			 block=FALSE, ...) {
+                         Np, rw.sd, cooling.type = c("hyperbolic", "geometric"),
+                         cooling.fraction.50, block = FALSE,
+                         verbose = getOption("verbose"), ...) {
     object <- data
     ep <- wQuotes("in ''mif2'': ")
     et <- wQuotes(" (''mif2,panelPomp-method'')")
@@ -268,11 +267,11 @@ setMethod(
     if (missing(start)) {
       start <- list(shared=object@shared,specific=object@specific)
     } else {
-     if (is.numeric(start)) start <- pParams(start) 
+     if (is.numeric(start)) start <- pParams(start)
     }
-    if (missing(shared.start)) shared.start <- start$shared 
-    if (missing(specific.start)) specific.start <- start$specific 
-    
+    if (missing(shared.start)) shared.start <- start$shared
+    if (missing(specific.start)) specific.start <- start$specific
+
     if (missing(Np)) {
       stop(ep,"Missing ",sQuote("Np")," argument.",et,call.=FALSE)
     }
@@ -283,7 +282,7 @@ setMethod(
     if (missing(rw.sd)) {
       stop(ep,"missing ",sQuote("rw.sd")," argument.",et,call.=FALSE)
     }
-    
+
     mif2.internal(
       object,
       Nmif=Nmif,
@@ -305,8 +304,7 @@ setMethod(
   "mif2",
   signature=signature(data="mif2d.ppomp"),
   definition = function (data, Nmif, shared.start, specific.start, start,
-                         Np, rw.sd, cooling.type, cooling.fraction.50,
-			 block,
+                         Np, rw.sd, cooling.type, cooling.fraction.50, block,
                          ...) {
     object <- data
     ep <- wQuotes("in ''mif2'': ")
@@ -318,17 +316,17 @@ setMethod(
    if (missing(start)) {
       start <- list(shared=object@shared,specific=object@specific)
     } else {
-      if (is.numeric(start)) start <- pParams(start) 
+      if (is.numeric(start)) start <- pParams(start)
     }
-    if (missing(shared.start)) shared.start <- start$shared 
-    if (missing(specific.start)) specific.start <- start$specific 
-    if (missing(Np)) Np <- object@Np    
+    if (missing(shared.start)) shared.start <- start$shared
+    if (missing(specific.start)) specific.start <- start$specific
+    if (missing(Np)) Np <- object@Np
     if (missing(rw.sd)) rw.sd <- object@prw.sd
     if (missing(cooling.type)) cooling.type <- object@cooling.type
-    if (missing(cooling.fraction.50)) 
+    if (missing(cooling.fraction.50))
       cooling.fraction.50 <- object@cooling.fraction.50
-    if (missing(block)) block <- object@block 
-    
+    if (missing(block)) block <- object@block
+
     f <- selectMethod("mif2",signature="panelPomp")
     f(object,shared.start=shared.start,specific.start=specific.start,Np=Np,
       Nmif=Nmif,cooling.type=cooling.type,

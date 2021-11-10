@@ -18,15 +18,15 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > library(panelPomp,quietly=TRUE)
-> 
-> TESTS_PASS <- NULL 
-> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
+>
+> TESTS_PASS <- NULL
+> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
 +   panelPomp:::test(expr1,expr2,all=all,env=env,...)
-> 
+>
 > pg <- try(panelPomp:::pompExample(pangomp,envir=NULL)[[1]])
 > gompertz <- as(pg,"list")[[1]]
 > coef(gompertz) <- c(pparams(pg)$sh, pparams(pg)$sp[,1])
-> 
+>
 > shgomp <- gompertz
 > time(shgomp) <- time(gompertz)[1:2]
 > shgomp@data <- gompertz@data[,1:length(time(shgomp)),drop=FALSE]
@@ -41,7 +41,7 @@ Type 'q()' to quit R.
 +     specific=array(1,dim=c(1,length(pPomp.object)),
 +                    dimnames=list(c("X.0"),names(unitobjects(pPomp.object))))),
 +   Np=50,rw.sd=rw.sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
-+   cooling.fraction.50=0.5))[1])
++   cooling.fraction.50=0.5,block=FALSE))[1])
 [1] TRUE
 > ## both shared and specific parameters
 > test("mif2d.ppomp",class(panelPomp:::mif2.internal(
@@ -50,7 +50,7 @@ Type 'q()' to quit R.
 +     specific=array(c(1,1),dim=c(2,length(pPomp.object)),
 +                    dimnames=list(c("X.0","K"),names(unitobjects(pPomp.object))))),
 +   Np=50,rw.sd=rw.sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
-+   cooling.fraction.50=0.5))[1])
++   cooling.fraction.50=0.5,block=FALSE))[1])
 [1] TRUE
 > ## only one shared parameter
 > test("mif2d.ppomp",class(panelPomp:::mif2.internal(
@@ -60,7 +60,7 @@ Type 'q()' to quit R.
 +                    dimnames=list(c("X.0","K","r","sigma"),
 +                                  names(unitobjects(pPomp.object))))),
 +   Np=50,rw.sd=rw.sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
-+   cooling.fraction.50=0.5))[1])
++   cooling.fraction.50=0.5,block=FALSE))[1])
 [1] TRUE
 > ## mif2d.ppomps can be mif2d again
 > test("mif2d.ppomp",class(mif2(mf))[1])
@@ -71,9 +71,9 @@ Type 'q()' to quit R.
 +                silent=TRUE))[1],
 +      "try-error")
 [1] TRUE
-> 
+>
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-> 
+>

@@ -19,8 +19,8 @@
   rw.sd,
   cooling.type = c("hyperbolic", "geometric"),
   cooling.fraction.50,
-  verbose = getOption("verbose"),
   block = FALSE,
+  verbose = getOption("verbose"),
   ...
 )
 
@@ -47,7 +47,7 @@
 
 \item{shared.start}{named numerical vector; the starting guess of the shared parameters.}
 
-\item{specific.start}{matrix with row parameter names and column unit names; 
+\item{specific.start}{matrix with row parameter names and column unit names;
 the starting guess of the specific parameters.}
 
 \item{start}{A named numeric vector of parameters at which to start the IF2 procedure.}
@@ -61,9 +61,9 @@ In the latter case, \code{Np(k)} must be a single positive integer, representing
 and so on,
 while when \code{T=length(time(object))}, \code{Np(T)} is the number of particles to sample at the end of the time-series.}
 
-\item{rw.sd}{An unevaluated expression of the form \code{quote(rw.sd())} to 
-be used for all panel units. If a \code{list} of such expressions of the 
-same length as the \code{object} argument is provided, each list element 
+\item{rw.sd}{An unevaluated expression of the form \code{quote(rw.sd())} to
+be used for all panel units. If a \code{list} of such expressions of the
+same length as the \code{object} argument is provided, each list element
 will be used for the corresponding panel unit.}
 
 \item{cooling.type}{specifications for the cooling schedule,
@@ -71,13 +71,13 @@ i.e., the manner and rate with which the intensity of the parameter perturbation
 \code{cooling.type} specifies the nature of the cooling schedule.
 See below (under \dQuote{Specifying the perturbations}) for more detail.}
 
-\item{cooling.fraction.50}{cooling.fraction.50 (seems to cause an error if 
+\item{cooling.fraction.50}{cooling.fraction.50 (seems to cause an error if
 documentation inherited from 'pomp' package).}
-
-\item{verbose}{logical; if \code{TRUE}, diagnostic messages will be printed to the console.}
 
 \item{block}{A logical variable determining whther to carry out block
 resampling of unit-specific parameters.}
+
+\item{verbose}{logical; if \code{TRUE}, diagnostic messages will be printed to the console.}
 
 \item{...}{....}
 
@@ -94,15 +94,15 @@ via the optional argument \code{pars}.
 }
 \description{
 Tools for applying iterated filtering algorithms to panel data.
-The panel iterated filtering of Breto et al. (2018) extends to 
-panel models the improved iterated filtering algorithm (Ionides et al., 
+The panel iterated filtering of Breto et al. (2018) extends to
+panel models the improved iterated filtering algorithm (Ionides et al.,
 2015) for estimating parameters of a partially observed Markov process.
-Iterated filtering algorithms rely on extending a partially observed Markov 
-process model of interest by introducing random perturbations to the model 
-parameters. The space where the original parameters live is then explored 
-at each iteration by running a particle filter. Convergence to a maximum 
-likelihood estimate has been established for appropriately constructed 
-procedures that iterate this search over the parameter space while 
+Iterated filtering algorithms rely on extending a partially observed Markov
+process model of interest by introducing random perturbations to the model
+parameters. The space where the original parameters live is then explored
+at each iteration by running a particle filter. Convergence to a maximum
+likelihood estimate has been established for appropriately constructed
+procedures that iterate this search over the parameter space while
 diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 }
 \references{
@@ -117,7 +117,7 @@ diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 \king2015
 }
 \seealso{
-\pkg{pomp}'s mif2 at \link[=mif2,pomp-method]{mif2}, 
+\pkg{pomp}'s mif2 at \link[=mif2,pomp-method]{mif2},
 \link{panel_loglik}
 
 Other panelPomp workhorse functions: 

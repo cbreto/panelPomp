@@ -1,7 +1,7 @@
 library(panelPomp,quietly=TRUE)
 
-TESTS_PASS <- NULL 
-test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
+TESTS_PASS <- NULL
+test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
 pg <- try(panelPomp:::pompExample(pangomp,envir=NULL)[[1]])
@@ -22,7 +22,7 @@ test("mif2d.ppomp",class(panelPomp:::mif2.internal(
     specific=array(1,dim=c(1,length(pPomp.object)),
                    dimnames=list(c("X.0"),names(unitobjects(pPomp.object))))),
   Np=50,rw.sd=rw.sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
-  cooling.fraction.50=0.5))[1])
+  cooling.fraction.50=0.5,block=FALSE))[1])
 ## both shared and specific parameters
 test("mif2d.ppomp",class(panelPomp:::mif2.internal(
   pPomp.object,Nmif=2,start=list(
@@ -30,7 +30,7 @@ test("mif2d.ppomp",class(panelPomp:::mif2.internal(
     specific=array(c(1,1),dim=c(2,length(pPomp.object)),
                    dimnames=list(c("X.0","K"),names(unitobjects(pPomp.object))))),
   Np=50,rw.sd=rw.sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
-  cooling.fraction.50=0.5))[1])
+  cooling.fraction.50=0.5,block=FALSE))[1])
 ## only one shared parameter
 test("mif2d.ppomp",class(panelPomp:::mif2.internal(
   pPomp.object,Nmif=2,start=list(
@@ -39,7 +39,7 @@ test("mif2d.ppomp",class(panelPomp:::mif2.internal(
                    dimnames=list(c("X.0","K","r","sigma"),
                                  names(unitobjects(pPomp.object))))),
   Np=50,rw.sd=rw.sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
-  cooling.fraction.50=0.5))[1])
+  cooling.fraction.50=0.5,block=FALSE))[1])
 ## mif2d.ppomps can be mif2d again
 test("mif2d.ppomp",class(mif2(mf))[1])
 ## mif2.internal pomp::mif2::tryCatch works
