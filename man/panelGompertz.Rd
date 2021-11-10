@@ -22,7 +22,7 @@ panelGompertz(
 }
 \description{
 Given a collection of points maximizing the likelihood over a range
-of fixed values of a focal parameter, this function constructs 
+of fixed values of a focal parameter, this function constructs
 a profile likelihood confidence interval accommodating both
 Monte Carlo error in the profile and statistical uncertainty present
 in the likelihood function.

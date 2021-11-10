@@ -1,15 +1,18 @@
+#' @include mif2_methods.R
+NULL
+
 ##' Panel Gompertz model
 ##'
 ##' Given a collection of points maximizing the likelihood over a range
-##' of fixed values of a focal parameter, this function constructs 
+##' of fixed values of a focal parameter, this function constructs
 ##' a profile likelihood confidence interval accommodating both
 ##' Monte Carlo error in the profile and statistical uncertainty present
 ##' in the likelihood function.
-##' 
+##'
 ##' @param N number of observations for each unit.
 ##'
 ##' @param U number of units.
-##' 
+##'
 ##' @param params parameter vector, assuming all units have the same parameters.
 ##'
 ##' @param seed passed to the random number generator for simulation.
@@ -23,7 +26,7 @@ panelGompertz <- function(N=100,U=50,
   seed=12345678){
 
   gomp_dmeas <- Csnippet("lik = dlnorm(Y,log(X),tau,give_log);")
-  gomp_rmeas <- Csnippet("Y = rlnorm(log(X),tau);") 
+  gomp_rmeas <- Csnippet("Y = rlnorm(log(X),tau);")
   gomp_rproc <- Csnippet("
     double S = exp(-r*dt);
     double eps = (sigma > 0.0) ? rlnorm(0,sigma) : 1.0;
@@ -47,7 +50,7 @@ panelGompertz <- function(N=100,U=50,
   gomp_sim_list <- setNames(vector(mode="list",length=U),nm=paste0("unit",1:U))
   for (u in seq_len(U)) {
     gomp_sim_list[[u]] <- pomp::simulate(gomp_pomp,seed=seed+u)
-  }  
+  }
   setNames(gomp_sim_list,nm=paste0("unit",1:U))
   gomp_shared_names <- c("r","sigma")
   gomp_specific <- coef(gomp_pomp)[!names(coef(gomp_pomp))%in%gomp_shared_names]
@@ -57,6 +60,6 @@ panelGompertz <- function(N=100,U=50,
       nrow=length(gomp_specific),
       ncol=U,
       dimnames=list(names(gomp_specific),names(gomp_sim_list)))
-  ) 
+  )
 }
 
