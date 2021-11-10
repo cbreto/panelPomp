@@ -1,9 +1,12 @@
+#' @include panelGompertz.R
+NULL
+
 ##' Contacts model
 ##'
 ##' A panel model for dynamic variation in sexual contacts, with
 ##' data from Vittinghof et al (1999). The model was developed by
 ##' Romero-Severson et al (2015) and discussed by Breto et al (2019).
-##' 
+##'
 ##' @param params parameter vector.
 ##'
 ##' @author Edward L. Ionides
@@ -12,7 +15,7 @@
 ##'
 ##' @references
 ##'
-##' \breto2018 
+##' \breto2018
 ##'
 ##' \vittinghoff1999
 ##'
@@ -915,12 +918,12 @@ contacts <- function(params=c(mu_X=1.75,sigma_X=2.67,mu_D=3.81,
 
   rinit <- Csnippet("
     double tol=0.000001;
-    D = (sigma_D < tol || mu_D < tol) ? mu_D : 
+    D = (sigma_D < tol || mu_D < tol) ? mu_D :
       rgamma(pow(mu_D/sigma_D,2), pow(sigma_D,2)/mu_D);
     if(D < tol) {D = tol;}
-    R = (sigma_R < tol || mu_R < tol) ? mu_R : 
+    R = (sigma_R < tol || mu_R < tol) ? mu_R :
       rgamma(pow(mu_R/sigma_R, 2), pow(sigma_R, 2)/mu_R);
-    X = (sigma_X < tol || mu_X < tol) ? mu_X : 
+    X = (sigma_X < tol || mu_X < tol) ? mu_X :
       rgamma(pow(mu_X/sigma_X, 2), pow(sigma_X, 2)/mu_X);
     Z = (R < tol) ? 1/tol : rexp(1/R);
     C = 0;
@@ -933,12 +936,12 @@ contacts <- function(params=c(mu_X=1.75,sigma_X=2.67,mu_D=3.81,
     while(Zcum < 6){ // time in months within a 6 month observation interval
       C  += Z * X;
       Z = (R < tol) ? 1/tol : rexp(1/R);
-      X = (sigma_X < tol || mu_X < tol) ? mu_X : 
+      X = (sigma_X < tol || mu_X < tol) ? mu_X :
         rgamma(pow(mu_X/sigma_X, 2), pow(sigma_X, 2)/mu_X);
       Zcum += Z;
     }
     C += (6 - (Zcum - Z)) * X;
-    C *= pow(alpha, (int)t % 4); 
+    C *= pow(alpha, (int)t % 4);
     Z = Zcum - 6;
   ")
 
@@ -958,7 +961,7 @@ contacts <- function(params=c(mu_X=1.75,sigma_X=2.67,mu_D=3.81,
     partrans=parameter_trans(
       log=c("mu_X","sigma_X","mu_D","sigma_D"),
       logit="alpha"
-    ),  
+    ),
     rinit=rinit,
     cdir=cdir
   )
@@ -978,7 +981,7 @@ contacts <- function(params=c(mu_X=1.75,sigma_X=2.67,mu_D=3.81,
   }
 
   ## Construct panelPomp
-  panelPomp(object=poList,shared=coef(template)) 
+  panelPomp(object=poList,shared=coef(template))
 }
 
 

@@ -26,7 +26,6 @@ Encoding: UTF-8
 Collate: 
     'package.R'
     'aaa.R'
-    'contacts.R'
     'example.R'
     'generics.R'
     'get_col_row.R'
@@ -40,3 +39,4 @@ Collate:
     'mif2.R'
     'mif2_methods.R'
     'panelGompertz.R'
+    'contacts.R'
