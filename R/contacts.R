@@ -1,4 +1,4 @@
-#' @include panelGompertz.R
+#' @include kalman_gompertz.R
 NULL
 
 ##' Contacts model

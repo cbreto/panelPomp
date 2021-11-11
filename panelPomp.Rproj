@@ -19,7 +19,6 @@ BuildType: Package
 PackageUseDevtools: Yes
 PackageInstallArgs: --no-multiarch --with-keep.source --library=~/library
 PackageBuildArgs: --force --no-manual --resave-data --compact-vignettes=both --md5
-PackageBuildBinaryArgs: --library=~/library
 PackageRoxygenize: rd,collate,namespace
 
 QuitChildProcessesOnExit: Yes
