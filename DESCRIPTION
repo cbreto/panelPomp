@@ -41,3 +41,4 @@ Collate:
     'panelGompertz.R'
     'kalman_gompertz.R'
     'contacts.R'
+    'plot.R'
