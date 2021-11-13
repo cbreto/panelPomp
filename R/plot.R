@@ -5,7 +5,8 @@
 ##' @name plot
 ##' @rdname plot
 ##' @aliases plot
-##' @importFrom stats quantile cor density
+##' @importFrom graphics lines par
+##' @importFrom grDevices dev.interactive
 ##'
 NULL
 
