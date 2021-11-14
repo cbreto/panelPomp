@@ -1,3 +1,6 @@
+#' @include contacts.R
+NULL
+
 ##' panelPomp plotting facilities
 ##'
 ##' Diagnostic plots for each unit in a panelPomp

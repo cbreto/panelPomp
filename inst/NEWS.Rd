@@ -1,5 +1,10 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 0.12.0}{
+  \itemize{
+    \item New \code{plot} method for \code{panelPomp} objects.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.11.0}{
   \itemize{
     \item Additional functions implementing Kalman filtering to panels and to the Gompertz model.
