@@ -3,11 +3,8 @@ NULL
 
 ##' Panel Gompertz model
 ##'
-##' Given a collection of points maximizing the likelihood over a range
-##' of fixed values of a focal parameter, this function constructs
-##' a profile likelihood confidence interval accommodating both
-##' Monte Carlo error in the profile and statistical uncertainty present
-##' in the likelihood function.
+##' Builds a collection of independent realizations from the
+##' Gompertz model.
 ##'
 ##' @param N number of observations for each unit.
 ##'
@@ -17,7 +14,7 @@ NULL
 ##'
 ##' @param seed passed to the random number generator for simulation.
 ##'
-##' @author Edward L. Ionides
+##' @author Edward L. Ionides, Carles Breto
 ##'
 ##' @export
 ##'
