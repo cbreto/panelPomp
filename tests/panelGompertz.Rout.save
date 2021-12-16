@@ -1,0 +1,36 @@
+
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # check reproducibility over two randomly chosen seeds
+> library(panelPomp,quietly=TRUE)
+> 
+> seeds <- c(21125715L,1888889L)
+> po <- panelPomp:::panelGompertz(N=5,U=2)[[1]]
+> for (s in seq_along(seeds)) {
++   set.seed(seeds[s])
++   print(obs(simulate(po)))
++ }
+        time
+variable     [,1]      [,2]     [,3]      [,4]     [,5]
+       Y 0.885645 0.9480592 1.070202 0.8996918 1.121308
+        time
+variable      [,1]     [,2]     [,3]    [,4]     [,5]
+       Y 0.8744472 1.321525 1.143647 1.55723 1.894765
+> 
+> 

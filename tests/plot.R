@@ -1,0 +1,6 @@
+library(panelPomp,quietly=TRUE)
+options(digits=3)
+png(filename="plot-%02d.png",res=100)
+ppo <- panelPomp:::panelRandomWalk(N=5,U=2)
+plot(ppo)
+dev.off()
