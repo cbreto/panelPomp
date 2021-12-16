@@ -1,5 +1,12 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 0.13.0}{
+  \itemize{
+    \item New \code{panelRandomWalk} example.
+    \item \code{panelPompExample} is now deprecated and will be removed in the
+    near future.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.12.0}{
   \itemize{
     \item New \code{plot} method for \code{panelPomp} objects.
