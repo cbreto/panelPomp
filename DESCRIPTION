@@ -43,3 +43,4 @@ Collate:
     'contacts.R'
     'panelRandomWalk.R'
     'plot.R'
+    'simulate.R'
