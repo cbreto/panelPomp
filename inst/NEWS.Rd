@@ -1,5 +1,10 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 0.14.0}{
+  \itemize{
+    \item New \code{simulate} function.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.13.0}{
   \itemize{
     \item New \code{panelRandomWalk} example.
