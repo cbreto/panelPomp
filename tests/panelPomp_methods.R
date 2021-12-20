@@ -18,13 +18,9 @@ g <- pgl[[1]]; coef(g) <- c(pparams(pg)$sh, pparams(pg)$sp[,1])
 pp <- panelPomp(list(g,g),shared=pg@shared,
                 specific=pg@specific[,1:2])
 
-
-
 ## coef,panelPomp-method
 test(coef(ppo),
      setNames(c(1,2,0,0.1),c("sigmaX","sigmaY","X.0[rw1]","X.0[rw2]")))
-
-
 
 ## coef<-,panelPomp-method
 test(coef(ppo),{coef(ppo) <- 2*coef(ppo);coef(ppo) <- coef(ppo)/2;coef(ppo)})
@@ -82,8 +78,13 @@ test(lapply(as(window(ppo[1],start=1,end=2),"list"),time),list(rw1=c(1,2)))
 
 
 
-## as(,'list') returns list of units
-test(as(pg,"list"),pg@unit.objects)
+## as(,'list') returns list of units with parameters
+test(as(pg,"list")[[1]]@data,pg@unit.objects[[1]]@data)
+
+## as(,'pompList')
+test(as(pg,'pompList')[[1]]@data,pg@unit.objects[[1]]@data)
+
+## test as(,'data.frame')
 test(dim(as(pg,"data.frame")),c(5000L,3L))
 test(names(as(pg,"data.frame")),c("t","Y","unit"))
 

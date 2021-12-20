@@ -5,11 +5,19 @@
 \title{Coercing \code{panelPomp} objects as a \code{list}}
 \description{
 Extracts the \code{unit.objects} slot of \code{panelPomp} 
-objects.
+objects and attaches the associated parameters.
 
-Coerces a \code{panelPomp} into a data frame.
+Extracts the \code{unit.objects} slot of \code{panelPomp} 
+objects and attaches the associated parameters, converting the
+resulting list to a pompList to help the assignment of pomp methods.
+
+Coerces a \code{panelPomp} into a data frame,
+assuming units share common variable names.
 }
 \seealso{
+Other panelPomp methods: 
+\code{\link{panelPomp_methods}}
+
 Other panelPomp methods: 
 \code{\link{panelPomp_methods}}
 
