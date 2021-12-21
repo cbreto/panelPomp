@@ -25,13 +25,13 @@ Type 'q()' to quit R.
 > test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
 +   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 > 
-> ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+> ppo <- panelRandomWalk(U=2,N=5)
 > pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
 +             specific=matrix(c(0,0.1),nr=1,
 +                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
 > ppo <- panelPomp(unitobjects(ppo),shared=pP2$shared,specific=pP2$specific)
 > # other definitions from old test file
-> pg <- panelPompExample(pangomp)
+> pg <- panelGompertz(U=3,N=5)
 > pgl <- as(pg,"list")
 > g <- pgl[[1]]; coef(g) <- c(pparams(pg)$sh, pparams(pg)$sp[,1])
 > pp <- panelPomp(list(g,g),shared=pg@shared,
@@ -111,7 +111,7 @@ sigmaX sigmaY    X.0
 > test(setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]"))),
 +      coef(ppo[1]))
 [1] TRUE
-> test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4),rw2=c(2,3,4)))
+> test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4,5),rw2=c(2,3,4,5)))
 [1] TRUE
 > test(lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))
 [1] TRUE
@@ -131,9 +131,9 @@ sigmaX sigmaY    X.0
 [1] TRUE
 > 
 > ## test as(,'data.frame')
-> test(dim(as(pg,"data.frame")),c(5000L,3L))
+> test(dim(as(pg,"data.frame")),c(15L,4L))
 [1] TRUE
-> test(names(as(pg,"data.frame")),c("t","Y","unit"))
+> test(names(as(pg,"data.frame")),c("t","Y","X","unit"))
 [1] TRUE
 > 
 > ## show

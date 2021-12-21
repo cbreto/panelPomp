@@ -80,36 +80,9 @@ test(as.character(
   paste0(
     "Error in doTryCatch(return(expr), name, parentenv, handler): in ",
     sQuote("fn"),": ",sQuote("object")," is a required argument\n"))
+
 ## test quoting variables 
 test(wQuotes("''",TESTS_PASS[1],"''")==sQuote("TRUE"))
-
-## .onAttach
-test(tail(strsplit(
-  options("panelPomp.examples")$panelPomp.examples["panelPomp"],"/")[[1]],2),
-  c("panelPomp","examples"))
-
-## temporary tests for 'pompExample' borrowed from defunct pomp function
-test(tail(strsplit(
-  options("pomp.examples")$pomp.examples["pomp"],"/")[[1]],2),
-  c("panelPomp","examples"))
-test("[1] pancon  pangomp prw    ",
-     gsub("\\\"","",capture.output(panelPomp:::pompExample())[2]))
-panelPomp:::pompExample(prw,show=TRUE) ## covers !is.null(envir) & show
-ep <- "Error : in ''panelPomp:::pompExample'': "
-test(wQuotes(ep,"cannot find file ''a.R''\n"),panelPomp:::pompExample(a))
-test(wQuotes(ep,"''envir'' must be an environment or NULL\n"),
-     capture.output(panelPomp:::pompExample(prw,envir="no_env"))[1])
-## partial tests:
-test(wQuotes("newly created object(s):"),
-     capture.output(panelPomp:::pompExample(prw,envir=new.env()))[1])
-test(wQuotes("<object of class ''panelPomp''>"),
-     capture.output(panelPomp:::pompExample(prw,envir=NULL)[1])[2])
-
-## .onDetach (run very last test because it detaches panelPomp!)
-detach("package:panelPomp",unload=TRUE)
-is.null(unname(options("pomp.examples")$pomp.examples)[2]) 
-## DON'T test(unname(options("pomp.examples")$pomp.examples)[2],NULL) 
-## it returns TRUE but breaks 'covr::package_coverage' and 'covr::codecovr'
 
 ## final check: do all tests pass?
 all(get(eval(formals(test))$all))

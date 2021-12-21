@@ -4,7 +4,7 @@ TESTS_PASS <- NULL
 test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
-pg <- panelPompExample(pangomp)
+pg <- panelGompertz(U=3,N=10)
 sh <- c(shared.1=1,shared.2=2)
 u <- 5 # at least 1
 sp <- matrix(

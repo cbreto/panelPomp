@@ -1,13 +1,11 @@
 
-R version 4.1.1 (2021-08-10) -- "Kick Things"
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
 Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -21,11 +19,9 @@ Type 'q()' to quit R.
 > if (file.exists("options.R")) source("options.R")
 > 
 > ## list examples (avoiding listing package installation folder for R CMD check)
-> capture.output(panelPompExample())[2]
-[1] "[1] \"pancon\"  \"pangomp\" \"prw\"    "
-> ppo <- panelPompExample("prw")
+> ppo <- panelRandomWalk(U=2,N=6)
 > ppo
-<object of class ‘panelPomp’>
+<object of class 'panelPomp'>
 panel of 2 units 
 parameter(s):
 $shared
@@ -38,16 +34,20 @@ param rw1 rw2
   X.0   1   1
 
 summary of first panel unit ("rw1"):
-<object of class ‘pomp’>
+<object of class 'pomp'>
 > lapply(as(ppo,"list"),obs)
 $rw1
         time
-variable     [,1]     [,2]     [,3]     [,4]
-       Y 2.088409 1.419219 3.401755 2.233692
+variable       [,1]      [,2]      [,3]      [,4]      [,5]      [,6]
+       Y -0.8029721 0.5765159 -2.121707 -1.829423 -1.070494 -1.890537
 
 $rw2
         time
-variable     [,1]      [,2]     [,3]     [,4]
-       Y 1.685896 0.9374439 4.731045 1.914812
+variable     [,1]     [,2]     [,3]     [,4]     [,5]      [,6]
+       Y 2.864593 1.597069 2.799784 1.024825 2.416252 0.4682343
 
 > 
+> 
+> proc.time()
+   user  system elapsed 
+  1.508   0.531   2.504 

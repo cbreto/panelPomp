@@ -5,7 +5,7 @@ TESTS_PASS <- NULL
 test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
-ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+ppo <- panelRandomWalk(U=2,N=5)
 
 pmf <- mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
             cooling.type="geometric")

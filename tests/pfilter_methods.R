@@ -4,7 +4,7 @@ TESTS_PASS <- NULL
 test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
-ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+ppo <- panelRandomWalk(U=2,N=5)
 
 ##  check whether pfiltering a pfilterd.ppomp returns the same object
 set.seed(21125715L)

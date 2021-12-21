@@ -1,13 +1,11 @@
 
-R version 4.1.1 (2021-08-10) -- "Kick Things"
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
 Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -21,7 +19,7 @@ Type 'q()' to quit R.
 > 
 > library(panelPomp,quietly=TRUE)
 > 
-> ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+> ppo <- panelRandomWalk(U=3,N=4)
 > 
 > seeds <- c(21125715L,81902071L,86680005L,29971689L,73376915L)
 > 
@@ -31,21 +29,21 @@ Type 'q()' to quit R.
 +   print(unitlogLik(pf))
 +   print(logLik(pf))
 + }
-      rw1       rw2 
--5.989446 -8.714786 
-[1] -14.70423
-      rw1       rw2 
--6.427359 -8.675708 
-[1] -15.10307
-      rw1       rw2 
--6.922634 -7.845590 
-[1] -14.76822
-      rw1       rw2 
--6.391707 -9.008469 
-[1] -15.40018
-      rw1       rw2 
--7.189965 -8.640094 
-[1] -15.83006
+      rw1       rw2       rw3 
+-9.693242 -7.958418 -5.702933 
+[1] -23.35459
+      rw1       rw2       rw3 
+-9.939198 -9.169043 -5.679824 
+[1] -24.78806
+      rw1       rw2       rw3 
+-8.860156 -7.318119 -6.049635 
+[1] -22.22791
+      rw1       rw2       rw3 
+-7.809090 -8.144534 -5.255597 
+[1] -21.20922
+      rw1       rw2       rw3 
+-8.512685 -6.536669 -6.036917 
+[1] -21.08627
 > 
 > for (s in seq_along(seeds)) {
 +   set.seed(seeds[s])
@@ -57,84 +55,87 @@ Type 'q()' to quit R.
 +   print(logLik(mf))
 +   print(traces(mf))
 + }
-   sigmaX    sigmaY 
-0.9348033 1.0000000 
+  sigmaX   sigmaY 
+1.078101 1.000000 
         unit
-variable       rw1      rw2
-     X.0 0.7494607 1.380992
-      rw1       rw2 
--6.233642 -7.336813 
-[1] -13.57046
+variable       rw1       rw2      rw3
+     X.0 0.9995142 0.6630938 1.546127
+       rw1        rw2        rw3 
+-10.308758  -7.274029  -5.310702 
+[1] -22.89349
+         variable
+iteration    loglik   sigmaX sigmaY unitLoglik[rw1]  X.0[rw1] unitLoglik[rw2]
+        0 -22.89349 1.000000      1       -10.30876 1.0000000       -7.274029
+        1        NA 1.078101      1              NA 0.9995142              NA
+         variable
+iteration  X.0[rw2] unitLoglik[rw3] X.0[rw3]
+        0 1.0000000       -5.310702 1.000000
+        1 0.6630938              NA 1.546127
+   sigmaX    sigmaY 
+0.8366933 1.0000000 
+        unit
+variable       rw1     rw2      rw3
+     X.0 0.1609146 1.56302 1.238118
+      rw1       rw2       rw3 
+-8.853153 -8.303707 -5.563768 
+[1] -22.72063
          variable
 iteration    loglik    sigmaX sigmaY unitLoglik[rw1]  X.0[rw1] unitLoglik[rw2]
-        0 -13.57046 1.0000000      1       -6.233642 1.0000000       -7.336813
-        1        NA 0.9348033      1              NA 0.7494607              NA
+        0 -22.72063 1.0000000      1       -8.853153 1.0000000       -8.303707
+        1        NA 0.8366933      1              NA 0.1609146              NA
          variable
-iteration X.0[rw2]
-        0 1.000000
-        1 1.380992
+iteration X.0[rw2] unitLoglik[rw3] X.0[rw3]
+        0  1.00000       -5.563768 1.000000
+        1  1.56302              NA 1.238118
    sigmaX    sigmaY 
-0.6828127 1.0000000 
+0.7177845 1.0000000 
         unit
-variable      rw1       rw2
-     X.0 2.034284 0.7221263
-      rw1       rw2 
--6.034874 -9.113273 
-[1] -15.14815
+variable       rw1      rw2      rw3
+     X.0 0.3572861 1.608191 1.214683
+       rw1        rw2        rw3 
+-10.032511  -8.120632  -5.503718 
+[1] -23.65686
          variable
-iteration    loglik    sigmaX sigmaY unitLoglik[rw1] X.0[rw1] unitLoglik[rw2]
-        0 -15.14815 1.0000000      1       -6.034874 1.000000       -9.113273
-        1        NA 0.6828127      1              NA 2.034284              NA
+iteration    loglik    sigmaX sigmaY unitLoglik[rw1]  X.0[rw1] unitLoglik[rw2]
+        0 -23.65686 1.0000000      1       -10.03251 1.0000000       -8.120632
+        1        NA 0.7177845      1              NA 0.3572861              NA
          variable
-iteration  X.0[rw2]
-        0 1.0000000
-        1 0.7221263
+iteration X.0[rw2] unitLoglik[rw3] X.0[rw3]
+        0 1.000000       -5.503718 1.000000
+        1 1.608191              NA 1.214683
    sigmaX    sigmaY 
-0.9309536 1.0000000 
+0.9576311 1.0000000 
         unit
-variable      rw1     rw2
-     X.0 1.139014 1.93792
-      rw1       rw2 
--6.598561 -9.566110 
-[1] -16.16467
+variable       rw1       rw2      rw3
+     X.0 0.2445654 0.6539408 1.133491
+      rw1       rw2       rw3 
+-9.367004 -8.050974 -5.949910 
+[1] -23.36789
          variable
-iteration    loglik    sigmaX sigmaY unitLoglik[rw1] X.0[rw1] unitLoglik[rw2]
-        0 -16.16467 1.0000000      1       -6.598561 1.000000        -9.56611
-        1        NA 0.9309536      1              NA 1.139014              NA
+iteration    loglik    sigmaX sigmaY unitLoglik[rw1]  X.0[rw1] unitLoglik[rw2]
+        0 -23.36789 1.0000000      1       -9.367004 1.0000000       -8.050974
+        1        NA 0.9576311      1              NA 0.2445654              NA
          variable
-iteration X.0[rw2]
-        0  1.00000
-        1  1.93792
-  sigmaX   sigmaY 
-1.026614 1.000000 
+iteration  X.0[rw2] unitLoglik[rw3] X.0[rw3]
+        0 1.0000000        -5.94991 1.000000
+        1 0.6539408              NA 1.133491
+   sigmaX    sigmaY 
+0.8674928 1.0000000 
         unit
-variable       rw1       rw2
-     X.0 0.3549989 0.6878978
-      rw1       rw2 
--6.709911 -8.262543 
-[1] -14.97245
+variable      rw1      rw2      rw3
+     X.0 1.352745 1.253761 1.459401
+      rw1       rw2       rw3 
+-9.720848 -6.949583 -5.832371 
+[1] -22.5028
          variable
-iteration    loglik   sigmaX sigmaY unitLoglik[rw1]  X.0[rw1] unitLoglik[rw2]
-        0 -14.97245 1.000000      1       -6.709911 1.0000000       -8.262543
-        1        NA 1.026614      1              NA 0.3549989              NA
+iteration   loglik    sigmaX sigmaY unitLoglik[rw1] X.0[rw1] unitLoglik[rw2]
+        0 -22.5028 1.0000000      1       -9.720848 1.000000       -6.949583
+        1       NA 0.8674928      1              NA 1.352745              NA
          variable
-iteration  X.0[rw2]
-        0 1.0000000
-        1 0.6878978
-  sigmaX   sigmaY 
-1.028653 1.000000 
-        unit
-variable       rw1      rw2
-     X.0 0.4824871 1.952893
-      rw1       rw2 
--5.973952 -8.109600 
-[1] -14.08355
-         variable
-iteration    loglik   sigmaX sigmaY unitLoglik[rw1]  X.0[rw1] unitLoglik[rw2]
-        0 -14.08355 1.000000      1       -5.973952 1.0000000         -8.1096
-        1        NA 1.028653      1              NA 0.4824871              NA
-         variable
-iteration X.0[rw2]
-        0 1.000000
-        1 1.952893
+iteration X.0[rw2] unitLoglik[rw3] X.0[rw3]
+        0 1.000000       -5.832371 1.000000
+        1 1.253761              NA 1.459401
 > 
+> proc.time()
+   user  system elapsed 
+  1.973   0.529   2.937 

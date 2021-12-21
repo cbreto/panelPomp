@@ -4,7 +4,7 @@ TESTS_PASS <- NULL
 test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
-pg <- try(panelPomp:::pompExample(pangomp,envir=NULL)[[1]])
+pg <- panelGompertz(U=3,N=4)
 gompertz <- as(pg,"list")[[1]]
 coef(gompertz) <- c(pparams(pg)$sh, pparams(pg)$sp[,1])
 

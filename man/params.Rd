@@ -17,6 +17,8 @@ toVectorPparams(pParams)
 \item{vec_pars}{A one-row \code{data.frame} with format matching that of the 
 output of \link{toVectorPparams}.}
 
+\item{listPparams}{PanelPomp parameters in list format}
+
 \item{pParams}{A list with the format of the \code{pParams} slot of \code{panelPomp} objects.}
 }
 \description{
