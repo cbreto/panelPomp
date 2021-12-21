@@ -72,6 +72,23 @@ ppf <- pfilter(ppo,Np=10)
 test(dim(as(ppf,"data.frame")),c(8L,5L))
 test(names(as(ppf,"data.frame")),c("t", "Y", "ess", "cond.logLik", "unit"))
 
+## test whether matching by unit name works
+  g <- panelGompertz(U=10,N=3)
+  ## check that previously broken code runs without error
+  g0 <- pfilter(g, Np=10,
+    shared=pParams(coef(g))$shared,
+    specific=pParams(coef(g))$specific)
+  ## a longer stronger test
+  long_test <- FALSE
+  if(long_test){
+    set.seed(12323218)
+    g1 <- pfilter(g, Np=10000,
+      shared=pParams(coef(g))$shared,
+      specific=pParams(coef(g))$specific)
+    g2 <- pfilter(g, Np=10000)
+    test(abs(logLik(p1)-logLik(p2))<0.2, TRUE)
+  }
+
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")

@@ -44,12 +44,12 @@ pfilter.internal <- function(object, params, Np,
   matrixpParams <- toMatrixPparams(params)
   U <- length(object)
   pfilterd.pomp.list <- setNames(vector(mode="list",length=U),
-                                 names(unitobjects(object)))
-  for (i.u in 1:U) {
-    pfilterd.pomp.list[[i.u]] <-
+                                 names(object))
+  for (unit in names(object)) {
+    pfilterd.pomp.list[[unit]] <-
       pomp::pfilter(
-        object@unit.objects[[i.u]],
-        params = matrixpParams[, i.u],
+        object@unit.objects[[unit]],
+        params = matrixpParams[,unit],
         Np = Np,
         ...
       )
@@ -149,7 +149,7 @@ setMethod(
              sQuote("object@specific"),".",call.=FALSE
         )
       }
-      if (!identical(x = colnames(object@specific), y = colnames(specific))){
+      if (!setequal(x = colnames(object@specific), y = colnames(specific))){
         stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
              sQuote("object@specific"),".", call.=FALSE
         )

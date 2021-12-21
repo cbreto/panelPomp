@@ -3,10 +3,13 @@
 \name{params}
 \alias{params}
 \alias{fromVectorPparams}
+\alias{toMatrixPparams}
 \alias{toVectorPparams}
 \title{Convert to and from a \code{panelPomp} object \code{pParams} slot format and a one-row \code{data.frame}}
 \usage{
 fromVectorPparams(vec_pars)
+
+toMatrixPparams(listPparams)
 
 toVectorPparams(pParams)
 }
