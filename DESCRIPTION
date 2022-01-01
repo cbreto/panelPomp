@@ -40,6 +40,7 @@ Collate:
     'panelGompertz.R'
     'kalman_gompertz.R'
     'contacts.R'
+    'panelGompertzLikelihood.R'
     'panelRandomWalk.R'
     'plot.R'
     'simulate.R'
