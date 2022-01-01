@@ -1,0 +1,66 @@
+
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> 
+> library(panelPomp,quietly=TRUE)
+> if (file.exists("options.R")) source("options.R")
+> 
+> TESTS_PASS <- NULL
+> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
++   panelPomp:::test(expr1,expr2,all=all,env=env,...)
+> 
+> g <- panelGompertz(N=5,U=2)
+> estNames<- c("r",paste0("tau[unit",1:length(g),"]"))
+> theta_start <- coef(g)[estNames]
+> gLik <- panelGompertzLikelihood(theta_start,g,coef(g))
+> gLik
+[1] -2.122622
+> 
+> stew(file="panelGompertzLikelihood.rda",{
++   set.seed(2358)
++   g_pfLik <- logLik(pfilter(g,Np=5000))
++ })
+> test(abs(g_pfLik-gLik)<1,TRUE)
+[1] TRUE
+> 
+> gMLE <- optim(
++     par=theta_start,
++     fn=panelGompertzLikelihood,
++     panelPompObject=g,
++     params=coef(g),
++     hessian=TRUE,
++     control=list(trace=0,fnscale=-1)
++   )
+> 
+> gMLE$val
+[1] -0.6954027
+> gMLE$par
+          r  tau[unit1]  tau[unit2] 
+-0.05145418  0.14961755  0.17785801 
+> theta_start
+         r tau[unit1] tau[unit2] 
+       0.1        0.1        0.1 
+> 
+> ## check whether all tests passed
+> all(get(eval(formals(test))$all))
+[1] TRUE
+> if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+> 
+> 
+> 
