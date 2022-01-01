@@ -26,6 +26,7 @@ Encoding: UTF-8
 Collate: 
     'package.R'
     'aaa.R'
+    'contacts.R'
     'generics.R'
     'get_col_row.R'
     'panel_loglik.R'
@@ -38,8 +39,6 @@ Collate:
     'mif2.R'
     'mif2_methods.R'
     'panelGompertz.R'
-    'kalman_gompertz.R'
-    'contacts.R'
     'panelGompertzLikelihood.R'
     'panelRandomWalk.R'
     'plot.R'

@@ -1,6 +1,3 @@
-#' @include kalman_gompertz.R
-NULL
-
 ##' Contacts model
 ##'
 ##' A panel model for dynamic variation in sexual contacts, with
