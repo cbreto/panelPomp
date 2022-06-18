@@ -44,12 +44,12 @@ pfilter.internal <- function(object, params, Np,
   matrixpParams <- toMatrixPparams(params)
   U <- length(object)
   pfilterd.pomp.list <- setNames(vector(mode="list",length=U),
-                                 names(unitobjects(object)))
-  for (i.u in 1:U) {
-    pfilterd.pomp.list[[i.u]] <-
+                                 names(object))
+  for (unit in names(object)) {
+    pfilterd.pomp.list[[unit]] <-
       pomp::pfilter(
-        object@unit.objects[[i.u]],
-        params = matrixpParams[, i.u],
+        object@unit.objects[[unit]],
+        params = matrixpParams[,unit],
         Np = Np,
         ...
       )
@@ -99,24 +99,6 @@ setMethod(
       if (!missing(params)) specific <- params$specific 
       else specific <- object@specific
     }
-    
-    # This causes an unintended stop in panelPomp objects that genuinely have 
-    # no shared parameters      
-    #if (identical(shared,numeric(0))) {
-    #  stop(ep,"if ",sQuote("object@shared")," is empty, shared 
-    #       parameters must be specified in either ",sQuote("shared"),
-    #       " or as part of ",sQuote("params"),".",call.=FALSE
-    #  )
-    #}
-    # Obsolete check: valid panelPomps won't have completely empty sp matrix
-    #if (identical(specific,array(numeric(0),dim=c(0,0)))) {
-    #  stop(ep,"if ",sQuote("object@specific")," is empty, specific 
-    #       parameters must be specified in either ",sQuote("specific"),
-    #       " or as part of ",sQuote("params"),".",call.=FALSE
-    #  )
-    #}
-    # if the pParams slot is not empty, check that the shared and specific 
-    # structure of any provided starting values match the pParams slot
     if (!is.null(object@shared)){
       if (
         !identical(
@@ -149,8 +131,8 @@ setMethod(
              sQuote("object@specific"),".",call.=FALSE
         )
       }
-      if (!identical(x = colnames(object@specific), y = colnames(specific))){
-        stop(ep, "colnames of ", sQuote("specific"), " must be identical to those of ", 
+      if (!setequal(x = colnames(object@specific), y = colnames(specific))){
+        stop(ep, "colnames of ", sQuote("specific"), " must match those of ", 
              sQuote("object@specific"),".", call.=FALSE
         )
       }

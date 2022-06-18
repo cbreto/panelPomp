@@ -1,8 +1,5 @@
 ## generic functions
 
-#' @include example.R
-NULL
-
 #' @title \code{pParams} generic.
 #' @description \code{pParams} generic function.
 #' @details This is a generic function: methods can be defined for it.

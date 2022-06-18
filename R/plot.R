@@ -1,5 +1,3 @@
-#' @include contacts.R
-NULL
 
 ##' panelPomp plotting facilities
 ##'
@@ -49,7 +47,7 @@ setMethod(
   }
   for(u in 1:U) plot(x=x[[u]],variables=variables,
       panel=panel,nc=nc,yax.flip=yax.flip,
-      mar=mar,oma=oma,axes=axes,...)
+      mar=mar,oma=oma,axes=axes,main=names(x)[u],...)
   }
 )
 

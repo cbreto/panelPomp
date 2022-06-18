@@ -70,6 +70,9 @@ toListPparams <- function(
 }
 
 ## Go to matrix-form pparams from list specification
+#' @rdname params
+#' @export
+#' @param listPparams PanelPomp parameters in list format
 toMatrixPparams <- function(listPparams) {
   common.params <- listPparams[[which(sapply(listPparams, is.vector))]]
   specific.params <- listPparams[[which(sapply(listPparams, is.matrix))]]

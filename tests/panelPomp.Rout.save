@@ -1,13 +1,11 @@
 
-R version 4.1.1 (2021-08-10) -- "Kick Things"
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
 Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -23,7 +21,7 @@ Type 'q()' to quit R.
 > test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
 +   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 > 
-> pg <- panelPompExample(pangomp)
+> pg <- panelGompertz(U=5,N=3)
 > pg <- panelPomp(pg[1:3])
 > pgl <- as(pg,"list")
 > g <- pgl[[1]]; coef(g) <- c(pparams(pg)$sh, pparams(pg)$sp[,1])
@@ -58,52 +56,46 @@ tau[unit3] X.0[unit3]
 X.0[unit2]   r[unit2]   K[unit3] tau[unit3] X.0[unit3]   r[unit3] 
        1.0        0.1        1.0        0.1        1.0        0.1 
 > try(panelPomp(pg,specific=c("tau","X.0"),params=c(r=3,K=1)))
-Error : in ‘panelPomp’: specify EITHER ‘params’ OR ‘shared’ and/or ‘specific’.
+Error : in 'panelPomp': specify EITHER 'params' OR 'shared' and/or 'specific'.
 > stopifnot(all.equal(coef(panelPomp(pg,params=coef(g))),coef(g)))
 > try(panelPomp(pg,params=list(bob=3,nancy="A")))
-Error : in ‘panelPomp’: ‘params’ must be a named numeric vector
+Error : in 'panelPomp': 'params' must be a named numeric vector
 > try(panelPomp(pg,shared=c("r","K")))
-Error : in ‘panelPomp’: ‘shared’ must be a named numeric vector or NULL
+Error : in 'panelPomp': 'shared' must be a named numeric vector or NULL
 > try(panelPomp(pg,specific=c(0.3)))
-Error : in ‘panelPomp’: if given as a vector, ‘specific’ must have names
+Error : in 'panelPomp': if given as a vector, 'specific' must have names
 > coef(panelPomp(pg,specific=c(r=0.3)))
    sigma r[unit1] r[unit2] r[unit3] 
      0.1      0.3      0.3      0.3 
 > try(panelPomp(pg,specific="h"))
-Error : in ‘panelPomp’: the following parameters are to be treated as specific, but no values for them are specified: ‘h’
+Error : in 'panelPomp': the following parameters are to be treated as specific, but no values for them are specified: 'h'
 > try(panelPomp(pg,specific="h",shared=c(r=33)))
-Error : in ‘panelPomp’: the following parameters are to be treated as specific, but no values for them are specified: ‘h’
+Error : in 'panelPomp': the following parameters are to be treated as specific, but no values for them are specified: 'h'
 > try(panelPomp(pg,specific=list(r=0.3,K=9)))
-Error : in ‘panelPomp’: ‘specific’ must be furnished as a numeric matrix, a numeric vector, or a character vector
+Error : in 'panelPomp': 'specific' must be furnished as a numeric matrix, a numeric vector, or a character vector
 > coef(panelPomp(pg,specific=c("tau","X.0"),shared=c(r=3,K=1)))
          r          K tau[unit1] X.0[unit1] tau[unit2] X.0[unit2] tau[unit3] 
        3.0        1.0        0.1        1.0        0.1        1.0        0.1 
 X.0[unit3] 
        1.0 
 > try(panelPomp(setNames(pgl,c("a","b",""))))
-Error : in ‘panelPomp’: empty unit names are not permitted
+Error : in 'panelPomp': empty unit names are not permitted
 > coef(pgl[[2]]) <- c(h=3)
 > try(po <- panelPomp(pgl))
 Warning message:
-in ‘panelPomp’: NAs in specific parameters 
+in 'panelPomp': NAs in specific parameters 
 > try(panelPomp(pgl[[1]]))
-Error : in ‘panelPomp’: ‘object’ must be either a ‘panelPomp’ object or a list of ‘pomp’ objects.
+Error : in 'panelPomp': 'object' must be either a 'panelPomp' object or a list of 'pomp' objects.
 > 
 > 
 > 
-> ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+> ppo <- panelRandomWalk(U=2,N=5)
 > pos <- as(ppo,"list")
 > pPs <- pparams(ppo)
 > all_sh <- c(pPs$sh,get_col(pPs$sp,col=1,rows=seq_along(dim(pPs$sp)[1])))
 > 
 > noparams <- lapply(unitobjects(ppo),pomp,params=numeric(0))
-> #somepars <- setNames(c(as(ppo,"list"),noparams[[1]]),c(names(ppo),"rw3"))
 > 
-> # test ''pomps'' with same parameters
-> # one unit panels
-> #test(pparams(panelPomp(noparams[1])),pparams(new("panelPomp")))
-> #test(pparams(panelPomp(somepars[1]))$shared,pparams(new("panelPomp"))$shared)
-> #test(pparams(panelPomp(ppo[1]))$sp[names(all_sh),1],all_sh)
 > 
 > ep <- "Error : in ''panelPomp'': "
 > ## test checks for missing arguments in panelPomp function
@@ -118,42 +110,21 @@ Error : in ‘panelPomp’: ‘object’ must be either a ‘panelPomp’ object
 +              "\n"),
 +      panelPomp(pos,sh=2*pPs$sh,sp=2*pPs$sp,params=pPs))
 [1] TRUE
+> 
+> 
 > ## test construction of pParams slot ...
 > ## ... when is(object,"pompList") ...
-> #test(panelPomp(pos)@pParams,list(shared=numeric(),specific=sapply(pos,coef)))
-> #test(panelPomp(pos,sh=pPs$sh,par=lapply(pPs,`*`,2))@pParams$sp,2*pPs$sp)
-> #test(panelPomp(pos,sp=2*pPs$sp,par=pPs)@pParams$sp,2*pPs$sp)
-> #test(panelPomp(pos,sp=pPs$sp,par=lapply(pPs,`*`,2))@pParams$sh,2*pPs$sh)
-> test(panelPomp(pos,params=coef(ppo)),ppo)
+> test(as(panelPomp(pos,params=coef(ppo)),"data.frame"),
++      as(ppo,"data.frame"))
 [1] TRUE
 > # noparams
-> #test(pparams(panelPomp(noparams)),pparams(new("panelPomp")))
-> test(unitobjects(panelPomp(noparams)),lapply(pos,`coef<-`,value=numeric(0)))
+> test(obs(unitobjects(panelPomp(noparams))[[1]]),
++      obs(lapply(pos,`coef<-`,value=numeric(0))[[1]]) )
 [1] TRUE
 > # someparams
-> #test(wQuotes(
-> #  ep,"the parameter names of all ''pomp'' objects must be the same (albeit ",
-> #  "''pomp'' codes can ignore parameters that are irrelevant to any given ",
-> #  "unit)\n"),
-> #  panelPomp(somepars))
-> ## ... and when is(object,"panelPomp")
-> #test(wQuotes(ep,"if ''shared'' is a character vector (or NULL), unit specific ",
-> #             "parameters are taken from ''object''.\n"),
-> #     panelPomp(ppo,sh="sigmaX",params=pPs))
-> #test(panelPomp(ppo,sh="sigmaX")@pParams,
-> #     list(shared=pPs$sh["sigmaX"],specific=rbind(sigmaY=pPs$sh["sigmaY"],pPs$sp)))
-> #test(panelPomp(ppo,sh=NULL)@pParams,
-> #     list(shared=numeric(),
-> #          specific=rbind(sigmaX=pPs$sh["sigmaX"],sigmaY=pPs$sh["sigmaY"],pPs$sp)))
-> test(panelPomp(ppo,params=coef(ppo)),ppo)
+> test(as(panelPomp(ppo,params=coef(ppo)),"data.frame"),
++      as(ppo,"data.frame"))
 [1] TRUE
-> 
-> # all_sh
-> #test(pparams(panelPomp(object=unitobjects(ppo),params=all_sh)),
-> #     list(shared=all_sh,specific=
-> #            array(numeric(0),dim=c(0,length(pos)),
-> #                  dimnames=list(param=character(0),unit=names(pos)))))
-> 
 > 
 > test(wQuotes(ep,"''object'' is a required argument.\n"),
 +      panelPomp(shared=ppo@shared,specific=ppo@specific))
@@ -162,9 +133,9 @@ Error : in ‘panelPomp’: ‘object’ must be either a ‘panelPomp’ object
 > test(wQuotes(ep,
 +              "column names of ''specific'' must correspond to names of units",
 +              "\n"),
-+      {sp_rw3 <- ppo@specific
-+      dimnames(sp_rw3)$unit <- c("rw1","rw3")
-+      panelPomp(ppo,shared=ppo@shared,specific=sp_rw3)})
++      {sp_rw2 <- ppo@specific
++      colnames(sp_rw2) <- c("rw1","rw3")
++      panelPomp(ppo,shared=ppo@shared,specific=sp_rw2)})
 [1] TRUE
 > 
 > test(wQuotes(ep,"a parameter cannot be both shared and specific!\n"),
@@ -175,7 +146,7 @@ Error : in ‘panelPomp’: ‘object’ must be either a ‘panelPomp’ object
 +   "Error in validObject(.Object) : \n  invalid class *panelPomp* object: a ",
 +   "parameter cannot be both shared and specific!\n"),
 +   {sp_sigma <- ppo@specific
-+   dimnames(sp_sigma)$param <- "sigmaX"
++   rownames(sp_sigma) <- "sigmaX"
 +   panelPomp(ppo,shared=ppo@shared,specific=sp_sigma)})
 [1] TRUE
 > 
@@ -186,3 +157,6 @@ Error : in ‘panelPomp’: ‘object’ must be either a ‘panelPomp’ object
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 > 
+> proc.time()
+   user  system elapsed 
+  2.204   0.907   4.000 

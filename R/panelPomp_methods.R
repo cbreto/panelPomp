@@ -212,14 +212,35 @@ setMethod(
 ## coerce method
 #' @title Coercing \code{panelPomp} objects as a \code{list}
 #' @description Extracts the \code{unit.objects} slot of \code{panelPomp} 
-#' objects.
+#' objects and attaches the associated parameters.
 #' @name as
 #' @family panelPomp methods
-setAs(from="panelPomp",to="list",def = function (from) from@unit.objects)
+setAs(from="panelPomp",to="list",def = function (from) {
+  plist <- from@unit.objects
+  shared <- from@shared
+  specific <- from@specific
+  for(u in 1:length(plist)) {
+    coef(plist[[u]]) <- c(shared,setNames(specific[,u],rownames(specific)))
+  }
+  plist
+})
+
+#' @title Coercing \code{panelPomp} objects as a \code{pompList}
+#' @description Extracts the \code{unit.objects} slot of \code{panelPomp} 
+#' objects and attaches the associated parameters, converting the
+#' resulting list to a pompList to help the assignment of pomp methods.
+#' @name as
+#' @family panelPomp methods
+setAs(from="panelPomp",to="pompList",def = function (from) {
+  plist <- as(from,"list")
+  class(plist) <- "pompList"
+  plist
+})
 
 ## coerce method
 #' @title Coercing \code{panelPomp} objects as a \code{data.frame}
-#' @description Coerces a \code{panelPomp} into a data frame.
+#' @description Coerces a \code{panelPomp} into a data frame,
+#' assuming units share common variable names.
 #' @name as
 #' @family panelPomp methods
 setAs(from="panelPomp",to="data.frame",

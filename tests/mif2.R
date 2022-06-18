@@ -5,7 +5,7 @@ TESTS_PASS <- NULL
 test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
-ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+ppo <- panelPomp:::panelRandomWalk(U=2,N=5)
 po <- ppo[[1]]
 
 ep <- wQuotes("Error : in ''mif2'': ")

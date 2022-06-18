@@ -1,13 +1,11 @@
 
-R version 4.1.1 (2021-08-10) -- "Kick Things"
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
 Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -18,15 +16,15 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 
 > library(panelPomp,quietly=TRUE)
->
+> 
 > TESTS_PASS <- NULL
 > test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
 +   panelPomp:::test(expr1,expr2,all=all,env=env,...)
->
-> pg <- try(panelPomp:::pompExample(pangomp,envir=NULL)[[1]])
+> 
+> pg <- panelGompertz(U=3,N=4)
 > gompertz <- as(pg,"list")[[1]]
 > coef(gompertz) <- c(pparams(pg)$sh, pparams(pg)$sp[,1])
->
+> 
 > shgomp <- gompertz
 > time(shgomp) <- time(gompertz)[1:2]
 > shgomp@data <- gompertz@data[,1:length(time(shgomp)),drop=FALSE]
@@ -71,9 +69,12 @@ Type 'q()' to quit R.
 +                silent=TRUE))[1],
 +      "try-error")
 [1] TRUE
->
+> 
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
->
+> 
+> proc.time()
+   user  system elapsed 
+  1.830   0.555   2.857 

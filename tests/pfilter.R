@@ -4,7 +4,7 @@ TESTS_PASS <- NULL
 test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
-ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+ppo <- panelRandomWalk(U=1,N=7)
 pos <- as(ppo,"list")
 po <- pos[[1]]
 pPs <- pparams(ppo)
@@ -48,13 +48,13 @@ ppf <- pfilter(ppo,sh=ppo@shared,sp=ppo@specific,Np=10)
 set.seed(21125715L)
 ppf_<-pfilter(ppo,params=list(shared=ppo@shared,specific=ppo@specific),Np=10)
 test(logLik(ppf),logLik(ppf_))
-numeric_names <- setNames(rep(1,4),c(names(ppo@shared),"X.0[rw1]","X.0[rw2]"))
+numeric_names <- setNames(rep(1,3),c(names(ppo@shared),"X.0[rw1]"))
 identical(pPs,pParams(numeric_names))
 set.seed(21125715L)
 ppf__<-pfilter(ppo,params=numeric_names,Np=10)
 test(logLik(ppf),logLik(ppf__))
 ## wrong unit names
-test(wQuotes(ep,"colnames of ''specific'' must be identical to those of ",
+test(wQuotes(ep,"colnames of ''specific'' must match those of ",
   "''object@specific''.\n"),
   quote({sp <- ppo@specific;colnames(sp) <- paste0(colnames(sp), "_")
   pfilter(ppo,sp=sp,Np=10)}))
@@ -69,8 +69,25 @@ test(wQuotes(ep,"names of ''shared'' must match those of ",
   pfilter(ppo,sh=c(sth = 0),Np=10))
 
 ppf <- pfilter(ppo,Np=10)
-test(dim(as(ppf,"data.frame")),c(8L,5L))
+test(dim(as(ppf,"data.frame")),c(7L,5L))
 test(names(as(ppf,"data.frame")),c("t", "Y", "ess", "cond.logLik", "unit"))
+
+## test whether matching by unit name works
+  g <- panelGompertz(U=10,N=3)
+  ## check that previously broken code runs without error
+  g0 <- pfilter(g, Np=10,
+    shared=pParams(coef(g))$shared,
+    specific=pParams(coef(g))$specific)
+  ## a longer stronger test
+  long_test <- FALSE
+  if(long_test){
+    set.seed(12323218)
+    g1 <- pfilter(g, Np=10000,
+      shared=pParams(coef(g))$shared,
+      specific=pParams(coef(g))$specific)
+    g2 <- pfilter(g, Np=10000)
+    test(abs(logLik(p1)-logLik(p2))<0.2, TRUE)
+  }
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))

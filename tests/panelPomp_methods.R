@@ -6,25 +6,21 @@ TESTS_PASS <- NULL
 test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
-ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+ppo <- panelRandomWalk(U=2,N=5)
 pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
             specific=matrix(c(0,0.1),nr=1,
                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
 ppo <- panelPomp(unitobjects(ppo),shared=pP2$shared,specific=pP2$specific)
 # other definitions from old test file
-pg <- panelPompExample(pangomp)
+pg <- panelGompertz(U=3,N=5)
 pgl <- as(pg,"list")
 g <- pgl[[1]]; coef(g) <- c(pparams(pg)$sh, pparams(pg)$sp[,1])
 pp <- panelPomp(list(g,g),shared=pg@shared,
                 specific=pg@specific[,1:2])
 
-
-
 ## coef,panelPomp-method
 test(coef(ppo),
      setNames(c(1,2,0,0.1),c("sigmaX","sigmaY","X.0[rw1]","X.0[rw2]")))
-
-
 
 ## coef<-,panelPomp-method
 test(coef(ppo),{coef(ppo) <- 2*coef(ppo);coef(ppo) <- coef(ppo)/2;coef(ppo)})
@@ -75,17 +71,22 @@ coef(ppo[["rw1"]])
 test(length(ppo[1])==1L)
 test(setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]"))),
      coef(ppo[1]))
-test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4),rw2=c(2,3,4)))
+test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4,5),rw2=c(2,3,4,5)))
 test(lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))
 test(length(window(ppo[1:2],start=1,end=2)),2L) 
 test(lapply(as(window(ppo[1],start=1,end=2),"list"),time),list(rw1=c(1,2)))
 
 
 
-## as(,'list') returns list of units
-test(as(pg,"list"),pg@unit.objects)
-test(dim(as(pg,"data.frame")),c(5000L,3L))
-test(names(as(pg,"data.frame")),c("t","Y","unit"))
+## as(,'list') returns list of units with parameters
+test(as(pg,"list")[[1]]@data,pg@unit.objects[[1]]@data)
+
+## as(,'pompList')
+test(as(pg,'pompList')[[1]]@data,pg@unit.objects[[1]]@data)
+
+## test as(,'data.frame')
+test(dim(as(pg,"data.frame")),c(15L,4L))
+test(names(as(pg,"data.frame")),c("t","Y","X","unit"))
 
 ## show
 show(ppo)

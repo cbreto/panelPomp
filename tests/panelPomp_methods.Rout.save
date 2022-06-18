@@ -1,7 +1,7 @@
 
-R version 4.1.1 (2021-08-10) -- "Kick Things"
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
 Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -25,26 +25,22 @@ Type 'q()' to quit R.
 > test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
 +   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 > 
-> ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+> ppo <- panelRandomWalk(U=2,N=5)
 > pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
 +             specific=matrix(c(0,0.1),nr=1,
 +                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
 > ppo <- panelPomp(unitobjects(ppo),shared=pP2$shared,specific=pP2$specific)
 > # other definitions from old test file
-> pg <- panelPompExample(pangomp)
+> pg <- panelGompertz(U=3,N=5)
 > pgl <- as(pg,"list")
 > g <- pgl[[1]]; coef(g) <- c(pparams(pg)$sh, pparams(pg)$sp[,1])
 > pp <- panelPomp(list(g,g),shared=pg@shared,
 +                 specific=pg@specific[,1:2])
 > 
-> 
-> 
 > ## coef,panelPomp-method
 > test(coef(ppo),
 +      setNames(c(1,2,0,0.1),c("sigmaX","sigmaY","X.0[rw1]","X.0[rw2]")))
 [1] TRUE
-> 
-> 
 > 
 > ## coef<-,panelPomp-method
 > test(coef(ppo),{coef(ppo) <- 2*coef(ppo);coef(ppo) <- coef(ppo)/2;coef(ppo)})
@@ -115,7 +111,7 @@ sigmaX sigmaY    X.0
 > test(setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]"))),
 +      coef(ppo[1]))
 [1] TRUE
-> test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4),rw2=c(2,3,4)))
+> test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4,5),rw2=c(2,3,4,5)))
 [1] TRUE
 > test(lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))
 [1] TRUE
@@ -126,12 +122,18 @@ sigmaX sigmaY    X.0
 > 
 > 
 > 
-> ## as(,'list') returns list of units
-> test(as(pg,"list"),pg@unit.objects)
+> ## as(,'list') returns list of units with parameters
+> test(as(pg,"list")[[1]]@data,pg@unit.objects[[1]]@data)
 [1] TRUE
-> test(dim(as(pg,"data.frame")),c(5000L,3L))
+> 
+> ## as(,'pompList')
+> test(as(pg,'pompList')[[1]]@data,pg@unit.objects[[1]]@data)
 [1] TRUE
-> test(names(as(pg,"data.frame")),c("t","Y","unit"))
+> 
+> ## test as(,'data.frame')
+> test(dim(as(pg,"data.frame")),c(15L,4L))
+[1] TRUE
+> test(names(as(pg,"data.frame")),c("t","Y","X","unit"))
 [1] TRUE
 > 
 > ## show

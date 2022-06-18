@@ -3,16 +3,21 @@
 \name{params}
 \alias{params}
 \alias{fromVectorPparams}
+\alias{toMatrixPparams}
 \alias{toVectorPparams}
 \title{Convert to and from a \code{panelPomp} object \code{pParams} slot format and a one-row \code{data.frame}}
 \usage{
 fromVectorPparams(vec_pars)
+
+toMatrixPparams(listPparams)
 
 toVectorPparams(pParams)
 }
 \arguments{
 \item{vec_pars}{A one-row \code{data.frame} with format matching that of the 
 output of \link{toVectorPparams}.}
+
+\item{listPparams}{PanelPomp parameters in list format}
 
 \item{pParams}{A list with the format of the \code{pParams} slot of \code{panelPomp} objects.}
 }

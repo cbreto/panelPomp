@@ -2,7 +2,7 @@
 
 library(panelPomp,quietly=TRUE)
 
-ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+ppo <- panelRandomWalk(U=3,N=4)
 
 seeds <- c(21125715L,81902071L,86680005L,29971689L,73376915L)
 

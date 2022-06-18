@@ -1,13 +1,11 @@
 
-R version 4.1.1 (2021-08-10) -- "Kick Things"
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
 Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -24,7 +22,7 @@ Type 'q()' to quit R.
 > test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
 +   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 > 
-> ppo <- panelPomp:::pompExample(prw,envir=NULL)[[1]]
+> ppo <- panelPomp:::panelRandomWalk(U=2,N=5)
 > po <- ppo[[1]]
 > 
 > ep <- wQuotes("Error : in ''mif2'': ")
@@ -168,3 +166,6 @@ Type 'q()' to quit R.
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 > 
+> proc.time()
+   user  system elapsed 
+  1.888   0.534   3.010 
