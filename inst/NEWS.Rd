@@ -1,5 +1,13 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 0.15.0}{
+  \itemize{
+  \item New coercion to \code{pompList} and update to list.
+  \item \code{panelGompertzLikelihood} replaces \code{kalman_gompertz.R}.
+  \item expunged \code{panelPompExample}.
+  \item Names added to plot; \code{pfilter} matches units by name.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.14.0}{
   \itemize{
     \item New \code{simulate} function.
