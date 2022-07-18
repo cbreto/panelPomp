@@ -5,6 +5,7 @@ README\.md$
 TODO\.md$
 
 ^\.gitignore$
+^\.github
 
 ^.*\.Rproj$
 ^\.Rproj\.user$
