@@ -1,4 +1,5 @@
 REXE = R --vanilla
+RSESSION = emacs -f R
 RCMD = $(REXE) CMD
 RCMD_ALT = R --no-save --no-restore CMD
 RSCRIPT = Rscript --vanilla
@@ -24,7 +25,7 @@ TESTS=$(sort $(wildcard tests/*R))
 default:
 	@echo $(PKGVERS)
 
-.PHONY: binary check clean covr default dist fresh headers htmldocs \
+.PHONY: binary check clean covr default dist fresh headers \
 htmlhelp includes install manual news NEWS publish qcheck qqcheck \
 remove revdeps rhub roxy session tests vignettes win wind xcheck \
 xcovr xxcheck ycheck
@@ -35,23 +36,19 @@ roxy headers dist manual vignettes: export R_HOME=$(shell $(REXE) RHOME)
 check xcheck xxcheck: export FULL_TESTS=yes
 dist revdeps session tests check xcheck xxcheck: export R_KEEP_PKG_SOURCE=yes
 revdeps xcheck tests: export R_PROFILE_USER=$(CURDIR)/.Rprofile
-revdeps session xxcheck htmldocs vignettes data tests manual: export R_LIBS=$(CURDIR)/library
+revdeps session xxcheck vignettes data tests manual: export R_LIBS=$(CURDIR)/library
 session: export R_DEFAULT_PACKAGES=datasets,utils,grDevices,graphics,stats,methods,tidyverse,$(PKG)
+xcheck: export _R_CHECK_DEPENDS_ONLY_=true
 
 inst/include/%.h: src/%.h
 	$(CP) $^ $@
-
-htmldocs: inst/doc/*.html
 
 htmlhelp: install news manual
 	rsync --delete -a library/$(PKG)/html/ $(MANUALDIR)/html
 	rsync --delete --exclude=aliases.rds --exclude=paths.rds --exclude=$(PKG).rdb --exclude=$(PKG).rdx --exclude=macros -a library/$(PKG)/help/ $(MANUALDIR)/help
 	(cd $(MANUALDIR); (cat links.ed && echo w ) | ed - html/00Index.html)
 	$(CP) $(PKG).pdf $(MANUALDIR)
-	$(CP) ../www/assets/R.css $(MANUALDIR)/html
-
-vignettes: manual install
-	$(MAKE)	-C www/vignettes
+	$(CP) $(REPODIR)/assets/R.css $(MANUALDIR)/html
 
 news: library/$(PKG)/html/NEWS.html
 
@@ -64,7 +61,10 @@ library/$(PKG)/html/NEWS.html: inst/NEWS.Rd
 	$(RCMD) Rdconv -t html $^ -o $@
 
 session: install
-	exec $(REXE)
+	exec $(RSESSION)
+
+debug: RSESSION = R -d gdb
+debug: session
 
 revdeps: install
 	mkdir -p library check
@@ -88,7 +88,6 @@ publish: dist manual htmlhelp
 	$(RSCRIPT) -e 'drat::insertPackage("$(PKGVERS).tar.gz",repodir="$(REPODIR)",action="prune")'
 	-$(RSCRIPT) -e 'drat::insertPackage("$(PKGVERS).tgz",repodir="$(REPODIR)",action="prune")'
 	-$(RSCRIPT) -e 'drat::insertPackage("$(PKGVERS).zip",repodir="$(REPODIR)",action="prune")'
-	$(CP) $(PKG).pdf $(MANUALDIR)
 
 rhub:
 	$(REXE) -e 'library(rhub); check_for_cran(); check_on_windows(); check(platform="macos-highsierra-release-cran");'
@@ -155,8 +154,6 @@ remove:
 
 fresh: clean remove
 
-inst/doc/*.html: install 
-
 %.tex: %.Rnw
 	$(RSCRIPT) -e "library(knitr); knit(\"$*.Rnw\")"
 
@@ -192,8 +189,7 @@ inst/doc/*.html: install
 
 clean:
 	$(RM) -r check
-	$(RM) src/*.o src/*.so src/symbols.rds www/vignettes/Rplots.*
-	$(RM) -r inst/doc/figure inst/doc/cache
+	$(RM) src/*.o src/*.so src/symbols.rds
 	$(RM) -r lib
 	$(RM) -r *-Ex.Rout *-Ex.timings *-Ex.pdf
 	$(RM) *.tar.gz $(PKGVERS).zip $(PKGVERS).tgz $(PKG).pdf
