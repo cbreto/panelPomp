@@ -66,11 +66,6 @@ be used for all panel units. If a \code{list} of such expressions of the
 same length as the \code{object} argument is provided, each list element
 will be used for the corresponding panel unit.}
 
-\item{cooling.type}{specifications for the cooling schedule,
-i.e., the manner and rate with which the intensity of the parameter perturbations is reduced with successive filtering iterations.
-\code{cooling.type} specifies the nature of the cooling schedule.
-See below (under \dQuote{Specifying the perturbations}) for more detail.}
-
 \item{cooling.fraction.50}{cooling.fraction.50 (seems to cause an error if
 documentation inherited from 'pomp' package).}
 
