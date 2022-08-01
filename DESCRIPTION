@@ -21,7 +21,7 @@ Depends:
     pomp(>= 4.0.0)
 Imports:
     methods
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Encoding: UTF-8
 Collate: 
     'package.R'
