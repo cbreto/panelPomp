@@ -29,8 +29,6 @@ NULL
 #' be used for all panel units. If a \code{list} of such expressions of the
 #' same length as the \code{object} argument is provided, each list element
 #' will be used for the corresponding panel unit.
-#' @param cooling.fraction.50 cooling.fraction.50 (seems to cause an error if
-#' documentation inherited from 'pomp' package).
 #' @name mif2
 #' @references \breto2018
 #'
