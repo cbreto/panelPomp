@@ -25,23 +25,31 @@ TESTS=$(sort $(wildcard tests/*R))
 default:
 	@echo $(PKGVERS)
 
-.PHONY: binary check clean covr default dist fresh headers \
-htmlhelp includes install manual news NEWS publish qcheck qqcheck \
-remove revdeps rhub roxy session tests vignettes win wind xcheck \
+.PHONY: binary check clean covr debug default fresh \
+htmlhelp manual news publish qcheck qqcheck \
+remove revdeps rhub rsession session vignettes win wind xcheck \
 xcovr xxcheck ycheck
 
-dist manual vignettes: export R_QPDF=qpdf
-headers: export LC_COLLATE=C
-roxy headers dist manual vignettes: export R_HOME=$(shell $(REXE) RHOME)
+.dist manual vignettes: export R_QPDF=qpdf
+.headers: export LC_COLLATE=C
+.roxy .headers .dist manual vignettes: export R_HOME=$(shell $(REXE) RHOME)
 check xcheck xxcheck: export FULL_TESTS=yes
-dist revdeps session tests check xcheck xxcheck: export R_KEEP_PKG_SOURCE=yes
-revdeps xcheck tests: export R_PROFILE_USER=$(CURDIR)/.Rprofile
-revdeps session xxcheck vignettes data tests manual: export R_LIBS=$(CURDIR)/library
+.dist .tests revdeps session check xcheck xxcheck: export R_KEEP_PKG_SOURCE=yes
+.tests revdeps xcheck: export R_PROFILE_USER=$(CURDIR)/.Rprofile
+.tests revdeps session xxcheck vignettes data manual: export R_LIBS=$(CURDIR)/library
 session: export R_DEFAULT_PACKAGES=datasets,utils,grDevices,graphics,stats,methods,tidyverse,$(PKG)
 xcheck: export _R_CHECK_DEPENDS_ONLY_=true
+debug: export RSESSION=R -d gdb
+rsession: export RSESSION=R
 
 inst/include/%.h: src/%.h
 	$(CP) $^ $@
+
+dist: .dist
+
+install: .install
+
+roxy: .roxy
 
 htmlhelp: install news manual
 	rsync --delete -a library/$(PKG)/html/ $(MANUALDIR)/html
@@ -52,7 +60,10 @@ htmlhelp: install news manual
 
 news: library/$(PKG)/html/NEWS.html
 
-NEWS: inst/NEWS
+NEWS: .NEWS
+
+.NEWS: inst/NEWS
+	$(TOUCH) $@
 
 inst/NEWS: inst/NEWS.Rd
 	$(RCMD) Rdconv -t txt $^ -o $@
@@ -63,21 +74,36 @@ library/$(PKG)/html/NEWS.html: inst/NEWS.Rd
 session: install
 	exec $(RSESSION)
 
-debug: RSESSION = R -d gdb
 debug: session
+
+rsession: session
 
 revdeps: install
 	mkdir -p library check
 	$(REXE) -e "pkgs <- strsplit('$(REVDEPS)',' ')[[1]]; download.packages(pkgs,destdir='library',repos='https://mirrors.nics.utk.edu/cran/')"
 	$(RCMD) check --as-cran --library=library -o check library/*.tar.gz
 
-roxy: $(SOURCE) headers
+.roxy: .source .headers
 	$(REXE) -e "pkgbuild::compile_dll(); devtools::document(roclets=c('rd','collate','namespace'))"
+	$(TOUCH) $@
 
-dist: NEWS $(PKGVERS).tar.gz
+.headers: $(HEADERS)
+	make $(HEADERS)
+	$(TOUCH) $@
 
-$(PKGVERS).tar.gz: $(SOURCE) $(TESTS) includes headers
+.includes: $(INCLUDES)
+	make $(INCLUDES)
+	$(TOUCH) $@
+
+.source: $(SOURCE)
+	$(TOUCH) $@
+
+.testsource: $(TESTS)
+	$(TOUCH) $@
+
+.dist: .roxy .NEWS .source .testsource .includes .headers
 	$(RCMD) build --force --no-manual --resave-data --compact-vignettes=both --md5 .
+	$(TOUCH) $@
 
 binary: dist
 	mkdir -p plib
@@ -98,7 +124,7 @@ covr.rds: DESCRIPTION
 	$(REXE) -e 'library(covr); package_coverage(type="all") -> cov; report(cov,file="covr.html",browse=TRUE); saveRDS(cov,file="covr.rds")'
 
 xcovr: covr
-	$(REXE) -e 'library(covr); readRDS("covr.rds") -> cov; codecov(coverage=cov,token="$(TOKEN)",quiet=FALSE)'
+	$(REXE) -e 'library(covr); readRDS("covr.rds") -> cov; codecov(coverage=cov,quiet=FALSE)'
 
 win: dist
 	curl -T $(PKGVERS).tar.gz ftp://win-builder.r-project.org/R-release/
@@ -136,23 +162,19 @@ $(PKG).pdf: $(SOURCE)
 	$(RCMD) Rd2pdf --internals --no-description --no-preview --pdf --force -o $(PKG).pdf .
 	$(RSCRIPT) -e "tools::compactPDF(\"$(PKG).pdf\")";
 
-tests: install $(TESTS)
-	export R_LIBS
+tests: .tests
+
+.tests: .testsource
+	$(MAKE) .install
 	$(MAKE) -C tests
+	$(TOUCH) $@
 
-install: library/$(PKG)
+install: .install
 
-library/$(PKG): dist
+.install: .roxy .NEWS .source .includes .headers
 	mkdir -p library
-	$(RCMD) INSTALL --html --library=library $(PKGVERS).tar.gz
-
-remove:
-	if [ -d library ]; then \
-		$(RCMD) REMOVE --library=library $(PKG); \
-		rmdir library; \
-	fi
-
-fresh: clean remove
+	$(RCMD) INSTALL --html --library=library .
+	$(TOUCH) .install
 
 %.tex: %.Rnw
 	$(RSCRIPT) -e "library(knitr); knit(\"$*.Rnw\")"
@@ -191,5 +213,17 @@ clean:
 	$(RM) -r check
 	$(RM) src/*.o src/*.so src/symbols.rds
 	$(RM) -r lib
-	$(RM) -r *-Ex.Rout *-Ex.timings *-Ex.pdf
+	$(RM) -r *-Ex.Rout *-Ex.timings *-Ex.pdf Rplots.*
 	$(RM) *.tar.gz $(PKGVERS).zip $(PKGVERS).tgz $(PKG).pdf
+	$(MAKE) -C tests clean
+	$(RM) .dist
+
+remove:
+	if [ -d library ]; then \
+		$(RCMD) REMOVE --library=library $(PKG); \
+		rmdir library; \
+	fi
+
+fresh: clean remove
+	$(RM) .headers .includes .NEWS
+	$(RM) .install .roxy .source .testsource .roxy .tests
