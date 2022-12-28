@@ -7,7 +7,7 @@ test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
 
 ppo <- panelRandomWalk(U=2,N=5)
 
-pmf <- mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
+pmf <- mif2(ppo,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
             cooling.type="geometric")
 
 test(wQuotes(

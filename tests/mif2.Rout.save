@@ -1,13 +1,11 @@
 
-R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
+R version 4.2.2 (2022-10-31) -- "Innocent and Trusting"
 Copyright (C) 2022 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -31,55 +29,55 @@ Type 'q()' to quit R.
 > et <- wQuotes(" (''mif2,panelPomp-method'')\n")
 > ## test checks for missing arguments
 > test(wQuotes(ep,"''data'' is a required argument.\n"),
-+      mif2(Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
++      mif2(Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
 [1] TRUE
 > test(wQuotes(ep,"Missing ''Np'' argument.",et),
-+      mif2(ppo,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5)) 
++      mif2(ppo,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5)) 
 [1] TRUE
 > test(wQuotes(ep,"missing ''rw.sd'' argument.",et),
 +      mif2(ppo,Np=10,cooling.fraction.50=0.5))
 [1] TRUE
 > test(wQuotes(ep,"Missing ''cooling.fraction.50'' argument.",et),
-+      mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5)))
++      mif2(ppo,Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5)))
 [1] TRUE
 > test(wQuotes(ep,"pomp's ''mif2'' error message: in ''mif2'': the following ",
 +              "parameter(s), given random walks in ''rw.sd'', are not present ",
 +              "in ''params'': ''X.0''. (panelPomp:::mif2.internal)\n"),
-+      mif2(panelPomp(unitobjects(ppo)),Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),
++      mif2(panelPomp(unitobjects(ppo)),Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),
 +          cooling.fraction.50=0.5,sh=pparams(ppo)$sh))
 [1] TRUE
 > test(wQuotes(ep,"pomp's ''mif2'' error message: in ''mif2'': 'arg' must be ",
 +              "of length 1 (panelPomp:::mif2.internal)\n"),
 +      mif2(panelPomp(unitobjects(ppo),shared=coef(po)),Np=10,sp=pparams(ppo)$sp,
-+           rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
++           rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
 [1] TRUE
 > ## assign parameters
 > test(# no start (get from object)
-+   traces(as(mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
++   traces(as(mif2(ppo,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
 +                  cooling.type="geometric"),"list")[[1]])[1,-1],
 +   c(ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(# start shared & specific
 +   traces(as(mif2(ppo,sh=2*ppo@shared,sp=2*ppo@specific,Np=10,
-+                  rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
++                  rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
 +                  cooling.type="geometric"),"list")[[1]])[1,-1],
 +   2*c(ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(# start shared only
-+   traces(as(mif2(ppo,shared.start=2*ppo@shared,Np=10,rw.sd=rw.sd(X.0=0.2),
++   traces(as(mif2(ppo,shared.start=2*ppo@shared,Np=10,rw.sd=rw_sd(X.0=0.2),
 +                  cooling.fraction.50=0.5,cooling.type="geometric"),
 +             "list")[[1]])[1,-1],
 +   c(2*ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(# start specific only
-+   traces(as(mif2(ppo,sp=2*ppo@specific,Np=10,rw.sd=rw.sd(X.0=0.2),
++   traces(as(mif2(ppo,sp=2*ppo@specific,Np=10,rw.sd=rw_sd(X.0=0.2),
 +                  cooling.fraction.50=0.5,cooling.type="geometric"),
 +             "list")[[1]])[1,-1],
 +   c(ppo@shared,2*get_col(ppo@specific,1,1)))
 [1] TRUE
 > test(# start with list
 +   traces(as(mif2(ppo,st=list(shared=2*ppo@shared,specific=2*ppo@specific),
-+                  Np=10,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
++                  Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
 +                  cooling.type="geometric"),"list")[[1]])[1,-1],
 +   2*c(ppo@shared,get_col(ppo@specific,1,1)))
 [1] TRUE
@@ -88,7 +86,7 @@ Type 'q()' to quit R.
 +     ppo,
 +     st=setNames(c(ppo@shared,ppo@specific),
 +                 c(names(ppo@shared),"X.0[rw1]","X.0[rw2]")),
-+     Np=10,rw.sd=rw.sd(X.0=0.2),
++     Np=10,rw.sd=rw_sd(X.0=0.2),
 +     cooling.fraction.50=0.5,
 +     cooling.type="geometric"),"list")[[1]])[1,-1],
 +   c(ppo@shared,get_col(ppo@specific,1,1)))
@@ -98,21 +96,21 @@ Type 'q()' to quit R.
 +              " ''specific.start''. (''mif2,panelPomp-method'')\n"),
 +      mif2(ppo,shared=2*ppo@shared,
 +           start=list(specific=ppo@specific,shared=ppo@shared),Np=10,
-+           rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
++           rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
 +           cooling.type="geometric"))
 [1] TRUE
 > test(wQuotes(ep,"specify EITHER ''start'' only OR ''shared.start'' and/or",
 +              " ''specific.start''. (''mif2,panelPomp-method'')\n"),
 +      mif2(ppo,specific=2*ppo@specific,
 +           start=list(shared=ppo@shared,specific=ppo@specific),Np=10,
-+           rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
++           rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
 +           cooling.type="geometric"))
 [1] TRUE
 > test(wQuotes(ep,"specify EITHER ''start'' only OR ''shared.start'' and/or",
 +              " ''specific.start''. (''mif2,panelPomp-method'')\n"),
 +      mif2(ppo,sh=2*ppo@shared,sp=2*ppo@specific,
 +           st=list(shared=ppo@shared,specific=ppo@specific),
-+           Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5,
++           Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5,
 +           cooling.type="geometric"))
 [1] TRUE
 > ## wrong unit names
@@ -120,7 +118,7 @@ Type 'q()' to quit R.
 +              "units\n"),
 +      {sp <- ppo@specific
 +      colnames(sp) <- paste0(colnames(sp), "_")
-+      mif2(ppo,Np=10,sp=sp,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
++      mif2(ppo,Np=10,sp=sp,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
 +           cooling.type="geometric")})
 [1] TRUE
 > ## wrong unit-specific names
@@ -129,18 +127,18 @@ Type 'q()' to quit R.
 +              "in ''params'': ''X.0''. (panelPomp:::mif2.internal)\n"),
 +      {sp <- ppo@specific
 +      rownames(sp) <- c("some_wrong_name")
-+      mif2(ppo,Np=10,sp=sp,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
++      mif2(ppo,Np=10,sp=sp,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
 +           cooling.type="geometric")})
 [1] TRUE
 > ##  wrong shared names
 > test(wQuotes(ep,"pomp's ''mif2'' error message: in ''mif2'': in ''rprocess'': ",
 +              "variable 'sigmaY' not found among the parameters. ",
 +              "(panelPomp:::mif2.internal)\n"),
-+      mif2(ppo,Np=10,sh=c(sth=0),rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
++      mif2(ppo,Np=10,sh=c(sth=0),rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
 +           cooling.type="geometric"))
 [1] TRUE
 > 
-> mf <- mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),
+> mf <- mif2(ppo,Np=10,rw.sd=rw_sd(X.0=0.2),
 +            cooling.fraction.50=0.5,cooling.type="geometric")
 > mf <- mif2(mf,Nmif=2,start=coef(mf))
 > 

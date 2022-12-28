@@ -17,8 +17,8 @@ Description: Tools for working with PanelPOMP models, i.e., with
 License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
-    R(>= 4.0.0),
-    pomp(>= 4.0.0)
+    R(>= 4.1.0),
+    pomp(>= 4.5.2)
 Imports:
     methods
 RoxygenNote: 7.2.1
