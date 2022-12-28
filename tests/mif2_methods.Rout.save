@@ -1,13 +1,11 @@
 
-R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
+R version 4.2.2 (2022-10-31) -- "Innocent and Trusting"
 Copyright (C) 2022 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -26,7 +24,7 @@ Type 'q()' to quit R.
 > 
 > ppo <- panelRandomWalk(U=2,N=5)
 > 
-> pmf <- mif2(ppo,Np=10,rw.sd=rw.sd(X.0=0.2),cooling.fraction.50=0.5,
+> pmf <- mif2(ppo,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,
 +             cooling.type="geometric")
 > 
 > test(wQuotes(
