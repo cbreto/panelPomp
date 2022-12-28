@@ -15,7 +15,7 @@ for (s in seq_along(seeds)) {
 
 for (s in seq_along(seeds)) {
   set.seed(seeds[s])
-  mf <- mif2(ppo,Np=10,rw.sd=rw.sd(sigmaX=0.05,X.0=0.5),
+  mf <- mif2(ppo,Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),
              cooling.fraction.50=0.5,cooling.type="geometric")
   print(mf@shared)
   print(mf@specific)
