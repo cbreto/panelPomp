@@ -1,7 +1,8 @@
-REXE = R --vanilla
+REXE = R -s --vanilla
+REXE_ALT = R -s
 RSESSION = emacs -f R
 RCMD = $(REXE) CMD
-RCMD_ALT = R --no-save --no-restore CMD
+RCMD_ALT = R -s --no-save --no-restore CMD
 RSCRIPT = Rscript --vanilla
 REPODIR = ../www
 MANUALDIR = ../www/manuals/$(PKG)
@@ -18,26 +19,27 @@ INSTALL = install
 PKG = $(shell perl -ne 'print $$1 if /Package:\s+((\w+[-\.]?)+)/;' DESCRIPTION)
 VERSION = $(shell perl -ne 'print $$1 if /Version:\s+((\d+[-\.]?)+)/;' DESCRIPTION)
 PKGVERS = $(PKG)_$(VERSION)
-SOURCE=$(sort $(wildcard R/*R src/*.c src/*.h data/*))
-CSOURCE=$(sort $(wildcard src/*.c))
-TESTS=$(sort $(wildcard tests/*R))
+SOURCE = $(sort $(wildcard R/*R src/*.c src/*.h data/* examples/*))
+CSOURCE = $(sort $(wildcard src/*.c))
+TESTS = $(sort $(wildcard tests/*R))
+INSTDOCS = $(sort $(wildcard inst/doc/*))
+SESSION_PKGS = datasets,utils,grDevices,graphics,stats,methods,tidyverse,$(PKG)
 
 default:
 	@echo $(PKGVERS)
 
 .PHONY: binary check clean covr debug default fresh \
 htmlhelp manual news publish qcheck qqcheck \
-remove revdeps rhub rsession session vignettes win wind xcheck \
+revdeps rhub rsession session vignettes win wind xcheck \
 xcovr xxcheck ycheck
 
 .dist manual vignettes: export R_QPDF=qpdf
 .headers: export LC_COLLATE=C
 .roxy .headers .dist manual vignettes: export R_HOME=$(shell $(REXE) RHOME)
 check xcheck xxcheck: export FULL_TESTS=yes
-.dist .tests revdeps session check xcheck xxcheck: export R_KEEP_PKG_SOURCE=yes
-.tests revdeps xcheck: export R_PROFILE_USER=$(CURDIR)/.Rprofile
-.tests revdeps session xxcheck vignettes data manual: export R_LIBS=$(CURDIR)/library
-session: export R_DEFAULT_PACKAGES=datasets,utils,grDevices,graphics,stats,methods,tidyverse,$(PKG)
+.dist .tests session check xcheck xxcheck: export R_KEEP_PKG_SOURCE=yes
+revdeps .tests xcheck: export R_PROFILE_USER=$(CURDIR)/.Rprofile
+.tests session xxcheck vignettes data manual: export R_LIBS=$(CURDIR)/library
 xcheck: export _R_CHECK_DEPENDS_ONLY_=true
 debug: export RSESSION=R -d gdb
 rsession: export RSESSION=R
@@ -72,27 +74,26 @@ library/$(PKG)/html/NEWS.html: inst/NEWS.Rd
 	$(RCMD) Rdconv -t html $^ -o $@
 
 session: install
+	export R_DEFAULT_PACKAGES=$(SESSION_PKGS) && \
 	exec $(RSESSION)
 
 debug: session
 
 rsession: session
 
-revdeps: install
-	mkdir -p library check
-	$(REXE) -e "pkgs <- strsplit('$(REVDEPS)',' ')[[1]]; download.packages(pkgs,destdir='library',repos='https://mirrors.nics.utk.edu/cran/')"
-	$(RCMD) check --as-cran --library=library -o check library/*.tar.gz
+revdeps: .dist
+	mkdir -p revdep
+	$(CP) $(PKGVERS).tar.gz revdep
+	$(REXE_ALT) -e "tools::check_packages_in_dir(\"revdep\",check_args=\"--as-cran\",reverse=list(which=\"most\"))"
 
 .roxy: .source .headers
-	$(REXE) -e "pkgbuild::compile_dll(); devtools::document(roclets=c('rd','collate','namespace'))"
+	$(REXE) -e "devtools::document()"
 	$(TOUCH) $@
 
 .headers: $(HEADERS)
-	make $(HEADERS)
 	$(TOUCH) $@
 
 .includes: $(INCLUDES)
-	make $(INCLUDES)
 	$(TOUCH) $@
 
 .source: $(SOURCE)
@@ -218,12 +219,8 @@ clean:
 	$(MAKE) -C tests clean
 	$(RM) .dist
 
-remove:
-	if [ -d library ]; then \
-		$(RCMD) REMOVE --library=library $(PKG); \
-		rmdir library; \
-	fi
-
-fresh: clean remove
+fresh: clean
 	$(RM) .headers .includes .NEWS
 	$(RM) .install .roxy .source .testsource .roxy .tests
+	$(RM) -r library
+	$(RM) -r revdep/*.Rcheck revdep/Library revdep/*.tar.gz
