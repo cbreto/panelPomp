@@ -84,3 +84,12 @@
 NULL        # replacing NULL by "_PACKAGE" results in roxygen2 adding an
             # \alias{} with the package name, conflicting with functions named
             # after the package
+
+pStop <- function (fn, ...) {
+  fn <- as.character(fn) # nocov
+  stop("in ",sQuote(fn[1L]),": ",...,call.=FALSE) #nocov
+}
+
+pStop_ <- function (...) {
+  stop(...,call.=FALSE) #nocov
+}
