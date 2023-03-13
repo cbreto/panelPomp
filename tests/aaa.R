@@ -1,11 +1,10 @@
 ## test aaa.R
-
 if (file.exists("_options.R")) source("_options.R")
 library(panelPomp,quietly=TRUE)
-TESTS_PASS <- NULL 
+TESTS_PASS <- NULL
 ## alternatively: assign(eval(formals(test))$all,NULL) (after defining test)
 ## does panelPomp:::test (used to test all other codes) work?
-test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
+test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
 test(NULL,NULL)
@@ -81,7 +80,7 @@ test(as.character(
     "Error in doTryCatch(return(expr), name, parentenv, handler): in ",
     sQuote("fn"),": ",sQuote("object")," is a required argument\n"))
 
-## test quoting variables 
+## test quoting variables
 test(wQuotes("''",TESTS_PASS[1],"''")==sQuote("TRUE"))
 
 ## final check: do all tests pass?

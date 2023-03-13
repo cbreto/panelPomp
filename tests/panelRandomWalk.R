@@ -1,4 +1,5 @@
 # check reproducibility over two randomly chosen seeds
+if (file.exists("_options.R")) source("_options.R")
 library(panelPomp,quietly=TRUE)
 
 seeds <- c(2112533L,188933L)

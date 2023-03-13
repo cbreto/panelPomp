@@ -1,8 +1,8 @@
+if (file.exists("_options.R")) source("_options.R")
 library(panelPomp,quietly=TRUE)
-if (file.exists("options.R")) source("options.R")
 
 TESTS_PASS <- NULL
-test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
+test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
 ppo <- panelPomp:::panelRandomWalk(U=2,N=5)
@@ -14,7 +14,7 @@ et <- wQuotes(" (''mif2,panelPomp-method'')\n")
 test(wQuotes(ep,"''data'' is a required argument.\n"),
      mif2(Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
 test(wQuotes(ep,"Missing ''Np'' argument.",et),
-     mif2(ppo,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5)) 
+     mif2(ppo,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
 test(wQuotes(ep,"missing ''rw.sd'' argument.",et),
      mif2(ppo,Np=10,cooling.fraction.50=0.5))
 test(wQuotes(ep,"Missing ''cooling.fraction.50'' argument.",et),

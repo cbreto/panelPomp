@@ -1,3 +1,4 @@
+if (file.exists("_options.R")) source("_options.R")
 library(panelPomp,quietly=TRUE)
 set.seed(3496L)
 

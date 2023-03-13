@@ -1,7 +1,8 @@
+if (file.exists("_options.R")) source("_options.R")
 library(panelPomp,quietly=TRUE)
 
-TESTS_PASS <- NULL 
-test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
+TESTS_PASS <- NULL
+test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
 ## write rows in r= & columns in c=

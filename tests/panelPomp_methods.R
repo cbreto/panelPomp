@@ -1,9 +1,9 @@
 ## test codes in R/panelPomp_methods.R
-
+if (file.exists("_options.R")) source("_options.R")
 library(panelPomp,quietly=TRUE)
 
 TESTS_PASS <- NULL
-test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
+test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 
 ppo <- panelRandomWalk(U=2,N=5)
@@ -73,7 +73,7 @@ test(setNames(c(1,2,0),c("sigmaX","sigmaY",sprintf("X.0[rw1]"))),
      coef(ppo[1]))
 test(lapply(as(window(ppo,start=2),"list"),time),list(rw1=c(2,3,4,5),rw2=c(2,3,4,5)))
 test(lapply(as(window(ppo,end=2),"list"),time),list(rw1=c(1,2),rw2=c(1,2)))
-test(length(window(ppo[1:2],start=1,end=2)),2L) 
+test(length(window(ppo[1:2],start=1,end=2)),2L)
 test(lapply(as(window(ppo[1],start=1,end=2),"list"),time),list(rw1=c(1,2)))
 
 

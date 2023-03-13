@@ -1,5 +1,5 @@
 # check reproducibility over a range of randomly chosen seeds
-
+if (file.exists("_options.R")) source("_options.R")
 library(panelPomp,quietly=TRUE)
 
 ppo <- panelRandomWalk(U=3,N=4)

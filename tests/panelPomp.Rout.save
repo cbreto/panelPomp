@@ -1,7 +1,7 @@
 
-R version 4.2.2 (2022-10-31) -- "Innocent and Trusting"
-Copyright (C) 2022 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R Under development (unstable) (2023-03-11 r83971) -- "Unsuffered Consequences"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -15,10 +15,11 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
+> if (file.exists("_options.R")) source("_options.R")
 > library(panelPomp,quietly=TRUE)
 > 
 > TESTS_PASS <- NULL
-> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...) 
+> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
 +   panelPomp:::test(expr1,expr2,all=all,env=env,...)
 > 
 > pg <- panelGompertz(U=5,N=3)
@@ -56,36 +57,36 @@ tau[unit3] X.0[unit3]
 X.0[unit2]   r[unit2]   K[unit3] tau[unit3] X.0[unit3]   r[unit3] 
        1.0        0.1        1.0        0.1        1.0        0.1 
 > try(panelPomp(pg,specific=c("tau","X.0"),params=c(r=3,K=1)))
-Error : in ‘panelPomp’: specify EITHER ‘params’ OR ‘shared’ and/or ‘specific’.
+Error : in 'panelPomp': specify EITHER 'params' OR 'shared' and/or 'specific'.
 > stopifnot(all.equal(coef(panelPomp(pg,params=coef(g))),coef(g)))
 > try(panelPomp(pg,params=list(bob=3,nancy="A")))
-Error : in ‘panelPomp’: ‘params’ must be a named numeric vector
+Error : in 'panelPomp': 'params' must be a named numeric vector
 > try(panelPomp(pg,shared=c("r","K")))
-Error : in ‘panelPomp’: ‘shared’ must be a named numeric vector or NULL
+Error : in 'panelPomp': 'shared' must be a named numeric vector or NULL
 > try(panelPomp(pg,specific=c(0.3)))
-Error : in ‘panelPomp’: if given as a vector, ‘specific’ must have names
+Error : in 'panelPomp': if given as a vector, 'specific' must have names
 > coef(panelPomp(pg,specific=c(r=0.3)))
    sigma r[unit1] r[unit2] r[unit3] 
      0.1      0.3      0.3      0.3 
 > try(panelPomp(pg,specific="h"))
-Error : in ‘panelPomp’: the following parameters are to be treated as specific, but no values for them are specified: ‘h’
+Error : in 'panelPomp': the following parameters are to be treated as specific, but no values for them are specified: 'h'
 > try(panelPomp(pg,specific="h",shared=c(r=33)))
-Error : in ‘panelPomp’: the following parameters are to be treated as specific, but no values for them are specified: ‘h’
+Error : in 'panelPomp': the following parameters are to be treated as specific, but no values for them are specified: 'h'
 > try(panelPomp(pg,specific=list(r=0.3,K=9)))
-Error : in ‘panelPomp’: ‘specific’ must be furnished as a numeric matrix, a numeric vector, or a character vector
+Error : in 'panelPomp': 'specific' must be furnished as a numeric matrix, a numeric vector, or a character vector
 > coef(panelPomp(pg,specific=c("tau","X.0"),shared=c(r=3,K=1)))
          r          K tau[unit1] X.0[unit1] tau[unit2] X.0[unit2] tau[unit3] 
        3.0        1.0        0.1        1.0        0.1        1.0        0.1 
 X.0[unit3] 
        1.0 
 > try(panelPomp(setNames(pgl,c("a","b",""))))
-Error : in ‘panelPomp’: empty unit names are not permitted
+Error : in 'panelPomp': empty unit names are not permitted
 > coef(pgl[[2]]) <- c(h=3)
 > try(po <- panelPomp(pgl))
 Warning message:
-in ‘panelPomp’: NAs in specific parameters 
+in 'panelPomp': NAs in specific parameters 
 > try(panelPomp(pgl[[1]]))
-Error : in ‘panelPomp’: ‘object’ must be either a ‘panelPomp’ object or a list of ‘pomp’ objects.
+Error : in 'panelPomp': 'object' must be either a 'panelPomp' object or a list of 'pomp' objects.
 > 
 > 
 > 
@@ -157,3 +158,6 @@ Error : in ‘panelPomp’: ‘object’ must be either a ‘panelPomp’ object
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 > 
+> proc.time()
+   user  system elapsed 
+  0.872   0.246   1.554 
