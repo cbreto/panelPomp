@@ -2,7 +2,7 @@
 NULL
 
 #' @title Get single column or row without dropping names
-#' @description Subset matrix dropping dimension but without dropping dimname 
+#' @description Subset matrix dropping dimension but without dropping dimname
 #' (which is R's default).
 #' @param matrix matrix.
 #' @param row numeric; single row to subset.
@@ -13,7 +13,12 @@ NULL
 NULL
 
 #' @rdname get_dim
+#' @examples
+#' m <- matrix(NA,dimnames=list('r1','c1'))
+#' m[1,1] # = NA
+#' get_col(m,row=1,col=1) # = c(r1=NA)
 #' @export
+#' @author Carles Breto
 get_col <- function (matrix, rows, col) {
   stopifnot(is.matrix(matrix)&!missing(col))
   # if all rows, i.e., get.col(mtrx,,cl)
@@ -26,7 +31,12 @@ get_col <- function (matrix, rows, col) {
 }
 
 #' @rdname get_dim
+#' @examples
+# m <- matrix(NA,dimnames=list('r1','c1'))
+# m[1,1] # = NA
+#' get_row(m,row=1,col=1) # = c(c1=NA)
 #' @export
+# @author Carles Breto
 #'
 get_row <- function (matrix, row, cols) {
   stopifnot(is.matrix(matrix)&!missing(row))

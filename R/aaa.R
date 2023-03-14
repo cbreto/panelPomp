@@ -2,6 +2,7 @@
 NULL
 
 ## Uniform random draws in the transformed scale: give centers and widths
+## @author Carles Breto
 runif.EstimationScale <-
   function(centers, widths,
            toEstimationScale.fn = log, fromEstimationScale.fn = exp) {
@@ -12,8 +13,9 @@ runif.EstimationScale <-
     ))
   }
 
+## @author Carles Breto
 test <- function (expr1, expr2, all, env, verbose = TRUE) {
-  # expr1: expression to be try(,sil=T)[1]d; can be a quote() to avoid 
+  # expr1: expression to be try(,sil=T)[1]d; can be a quote() to avoid
   #     evaluation by the function
   # expr2: optional; compare to 'expr1' (via identical) and c() logical result
   #     to object specified via arguments 'all' and 'env' (see below)
@@ -36,17 +38,18 @@ test <- function (expr1, expr2, all, env, verbose = TRUE) {
   if (verbose) PASSES
 }
 
-#' @title Interpret shortcuts for \code{sQuote()}s and \code{dQuote()}s in 
+#' @title Interpret shortcuts for \code{sQuote()}s and \code{dQuote()}s in
 #' character objects
-#' @description Concatenate character objects and replace singles quotes with 
+#' @description Concatenate character objects and replace double quotes with
 #' \code{sQuote()}s and asterisks with \code{dQuote()}s: \code{sQuote("x")} and
 #' \code{dQuote("x")} can be written as just ''x'' and *x*.
 #' @param ... objects to be passed to \code{strsplit}.
 #' @keywords internal
 #' @examples
-#' wQuotes("in ''fn'': *object* is 'a' required argument")
-#' paste0("in ",sQuote("fn"),": ",dQuote("object")," is 'a' required argument")
+#' wQuotes("in ''fns'': *object* is 'a' required argument")
+#' paste0("in ",sQuote("fns"),": ",dQuote("object")," is 'a' required argument")
 #' @export
+#' @author Carles Breto
 wQuotes<- function (...) {
   char <- do.call(paste0,list(...)) ## combine arguments
   swap <- list(
@@ -55,7 +58,7 @@ wQuotes<- function (...) {
   for (sw in seq_along(swap)) {
     chnks <- strsplit(char,split=swap[[sw]]$split,fixed=TRUE)[[1]] ## split char
     if (length(chnks)>1) { ## if any pattern
-      ## check if initial 
+      ## check if initial
       ODD <- FALSE
       if (chnks[1]=="") {
         ODD <- TRUE

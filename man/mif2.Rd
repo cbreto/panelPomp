@@ -78,15 +78,15 @@ resampling of unit-specific parameters.}
 
 \item{...}{....}
 
-\item{object}{an object resulting from the application of IF2 (i.e., of 
+\item{object}{an object resulting from the application of IF2 (i.e., of
 class \code{mif2d.ppomp})}
 
 \item{pars}{names of parameters}
 }
 \value{
-\code{traces} returns the estimated parameter values at different 
-iterations of the IF2 algorithm in the natural scale. The default is to 
-return values for all parameters but a subset of parameters can be passed 
+\code{traces} returns the estimated parameter values at different
+iterations of the IF2 algorithm in the natural scale. The default is to
+return values for all parameters but a subset of parameters can be passed
 via the optional argument \code{pars}.
 }
 \description{
@@ -101,6 +101,15 @@ at each iteration by running a particle filter. Convergence to a maximum
 likelihood estimate has been established for appropriately constructed
 procedures that iterate this search over the parameter space while
 diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
+}
+\examples{
+p <- panelRandomWalk()
+mp <- mif2(p,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
+mp
+mmp <- mif2(mp,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
+mmp
+traces(mp)
+traces(mmp)
 }
 \references{
 \breto2018
@@ -121,5 +130,8 @@ Other panelPomp workhorse functions:
 \code{\link{panelPomp}},
 \code{\link{panel_loglik}},
 \code{\link{pfilter}()}
+}
+\author{
+Carles Breto
 }
 \concept{panelPomp workhorse functions}

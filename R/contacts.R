@@ -8,6 +8,8 @@
 ##'
 ##' @author Edward L. Ionides
 ##'
+##' @examples
+##' contacts()
 ##' @export
 ##'
 ##' @references
@@ -980,8 +982,3 @@ contacts <- function(params=c(mu_X=1.75,sigma_X=2.67,mu_D=3.81,
   ## Construct panelPomp
   panelPomp(object=poList,shared=coef(template))
 }
-
-
-
-
-

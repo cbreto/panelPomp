@@ -3,17 +3,23 @@ NULL
 
 ## methods for class 'mif2d.ppomp'
 ##' @rdname mif2
-##' 
-##' @param object an object resulting from the application of IF2 (i.e., of 
+##'
+##' @param object an object resulting from the application of IF2 (i.e., of
 ##' class \code{mif2d.ppomp})
 ##' @param pars names of parameters
 ##'
 ##' @return
-##' \code{traces} returns the estimated parameter values at different 
-##' iterations of the IF2 algorithm in the natural scale. The default is to 
-##' return values for all parameters but a subset of parameters can be passed 
+##' \code{traces} returns the estimated parameter values at different
+##' iterations of the IF2 algorithm in the natural scale. The default is to
+##' return values for all parameters but a subset of parameters can be passed
 ##' via the optional argument \code{pars}.
+
+#' @examples
+#' traces(mp)
+#' traces(mmp)
 #' @export
+#' @author Carles Breto
+
 setMethod(
   "traces",
   signature=signature(object="mif2d.ppomp"),
@@ -26,7 +32,7 @@ setMethod(
       shp <- as.character(intersect(pars,colnames(shmat)))
       spp <- as.character(intersect(pars,nm[[2]]))
       bad.pars <- setdiff(pars,c(colnames(shmat),nm[[2]]))
-      if (length(bad.pars) > 0) 
+      if (length(bad.pars) > 0)
         stop("in ", sQuote("traces"),": name(s) ",
              paste(sQuote(bad.pars),collapse = ","),
              " correspond to no parameter(s).",

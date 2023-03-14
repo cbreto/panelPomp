@@ -247,7 +247,12 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
 
 ## mif2,panelPomp-method
 #' @rdname mif2
+#' @examples
+#' p <- panelRandomWalk()
+#' mp <- mif2(p,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
+#' mp
 #' @export
+#' @author Carles Breto
 setMethod(
   "mif2",
   signature=signature(data="panelPomp"),
@@ -297,7 +302,11 @@ setMethod(
 )
 
 #' @rdname mif2
+#' @examples
+#' mmp <- mif2(mp,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
+#' mmp
 #' @export
+#' @author Carles Breto
 setMethod(
   "mif2",
   signature=signature(data="mif2d.ppomp"),

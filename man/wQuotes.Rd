@@ -2,7 +2,7 @@
 % Please edit documentation in R/aaa.R
 \name{wQuotes}
 \alias{wQuotes}
-\title{Interpret shortcuts for \code{sQuote()}s and \code{dQuote()}s in 
+\title{Interpret shortcuts for \code{sQuote()}s and \code{dQuote()}s in
 character objects}
 \usage{
 wQuotes(...)
@@ -11,12 +11,15 @@ wQuotes(...)
 \item{...}{objects to be passed to \code{strsplit}.}
 }
 \description{
-Concatenate character objects and replace singles quotes with 
+Concatenate character objects and replace double quotes with
 \code{sQuote()}s and asterisks with \code{dQuote()}s: \code{sQuote("x")} and
 \code{dQuote("x")} can be written as just ''x'' and *x*.
 }
 \examples{
-wQuotes("in ''fn'': *object* is 'a' required argument")
-paste0("in ",sQuote("fn"),": ",dQuote("object")," is 'a' required argument")
+wQuotes("in ''fns'': *object* is 'a' required argument")
+paste0("in ",sQuote("fns"),": ",dQuote("object")," is 'a' required argument")
+}
+\author{
+Carles Breto
 }
 \keyword{internal}
