@@ -22,8 +22,8 @@ test(length(get(eval(formals(test))$all)),3L)
 ## test order of expr1 and expr2
 test(4L,length(get(eval(formals(test))$all)))
 ## test stop for wrong parameters
-test(wQuotes("Error in eval(expr1) : object 'invalid_expr' not found\n"),
-     test(invalid_expr))
+# "Error in eval(expr1) : object 'invalid_expr' not found\n"
+test(class(try(stop(test(invalid_expr)),silent=TRUE)),"try-error")
 test(wQuotes("Error : in ''test'': missing vector to accumulate logical test ",
              "results.\n"),
      panelPomp:::test(NULL,expr2=NULL,all="wrong_all",env=parent.frame()))

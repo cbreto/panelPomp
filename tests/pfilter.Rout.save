@@ -66,8 +66,8 @@ Type 'q()' to quit R.
 +   params=list(shared=ppo@shared,specific=ppo@specific),Np=10),
 +   "list")[[1]]),c(ppo@shared,2*get_col(ppo@specific,1,1)))
 [1] TRUE
-> test(wQuotes(ep,"specify either ''params'' only, ''params'' and ''shared'' , ",
-+   "or ''params'' and ''specific''.\n"),
+> test(wQuotes(ep,"specify either ''params'' only, ''params'' and ''shared'' ,",
++   " or ''params'' and ''specific''.\n"),
 +   pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,
 +     params=list(shared=ppo@shared,specific=ppo@specific),
 +     Np=10))
@@ -134,4 +134,4 @@ Type 'q()' to quit R.
 > 
 > proc.time()
    user  system elapsed 
-  0.615   0.158   1.167 
+  0.945   0.248   1.890 

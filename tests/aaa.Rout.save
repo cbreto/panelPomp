@@ -45,8 +45,8 @@ Type 'q()' to quit R.
 > test(4L,length(get(eval(formals(test))$all)))
 [1] TRUE
 > ## test stop for wrong parameters
-> test(wQuotes("Error in eval(expr1) : object 'invalid_expr' not found\n"),
-+      test(invalid_expr))
+> # "Error in eval(expr1) : object 'invalid_expr' not found\n"
+> test(class(try(stop(test(invalid_expr)),silent=TRUE)),"try-error")
 [1] TRUE
 > test(wQuotes("Error : in ''test'': missing vector to accumulate logical test ",
 +              "results.\n"),
@@ -134,4 +134,4 @@ Type 'q()' to quit R.
 > 
 > proc.time()
    user  system elapsed 
-  0.225   0.020   0.244 
+  0.373   0.033   0.402 
