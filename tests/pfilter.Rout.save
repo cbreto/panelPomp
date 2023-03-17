@@ -80,8 +80,8 @@ Type 'q()' to quit R.
 > test(logLik(ppf),logLik(ppf_))
 [1] TRUE
 > numeric_names <- setNames(rep(1,3),c(names(ppo@shared),"X.0[rw1]"))
-> identical(pPs,pParams(numeric_names))
-[1] FALSE
+> test(pPs,pParams(numeric_names))
+[1] TRUE
 > set.seed(21125715L)
 > ppf__<-pfilter(ppo,params=numeric_names,Np=10)
 > test(logLik(ppf),logLik(ppf__))
@@ -134,4 +134,4 @@ Type 'q()' to quit R.
 > 
 > proc.time()
    user  system elapsed 
-  0.944   0.248   1.630 
+  0.615   0.158   1.167 

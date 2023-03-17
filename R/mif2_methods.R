@@ -31,10 +31,10 @@ setMethod(
       pars <- as.character(pars)
       shp <- as.character(intersect(pars,colnames(shmat)))
       spp <- as.character(intersect(pars,nm[[2]]))
-      bad.pars <- setdiff(pars,c(colnames(shmat),nm[[2]]))
-      if (length(bad.pars) > 0)
-        stop("in ", sQuote("traces"),": name(s) ",
-             paste(sQuote(bad.pars),collapse = ","),
+      bad_pars <- setdiff(pars,c(colnames(shmat),nm[[2]]))
+      if (length(bad_pars) > 0)
+        stop(wQuote("in ''traces'': name(s) "),
+             paste(sQuote(bad_pars),collapse = ","),
              " correspond to no parameter(s).",
              call. = FALSE)
       shmat <- shmat[,shp,drop=FALSE]

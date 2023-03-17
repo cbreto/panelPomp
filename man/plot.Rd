@@ -40,3 +40,9 @@ Modify with care!}
 \description{
 Diagnostic plots for each unit in a panelPomp
 }
+\examples{
+plot(panelRandomWalk())
+}
+\author{
+Carles Breto
+}

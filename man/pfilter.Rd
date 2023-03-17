@@ -24,7 +24,7 @@
 \S4method{unitlogLik}{pfilterd.ppomp}(object, ...)
 }
 \arguments{
-\item{data}{An object of class \code{panelPomp} or inheriting class 
+\item{data}{An object of class \code{panelPomp} or inheriting class
 \code{panelPomp}.}
 
 \item{shared, specific}{optional; these arguments depend on the type
@@ -45,8 +45,8 @@ that should be shared (with values for parameters not originally shared
 taken from the unit-specific parameters of the first panel unit of
 \code{object}). \code{shared=NULL} sets all parameters as unit-specific.}
 
-\item{params}{optional; a named numeric vector. In this case, the nature of 
-parameters is determined via a naming convention: names ending in 
+\item{params}{optional; a named numeric vector. In this case, the nature of
+parameters is determined via a naming convention: names ending in
 \dQuote{\code{[unit_name]}} are assumed to denote unit-specific parameters;
 all other names specify shared parameters.}
 
@@ -75,6 +75,13 @@ ignore any parameter that is irrelevant to any given panel unit.)
 If \code{object} is a \code{panelPomp} object, the function allows modifying
 the shared and unit-specific configuration of \code{object}.}
 }
+\value{
+\code{panelPomp} object.
+
+\code{panelPomp} object, including a list of \code{pfilterd_pomp} objects.
+
+A \code{numeric} vector.
+}
 \description{
 Tools for applying particle filtering algorithms to panel data.
 }
@@ -86,6 +93,13 @@ Tools for applying particle filtering algorithms to panel data.
   }
 }
 
+\examples{
+wQuotes("in ''fns'': *object* is 'a' required argument")
+paste0("in ",sQuote("fns"),": ",dQuote("object")," is 'a' required argument")
+fprw <- pfilter(panelRandomWalk(),Np=10)
+fprw
+unitlogLik(fprw)
+}
 \references{
 \arulampalam2002
 
@@ -98,5 +112,8 @@ Other panelPomp workhorse functions:
 \code{\link{mif2}()},
 \code{\link{panelPomp}},
 \code{\link{panel_loglik}}
+}
+\author{
+Carles Breto
 }
 \concept{panelPomp workhorse functions}

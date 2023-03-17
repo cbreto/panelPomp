@@ -42,7 +42,7 @@ pParams(value)
 \S4method{[[}{panelPomp}(x, i)
 }
 \arguments{
-\item{object, x}{An object of class \code{panelPomp} or inheriting class 
+\item{object, x}{An object of class \code{panelPomp} or inheriting class
 \code{panelPomp}.}
 
 \item{...}{....}
@@ -52,6 +52,25 @@ pParams(value)
 \item{start, end}{position in original \code{times(pomp)} at which to start.}
 
 \item{i}{unit index (indices) or name (names).}
+}
+\value{
+\code{coef} returns a \code{numeric} vector.
+
+\code{length} returns an \code{integer}.
+
+\code{names} returns a \code{character} vector.
+
+\code{pparams} returns a \code{matrix} with the model parameters in \code{list} form.
+
+\code{pParams} returns a \code{list} with the model parameters in list form.
+
+\code{unitobjects} returns a \code{list} of \code{pomp} objects.
+
+\code{window} returns a \code{panelPomp} object with adjusted times.
+
+\code{`[`} returns a \code{panelPomp} object.
+
+\code{`[[`} returns a \code{pomp} object.
 }
 \description{
 Tools for manipulating \code{panelPomp} objects.
@@ -63,14 +82,43 @@ Tools for manipulating \code{panelPomp} objects.
   \item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
   \item{length}{Count the number of units in \code{panelPomp} objects.}
   \item{names}{Get the unit names of \code{panelPomp} objects.}
-  \item{pparams}{Extracts coefficients from \code{panelPomp} objects.}
-  \item{[]}{Take a subset of units.}
-  \item{[[]]}{Select the pomp object for a single unit.}
+  \item{pparams}{Extracts coefficients from \code{panelPomp} objects in list form.}
+  \item{pParams}{Converts panel coefficients from vector form to list form.}
   \item{window}{Subset \code{panelPomp} objects by changing start time and
   end time.}
+  \item{[]}{Take a subset of units.}
+  \item{[[]]}{Select the pomp object for a single unit.}
   }
 }
 
+\examples{
+## access and manipulate model parameters and other features
+prw <- panelRandomWalk()
+coef(prw)
+# replace coefficients
+coef(prw) <- c(sigmaX=2,coef(prw)[-1])
+coef(prw)
+length(prw)
+names(prw)
+# extract parameters in list form
+pparams(prw)
+# convert vector-form parameters to list-form parameters
+pParams(coef(prw))
+## summaries of objects
+print(panelRandomWalk())
+show(panelRandomWalk())
+## access underlying pomp objects
+unitobjects(panelRandomWalk())
+## select windows of time
+time(prw[[1]])
+prw2 <- window(prw,start=2,end=4)
+time(prw2[[1]]); time(prw2[[2]])
+## subsetting panelPomp objects
+prw1 <- prw[1]
+prw1 # panelPomp of 1 unit (first unit of prw)
+prw_2 <- prw[[2]]
+prw_2 # pomp object corresponding to unit 2 of prw
+}
 \seealso{
 Other panelPomp methods: 
 \code{\link{as}()}

@@ -35,7 +35,9 @@ When \code{se = TRUE}, the jackknife se's from
 \code{pomp::logmeanexp} are squared, summed and the squared root is taken.
 }
 \examples{
-ulls <- matrix(c(1,1,10,10),nr=2)
+ulls <- matrix(c(1,1.1,10.1,10),nr=2)
+# when combining log likelihood estimates, the order in which aggregation and
+# averaging are done can make a difference: panel_logmeanexp() implements the best
 logLik(ulls,repMargin=1,first="aver",aver="logmeanexp")
 logLik(ulls,repMargin=1,first="aggr",aver="mean",se=TRUE)
 }

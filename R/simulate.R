@@ -19,20 +19,22 @@
 NULL
 
 ##' @rdname simulate
-##' @export
+#' @examples
+#' simulate(panelRandomWalk())
+#' @export
 setMethod(
   "simulate",
   signature="panelPomp",
   definition=function (object,nsim = 1,shared,specific) {
 
-  if (length(nsim)!=1 || !is.numeric(nsim) || !is.finite(nsim) || nsim < 1) 
+  if (length(nsim)!=1 || !is.numeric(nsim) || !is.finite(nsim) || nsim < 1)
     pomp:::pStop_(sQuote("nsim")," must be a positive integer.")
   nsim <- as.integer(nsim)
 
   if (!missing(shared))  object@shared <- shared
   if (!missing(specific)) object@specific <- specific
 
-  if (length(object@shared)==0 & length(object@specific)==0) 
+  if (length(object@shared)==0 & length(object@specific)==0)
     pomp:::pStop_("at least one of shared and specific must be specified.")
 
   ppList <- lapply(1:nsim,function(n,pp1){

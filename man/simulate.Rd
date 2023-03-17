@@ -26,6 +26,9 @@ A single panelPomp object (if nsim=1) or a list of panelPomp objects
 \code{simulate} generates simulations of the state and measurement
 processes.
 }
+\examples{
+simulate(panelRandomWalk())
+}
 \author{
 Edward L. Ionides
 }

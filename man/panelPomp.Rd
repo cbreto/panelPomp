@@ -39,10 +39,13 @@ that should be shared (with values for parameters not originally shared
 taken from the unit-specific parameters of the first panel unit of
 \code{object}). \code{shared=NULL} sets all parameters as unit-specific.}
 
-\item{params}{optional; a named numeric vector. In this case, the nature of 
-parameters is determined via a naming convention: names ending in 
+\item{params}{optional; a named numeric vector. In this case, the nature of
+parameters is determined via a naming convention: names ending in
 \dQuote{\code{[unit_name]}} are assumed to denote unit-specific parameters;
 all other names specify shared parameters.}
+}
+\value{
+A \code{panelPomp} object.
 }
 \description{
 This function constructs \code{panelPomp} objects, representing
@@ -51,6 +54,12 @@ involve multiple units, each of which can in turn be modeled by a POMP
 model. Such POMP models can be encoded as a \code{list} of \code{pomp}
 objects, a cornerstone that the \code{panelPomp} function can use to
 construct the corresponding \code{panelPomp} object.
+}
+\examples{
+## recreate the 'panelRandomWalk()' example
+prw <- panelRandomWalk()
+prw2 <- panelPomp(unitobjects(prw),params=coef(prw))
+identical(prw,prw2) # TRUE
 }
 \references{
 \breto2018
@@ -64,5 +73,8 @@ Other panelPomp workhorse functions:
 \code{\link{mif2}()},
 \code{\link{panel_loglik}},
 \code{\link{pfilter}()}
+}
+\author{
+Carles Breto
 }
 \concept{panelPomp workhorse functions}

@@ -7,18 +7,29 @@
 panel_logmeanexp(x, MARGIN, se = FALSE)
 }
 \arguments{
-\item{x}{Matrix with the same number of replicated estimates for each panel 
+\item{x}{Matrix with the same number of replicated estimates for each panel
 unit loglikelihood.}
 
-\item{MARGIN}{The dimension of the matrix that corresponds to a panel unit 
+\item{MARGIN}{The dimension of the matrix that corresponds to a panel unit
 and over which averaging occurs (1 indicates rows, 2 indicates columns).}
 
 \item{se}{logical; whether to give standard errors.}
+}
+\value{
+\code{numeric} vector with the average panel log likelihood and, when
+\code{se = TRUE}, the corresponding standard error.
 }
 \description{
 \code{se = TRUE}, the jackknife se's from \code{logmeanexp} are
  squared, summed and the squared root is taken.
 }
+\examples{
+ulls <- matrix(c(1,1,10,10),nr=2)
+panel_logmeanexp(ulls,MARGIN=2,se=TRUE)
+}
 \seealso{
 panel_loglik
+}
+\author{
+Carles Breto
 }

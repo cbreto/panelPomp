@@ -7,7 +7,7 @@ NULL
 #' @docType methods
 #' @title Manipulating \code{panelPomp} objects
 #' @description Tools for manipulating \code{panelPomp} objects.
-#' @param object,x An object of class \code{panelPomp} or inheriting class 
+#' @param object,x An object of class \code{panelPomp} or inheriting class
 #' \code{panelPomp}.
 #' @param start,end position in original \code{times(pomp)} at which to start.
 #' @param i unit index (indices) or name (names).
@@ -19,17 +19,24 @@ NULL
 #'   \item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
 #'   \item{length}{Count the number of units in \code{panelPomp} objects.}
 #'   \item{names}{Get the unit names of \code{panelPomp} objects.}
-#'   \item{pparams}{Extracts coefficients from \code{panelPomp} objects.}
-#'   \item{[]}{Take a subset of units.}
-#'   \item{[[]]}{Select the pomp object for a single unit.}
+#'   \item{pparams}{Extracts coefficients from \code{panelPomp} objects in list form.}
+#'   \item{pParams}{Converts panel coefficients from vector form to list form.}
 #'   \item{window}{Subset \code{panelPomp} objects by changing start time and
 #'   end time.}
+#'   \item{[]}{Take a subset of units.}
+#'   \item{[[]]}{Select the pomp object for a single unit.}
 #'   }
 #' @author Carles Breto, Aaron A. King.
 #' @family panelPomp methods
 NULL
 
 #' @rdname panelPomp_methods
+#' @return
+#' \code{coef} returns a \code{numeric} vector.
+#' @examples
+#' ## access and manipulate model parameters and other features
+#' prw <- panelRandomWalk()
+#' coef(prw)
 #' @export
 setMethod(
   "coef",
@@ -47,6 +54,10 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
+#' @examples
+#' # replace coefficients
+#' coef(prw) <- c(sigmaX=2,coef(prw)[-1])
+#' coef(prw)
 #' @export
 setMethod(
   "coef<-",
@@ -55,10 +66,10 @@ setMethod(
     ## check names(value)
     ep <- paste0("in ",sQuote("coef<-"),": ")
     if (is.list(value)) value <- unlist(value)
-    if (!identical(character(0),setdiff(names(value),names(coef(object))))) 
+    if (!identical(character(0),setdiff(names(value),names(coef(object)))))
       stop(paste0(ep,"part of ",sQuote("value")," is not part of ",
                   sQuote("coef(object)"),"."),call.=FALSE)
-    if (!identical(character(0),setdiff(names(coef(object)),names(value)))) 
+    if (!identical(character(0),setdiff(names(coef(object)),names(value))))
       stop(paste0(ep,"part of ",sQuote("coef(object)")," is not specified in ",
                   sQuote("value"),"."),call.=FALSE)
     nn <- grep("^.+\\[.+?\\]$",names(value),perl=TRUE,value=TRUE)
@@ -79,6 +90,10 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
+#' @return
+#' \code{length} returns an \code{integer}.
+#' @examples
+#' length(prw)
 #' @export
 setMethod(
   "length",
@@ -87,6 +102,10 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
+#' @return
+#' \code{names} returns a \code{character} vector.
+#' @examples
+#' names(prw)
 #' @export
 setMethod(
   "names",
@@ -95,15 +114,25 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
+#' @return
+#' \code{pparams} returns a \code{matrix} with the model parameters in \code{list} form.
+#' @examples
+#' # extract parameters in list form
+#' pparams(prw)
 #' @export
 setMethod(
   "pparams",
   signature=signature(object="panelPomp"),
-  definition = function (object) 
+  definition = function (object)
     list(shared=object@shared,specific=object@specific)
 )
 
 #' @rdname panelPomp_methods
+#' @return
+#' \code{pParams} returns a \code{list} with the model parameters in list form.
+#' @examples
+#' # convert vector-form parameters to list-form parameters
+#' pParams(coef(prw))
 #' @export
 pParams <- function (value) {
   nn <- grep("^.+\\[.+?\\]$",names(value),perl=TRUE,value=TRUE)
@@ -126,6 +155,10 @@ pParams <- function (value) {
 
 #' @rdname panelPomp_methods
 #' @export
+#' @examples
+#' ## summaries of objects
+#' print(panelRandomWalk())
+#' @export
 setMethod(
   "print",
   signature=signature(x="panelPomp"),
@@ -136,6 +169,8 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
+#' @examples
+#' show(panelRandomWalk())
 #' @export
 setMethod(
   "show",
@@ -156,6 +191,11 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
+#' @return
+#' \code{unitobjects} returns a \code{list} of \code{pomp} objects.
+#' @examples
+#' ## access underlying pomp objects
+#' unitobjects(panelRandomWalk())
 #' @export
 setMethod(
   "unitobjects",
@@ -166,6 +206,13 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
+#' @return
+#' \code{window} returns a \code{panelPomp} object with adjusted times.
+#' @examples
+#' ## select windows of time
+#' time(prw[[1]])
+#' prw2 <- window(prw,start=2,end=4)
+#' time(prw2[[1]]); time(prw2[[2]])
 #' @export
 setMethod(
   "window",
@@ -183,6 +230,12 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
+#' @return
+#' \code{`[`} returns a \code{panelPomp} object.
+#' @examples
+#' ## subsetting panelPomp objects
+#' prw1 <- prw[1]
+#' prw1 # panelPomp of 1 unit (first unit of prw)
 #' @export
 setMethod(
   "[",
@@ -197,6 +250,11 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
+#' @return
+#' \code{`[[`} returns a \code{pomp} object.
+#' @examples
+#' prw_2 <- prw[[2]]
+#' prw_2 # pomp object corresponding to unit 2 of prw
 #' @export
 setMethod(
   "[[",
@@ -210,11 +268,18 @@ setMethod(
 
 ## "@rdname panelPomp_methods" doesn't seem to work with setAs()
 ## coerce method
-#' @title Coercing \code{panelPomp} objects as a \code{list}
-#' @description Extracts the \code{unit.objects} slot of \code{panelPomp} 
-#' objects and attaches the associated parameters.
+#' @title Coercing \code{panelPomp} objects as \code{list}, \code{pompList} or
+#' \code{data.frame}
+#' @description When coercing to a \code{list}, it extracts the
+#' \code{unit.objects} slot of \code{panelPomp} objects and attaches
+#' associated parameters.
 #' @name as
 #' @family panelPomp methods
+#' @author Carles Breto
+#' @return
+#' An object of class matching that specified in the second argument (\code{to=}).
+#' @examples
+#' as(panelRandomWalk(),'list') # |> class() # "list"
 setAs(from="panelPomp",to="list",def = function (from) {
   plist <- from@unit.objects
   shared <- from@shared
@@ -225,12 +290,16 @@ setAs(from="panelPomp",to="list",def = function (from) {
   plist
 })
 
-#' @title Coercing \code{panelPomp} objects as a \code{pompList}
-#' @description Extracts the \code{unit.objects} slot of \code{panelPomp} 
-#' objects and attaches the associated parameters, converting the
-#' resulting list to a pompList to help the assignment of pomp methods.
+# [seems to be overwritten by first call] @title Coercing \code{panelPomp} objects as a \code{pompList}
+#' @description When coercing to a \code{pompList}, it extracts the
+#' \code{unit.objects} slot of \code{panelPomp} objects and attaches
+#' associated parameters, converting the resulting list to a \code{pompList} to
+#' help the assignment of pomp methods.
 #' @name as
-#' @family panelPomp methods
+# [seems to simply replicate 'see also'] @family panelPomp methods
+# @author Carles Breto
+#' @examples
+#' as(panelRandomWalk(),'pompList') # |> class() # "pompList"
 setAs(from="panelPomp",to="pompList",def = function (from) {
   plist <- as(from,"list")
   class(plist) <- "pompList"
@@ -238,11 +307,15 @@ setAs(from="panelPomp",to="pompList",def = function (from) {
 })
 
 ## coerce method
-#' @title Coercing \code{panelPomp} objects as a \code{data.frame}
-#' @description Coerces a \code{panelPomp} into a data frame,
-#' assuming units share common variable names.
+# [seems to be overwritten by first call] @title Coercing \code{panelPomp} objects as a \code{data.frame}
+#' @description When coercing to a \code{data.frame}, it coerces a
+#' \code{panelPomp} into a \code{data.frame}, assuming units share common
+#' variable names.
 #' @name as
-#' @family panelPomp methods
+# [seems to simply replicate 'see also'] @family panelPomp methods
+# @author Carles Breto
+#' @examples
+#' as(panelRandomWalk(),'data.frame') # |> class() # "data.frame"
 setAs(from="panelPomp",to="data.frame",
       def = function (from) {
         x <- lapply(from@unit.objects,as,"data.frame")
@@ -252,4 +325,3 @@ setAs(from="panelPomp",to="data.frame",
         do.call(rbind,x)
       }
 )
-

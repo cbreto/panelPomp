@@ -20,9 +20,15 @@ panelRandomWalk(
 
 \item{seed}{passed to the random number generator for simulation.}
 }
+\value{
+A \code{panelPomp} object.
+}
 \description{
 Builds a collection of independent realizations from a random
 walk model.
+}
+\examples{
+panelRandomWalk()
 }
 \author{
 Edward L. Ionides, Carles Breto

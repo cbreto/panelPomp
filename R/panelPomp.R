@@ -39,8 +39,8 @@ NULL
 #' that should be shared (with values for parameters not originally shared
 #' taken from the unit-specific parameters of the first panel unit of
 #' \code{object}). \code{shared=NULL} sets all parameters as unit-specific.
-#' @param params optional; a named numeric vector. In this case, the nature of 
-#' parameters is determined via a naming convention: names ending in 
+#' @param params optional; a named numeric vector. In this case, the nature of
+#' parameters is determined via a naming convention: names ending in
 #' \dQuote{\code{[unit_name]}} are assumed to denote unit-specific parameters;
 #' all other names specify shared parameters.
 #' @references \breto2018
@@ -51,6 +51,7 @@ NULL
 NULL
 
 #' @rdname panelPomp
+# @author Carles Breto
 #' @export
 setClass(
   'panelPomp',
@@ -65,9 +66,9 @@ setClass(
     specific=matrix(numeric(),0,0)
   ),
   validity=function (object) {
-    
+
     retval <- character(0)
-    
+
     ## check to make sure unit.objects is named and are all pomps
     if (length(object@unit.objects)<1) {
       retval <- append(
@@ -82,30 +83,30 @@ setClass(
           wQuotes("''unit.objects'' must be a list of ''pomp'' objects"))
       }
     }
-    
-    if (ncol(object@specific)!=length(object@unit.objects)) 
+
+    if (ncol(object@specific)!=length(object@unit.objects))
       retval <- append(
         retval,
         wQuotes("there must be one column of specific parameters per unit"))
 
     sh.names <- names(object@shared)
     sp.names <- rownames(object@specific)
-    
+
     if ((is.null(sh.names) && length(object@shared)>0) ||
         (is.null(sp.names) && length(object@specific)>0))
       retval <- append(retval,
         wQuotes("all parameters must be named"))
-    
+
     if (length(intersect(sh.names,sp.names))>0)
       retval <- append(retval,"a parameter cannot be both shared and specific!")
-    
+
     if (!setequal(u.names,colnames(object@specific)))
       retval <- append(retval,
         wQuotes("the column names of the specific parameter matrix must",
           " match the names of the units"))
-    
-    if (length(retval)==0) 
-      TRUE 
+
+    if (length(retval)==0)
+      TRUE
     else {
       append(retval," (validity check)")
       retval
@@ -115,18 +116,26 @@ setClass(
 
 
 #' @rdname panelPomp
+#' @return
+#' A \code{panelPomp} object.
+#' @examples
+#' ## recreate the 'panelRandomWalk()' example
+#' prw <- panelRandomWalk()
+#' prw2 <- panelPomp(unitobjects(prw),params=coef(prw))
+#' identical(prw,prw2) # TRUE
+#' @author Carles Breto
 #' @export
 panelPomp <- function (object, shared, specific, params) {
-  
+
   ep <- wQuotes("in ''panelPomp'': ")
-  
+
   if (missing(object))
     stop(wQuotes(ep,"''object'' is a required argument."),call.=FALSE)
-  
+
   sh.given <- !missing(shared)
   sp.given <- !missing(specific)
   pv.given <- !missing(params)
-  
+
   if (is.list(object) && all(sapply(object,is,"pomp"))) {
     ## object should be a list of pomps
     ## construct a panelPomp
@@ -162,7 +171,7 @@ panelPomp <- function (object, shared, specific, params) {
       " list of ''pomp'' objects."),
       call.=FALSE)
   }
-  
+
   if (pv.given) {  ## parameters are specified using vector 'params'
     if (sh.given || sp.given) {
       stop(wQuotes(ep,
@@ -184,11 +193,11 @@ panelPomp <- function (object, shared, specific, params) {
         shared=params$shared,specific=params$specific)
     }
   } else {  ## we are changing the allocation between shared and specific
-    
+
     u.names <- names(object@unit.objects)
     osp.names <- rownames(object@specific)
     osh.names <- names(object@shared)
-    
+
     if (sh.given) {  ## get names of parameters that are to be shared
       if (is.null(shared)) {
         shared <- numeric(0)
@@ -200,7 +209,7 @@ panelPomp <- function (object, shared, specific, params) {
           call.=FALSE)
       }
     }
-    
+
     if (sp.given) { ## get names of parameters that are to be specific
       if (is.character(specific)) {
         sp.names <- unname(specific)
@@ -225,7 +234,7 @@ panelPomp <- function (object, shared, specific, params) {
           "a numeric vector, or a character vector"),call.=FALSE)
       }
     }
-    
+
     if (sp.given) {
       if (is.character(specific)) {
         if (sh.given) {
@@ -307,6 +316,6 @@ panelPomp <- function (object, shared, specific, params) {
       }
     }
   }
-  
+
   object
 }

@@ -16,8 +16,11 @@ NULL
 ##'
 ##' @author Edward L. Ionides, Carles Breto
 ##'
+##' @return
+##' A \code{panelPomp} object.
+##' @examples
+##' panelRandomWalk()
 ##' @export
-##'
 panelRandomWalk <- function(N=5,U=2,
   params=c(sigmaY=1,sigmaX=1,X.0=1),seed=3141592){
   times <- 1:N
@@ -49,13 +52,13 @@ panelRandomWalk <- function(N=5,U=2,
 
   rw_shared_names <- c("sigmaX","sigmaY")
   rw_specific <- coef(rw_pomp)[!names(coef(rw_pomp))%in%rw_shared_names]
-  
+
   panelPomp(rw_sim_list,
     shared=coef(rw_pomp)[rw_shared_names],
     specific= matrix(rw_specific,
       nrow=length(rw_specific),
       ncol=U,
-      dimnames=list(names(rw_specific),names(rw_sim_list)))
+      dimnames=list(param=names(rw_specific),unit=names(rw_sim_list)))
   )
 }
 

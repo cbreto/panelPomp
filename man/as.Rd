@@ -2,26 +2,35 @@
 % Please edit documentation in R/panelPomp_methods.R
 \name{as}
 \alias{as}
-\title{Coercing \code{panelPomp} objects as a \code{list}}
+\title{Coercing \code{panelPomp} objects as \code{list}, \code{pompList} or
+\code{data.frame}}
+\value{
+An object of class matching that specified in the second argument (\code{to=}).
+}
 \description{
-Extracts the \code{unit.objects} slot of \code{panelPomp} 
-objects and attaches the associated parameters.
+When coercing to a \code{list}, it extracts the
+\code{unit.objects} slot of \code{panelPomp} objects and attaches
+associated parameters.
 
-Extracts the \code{unit.objects} slot of \code{panelPomp} 
-objects and attaches the associated parameters, converting the
-resulting list to a pompList to help the assignment of pomp methods.
+When coercing to a \code{pompList}, it extracts the
+\code{unit.objects} slot of \code{panelPomp} objects and attaches
+associated parameters, converting the resulting list to a \code{pompList} to
+help the assignment of pomp methods.
 
-Coerces a \code{panelPomp} into a data frame,
-assuming units share common variable names.
+When coercing to a \code{data.frame}, it coerces a
+\code{panelPomp} into a \code{data.frame}, assuming units share common
+variable names.
+}
+\examples{
+as(panelRandomWalk(),'list') # |> class() # "list"
+as(panelRandomWalk(),'pompList') # |> class() # "pompList"
+as(panelRandomWalk(),'data.frame') # |> class() # "data.frame"
 }
 \seealso{
 Other panelPomp methods: 
 \code{\link{panelPomp_methods}}
-
-Other panelPomp methods: 
-\code{\link{panelPomp_methods}}
-
-Other panelPomp methods: 
-\code{\link{panelPomp_methods}}
+}
+\author{
+Carles Breto
 }
 \concept{panelPomp methods}

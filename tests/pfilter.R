@@ -38,8 +38,8 @@ test(coef(as(pfilter(ppo,sh=2*ppo@shared,Np=10,
 test(coef(as(pfilter(ppo,sp=2*ppo@specific,
   params=list(shared=ppo@shared,specific=ppo@specific),Np=10),
   "list")[[1]]),c(ppo@shared,2*get_col(ppo@specific,1,1)))
-test(wQuotes(ep,"specify either ''params'' only, ''params'' and ''shared'' , ",
-  "or ''params'' and ''specific''.\n"),
+test(wQuotes(ep,"specify either ''params'' only, ''params'' and ''shared'' ,",
+  " or ''params'' and ''specific''.\n"),
   pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,
     params=list(shared=ppo@shared,specific=ppo@specific),
     Np=10))
@@ -50,7 +50,7 @@ set.seed(21125715L)
 ppf_<-pfilter(ppo,params=list(shared=ppo@shared,specific=ppo@specific),Np=10)
 test(logLik(ppf),logLik(ppf_))
 numeric_names <- setNames(rep(1,3),c(names(ppo@shared),"X.0[rw1]"))
-identical(pPs,pParams(numeric_names))
+test(pPs,pParams(numeric_names))
 set.seed(21125715L)
 ppf__<-pfilter(ppo,params=numeric_names,Np=10)
 test(logLik(ppf),logLik(ppf__))

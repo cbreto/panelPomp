@@ -5,7 +5,7 @@ NULL
 
 #' @title Particle filtering for panel data
 #' @description Tools for applying particle filtering algorithms to panel data.
-#' @param data An object of class \code{panelPomp} or inheriting class 
+#' @param data An object of class \code{panelPomp} or inheriting class
 #' \code{panelPomp}.
 #' @name pfilter
 #' @section Methods:
@@ -14,13 +14,14 @@ NULL
 #'   \item{unitlogLik}{Extracts the estimated log likelihood for each panel unit.}
 #'   }
 #' @references \arulampalam2002
-#' 
+#'
 #' \breto2018
 #' @family panelPomp workhorse functions
 #' @seealso \pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
 NULL
 
 #' @rdname pfilter
+#' @author Carles Breto
 #' @export
 setClass(
   'pfilterd.ppomp',
@@ -38,7 +39,7 @@ setClass(
 )
 
 # pPfilter algorithm internal functions
-pfilter.internal <- function(object, params, Np, 
+pfilter.internal <- function(object, params, Np,
                              verbose = FALSE, ...) {
   # Turn params list into a matrix
   matrixpParams <- toMatrixPparams(params)
@@ -67,16 +68,21 @@ pfilter.internal <- function(object, params, Np,
 }
 
 #' @rdname pfilter
-#' @inheritParams coef,panelPomp-method 
+#' @inheritParams coef,panelPomp-method
 #' @inheritParams panelPomp
 #' @inheritParams pomp::mif2
 #' @param ... additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.
+# @author Carles Breto
+#' @return
+#' \code{panelPomp} object.
+#' @examples
+#' wQuotes("in ''fns'': *object* is 'a' required argument")
+#' paste0("in ",sQuote("fns"),": ",dQuote("object")," is 'a' required argument")
 #' @export
-#'
 setMethod(
   "pfilter",
   signature=signature(data="panelPomp"),
-  definition = function(data, shared, specific, params, Np, 
+  definition = function(data, shared, specific, params, Np,
                         verbose = getOption("verbose"),
                         ...) {
     object <- data # the argument name 'data' is fixed by pomp's generic
@@ -84,19 +90,17 @@ setMethod(
     ## check for params format
     if (!missing(params) && is.numeric(params)) params <- pParams(params)
 
-    if (!missing(shared) && !missing(specific) && !missing(params)) 
-      stop(ep,"specify either ",sQuote("params")," only, ",sQuote("params"),
-           " and ",sQuote("shared")," , or ",sQuote("params")," and ",
-           sQuote("specific"),".",call.=FALSE
-      )
-    
+    if (!missing(shared) && !missing(specific) && !missing(params))
+      stop(ep,wQuotes("specify either ''params'' only, ''params'' and ''shared'' ,",
+           " or ''params'' and ''specific''"),".",call.=FALSE)
+
     # Get starting parameter values from 'object,' 'start,' or 'params'
     if (missing(shared)){
-      if (!missing(params)) shared <- params$shared 
+      if (!missing(params)) shared <- params$shared
       else shared <- object@shared
-    } 
+    }
     if (missing(specific)){
-      if (!missing(params)) specific <- params$specific 
+      if (!missing(params)) specific <- params$specific
       else specific <- object@specific
     }
     if (!is.null(object@shared)){
@@ -108,9 +112,8 @@ setMethod(
         &
         !(is.null(names(object@shared))&is.null(names(shared)))
       ) {
-        stop(ep, "names of ", sQuote("shared"), " must match those of ", 
-             sQuote("object@shared"),".", call.=FALSE
-        )
+        stop(ep, wQuotes("names of ''shared'' must match those of ''object@shared''"),
+        ".", call.=FALSE)
       }
     }
     if (!is.null(object@specific)){
@@ -127,18 +130,16 @@ setMethod(
           is.null(rownames(specific))
         )
       ) {
-        stop(ep,"rownames of ",sQuote("specific")," must match those of ", 
-             sQuote("object@specific"),".",call.=FALSE
-        )
+        stop(ep,wQuotes("rownames of ''specific'' must match those of ''object@specific''"),
+             ".",call.=FALSE)
       }
       if (!setequal(x = colnames(object@specific), y = colnames(specific))){
-        stop(ep, "colnames of ", sQuote("specific"), " must match those of ", 
-             sQuote("object@specific"),".", call.=FALSE
-        )
+        stop(ep, wQuotes("colnames of ''specific'' must match those of ''object@specific''"),
+             ".", call.=FALSE)
       }
     }
     if (missing(Np)) stop(wQuotes(ep,"Missing ''Np'' argument."),call.=FALSE)
-    
+
     pfilter.internal(
       object = object, # internally, 'object' is used, not 'data'
       params = list(shared = shared, specific = specific),

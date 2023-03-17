@@ -20,9 +20,15 @@ panelGompertz(
 
 \item{seed}{passed to the random number generator for simulation.}
 }
+\value{
+\code{panelPomp} object.
+}
 \description{
 Builds a collection of independent realizations from the
 Gompertz model.
+}
+\examples{
+panelGompertz()
 }
 \author{
 Edward L. Ionides, Carles Breto
