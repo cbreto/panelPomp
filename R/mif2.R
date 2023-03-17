@@ -247,8 +247,12 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
 
 ## mif2,panelPomp-method
 #' @rdname mif2
+#' @return
+#' \code{mif2} returns an object of class \code{mif2d.ppomp}.
 #' @examples
+#' ## start with a panelPomp object
 #' p <- panelRandomWalk()
+#' ## specify which parameters to estimate via rw_sd() and how fast to cool
 #' mp <- mif2(p,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
 #' mp
 #' @export
@@ -303,6 +307,7 @@ setMethod(
 
 #' @rdname mif2
 #' @examples
+#' ## the object resulting from an initial estimation can be used as a new starting point
 #' mmp <- mif2(mp,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
 #' mmp
 #' @export

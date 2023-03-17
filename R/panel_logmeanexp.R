@@ -4,12 +4,19 @@ NULL
 #' @title Log-mean-exp for panels
 #' @description \code{se = TRUE}, the jackknife se's from \code{logmeanexp} are
 #'  squared, summed and the squared root is taken.
-#' @param x Matrix with the same number of replicated estimates for each panel 
+#' @param x Matrix with the same number of replicated estimates for each panel
 #' unit loglikelihood.
-#' @param MARGIN The dimension of the matrix that corresponds to a panel unit 
+#' @param MARGIN The dimension of the matrix that corresponds to a panel unit
 #' and over which averaging occurs (1 indicates rows, 2 indicates columns).
 #' @param se logical; whether to give standard errors.
+#' @return
+#' \code{numeric} vector with the average panel log likelihood and, when
+#' \code{se = TRUE}, the corresponding standard error.
 #' @seealso panel_loglik
+#' @author Carles Breto
+#' @examples
+#' ulls <- matrix(c(1,1,10,10),nr=2)
+#' panel_logmeanexp(ulls,MARGIN=2,se=TRUE)
 #' @export
 panel_logmeanexp <- function (x, MARGIN, se = FALSE)
 {

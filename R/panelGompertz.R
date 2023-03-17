@@ -15,7 +15,10 @@ NULL
 ##' @param seed passed to the random number generator for simulation.
 ##'
 ##' @author Edward L. Ionides, Carles Breto
-##'
+##' @return
+##' \code{panelPomp} object.
+##' @examples
+##' panelGompertz()
 ##' @export
 ##'
 panelGompertz <- function(N=100,U=50,

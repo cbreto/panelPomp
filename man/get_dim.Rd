@@ -21,13 +21,16 @@ get_row(matrix, row, cols)
 
 \item{cols}{numeric; columns to subset; like with `[`, this argument can be left empty to designate all columns.}
 }
+\value{
+Single column or row \code{matrix} object.
+}
 \description{
 Subset matrix dropping dimension but without dropping dimname
 (which is R's default).
 }
 \examples{
 m <- matrix(NA,dimnames=list('r1','c1'))
-m[1,1] # = NA
+m[1,1] # = NA; R removes both names
 get_col(m,row=1,col=1) # = c(r1=NA)
 get_row(m,row=1,col=1) # = c(c1=NA)
 }

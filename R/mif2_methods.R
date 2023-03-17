@@ -9,13 +9,13 @@ NULL
 ##' @param pars names of parameters
 ##'
 ##' @return
-##' \code{traces} returns the estimated parameter values at different
-##' iterations of the IF2 algorithm in the natural scale. The default is to
-##' return values for all parameters but a subset of parameters can be passed
-##' via the optional argument \code{pars}.
+##' \code{traces} returns a \code{matrix} with estimated parameter values at
+##' different iterations of the IF2 algorithm in the natural scale. The default
+##' is to return values for all parameters but a subset of parameters can be
+##' passed via the optional argument \code{pars}.
 
 #' @examples
-#' traces(mp)
+#' ## convergence can be partly diagnosed by checking estimates and likelihoods at different iterations
 #' traces(mmp)
 #' @export
 #' @author Carles Breto

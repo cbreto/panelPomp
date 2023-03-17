@@ -84,10 +84,12 @@ class \code{mif2d.ppomp})}
 \item{pars}{names of parameters}
 }
 \value{
-\code{traces} returns the estimated parameter values at different
-iterations of the IF2 algorithm in the natural scale. The default is to
-return values for all parameters but a subset of parameters can be passed
-via the optional argument \code{pars}.
+\code{mif2} returns an object of class \code{mif2d.ppomp}.
+
+\code{traces} returns a \code{matrix} with estimated parameter values at
+different iterations of the IF2 algorithm in the natural scale. The default
+is to return values for all parameters but a subset of parameters can be
+passed via the optional argument \code{pars}.
 }
 \description{
 Tools for applying iterated filtering algorithms to panel data.
@@ -103,12 +105,15 @@ procedures that iterate this search over the parameter space while
 diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
 }
 \examples{
+## start with a panelPomp object
 p <- panelRandomWalk()
+## specify which parameters to estimate via rw_sd() and how fast to cool
 mp <- mif2(p,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
 mp
+## the object resulting from an initial estimation can be used as a new starting point
 mmp <- mif2(mp,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
 mmp
-traces(mp)
+## convergence can be partly diagnosed by checking estimates and likelihoods at different iterations
 traces(mmp)
 }
 \references{

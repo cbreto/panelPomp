@@ -12,6 +12,9 @@ contacts(
 \arguments{
 \item{params}{parameter vector.}
 }
+\value{
+\code{panelPomp} object.
+}
 \description{
 A panel model for dynamic variation in sexual contacts, with
 data from Vittinghof et al (1999). The model was developed by

@@ -9,13 +9,15 @@ NULL
 #' @param rows numeric; rows to subset; like with `[`, this argument can be left empty to designate all rows.
 #' @param col numeric; single column to subset.
 #' @param cols numeric; columns to subset; like with `[`, this argument can be left empty to designate all columns.
+#' @return
+#' Single column or row \code{matrix} object.
 #' @name get_dim
 NULL
 
 #' @rdname get_dim
 #' @examples
 #' m <- matrix(NA,dimnames=list('r1','c1'))
-#' m[1,1] # = NA
+#' m[1,1] # = NA; R removes both names
 #' get_col(m,row=1,col=1) # = c(r1=NA)
 #' @export
 #' @author Carles Breto

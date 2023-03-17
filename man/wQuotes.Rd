@@ -10,14 +10,17 @@ wQuotes(...)
 \arguments{
 \item{...}{objects to be passed to \code{strsplit}.}
 }
+\value{
+\code{character} object.
+}
 \description{
 Concatenate character objects and replace double quotes with
 \code{sQuote()}s and asterisks with \code{dQuote()}s: \code{sQuote("x")} and
 \code{dQuote("x")} can be written as just ''x'' and *x*.
 }
 \examples{
-wQuotes("in ''fns'': *object* is 'a' required argument")
-paste0("in ",sQuote("fns"),": ",dQuote("object")," is 'a' required argument")
+paste0("in ",sQuote("fn_name"),": ",dQuote("object")," is 'a' required argument")
+wQuotes("in ''fn_name'': *object* is 'a' required argument") # same but shorter
 }
 \author{
 Carles Breto

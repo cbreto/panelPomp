@@ -5,6 +5,8 @@
 ##' Romero-Severson et al (2015) and discussed by Breto et al (2019).
 ##'
 ##' @param params parameter vector.
+##' @return
+##' \code{panelPomp} object.
 ##'
 ##' @author Edward L. Ionides
 ##'
