@@ -33,7 +33,7 @@ setMethod(
       spp <- as.character(intersect(pars,nm[[2]]))
       bad_pars <- setdiff(pars,c(colnames(shmat),nm[[2]]))
       if (length(bad_pars) > 0)
-        stop(wQuote("in ''traces'': name(s) "),
+        stop(wQuotes("in ''traces'': name(s) "),
              paste(sQuote(bad_pars),collapse = ","),
              " correspond to no parameter(s).",
              call. = FALSE)
