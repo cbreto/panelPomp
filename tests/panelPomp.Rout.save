@@ -160,4 +160,4 @@ Error : in 'panelPomp': 'object' must be either a 'panelPomp' object or a list o
 > 
 > proc.time()
    user  system elapsed 
-  0.865   0.241   1.589 
+  0.860   0.234   1.496 

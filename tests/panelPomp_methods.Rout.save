@@ -164,4 +164,4 @@ summary of first panel unit ("rw1"):
 > 
 > proc.time()
    user  system elapsed 
-  0.861   0.244   1.635 
+  0.855   0.238   1.507 

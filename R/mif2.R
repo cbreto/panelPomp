@@ -86,7 +86,8 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
   spnames <- rownames(start$specific)
 
   if (!setequal(names(object@unit.objects),colnames(start$specific)))
-    stop(ep,wQuotes("specific parameter column-names must match the names of the units"),call.=FALSE)
+    stop(ep,wQuotes("specific parameter column-names must match the names of the units"),
+         call.=FALSE)
   start$specific <- start$specific[,names(object@unit.objects),drop=FALSE]
 
   ########################################################
@@ -168,8 +169,8 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
           .ndone = mifiter-1
         ),
         error = function (e) {
-          stop(ep,"pomp's ",sQuote("mif2")," error message: ",conditionMessage(e),
-            et,call.=FALSE)
+          stop(wQuotes(ep,"pomp's ''mif2'' error message: ",conditionMessage(e),
+                       et),call.=FALSE)
         }
       )
 
@@ -280,14 +281,14 @@ setMethod(
     if (missing(specific.start)) specific.start <- start$specific
 
     if (missing(Np)) {
-      stop(ep,"Missing ",sQuote("Np")," argument.",et,call.=FALSE)
+      stop(wQuotes(ep,"Missing ''Np'' argument.",et),call.=FALSE)
     }
     if (missing(cooling.fraction.50)) {
-      stop(ep,"Missing ",sQuote("cooling.fraction.50")," argument.",et,
-        call.=FALSE)
+      stop(wQuotes(ep,"Missing ''cooling.fraction.50'' argument.",et),
+           call.=FALSE)
     }
     if (missing(rw.sd)) {
-      stop(ep,"missing ",sQuote("rw.sd")," argument.",et,call.=FALSE)
+      stop(wQuotes(ep,"Missing ''rw.sd'' argument.",et),call.=FALSE)
     }
 
     mif2.internal(

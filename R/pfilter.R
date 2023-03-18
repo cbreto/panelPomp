@@ -74,10 +74,14 @@ pfilter.internal <- function(object, params, Np,
 #' @param ... additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.
 # @author Carles Breto
 #' @return
-#' \code{panelPomp} object.
+#' \code{pfilter} returns an object of class \code{pfilterd.ppomp} that is also
+#' a \code{panelPomp} object (with the additional filtering details).
 #' @examples
-#' wQuotes("in ''fns'': *object* is 'a' required argument")
-#' paste0("in ",sQuote("fns"),": ",dQuote("object")," is 'a' required argument")
+#' # filter, which generates log likelihoods
+#' prw <- pfilter(panelRandomWalk(),Np=10)
+#' class(prw) # "pfilterd.ppomp"
+#' is(prw,"panelPomp") # TRUE
+#' prw
 #' @export
 setMethod(
   "pfilter",

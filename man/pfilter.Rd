@@ -76,11 +76,12 @@ If \code{object} is a \code{panelPomp} object, the function allows modifying
 the shared and unit-specific configuration of \code{object}.}
 }
 \value{
-\code{panelPomp} object.
+\code{pfilter} returns an object of class \code{pfilterd.ppomp} that is also
+a \code{panelPomp} object (with the additional filtering details).
 
-\code{panelPomp} object, including a list of \code{pfilterd_pomp} objects.
+\code{logLik} returns a \code{numeric} vector.
 
-A \code{numeric} vector.
+\code{unitlogLik} returns a \code{numeric} vector.
 }
 \description{
 Tools for applying particle filtering algorithms to panel data.
@@ -94,11 +95,15 @@ Tools for applying particle filtering algorithms to panel data.
 }
 
 \examples{
-wQuotes("in ''fns'': *object* is 'a' required argument")
-paste0("in ",sQuote("fns"),": ",dQuote("object")," is 'a' required argument")
-fprw <- pfilter(panelRandomWalk(),Np=10)
-fprw
-unitlogLik(fprw)
+# filter, which generates log likelihoods
+prw <- pfilter(panelRandomWalk(),Np=10)
+class(prw) # "pfilterd.ppomp"
+is(prw,"panelPomp") # TRUE
+prw
+# extract single log likelihood for the entire panel
+logLik(prw)
+# extract log likelihood for each panel unit
+unitlogLik(prw)
 }
 \references{
 \arulampalam2002

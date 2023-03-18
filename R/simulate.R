@@ -6,14 +6,14 @@
 ##' @name simulate
 ##' @rdname simulate
 ##' @author Edward L. Ionides
-##' @param object  a \sQuote{panelPomp} object.
+##' @param object  a \code{panelPomp} object.
 ##' @param nsim The number of simulations to perform. Unlike the pomp
 ##' simulate method, all simulations share the same parameters.
-##' @param shared Named vector of the shared paramters.
+##' @param shared Named vector of the shared parameters.
 ##' @param specific Matrix of unit-specific parameters, with a column
 ##' for each unit.
 ##' @return
-##' A single panelPomp object (if nsim=1) or a list of panelPomp objects
+##' A single panelPomp object (if nsim=1) or a list of \code{panelPomp} objects
 ##' (if nsim>1).
 ##'
 NULL

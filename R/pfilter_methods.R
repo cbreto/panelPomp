@@ -6,10 +6,10 @@ NULL
 #' @rdname pfilter
 #' @author Carles Breto
 #' @return
-#' \code{panelPomp} object, including a list of \code{pfilterd_pomp} objects.
+#' \code{logLik} returns a \code{numeric} vector.
 #' @examples
-#' fprw <- pfilter(panelRandomWalk(),Np=10)
-#' fprw
+#' # extract single log likelihood for the entire panel
+#' logLik(prw)
 #' @export
 #'
 setMethod(
@@ -21,9 +21,10 @@ setMethod(
 #' @rdname pfilter
 # @author Carles Breto
 #' @return
-#' A \code{numeric} vector.
+#' \code{unitlogLik} returns a \code{numeric} vector.
 #' @examples
-#' unitlogLik(fprw)
+#' # extract log likelihood for each panel unit
+#' unitlogLik(prw)
 #' @export
 #'
 setMethod(

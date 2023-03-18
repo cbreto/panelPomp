@@ -8,18 +8,18 @@
 \S4method{simulate}{panelPomp}(object, nsim = 1, shared, specific)
 }
 \arguments{
-\item{object}{a \sQuote{panelPomp} object.}
+\item{object}{a \code{panelPomp} object.}
 
 \item{nsim}{The number of simulations to perform. Unlike the pomp
 simulate method, all simulations share the same parameters.}
 
-\item{shared}{Named vector of the shared paramters.}
+\item{shared}{Named vector of the shared parameters.}
 
 \item{specific}{Matrix of unit-specific parameters, with a column
 for each unit.}
 }
 \value{
-A single panelPomp object (if nsim=1) or a list of panelPomp objects
+A single panelPomp object (if nsim=1) or a list of \code{panelPomp} objects
 (if nsim>1).
 }
 \description{

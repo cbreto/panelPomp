@@ -46,4 +46,4 @@ Error : at least one of shared and specific must be specified.
 > 
 > proc.time()
    user  system elapsed 
-  0.617   0.139   0.949 
+  0.619   0.133   0.952 

@@ -64,14 +64,13 @@ setMethod(
   signature=signature(object="panelPomp"),
   definition=function (object, ..., value) {
     ## check names(value)
-    ep <- paste0("in ",sQuote("coef<-"),": ")
+    ep <- wQuotes("in ''coef<-'': ")
     if (is.list(value)) value <- unlist(value)
     if (!identical(character(0),setdiff(names(value),names(coef(object)))))
-      stop(paste0(ep,"part of ",sQuote("value")," is not part of ",
-                  sQuote("coef(object)"),"."),call.=FALSE)
+      stop(wQuotes(ep,"part of ''value'' is not part of ''coef(object)''","."),call.=FALSE)
     if (!identical(character(0),setdiff(names(coef(object)),names(value))))
-      stop(paste0(ep,"part of ",sQuote("coef(object)")," is not specified in ",
-                  sQuote("value"),"."),call.=FALSE)
+    stop(wQuotes(ep,"part of ''coef(object)'' is not specified in ''value''","."),
+         call.=FALSE)
     nn <- grep("^.+\\[.+?\\]$",names(value),perl=TRUE,value=TRUE)
     pp <- sub(pattern="^(.+?)\\[.+?\\]$",replacement="\\1",x=nn,perl=TRUE)
     uU <- names(object@unit.objects)
@@ -163,7 +162,7 @@ setMethod(
   "print",
   signature=signature(x="panelPomp"),
   definition=function (x, ...) {
-    cat("<object of class ",sQuote("panelPomp"),">\n",sep="")
+    cat(wQuotes("<object of class ''panelPomp''>\n"))
     invisible(x)
   }
 )
