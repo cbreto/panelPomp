@@ -14,7 +14,7 @@ NULL
 #' paste0("in ",sQuote("fn_name"),": ",dQuote("object")," is 'a' required argument")
 #' wQuotes("in ''fn_name'': *object* is 'a' required argument") # same but shorter
 #' @export
-#' @author Carles Breto
+#' @author Carles \Breto
 wQuotes<- function (...) {
   char <- do.call(paste0,list(...)) ## combine arguments
   swap <- list(
@@ -39,7 +39,7 @@ wQuotes<- function (...) {
 }
 
 ## Uniform random draws in the transformed scale: give centers and widths
-## @author Carles Breto
+## @author Carles \Breto
 runif.EstimationScale <-
   function(centers, widths,
            toEstimationScale.fn = log, fromEstimationScale.fn = exp) {
@@ -50,7 +50,7 @@ runif.EstimationScale <-
     ))
   }
 
-## @author Carles Breto
+## @author Carles \Breto
 test <- function (expr1, expr2, all, env, verbose = TRUE) {
   # expr1: expression to be try(,sil=T)[1]d; can be a quote() to avoid
   #     evaluation by the function

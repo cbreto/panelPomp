@@ -2,11 +2,11 @@
 ##'
 ##' A panel model for dynamic variation in sexual contacts, with
 ##' data from Vittinghof et al (1999). The model was developed by
-##' Romero-Severson et al (2015) and discussed by Breto et al (2019).
+##' Romero-Severson et al (2015) and discussed by \Breto et al (2020).
 ##'
 ##' @param params parameter vector.
 ##' @return
-##' \code{panelPomp} object.
+##' A \code{panelPomp} object.
 ##'
 ##' @author Edward L. Ionides
 ##'
@@ -14,15 +14,12 @@
 ##' contacts()
 ##' @export
 ##'
-##' @references
-##'
-##' \breto2018
-##'
-##' \vittinghoff1999
+##' @references \breto2020
 ##'
 ##' \romeroseverson2015
 ##'
-
+##' \vittinghoff1999
+##' @family panelPomp examples
 contacts <- function(params=c(mu_X=1.75,sigma_X=2.67,mu_D=3.81,
   sigma_D=4.42,mu_R=0.04,sigma_R=0,alpha=0.90)){
 

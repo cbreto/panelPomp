@@ -40,5 +40,5 @@ fromVectorPparams(toVectorPparams(pparams(prw)))
 toMatrixPparams(pparams(prw))
 }
 \author{
-Carles Breto
+Carles \Breto
 }

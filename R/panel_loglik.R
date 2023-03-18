@@ -22,7 +22,7 @@ NULL
 #' @name panel_loglik
 #' @aliases logLik,matrix-method
 #' @family panelPomp workhorse functions
-#' @author Carles Breto
+#' @author Carles \Breto
 #' @examples
 #' ulls <- matrix(c(1,1.1,10.1,10),nr=2)
 #' # when combining log likelihood estimates, the order in which aggregation and

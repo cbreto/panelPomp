@@ -5,7 +5,7 @@ NULL
 
 #' @title PIF: Panel iterated filtering
 #' @description Tools for applying iterated filtering algorithms to panel data.
-#' The panel iterated filtering of Breto et al. (2018) extends to
+#' The panel iterated filtering of \Breto et al. (2020) extends to
 #' panel models the improved iterated filtering algorithm (Ionides et al.,
 #' 2015) for estimating parameters of a partially observed Markov process.
 #' Iterated filtering algorithms rely on extending a partially observed Markov
@@ -30,7 +30,7 @@ NULL
 #' same length as the \code{object} argument is provided, each list element
 #' will be used for the corresponding panel unit.
 #' @name mif2
-#' @references \breto2018
+#' @references \breto2020
 #'
 #' \ionides2006
 #'
@@ -38,7 +38,7 @@ NULL
 #'
 #' \ionides2015
 #'
-#' \king2015
+#' \king2016
 #' @family panelPomp workhorse functions
 #' @seealso \pkg{pomp}'s mif2 at \link[=mif2,pomp-method]{mif2},
 #' \link{panel_loglik}
@@ -257,7 +257,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
 #' mp <- mif2(p,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
 #' mp
 #' @export
-#' @author Carles Breto
+#' @author Carles \Breto
 setMethod(
   "mif2",
   signature=signature(data="panelPomp"),
@@ -312,7 +312,7 @@ setMethod(
 #' mmp <- mif2(mp,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
 #' mmp
 #' @export
-#' @author Carles Breto
+#' @author Carles \Breto
 setMethod(
   "mif2",
   signature=signature(data="mif2d.ppomp"),

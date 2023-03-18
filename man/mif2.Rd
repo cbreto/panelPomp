@@ -93,7 +93,7 @@ passed via the optional argument \code{pars}.
 }
 \description{
 Tools for applying iterated filtering algorithms to panel data.
-The panel iterated filtering of Breto et al. (2018) extends to
+The panel iterated filtering of \Breto et al. (2020) extends to
 panel models the improved iterated filtering algorithm (Ionides et al.,
 2015) for estimating parameters of a partially observed Markov process.
 Iterated filtering algorithms rely on extending a partially observed Markov
@@ -117,7 +117,7 @@ mmp
 traces(mmp)
 }
 \references{
-\breto2018
+\breto2020
 
 \ionides2006
 
@@ -125,7 +125,7 @@ traces(mmp)
 
 \ionides2015
 
-\king2015
+\king2016
 }
 \seealso{
 \pkg{pomp}'s mif2 at \link[=mif2,pomp-method]{mif2},
@@ -137,6 +137,6 @@ Other panelPomp workhorse functions:
 \code{\link{pfilter}()}
 }
 \author{
-Carles Breto
+Carles \Breto
 }
 \concept{panelPomp workhorse functions}

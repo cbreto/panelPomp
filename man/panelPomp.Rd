@@ -49,7 +49,7 @@ A \code{panelPomp} object.
 }
 \description{
 This function constructs \code{panelPomp} objects, representing
-PanelPOMP models (as defined in Breto et al., 2018). PanelPOMP models
+PanelPOMP models (as defined in \Breto et al., 2020). PanelPOMP models
 involve multiple units, each of which can in turn be modeled by a POMP
 model. Such POMP models can be encoded as a \code{list} of \code{pomp}
 objects, a cornerstone that the \code{panelPomp} function can use to
@@ -62,9 +62,9 @@ prw2 <- panelPomp(unitobjects(prw),params=coef(prw))
 identical(prw,prw2) # TRUE
 }
 \references{
-\breto2018
+\breto2020
 
-\king2015
+\king2016
 }
 \seealso{
 \pkg{pomp}'s constructor at \link[=pomp]{pomp}
@@ -75,6 +75,6 @@ Other panelPomp workhorse functions:
 \code{\link{pfilter}()}
 }
 \author{
-Carles Breto
+Carles \Breto
 }
 \concept{panelPomp workhorse functions}

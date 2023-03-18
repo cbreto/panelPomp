@@ -48,6 +48,6 @@ Other panelPomp workhorse functions:
 \code{\link{pfilter}()}
 }
 \author{
-Carles Breto
+Carles \Breto
 }
 \concept{panelPomp workhorse functions}

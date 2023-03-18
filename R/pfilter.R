@@ -15,13 +15,13 @@ NULL
 #'   }
 #' @references \arulampalam2002
 #'
-#' \breto2018
+#' \breto2020
 #' @family panelPomp workhorse functions
 #' @seealso \pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
 NULL
 
 #' @rdname pfilter
-#' @author Carles Breto
+#' @author Carles \Breto
 #' @export
 setClass(
   'pfilterd.ppomp',
@@ -72,7 +72,7 @@ pfilter.internal <- function(object, params, Np,
 #' @inheritParams panelPomp
 #' @inheritParams pomp::mif2
 #' @param ... additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.
-# @author Carles Breto
+# @author Carles \Breto
 #' @return
 #' \code{pfilter} returns an object of class \code{pfilterd.ppomp} that is also
 #' a \code{panelPomp} object (with the additional filtering details).

@@ -26,7 +26,7 @@ NULL
 #'   \item{[]}{Take a subset of units.}
 #'   \item{[[]]}{Select the pomp object for a single unit.}
 #'   }
-#' @author Carles Breto, Aaron A. King.
+#' @author Carles \Breto, Aaron A. King.
 #' @family panelPomp methods
 NULL
 
@@ -274,7 +274,7 @@ setMethod(
 #' associated parameters.
 #' @name as
 #' @family panelPomp methods
-#' @author Carles Breto
+#' @author Carles \Breto
 #' @return
 #' An object of class matching that specified in the second argument (\code{to=}).
 #' @examples
@@ -296,7 +296,7 @@ setAs(from="panelPomp",to="list",def = function (from) {
 #' help the assignment of pomp methods.
 #' @name as
 # [seems to simply replicate 'see also'] @family panelPomp methods
-# @author Carles Breto
+# @author Carles \Breto
 #' @examples
 #' as(panelRandomWalk(),'pompList') # |> class() # "pompList"
 setAs(from="panelPomp",to="pompList",def = function (from) {
@@ -312,7 +312,7 @@ setAs(from="panelPomp",to="pompList",def = function (from) {
 #' variable names.
 #' @name as
 # [seems to simply replicate 'see also'] @family panelPomp methods
-# @author Carles Breto
+# @author Carles \Breto
 #' @examples
 #' as(panelRandomWalk(),'data.frame') # |> class() # "data.frame"
 setAs(from="panelPomp",to="data.frame",

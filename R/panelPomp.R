@@ -6,7 +6,7 @@ NULL
 #' @title Constructing \code{panelPomp} objects
 #' @name panelPomp
 #' @description This function constructs \code{panelPomp} objects, representing
-#' PanelPOMP models (as defined in Breto et al., 2018). PanelPOMP models
+#' PanelPOMP models (as defined in \Breto et al., 2020). PanelPOMP models
 #' involve multiple units, each of which can in turn be modeled by a POMP
 #' model. Such POMP models can be encoded as a \code{list} of \code{pomp}
 #' objects, a cornerstone that the \code{panelPomp} function can use to
@@ -43,15 +43,15 @@ NULL
 #' parameters is determined via a naming convention: names ending in
 #' \dQuote{\code{[unit_name]}} are assumed to denote unit-specific parameters;
 #' all other names specify shared parameters.
-#' @references \breto2018
+#' @references \breto2020
 #'
-#' \king2015
+#' \king2016
 #' @family panelPomp workhorse functions
 #' @seealso \pkg{pomp}'s constructor at \link[=pomp]{pomp}
 NULL
 
 #' @rdname panelPomp
-# @author Carles Breto
+# @author Carles \Breto
 #' @export
 setClass(
   'panelPomp',
@@ -123,7 +123,7 @@ setClass(
 #' prw <- panelRandomWalk()
 #' prw2 <- panelPomp(unitobjects(prw),params=coef(prw))
 #' identical(prw,prw2) # TRUE
-#' @author Carles Breto
+#' @author Carles \Breto
 #' @export
 panelPomp <- function (object, shared, specific, params) {
 

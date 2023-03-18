@@ -13,23 +13,29 @@ contacts(
 \item{params}{parameter vector.}
 }
 \value{
-\code{panelPomp} object.
+A \code{panelPomp} object.
 }
 \description{
 A panel model for dynamic variation in sexual contacts, with
 data from Vittinghof et al (1999). The model was developed by
-Romero-Severson et al (2015) and discussed by Breto et al (2019).
+Romero-Severson et al (2015) and discussed by \Breto et al (2020).
 }
 \examples{
 contacts()
 }
 \references{
-\breto2018
-
-\vittinghoff1999
+\breto2020
 
 \romeroseverson2015
+
+\vittinghoff1999
+}
+\seealso{
+Other panelPomp examples: 
+\code{\link{panelGompertz}()},
+\code{\link{panelRandomWalk}()}
 }
 \author{
 Edward L. Ionides
 }
+\concept{panelPomp examples}

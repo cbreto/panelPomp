@@ -14,7 +14,11 @@ NULL
 ##'
 ##' @param seed passed to the random number generator for simulation.
 ##'
-##' @author Edward L. Ionides, Carles Breto
+##' @author Edward L. Ionides, Carles \Breto
+##' @references \breto2020
+##'
+##' \king2016
+##' @family panelPomp examples
 ##' @return
 ##' \code{panelPomp} object.
 ##' @examples

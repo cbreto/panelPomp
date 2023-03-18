@@ -12,7 +12,7 @@ NULL
 NULL
 
 #' @rdname params
-#' @author Carles Breto
+#' @author Carles \Breto
 #' @return
 #' \code{toVectorPparams} returns an object of class \code{data.frame}.
 #' @examples
@@ -53,7 +53,7 @@ toVectorPparams <- function(pParams) {
 }
 
 #' @rdname params
-# @author Carles Breto
+# @author Carles \Breto
 #' @return
 #' \code{fromVectorPparams} returns an object of class \code{list} with the
 #' model parameters in list form.
@@ -89,7 +89,7 @@ fromVectorPparams <- function(vec_pars) {
 }
 
 ## Go to list-form pparams from matrix specification
-# @author Carles Breto
+# @author Carles \Breto
 toListPparams <- function(
   matrixPparams,
   names.in.vector,
@@ -120,7 +120,7 @@ toListPparams <- function(
 ## Go to matrix-form pparams from list specification
 #' @rdname params
 #' @param listPparams PanelPomp parameters in list format
-# @author Carles Breto
+# @author Carles \Breto
 #' @return
 #' \code{toMatrixPparams} returns an object of class \code{matrix} with the
 #' model parameters in matrix form.

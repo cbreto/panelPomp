@@ -30,6 +30,17 @@ Gompertz model.
 \examples{
 panelGompertz()
 }
-\author{
-Edward L. Ionides, Carles Breto
+\references{
+\breto2020
+
+\king2016
 }
+\seealso{
+Other panelPomp examples: 
+\code{\link{contacts}()},
+\code{\link{panelRandomWalk}()}
+}
+\author{
+Edward L. Ionides, Carles \Breto
+}
+\concept{panelPomp examples}

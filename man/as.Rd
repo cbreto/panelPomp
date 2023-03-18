@@ -31,6 +31,6 @@ Other panelPomp methods:
 \code{\link{panelPomp_methods}}
 }
 \author{
-Carles Breto
+Carles \Breto
 }
 \concept{panelPomp methods}

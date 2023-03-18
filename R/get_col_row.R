@@ -20,7 +20,7 @@ NULL
 #' m[1,1] # = NA; R removes both names
 #' get_col(m,row=1,col=1) # = c(r1=NA)
 #' @export
-#' @author Carles Breto
+#' @author Carles \Breto
 get_col <- function (matrix, rows, col) {
   stopifnot(is.matrix(matrix)&!missing(col))
   # if all rows, i.e., get.col(mtrx,,cl)
@@ -38,8 +38,7 @@ get_col <- function (matrix, rows, col) {
 # m[1,1] # = NA
 #' get_row(m,row=1,col=1) # = c(c1=NA)
 #' @export
-# @author Carles Breto
-#'
+# @author Carles \Breto
 get_row <- function (matrix, row, cols) {
   stopifnot(is.matrix(matrix)&!missing(row))
   # if all columns, i.e., get.col(mtrx,rw,)

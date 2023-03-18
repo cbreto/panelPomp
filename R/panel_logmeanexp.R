@@ -13,7 +13,7 @@ NULL
 #' \code{numeric} vector with the average panel log likelihood and, when
 #' \code{se = TRUE}, the corresponding standard error.
 #' @seealso panel_loglik
-#' @author Carles Breto
+#' @author Carles \Breto
 #' @examples
 #' ulls <- matrix(c(1,1,10,10),nr=2)
 #' panel_logmeanexp(ulls,MARGIN=2,se=TRUE)

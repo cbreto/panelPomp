@@ -35,5 +35,5 @@ get_col(m,row=1,col=1) # = c(r1=NA)
 get_row(m,row=1,col=1) # = c(c1=NA)
 }
 \author{
-Carles Breto
+Carles \Breto
 }

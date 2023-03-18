@@ -124,6 +124,6 @@ Other panelPomp methods:
 \code{\link{as}()}
 }
 \author{
-Carles Breto, Aaron A. King.
+Carles \Breto, Aaron A. King.
 }
 \concept{panelPomp methods}

@@ -108,7 +108,7 @@ unitlogLik(prw)
 \references{
 \arulampalam2002
 
-\breto2018
+\breto2020
 }
 \seealso{
 \pkg{pomp}'s pfilter at \link[=pfilter,pomp-method]{pfilter}, \link{panel_loglik}
@@ -119,6 +119,6 @@ Other panelPomp workhorse functions:
 \code{\link{panel_loglik}}
 }
 \author{
-Carles Breto
+Carles \Breto
 }
 \concept{panelPomp workhorse functions}

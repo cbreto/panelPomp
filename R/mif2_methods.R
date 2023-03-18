@@ -18,7 +18,7 @@ NULL
 #' ## convergence can be partly diagnosed by checking estimates and likelihoods at different iterations
 #' traces(mmp)
 #' @export
-#' @author Carles Breto
+#' @author Carles \Breto
 
 setMethod(
   "traces",

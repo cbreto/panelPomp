@@ -23,6 +23,6 @@ paste0("in ",sQuote("fn_name"),": ",dQuote("object")," is 'a' required argument"
 wQuotes("in ''fn_name'': *object* is 'a' required argument") # same but shorter
 }
 \author{
-Carles Breto
+Carles \Breto
 }
 \keyword{internal}

@@ -44,5 +44,5 @@ Diagnostic plots for each unit in a panelPomp
 plot(panelRandomWalk())
 }
 \author{
-Carles Breto
+Carles \Breto
 }

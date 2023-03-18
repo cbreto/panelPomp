@@ -4,7 +4,7 @@
 NULL
 
 #' @rdname pfilter
-#' @author Carles Breto
+#' @author Carles \Breto
 #' @return
 #' \code{logLik} returns a \code{numeric} vector.
 #' @examples
@@ -19,7 +19,7 @@ setMethod(
 )
 
 #' @rdname pfilter
-# @author Carles Breto
+# @author Carles \Breto
 #' @return
 #' \code{unitlogLik} returns a \code{numeric} vector.
 #' @examples

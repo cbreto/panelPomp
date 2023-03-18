@@ -30,6 +30,12 @@ walk model.
 \examples{
 panelRandomWalk()
 }
-\author{
-Edward L. Ionides, Carles Breto
+\seealso{
+Other panelPomp examples: 
+\code{\link{contacts}()},
+\code{\link{panelGompertz}()}
 }
+\author{
+Edward L. Ionides, Carles \Breto
+}
+\concept{panelPomp examples}

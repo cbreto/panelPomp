@@ -31,5 +31,5 @@ panel_logmeanexp(ulls,MARGIN=2,se=TRUE)
 panel_loglik
 }
 \author{
-Carles Breto
+Carles \Breto
 }
