@@ -12,11 +12,15 @@
 ##'
 ##' @param params named vector containing all the parameters of the panel Gompertz model. Estimated parameters are overwritten by x.
 ##'
+##' @returns
+##' A \code{numeric} value.
+##'
 ##' @author Edward L. Ionides
 ##'
+##' @examples
+##' pg <- panelGompertz()
+##' panelGompertzLikelihood(coef(pg),pg,coef(pg))
 ##' @export
-##'
-
 panelGompertzLikelihood <- function(x,panelPompObject,params){
   gompertzLikelihood <- function (pompObject) {
     theta <- coef(pompObject)
@@ -33,4 +37,3 @@ panelGompertzLikelihood <- function(x,panelPompObject,params){
   coef(panelPompObject) <- p
   sum(sapply(as(panelPompObject,"list"),gompertzLikelihood))
 }
-

@@ -14,11 +14,18 @@ those being estimated.}
 
 \item{params}{named vector containing all the parameters of the panel Gompertz model. Estimated parameters are overwritten by x.}
 }
+\value{
+A \code{numeric} value.
+}
 \description{
 Evaluates the likelihood function for a panel Gompertz model,
 using a format convenient for maximization by optim() to obtain a maximum
 likelihood estimate. Specifically, estimated and fixed parameters are
 supplied by two different arguments.
+}
+\examples{
+pg <- panelGompertz()
+panelGompertzLikelihood(coef(pg),pg,coef(pg))
 }
 \author{
 Edward L. Ionides

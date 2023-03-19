@@ -11,7 +11,7 @@ theta_start <- coef(g)[estNames]
 gLik <- panelGompertzLikelihood(theta_start,g,coef(g))
 gLik
 
-stew(file="panelGompertzLikelihood.rda",seed=2358,{
+pomp::stew(file="panelGompertzLikelihood.rda",seed=2358,{
   g_pfLik <- logLik(pfilter(g,Np=5000))
 })
 test(abs(g_pfLik-gLik)<1,TRUE)
@@ -32,5 +32,3 @@ theta_start
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
-
-
