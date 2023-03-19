@@ -14,7 +14,7 @@ NULL
 #' @rdname params
 #' @author Carles \Breto
 #' @return
-#' \code{toVectorPparams} returns an object of class \code{data.frame}.
+#' \code{toVectorPparams()} returns an object of class \code{data.frame}.
 #' @examples
 #' prw <- panelRandomWalk()
 #' toVectorPparams(pparams(prw))
@@ -55,15 +55,15 @@ toVectorPparams <- function(pParams) {
 #' @rdname params
 # @author Carles \Breto
 #' @return
-#' \code{fromVectorPparams} returns an object of class \code{list} with the
+#' \code{fromVectorPparams()} returns an object of class \code{list} with the
 #' model parameters in list form.
 #' @examples
 #' fromVectorPparams(toVectorPparams(pparams(prw)))
 #' @export
 fromVectorPparams <- function(vec_pars) {
   # Extract unit, shared, and specific names
-  sh_nms <- names(vec_pars[,!is.na(vec_pars=="shared")&vec_pars=="shared"])
-  sp_nms <- names(vec_pars[,!is.na(vec_pars=="shared")&vec_pars=="specific"])
+  sh_nms <- names(vec_pars[,!is.na(vec_pars=="shared")&vec_pars=="shared",drop=FALSE])
+  sp_nms <- names(vec_pars[,!is.na(vec_pars=="specific")&vec_pars=="specific",drop=FALSE])
   u_nms <- names(vec_pars)[vec_pars=="unit_name"]
   # shared
   sh_pars <- if(length(sh_nms)>0) {
@@ -122,7 +122,7 @@ toListPparams <- function(
 #' @param listPparams PanelPomp parameters in list format
 # @author Carles \Breto
 #' @return
-#' \code{toMatrixPparams} returns an object of class \code{matrix} with the
+#' \code{toMatrixPparams()} returns an object of class \code{matrix} with the
 #' model parameters in matrix form.
 #' @examples
 #' toMatrixPparams(pparams(prw))
