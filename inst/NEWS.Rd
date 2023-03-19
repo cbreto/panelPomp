@@ -1,5 +1,11 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 0.17.0}{
+  \itemize{
+  \item Made \code{fromVectorPparams()} a true inverse of \code{toVectorPparams()}.
+  \item Added examples to functions.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.15.0}{
   \itemize{
   \item New coercion to \code{pompList} and update to list.
