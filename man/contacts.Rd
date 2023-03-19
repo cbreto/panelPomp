@@ -21,7 +21,9 @@ data from Vittinghof et al (1999). The model was developed by
 Romero-Severson et al (2015) and discussed by \Breto et al (2020).
 }
 \examples{
+\dontrun{
 contacts()
+}
 }
 \references{
 \breto2020

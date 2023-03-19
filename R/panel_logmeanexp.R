@@ -10,8 +10,8 @@ NULL
 #' and over which averaging occurs (1 indicates rows, 2 indicates columns).
 #' @param se logical; whether to give standard errors.
 #' @return
-#' \code{numeric} vector with the average panel log likelihood and, when
-#' \code{se = TRUE}, the corresponding standard error.
+#' A \code{numeric} value with the average panel log likelihood or, when
+#' \code{se = TRUE}, a \code{numeric} vector adding the corresponding standard error.
 #' @seealso panel_loglik
 #' @author Carles \Breto
 #' @examples

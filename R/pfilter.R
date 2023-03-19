@@ -74,7 +74,7 @@ pfilter.internal <- function(object, params, Np,
 #' @param ... additional arguments, passed to the \code{pfilter} method of \pkg{pomp}.
 # @author Carles \Breto
 #' @return
-#' \code{pfilter} returns an object of class \code{pfilterd.ppomp} that is also
+#' \code{pfilter()} returns an object of class \code{pfilterd.ppomp} that is also
 #' a \code{panelPomp} object (with the additional filtering details).
 #' @examples
 #' # filter, which generates log likelihoods

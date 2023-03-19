@@ -11,12 +11,12 @@ wQuotes(...)
 \item{...}{objects to be passed to \code{strsplit}.}
 }
 \value{
-\code{character} object.
+A \code{character} object.
 }
 \description{
 Concatenate character objects and replace double quotes with
-\code{sQuote()}s and asterisks with \code{dQuote()}s: \code{sQuote("x")} and
-\code{dQuote("x")} can be written as just ''x'' and *x*.
+\code{sQuote()} (write \code{''x''} instead of \code{dQuote("x")}) and
+replace asterisks with \code{dQuote()}.
 }
 \examples{
 paste0("in ",sQuote("fn_name"),": ",dQuote("object")," is 'a' required argument")

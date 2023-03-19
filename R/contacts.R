@@ -11,7 +11,9 @@
 ##' @author Edward L. Ionides
 ##'
 ##' @examples
+##' \dontrun{
 ##' contacts()
+##' }
 ##' @export
 ##'
 ##' @references \breto2020

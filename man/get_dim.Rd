@@ -13,26 +13,26 @@ get_row(matrix, row, cols)
 \arguments{
 \item{matrix}{matrix.}
 
-\item{rows}{numeric; rows to subset; like with `[`, this argument can be left empty to designate all rows.}
+\item{rows}{numeric; rows to subset; like with \code{`[`}, this argument can be left empty to designate all rows.}
 
-\item{col}{numeric; single column to subset.}
+\item{col}{integer; single column to subset.}
 
-\item{row}{numeric; single row to subset.}
+\item{row}{integer; single row to subset.}
 
-\item{cols}{numeric; columns to subset; like with `[`, this argument can be left empty to designate all columns.}
+\item{cols}{numeric; columns to subset; like with \code{`[`}, this argument can be left empty to designate all columns.}
 }
 \value{
-Single column or row \code{matrix} object.
+A named \code{vector} object.
 }
 \description{
 Subset matrix dropping dimension but without dropping dimname
-(which is R's default).
+(as done by \code{`[`} by default).
 }
 \examples{
 m <- matrix(NA,dimnames=list('r1','c1'))
 m[1,1] # = NA; R removes both names
-get_col(m,row=1,col=1) # = c(r1=NA)
-get_row(m,row=1,col=1) # = c(c1=NA)
+get_col(m,rows=1,col=1) # = c(r1=NA) keeps colname
+get_row(m,row=1,cols=1) # = c(c1=NA) keeps rowname
 }
 \author{
 Carles \Breto

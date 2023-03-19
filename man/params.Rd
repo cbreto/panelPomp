@@ -22,12 +22,12 @@ output of \link{toVectorPparams}.}
 \item{listPparams}{PanelPomp parameters in list format}
 }
 \value{
-\code{toVectorPparams} returns an object of class \code{data.frame}.
+\code{toVectorPparams()} returns an object of class \code{data.frame}.
 
-\code{fromVectorPparams} returns an object of class \code{list} with the
+\code{fromVectorPparams()} returns an object of class \code{list} with the
 model parameters in list form.
 
-\code{toMatrixPparams} returns an object of class \code{matrix} with the
+\code{toMatrixPparams()} returns an object of class \code{matrix} with the
 model parameters in matrix form.
 }
 \description{

@@ -76,12 +76,12 @@ If \code{object} is a \code{panelPomp} object, the function allows modifying
 the shared and unit-specific configuration of \code{object}.}
 }
 \value{
-\code{pfilter} returns an object of class \code{pfilterd.ppomp} that is also
+\code{pfilter()} returns an object of class \code{pfilterd.ppomp} that is also
 a \code{panelPomp} object (with the additional filtering details).
 
-\code{logLik} returns a \code{numeric} vector.
+\code{logLik()} returns a \code{numeric} vector.
 
-\code{unitlogLik} returns a \code{numeric} vector.
+\code{unitlogLik()} returns a \code{numeric} vector.
 }
 \description{
 Tools for applying particle filtering algorithms to panel data.

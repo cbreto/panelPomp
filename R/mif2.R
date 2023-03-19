@@ -249,7 +249,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
 ## mif2,panelPomp-method
 #' @rdname mif2
 #' @return
-#' \code{mif2} returns an object of class \code{mif2d.ppomp}.
+#' \code{mif2()} returns an object of class \code{mif2d.ppomp}.
 #' @examples
 #' ## start with a panelPomp object
 #' p <- panelRandomWalk()

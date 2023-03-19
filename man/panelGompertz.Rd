@@ -21,7 +21,7 @@ panelGompertz(
 \item{seed}{passed to the random number generator for simulation.}
 }
 \value{
-\code{panelPomp} object.
+A \code{panelPomp} object.
 }
 \description{
 Builds a collection of independent realizations from the

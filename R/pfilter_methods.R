@@ -6,7 +6,7 @@ NULL
 #' @rdname pfilter
 #' @author Carles \Breto
 #' @return
-#' \code{logLik} returns a \code{numeric} vector.
+#' \code{logLik()} returns a \code{numeric} vector.
 #' @examples
 #' # extract single log likelihood for the entire panel
 #' logLik(prw)
@@ -21,7 +21,7 @@ setMethod(
 #' @rdname pfilter
 # @author Carles \Breto
 #' @return
-#' \code{unitlogLik} returns a \code{numeric} vector.
+#' \code{unitlogLik()} returns a \code{numeric} vector.
 #' @examples
 #' # extract log likelihood for each panel unit
 #' unitlogLik(prw)

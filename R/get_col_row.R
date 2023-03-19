@@ -3,14 +3,14 @@ NULL
 
 #' @title Get single column or row without dropping names
 #' @description Subset matrix dropping dimension but without dropping dimname
-#' (which is R's default).
+#' (as done by \code{`[`} by default).
 #' @param matrix matrix.
-#' @param row numeric; single row to subset.
-#' @param rows numeric; rows to subset; like with `[`, this argument can be left empty to designate all rows.
-#' @param col numeric; single column to subset.
-#' @param cols numeric; columns to subset; like with `[`, this argument can be left empty to designate all columns.
+#' @param row integer; single row to subset.
+#' @param rows numeric; rows to subset; like with \code{`[`}, this argument can be left empty to designate all rows.
+#' @param col integer; single column to subset.
+#' @param cols numeric; columns to subset; like with \code{`[`}, this argument can be left empty to designate all columns.
 #' @return
-#' Single column or row \code{matrix} object.
+#' A named \code{vector} object.
 #' @name get_dim
 NULL
 
@@ -18,7 +18,7 @@ NULL
 #' @examples
 #' m <- matrix(NA,dimnames=list('r1','c1'))
 #' m[1,1] # = NA; R removes both names
-#' get_col(m,row=1,col=1) # = c(r1=NA)
+#' get_col(m,rows=1,col=1) # = c(r1=NA) keeps colname
 #' @export
 #' @author Carles \Breto
 get_col <- function (matrix, rows, col) {
@@ -36,7 +36,7 @@ get_col <- function (matrix, rows, col) {
 #' @examples
 # m <- matrix(NA,dimnames=list('r1','c1'))
 # m[1,1] # = NA
-#' get_row(m,row=1,col=1) # = c(c1=NA)
+#' get_row(m,row=1,cols=1) # = c(c1=NA) keeps rowname
 #' @export
 # @author Carles \Breto
 get_row <- function (matrix, row, cols) {

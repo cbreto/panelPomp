@@ -20,7 +20,7 @@ NULL
 ##' \king2016
 ##' @family panelPomp examples
 ##' @return
-##' \code{panelPomp} object.
+##' A \code{panelPomp} object.
 ##' @examples
 ##' panelGompertz()
 ##' @export

@@ -54,19 +54,19 @@ pParams(value)
 \item{i}{unit index (indices) or name (names).}
 }
 \value{
-\code{coef} returns a \code{numeric} vector.
+\code{coef()} returns a \code{numeric} vector.
 
-\code{length} returns an \code{integer}.
+\code{length()} returns an \code{integer}.
 
-\code{names} returns a \code{character} vector.
+\code{names()} returns a \code{character} vector.
 
-\code{pparams} returns a \code{matrix} with the model parameters in \code{list} form.
+\code{pparams()} returns a \code{matrix} with the model parameters in \code{list} form.
 
-\code{pParams} returns a \code{list} with the model parameters in list form.
+\code{pParams()} returns a \code{list} with the model parameters in list form.
 
-\code{unitobjects} returns a \code{list} of \code{pomp} objects.
+\code{unitobjects()} returns a \code{list} of \code{pomp} objects.
 
-\code{window} returns a \code{panelPomp} object with adjusted times.
+\code{window()} returns a \code{panelPomp} object with adjusted times.
 
 \code{`[`} returns a \code{panelPomp} object.
 

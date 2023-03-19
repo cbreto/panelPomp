@@ -84,9 +84,9 @@ class \code{mif2d.ppomp})}
 \item{pars}{names of parameters}
 }
 \value{
-\code{mif2} returns an object of class \code{mif2d.ppomp}.
+\code{mif2()} returns an object of class \code{mif2d.ppomp}.
 
-\code{traces} returns a \code{matrix} with estimated parameter values at
+\code{traces()} returns a \code{matrix} with estimated parameter values at
 different iterations of the IF2 algorithm in the natural scale. The default
 is to return values for all parameters but a subset of parameters can be
 passed via the optional argument \code{pars}.

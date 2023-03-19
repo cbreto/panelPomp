@@ -32,7 +32,7 @@ NULL
 
 #' @rdname panelPomp_methods
 #' @return
-#' \code{coef} returns a \code{numeric} vector.
+#' \code{coef()} returns a \code{numeric} vector.
 #' @examples
 #' ## access and manipulate model parameters and other features
 #' prw <- panelRandomWalk()
@@ -90,7 +90,7 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @return
-#' \code{length} returns an \code{integer}.
+#' \code{length()} returns an \code{integer}.
 #' @examples
 #' length(prw)
 #' @export
@@ -102,7 +102,7 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @return
-#' \code{names} returns a \code{character} vector.
+#' \code{names()} returns a \code{character} vector.
 #' @examples
 #' names(prw)
 #' @export
@@ -114,7 +114,7 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @return
-#' \code{pparams} returns a \code{matrix} with the model parameters in \code{list} form.
+#' \code{pparams()} returns a \code{matrix} with the model parameters in \code{list} form.
 #' @examples
 #' # extract parameters in list form
 #' pparams(prw)
@@ -128,7 +128,7 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @return
-#' \code{pParams} returns a \code{list} with the model parameters in list form.
+#' \code{pParams()} returns a \code{list} with the model parameters in list form.
 #' @examples
 #' # convert vector-form parameters to list-form parameters
 #' pParams(coef(prw))
@@ -191,7 +191,7 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @return
-#' \code{unitobjects} returns a \code{list} of \code{pomp} objects.
+#' \code{unitobjects()} returns a \code{list} of \code{pomp} objects.
 #' @examples
 #' ## access underlying pomp objects
 #' unitobjects(panelRandomWalk())
@@ -206,7 +206,7 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @return
-#' \code{window} returns a \code{panelPomp} object with adjusted times.
+#' \code{window()} returns a \code{panelPomp} object with adjusted times.
 #' @examples
 #' ## select windows of time
 #' time(prw[[1]])

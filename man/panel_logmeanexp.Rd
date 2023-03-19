@@ -16,8 +16,8 @@ and over which averaging occurs (1 indicates rows, 2 indicates columns).}
 \item{se}{logical; whether to give standard errors.}
 }
 \value{
-\code{numeric} vector with the average panel log likelihood and, when
-\code{se = TRUE}, the corresponding standard error.
+A \code{numeric} value with the average panel log likelihood or, when
+\code{se = TRUE}, a \code{numeric} vector adding the corresponding standard error.
 }
 \description{
 \code{se = TRUE}, the jackknife se's from \code{logmeanexp} are
