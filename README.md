@@ -1,4 +1,5 @@
 <meta charset="UTF-8">
+
 ## **panelPomp**
 
 ### an *R* package for inference on panel partially observed Markov processes
