@@ -2,8 +2,8 @@
 \title{News for package `panelPomp'}
 \section{Changes in \pkg{panelPomp} version 0.17.0}{
   \itemize{
-  \item Made \code{fromVectorPparams()} a true inverse of \code{toVectorPparams()}.
-  \item Added examples to functions.
+  \item Fixed bug in \code{fromVectorPparams()} to make it a true inverse of \code{toVectorPparams()}.
+  \item Homogenized documentation; added examples.
   }
 }
 \section{Changes in \pkg{panelPomp} version 0.15.0}{
