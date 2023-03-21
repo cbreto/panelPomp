@@ -1,6 +1,6 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
-\section{Changes in \pkg{panelPomp} version 0.17.0}{
+\section{Changes in \pkg{panelPomp} version 0.18.0}{
   \itemize{
   \item Fixed bug in \code{fromVectorPparams()} to make it a true inverse of \code{toVectorPparams()}.
   \item Homogenized documentation; added examples.
