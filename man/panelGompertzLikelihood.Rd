@@ -24,7 +24,7 @@ likelihood estimate. Specifically, estimated and fixed parameters are
 supplied by two different arguments.
 }
 \examples{
-pg <- panelGompertz()
+pg <- panelGompertz(N=2,U=2)
 panelGompertzLikelihood(coef(pg),pg,coef(pg))
 }
 \author{

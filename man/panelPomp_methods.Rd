@@ -105,19 +105,15 @@ pparams(prw)
 # convert vector-form parameters to list-form parameters
 pParams(coef(prw))
 ## summaries of objects
-print(panelRandomWalk())
-show(panelRandomWalk())
+print(prw)
+show(prw)
 ## access underlying pomp objects
-unitobjects(panelRandomWalk())
+unitobjects(prw)
 ## select windows of time
-time(prw[[1]])
-prw2 <- window(prw,start=2,end=4)
-time(prw2[[1]]); time(prw2[[2]])
+window(prw,start=2,end=4)
 ## subsetting panelPomp objects
-prw1 <- prw[1]
-prw1 # panelPomp of 1 unit (first unit of prw)
-prw_2 <- prw[[2]]
-prw_2 # pomp object corresponding to unit 2 of prw
+prw[1] # panelPomp of 1 unit (first unit of prw)
+prw[[2]] # pomp object corresponding to unit 2 of prw
 }
 \seealso{
 Other panelPomp methods: 

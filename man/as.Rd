@@ -22,9 +22,10 @@ When coercing to a \code{data.frame}, it coerces a
 variable names.
 }
 \examples{
-as(panelRandomWalk(),'list') # |> class() # "list"
-as(panelRandomWalk(),'pompList') # |> class() # "pompList"
-as(panelRandomWalk(),'data.frame') # |> class() # "data.frame"
+prw <- panelRandomWalk()
+as(prw,'list')
+as(prw,'pompList')
+as(prw,'data.frame')
 }
 \seealso{
 Other panelPomp methods: 

@@ -18,7 +18,7 @@
 ##' @author Edward L. Ionides
 ##'
 ##' @examples
-##' pg <- panelGompertz()
+##' pg <- panelGompertz(N=2,U=2)
 ##' panelGompertzLikelihood(coef(pg),pg,coef(pg))
 ##' @export
 panelGompertzLikelihood <- function(x,panelPompObject,params){

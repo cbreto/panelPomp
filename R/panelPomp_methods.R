@@ -156,7 +156,7 @@ pParams <- function (value) {
 #' @export
 #' @examples
 #' ## summaries of objects
-#' print(panelRandomWalk())
+#' print(prw)
 #' @export
 setMethod(
   "print",
@@ -169,7 +169,7 @@ setMethod(
 
 #' @rdname panelPomp_methods
 #' @examples
-#' show(panelRandomWalk())
+#' show(prw)
 #' @export
 setMethod(
   "show",
@@ -194,7 +194,7 @@ setMethod(
 #' \code{unitobjects()} returns a \code{list} of \code{pomp} objects.
 #' @examples
 #' ## access underlying pomp objects
-#' unitobjects(panelRandomWalk())
+#' unitobjects(prw)
 #' @export
 setMethod(
   "unitobjects",
@@ -209,9 +209,7 @@ setMethod(
 #' \code{window()} returns a \code{panelPomp} object with adjusted times.
 #' @examples
 #' ## select windows of time
-#' time(prw[[1]])
-#' prw2 <- window(prw,start=2,end=4)
-#' time(prw2[[1]]); time(prw2[[2]])
+#' window(prw,start=2,end=4)
 #' @export
 setMethod(
   "window",
@@ -233,8 +231,7 @@ setMethod(
 #' \code{`[`} returns a \code{panelPomp} object.
 #' @examples
 #' ## subsetting panelPomp objects
-#' prw1 <- prw[1]
-#' prw1 # panelPomp of 1 unit (first unit of prw)
+#' prw[1] # panelPomp of 1 unit (first unit of prw)
 #' @export
 setMethod(
   "[",
@@ -252,8 +249,7 @@ setMethod(
 #' @return
 #' \code{`[[`} returns a \code{pomp} object.
 #' @examples
-#' prw_2 <- prw[[2]]
-#' prw_2 # pomp object corresponding to unit 2 of prw
+#' prw[[2]] # pomp object corresponding to unit 2 of prw
 #' @export
 setMethod(
   "[[",
@@ -278,7 +274,8 @@ setMethod(
 #' @return
 #' An object of class matching that specified in the second argument (\code{to=}).
 #' @examples
-#' as(panelRandomWalk(),'list') # |> class() # "list"
+#' prw <- panelRandomWalk()
+#' as(prw,'list')
 setAs(from="panelPomp",to="list",def = function (from) {
   plist <- from@unit.objects
   shared <- from@shared
@@ -298,7 +295,7 @@ setAs(from="panelPomp",to="list",def = function (from) {
 # [seems to simply replicate 'see also'] @family panelPomp methods
 # @author Carles \Breto
 #' @examples
-#' as(panelRandomWalk(),'pompList') # |> class() # "pompList"
+#' as(prw,'pompList')
 setAs(from="panelPomp",to="pompList",def = function (from) {
   plist <- as(from,"list")
   class(plist) <- "pompList"
@@ -314,7 +311,7 @@ setAs(from="panelPomp",to="pompList",def = function (from) {
 # [seems to simply replicate 'see also'] @family panelPomp methods
 # @author Carles \Breto
 #' @examples
-#' as(panelRandomWalk(),'data.frame') # |> class() # "data.frame"
+#' as(prw,'data.frame')
 setAs(from="panelPomp",to="data.frame",
       def = function (from) {
         x <- lapply(from@unit.objects,as,"data.frame")
