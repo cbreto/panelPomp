@@ -1,5 +1,10 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 1.0.0}{
+  \itemize{
+  \item Submitted to CRAN.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 0.18.0}{
   \itemize{
   \item Fixed bug in \code{fromVectorPparams()} to make it a true inverse of \code{toVectorPparams()}.
