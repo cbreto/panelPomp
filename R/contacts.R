@@ -11,7 +11,7 @@
 ##' @author Edward L. Ionides
 ##'
 ##' @examples
-##' \dontrun{
+##' \donttest{
 ##' contacts()
 ##' }
 ##' @export
