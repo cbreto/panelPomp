@@ -37,6 +37,9 @@ Modify with care!}
 
 \item{\dots}{ignored or passed to low-level plotting functions}
 }
+\value{
+No return value (the function returns \code{NULL}).
+}
 \description{
 Diagnostic plots for each unit in a panelPomp
 }
@@ -44,5 +47,5 @@ Diagnostic plots for each unit in a panelPomp
 plot(panelRandomWalk())
 }
 \author{
-Carles \Breto
+Edward L. Ionides
 }

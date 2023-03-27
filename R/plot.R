@@ -1,4 +1,3 @@
-
 ##' panelPomp plotting facilities
 ##'
 ##' Diagnostic plots for each unit in a panelPomp
@@ -32,10 +31,11 @@ setClassUnion(
 ##' Modify with care!
 ##' @param axes logical; indicates if x- and y- axes should be drawn
 ##' @param \dots ignored or passed to low-level plotting functions
-#' @author Carles \Breto
-#' @examples
-#' plot(panelRandomWalk())
-#' @export
+##' @return No return value (the function returns \code{NULL}).
+##' @author Edward L. Ionides
+##' @examples
+##' plot(panelRandomWalk())
+##' @export
 setMethod(
   "plot",
   signature=signature(x="panelPomp_plottable"),

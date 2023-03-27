@@ -6,12 +6,12 @@ NULL
 #' @rdname pfilter
 #' @author Carles \Breto
 #' @return
-#' \code{logLik()} returns a \code{numeric} vector.
+#' When applied to an object of class \code{pfilterd.ppomp}, \code{logLik()}
+#' returns a \code{numeric} value.
 #' @examples
 #' # extract single log likelihood for the entire panel
-#' logLik(prw)
+#' logLik(pfrw)
 #' @export
-#'
 setMethod(
   "logLik",
   signature = signature(object = "pfilterd.ppomp"),
@@ -20,13 +20,10 @@ setMethod(
 
 #' @rdname pfilter
 # @author Carles \Breto
-#' @return
-#' \code{unitlogLik()} returns a \code{numeric} vector.
-#' @examples
-#' # extract log likelihood for each panel unit
-#' unitlogLik(prw)
+#' @return \unitlogLikReturn
+# \unitloglikReturn is resused in documentation of generic function introduced by the panelPomp package
+#' @example examples/unitlogLik.R
 #' @export
-#'
 setMethod(
   "unitlogLik",
   signature = signature(object = "pfilterd.ppomp"),

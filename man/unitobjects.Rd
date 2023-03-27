@@ -2,19 +2,37 @@
 % Please edit documentation in R/generics.R
 \name{unitobjects}
 \alias{unitobjects}
-\title{\code{unitobjects} generic.}
+\title{Extract units of a panel model}
 \usage{
 unitobjects(object, ...)
 }
 \arguments{
-\item{object}{object.}
+\item{object}{an object for which extraction of panel units is meaningful.}
 
-\item{...}{Additional arguments.}
+\item{...}{additional arguments.}
+}
+\value{
+Units extracted from the panel model \code{object}.
+
+\unitobjectsReturn
 }
 \description{
-\code{unitobjects} generic.
+\code{unitobjects()} is a generic function that extracts a list
+of objects corresponding to units of panel objects returned by panel modeling
+functions.
 }
 \details{
 This is a generic function: methods can be defined for it.
+}
+\examples{
+prw <- panelRandomWalk()
+## access underlying pomp objects
+unitobjects(prw)
+}
+\seealso{
+\link{panelPomp_methods}
+}
+\author{
+Carles \Breto
 }
 \keyword{internal}

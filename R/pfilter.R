@@ -78,10 +78,10 @@ pfilter.internal <- function(object, params, Np,
 #' a \code{panelPomp} object (with the additional filtering details).
 #' @examples
 #' # filter, which generates log likelihoods
-#' prw <- pfilter(panelRandomWalk(),Np=10)
-#' class(prw) # "pfilterd.ppomp"
-#' is(prw,"panelPomp") # TRUE
-#' prw
+#' pfrw <- pfilter(panelRandomWalk(),Np=10)
+#' class(pfrw) # "pfilterd.ppomp"
+#' is(pfrw,"panelPomp") # TRUE
+#' pfrw
 #' @export
 setMethod(
   "pfilter",

@@ -23,8 +23,8 @@ NULL
 #'   \item{pParams}{Converts panel coefficients from vector form to list form.}
 #'   \item{window}{Subset \code{panelPomp} objects by changing start time and
 #'   end time.}
-#'   \item{[]}{Take a subset of units.}
-#'   \item{[[]]}{Select the pomp object for a single unit.}
+#'   \item{\code{[]}}{Take a subset of units.}
+#'   \item{\code{[[]]}}{Select the pomp object for a single unit.}
 #'   }
 #' @author Carles \Breto, Aaron A. King.
 #' @family panelPomp methods
@@ -113,11 +113,9 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
-#' @return
-#' \code{pparams()} returns a \code{matrix} with the model parameters in \code{list} form.
-#' @examples
-#' # extract parameters in list form
-#' pparams(prw)
+#' @return \pparamsReturn
+# \pparamsReturn is resused in documentation of generic function introduced by the panelPomp package
+#' @example examples/pparams.R
 #' @export
 setMethod(
   "pparams",
@@ -190,11 +188,9 @@ setMethod(
 )
 
 #' @rdname panelPomp_methods
-#' @return
-#' \code{unitobjects()} returns a \code{list} of \code{pomp} objects.
-#' @examples
-#' ## access underlying pomp objects
-#' unitobjects(prw)
+#' @return \unitobjectsReturn
+# \unitobjectsReturn is resused in documentation of generic function introduced by the panelPomp package
+#' @example examples/unitobjects.R
 #' @export
 setMethod(
   "unitobjects",
@@ -261,21 +257,38 @@ setMethod(
   }
 )
 
-## "@rdname panelPomp_methods" doesn't seem to work with setAs()
-## coerce method
+
+## COERCE METHODS
 #' @title Coercing \code{panelPomp} objects as \code{list}, \code{pompList} or
 #' \code{data.frame}
+#' @description When coercing to a \code{data.frame}, it coerces a
+#' \code{panelPomp} into a \code{data.frame}, assuming units share common
+#' variable names.
+## '@rdname' [either 'panelPomp_methods' or 'as'] doesn't seem to work with setAs()
+#' @name as
+#' @family panelPomp methods
+#' @return
+#' An object of class matching that specified in the second argument (\code{to=}).
+#' @author Carles \Breto
+setAs(from="panelPomp",to="data.frame",
+      def = function (from) {
+        x <- lapply(from@unit.objects,as,"data.frame")
+        for (u in seq_along(x)) {
+          x[[u]]$unit <- names(from@unit.objects)[[u]]
+        }
+        do.call(rbind,x)
+      }
+)
+
+#' @name as
+# '@rdname as' doesn't seem to work; if '@name as' is not repeated:
+# Warning: Block must have a @name
+# Either document an existing object or manually specify with @name
+# [however, '@title' and '@family' don't change their values in first '@name as']
 #' @description When coercing to a \code{list}, it extracts the
 #' \code{unit.objects} slot of \code{panelPomp} objects and attaches
 #' associated parameters.
-#' @name as
-#' @family panelPomp methods
-#' @author Carles \Breto
-#' @return
-#' An object of class matching that specified in the second argument (\code{to=}).
-#' @examples
-#' prw <- panelRandomWalk()
-#' as(prw,'list')
+# @author Carles \Breto, Edward L. Ionides
 setAs(from="panelPomp",to="list",def = function (from) {
   plist <- from@unit.objects
   shared <- from@shared
@@ -286,38 +299,18 @@ setAs(from="panelPomp",to="list",def = function (from) {
   plist
 })
 
-# [seems to be overwritten by first call] @title Coercing \code{panelPomp} objects as a \code{pompList}
+#' @name as
+# '@rdname as' doesn't seem to work; if '@name as' is not repeated:
+# Warning: Block must have a @name
+# Either document an existing object or manually specify with @name
+# [however, '@title' and '@family' don't change their values in first '@name as']
 #' @description When coercing to a \code{pompList}, it extracts the
 #' \code{unit.objects} slot of \code{panelPomp} objects and attaches
 #' associated parameters, converting the resulting list to a \code{pompList} to
 #' help the assignment of pomp methods.
-#' @name as
-# [seems to simply replicate 'see also'] @family panelPomp methods
-# @author Carles \Breto
-#' @examples
-#' as(prw,'pompList')
+# @author Edward L. Ionides
 setAs(from="panelPomp",to="pompList",def = function (from) {
   plist <- as(from,"list")
   class(plist) <- "pompList"
   plist
 })
-
-## coerce method
-# [seems to be overwritten by first call] @title Coercing \code{panelPomp} objects as a \code{data.frame}
-#' @description When coercing to a \code{data.frame}, it coerces a
-#' \code{panelPomp} into a \code{data.frame}, assuming units share common
-#' variable names.
-#' @name as
-# [seems to simply replicate 'see also'] @family panelPomp methods
-# @author Carles \Breto
-#' @examples
-#' as(prw,'data.frame')
-setAs(from="panelPomp",to="data.frame",
-      def = function (from) {
-        x <- lapply(from@unit.objects,as,"data.frame")
-        for (u in seq_along(x)) {
-          x[[u]]$unit <- names(from@unit.objects)[[u]]
-        }
-        do.call(rbind,x)
-      }
-)

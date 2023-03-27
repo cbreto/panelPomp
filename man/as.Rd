@@ -8,6 +8,10 @@
 An object of class matching that specified in the second argument (\code{to=}).
 }
 \description{
+When coercing to a \code{data.frame}, it coerces a
+\code{panelPomp} into a \code{data.frame}, assuming units share common
+variable names.
+
 When coercing to a \code{list}, it extracts the
 \code{unit.objects} slot of \code{panelPomp} objects and attaches
 associated parameters.
@@ -16,16 +20,6 @@ When coercing to a \code{pompList}, it extracts the
 \code{unit.objects} slot of \code{panelPomp} objects and attaches
 associated parameters, converting the resulting list to a \code{pompList} to
 help the assignment of pomp methods.
-
-When coercing to a \code{data.frame}, it coerces a
-\code{panelPomp} into a \code{data.frame}, assuming units share common
-variable names.
-}
-\examples{
-prw <- panelRandomWalk()
-as(prw,'list')
-as(prw,'pompList')
-as(prw,'data.frame')
 }
 \seealso{
 Other panelPomp methods: 

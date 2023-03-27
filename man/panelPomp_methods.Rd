@@ -60,11 +60,11 @@ pParams(value)
 
 \code{names()} returns a \code{character} vector.
 
-\code{pparams()} returns a \code{matrix} with the model parameters in \code{list} form.
+\pparamsReturn
 
 \code{pParams()} returns a \code{list} with the model parameters in list form.
 
-\code{unitobjects()} returns a \code{list} of \code{pomp} objects.
+\unitobjectsReturn
 
 \code{window()} returns a \code{panelPomp} object with adjusted times.
 
@@ -86,8 +86,8 @@ Tools for manipulating \code{panelPomp} objects.
   \item{pParams}{Converts panel coefficients from vector form to list form.}
   \item{window}{Subset \code{panelPomp} objects by changing start time and
   end time.}
-  \item{[]}{Take a subset of units.}
-  \item{[[]]}{Select the pomp object for a single unit.}
+  \item{\code{[]}}{Take a subset of units.}
+  \item{\code{[[]]}}{Select the pomp object for a single unit.}
   }
 }
 

@@ -2,19 +2,41 @@
 % Please edit documentation in R/generics.R
 \name{pparams}
 \alias{pparams}
-\title{\code{pParams} generic.}
+\title{Extract parameters (coefficients) of a panel model}
 \usage{
 pparams(object, ...)
 }
 \arguments{
-\item{object}{object.}
+\item{object}{an object for which extraction of panel model parameter
+(coefficient) values is meaningful.}
 
-\item{...}{Additional arguments.}
+\item{...}{additional arguments.}
+}
+\value{
+Parameter (coefficient) values extracted from the panel model
+\code{object}.
+
+\pparamsReturn
 }
 \description{
-\code{pParams} generic function.
+\code{pparams()} is a generic function that extracts parameter
+(coefficient) values from objects returned by panel modeling functions. While
+the named \code{numeric} vector format is useful and possible via S4 methods
+for \code{coef()}, alternative formats capturing the panel structure can be
+implemented via \code{pparams()}.
 }
 \details{
 This is a generic function: methods can be defined for it.
+}
+\examples{
+prw <- panelRandomWalk()
+# extract parameters in list form
+pparams(prw)
+}
+\seealso{
+\link{panelPomp_methods}
+}
+\author{
+Carles \Breto
 }
 \keyword{internal}

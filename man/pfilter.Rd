@@ -79,9 +79,10 @@ the shared and unit-specific configuration of \code{object}.}
 \code{pfilter()} returns an object of class \code{pfilterd.ppomp} that is also
 a \code{panelPomp} object (with the additional filtering details).
 
-\code{logLik()} returns a \code{numeric} vector.
+When applied to an object of class \code{pfilterd.ppomp}, \code{logLik()}
+returns a \code{numeric} value.
 
-\code{unitlogLik()} returns a \code{numeric} vector.
+\unitlogLikReturn
 }
 \description{
 Tools for applying particle filtering algorithms to panel data.
@@ -96,14 +97,14 @@ Tools for applying particle filtering algorithms to panel data.
 
 \examples{
 # filter, which generates log likelihoods
-prw <- pfilter(panelRandomWalk(),Np=10)
-class(prw) # "pfilterd.ppomp"
-is(prw,"panelPomp") # TRUE
-prw
+pfrw <- pfilter(panelRandomWalk(),Np=10)
+class(pfrw) # "pfilterd.ppomp"
+is(pfrw,"panelPomp") # TRUE
+pfrw
 # extract single log likelihood for the entire panel
-logLik(prw)
+logLik(pfrw)
 # extract log likelihood for each panel unit
-unitlogLik(prw)
+unitlogLik(pfrw)
 }
 \references{
 \arulampalam2002
