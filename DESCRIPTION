@@ -1,8 +1,8 @@
 Package: panelPomp
 Type: Package
 Title: Inference for Panel Partially Observed Markov Processes
-Version: 1.1.0.0
-Date: 2023-03-27
+Version: 1.1
+Date: 2023-03-28
 Authors@R: c(person(given="Carles",family="Breto",role=c("aut","cre"),email="carles.breto@uv.es",comment=c(ORCID="0000-0003-4695-4902")),
 	person(given=c("Edward","L."),family="Ionides",role="aut",comment=c(ORCID="0000-0002-4190-0174")),
 	person(given=c("Aaron","A."),family="King",role="aut",comment=c(ORCID="0000-0001-6159-3207")))
