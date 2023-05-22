@@ -100,12 +100,28 @@ setMethod(
 
     # Get starting parameter values from 'object,' 'start,' or 'params'
     if (missing(shared)){
-      if (!missing(params)) shared <- params$shared
-      else shared <- object@shared
+      if (!missing(params)) {
+        if (!is.null(params$shared)) {
+          shared <- params$shared
+        } else {
+          stop(
+            ep, wQuotes("''params'' must be a list containing ''shared'' and ''specific'' elements, or a named numeric vector"),
+            ".", call. = FALSE
+          )
+        }
+      } else shared <- object@shared
     }
     if (missing(specific)){
-      if (!missing(params)) specific <- params$specific
-      else specific <- object@specific
+      if (!missing(params)) {
+        if (!is.null(params$specific)) {
+          specific <- params$specific
+        } else {
+          stop(
+            ep, wQuotes("''params'' must be a list containing ''shared'' and ''specific'' elements, or a named numeric vector"),
+            ".", call. = FALSE
+          )
+        }
+      } else specific <- object@specific
     }
     if (!is.null(object@shared)){
       if (

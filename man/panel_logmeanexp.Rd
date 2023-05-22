@@ -20,8 +20,12 @@ A \code{numeric} value with the average panel log likelihood or, when
 \code{se = TRUE}, a \code{numeric} vector adding the corresponding standard error.
 }
 \description{
-\code{se = TRUE}, the jackknife se's from \code{logmeanexp} are
- squared, summed and the squared root is taken.
+This function computes the \code{\link[pomp]{logmeanexp}} for each column
+   or row of a numeric matrix and sums the result. Because the loglikelihood
+   of a \code{panelPomp} object is the sum of the loglikelihoods of its units,
+   this function can be used to summarize replicated estimates of the
+   \code{panelPomp} model likelihood. If \code{se = TRUE}, the jackknife SE estimates
+   from \code{\link[pomp]{logmeanexp}} are squared, summed and the squared root is taken.
 }
 \examples{
 ulls <- matrix(c(1,1,10,10),nr=2)
