@@ -132,10 +132,13 @@ setMethod(
 #' pParams(coef(prw))
 #' @export
 pParams <- function (value) {
-  nn <- grep("^.+\\[.+?\\]$",names(value),perl=TRUE,value=TRUE)
-  shs <- names(value)[!names(value)%in%nn]
-  pp <- sub(pattern="^(.+?)\\[.+?\\]$",replacement="\\1",x=nn,perl=TRUE)
-  sps <- sort(unique(pp))
+
+  if (!is.vector(value)) stop("input must be a vector.")
+
+  nn <- grep("^.+\\[.+?\\]$", names(value), perl = TRUE, value = TRUE)
+  shs <- names(value)[!names(value) %in% nn]
+  sps <- unique(sub(pattern="^(.+?)\\[.+?\\]$",replacement="\\1",x=nn,perl=TRUE))
+  # sps <- sort(unique(pp))
   uu <- sub(pattern="^(.+?)\\[(.+?)\\]$",replacement="\\2",x=nn,perl=TRUE)
   us <- sort(unique(uu))
   pParams <- list(shared=numeric(0),specific=array(numeric(0),dim=c(0,0)))

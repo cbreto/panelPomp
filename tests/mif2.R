@@ -24,8 +24,7 @@ test(wQuotes(ep,"pomp's ''mif2'' error message: in ''mif2'': the following ",
              "in ''params'': ''X.0''. (panelPomp:::mif2.internal)\n"),
      mif2(panelPomp(unitobjects(ppo)),Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),
          cooling.fraction.50=0.5,sh=pparams(ppo)$sh))
-test(wQuotes(ep,"pomp's ''mif2'' error message: in ''mif2'': 'arg' must be ",
-             "of length 1 (panelPomp:::mif2.internal)\n"),
+test(wQuotes(ep,"a parameter cannot be both shared and specific!", et),
      mif2(panelPomp(unitobjects(ppo),shared=coef(po)),Np=10,sp=pparams(ppo)$sp,
           rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
 ## assign parameters

@@ -1,5 +1,24 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 1.1.0.2}{
+  \itemize{
+    \item Added a type check for the \code{params} arguement of the
+      \code{pfilter} function in order to throw more user friendly error.
+    \item A more user friendly error is thrown when the user specifies a
+      parameter as both shared and unit specific in the \code{mif2} function.
+    \item Added a \code{match.arg} call in \code{mif2.internal}; this will
+      allow the default option for the \code{cooling.type} argument in
+      \code{mif2} to no longer throw an error, and mimics the behaviour of the
+      \code{mif2} function in the \code{pomp} package.
+    \item The \code{pParams} function no longer changes the order of the unit
+      specific parameter names; this was causing an error because the
+      \code{barycentric} parameter transformation requires that the parameters
+      are adjacent to one another in the parameter vector.
+    \item Improved documentation for \code{panel_logmeanexp}.
+    \item More robust input checking for the \code{pfilter} function with
+      user friendly error messages.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 1.1.0}{
   \itemize{
   \item Improved documentation and tests.

@@ -280,6 +280,9 @@ setMethod(
     if (missing(shared.start)) shared.start <- start$shared
     if (missing(specific.start)) specific.start <- start$specific
 
+    if (length(intersect(names(shared.start), rownames(specific.start))) > 0)
+      stop(wQuotes(ep, "a parameter cannot be both shared and specific!", et), call. = FALSE)
+
     if (missing(Np)) {
       stop(wQuotes(ep,"Missing ''Np'' argument.",et),call.=FALSE)
     }
@@ -297,7 +300,7 @@ setMethod(
       start=list(shared=shared.start,specific=specific.start),
       Np=Np,
       rw.sd=rw.sd,
-      cooling.type=cooling.type,
+      cooling.type=match.arg(cooling.type),
       cooling.fraction.50=cooling.fraction.50,
       verbose=verbose,
       block=block,
@@ -333,6 +336,10 @@ setMethod(
     }
     if (missing(shared.start)) shared.start <- start$shared
     if (missing(specific.start)) specific.start <- start$specific
+
+    if (length(intersect(names(shared.start), rownames(specific.start))) > 0)
+      stop(wQuotes(ep, "a parameter cannot be both shared and specific!", et), call. = FALSE)
+
     if (missing(Np)) Np <- object@Np
     if (missing(rw.sd)) rw.sd <- object@prw.sd
     if (missing(cooling.type)) cooling.type <- object@cooling.type
