@@ -133,7 +133,8 @@ setMethod(
 #' @export
 pParams <- function (value) {
 
-  if (!is.vector(value)) stop("input must be a vector.")
+  ep <- wQuotes("in ''pParams'': ")
+  if (!is.vector(value)) stop(ep, "input must be a vector.", call. = FALSE)
 
   nn <- grep("^.+\\[.+?\\]$", names(value), perl = TRUE, value = TRUE)
   shs <- names(value)[!names(value) %in% nn]

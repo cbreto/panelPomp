@@ -24,6 +24,8 @@ test(wQuotes(ep,"pomp's ''mif2'' error message: in ''mif2'': the following ",
              "in ''params'': ''X.0''. (panelPomp:::mif2.internal)\n"),
      mif2(panelPomp(unitobjects(ppo)),Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),
          cooling.fraction.50=0.5,sh=pparams(ppo)$sh))
+
+# Testing error message if a parameter is both shared and specific
 test(wQuotes(ep,"a parameter cannot be both shared and specific!", et),
      mif2(panelPomp(unitobjects(ppo),shared=coef(po)),Np=10,sp=pparams(ppo)$sp,
           rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
@@ -111,12 +113,19 @@ wQuotes(ep,"specify EITHER ''start'' only OR ''shared.start'' and/or",
 test(err,mif2(mf,Nmif=2,start=coef(mf),sh=2*ppo@shared,sp=2*ppo@specific))
 test(err,mif2(mf,Nmif=2,start=coef(mf),sp=2*ppo@specific))
 test(err,mif2(mf,Nmif=2,start=coef(mf),sh=2*ppo@shared))
-
 test(dim(traces(mf)),c(3L,7L))
 test(dim(traces(mf,c("loglik","sigmaY"))),c(3L,2L))
 test(dim(traces(mf,c("loglik","sigmaY","X.0"))),c(3L,4L))
 test(dim(traces(mf,c("loglik","unitLoglik"))),c(3L,3L))
 
+# Testing if parameter is both shared and specific (mif2d)
+sh_pars <- c("sigmaX" = 1, "sigmaY" = 1)
+sp_pars <- rbind(mf@specific, c(1, 1))
+rownames(sp_pars) <- c(rownames(mf@specific), "sigmaX")
+test(
+  wQuotes(ep,"a parameter cannot be both shared and specific! (''mif2,mif2d.ppomp-method'')\n"),
+  mif2(mf, Nmif = 2, shared.start = sh_pars, specific.start = sp_pars)
+)
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))

@@ -62,6 +62,13 @@ test(list(shared=numeric(0),specific=ppo@specific),
                             value=TRUE)]))
 ## both sh & sp
 test(pParams(coef(ppo)),list(shared=ppo@shared,specific=ppo@specific))
+
+# Test error message if pParams used on data.frame
+test(
+  wQuotes("Error : in ''pParams'': ", "input must be a vector.\n"),
+  pParams(data.frame('par1' = 1, 'par2' = 2))
+)
+
 ## test unitobjects,panelPomp-method
 test(unitobjects(ppo),ppo@unit.objects)
 coef(ppo[["rw1"]])
