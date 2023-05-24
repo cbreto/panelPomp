@@ -20,6 +20,31 @@ test(wQuotes(ep,"names of ''shared'' must match those of ",
   "''object@shared''.\n"),
   pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10))
 test(wQuotes(ep,"Missing ''Np'' argument.\n"),pfilter(ppo))
+
+# Testing error message if params argument is list without shared / specific elements
+test(
+  wQuotes(ep, "''params'' must be a list containing ''shared'' and ",
+          "''specific'' elements, or a named numeric vector.\n"),
+  pfilter(
+    ppo, Np = 10, params = list(shard = ppo@shared, spesific = ppo@specific)
+  )
+)
+test(
+  wQuotes(ep, "''params'' must be a list containing ''shared'' and ",
+  "''specific'' elements, or a named numeric vector.\n"),
+  pfilter(
+    ppo, Np = 10, params = list(shared = ppo@shared)
+  )
+)
+test(
+  wQuotes(ep, "''params'' must be a list containing ''shared'' and ",
+          "''specific'' elements, or a named numeric vector.\n"),
+  pfilter(
+    ppo, Np = 10, params = list(specific = ppo@specific)
+  )
+)
+
+
 ## assign parameters
 test(coef(pfilter(ppo,Np=10)),coef(ppo))
 test(coef(as(pfilter(ppo,sh=2*ppo@shared,sp=2*ppo@specific,Np=10),
