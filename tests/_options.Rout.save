@@ -1,11 +1,13 @@
 
 R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
 Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20 (64-bit)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -17,6 +19,3 @@ Type 'q()' to quit R.
 
 > suppressPackageStartupMessages(library(pomp))
 > 
-> proc.time()
-   user  system elapsed 
-  0.316   0.026   0.338 
