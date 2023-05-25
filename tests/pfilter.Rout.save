@@ -1,11 +1,13 @@
 
 R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
 Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20 (64-bit)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -41,6 +43,34 @@ Type 'q()' to quit R.
 [1] TRUE
 > test(wQuotes(ep,"Missing ''Np'' argument.\n"),pfilter(ppo))
 [1] TRUE
+> 
+> # Testing error message if params argument is list without shared / specific elements
+> test(
++   wQuotes(ep, "''params'' must be a list containing ''shared'' and ",
++           "''specific'' elements, or a named numeric vector.\n"),
++   pfilter(
++     ppo, Np = 10, params = list(shard = ppo@shared, spesific = ppo@specific)
++   )
++ )
+[1] TRUE
+> test(
++   wQuotes(ep, "''params'' must be a list containing ''shared'' and ",
++   "''specific'' elements, or a named numeric vector.\n"),
++   pfilter(
++     ppo, Np = 10, params = list(shared = ppo@shared)
++   )
++ )
+[1] TRUE
+> test(
++   wQuotes(ep, "''params'' must be a list containing ''shared'' and ",
++           "''specific'' elements, or a named numeric vector.\n"),
++   pfilter(
++     ppo, Np = 10, params = list(specific = ppo@specific)
++   )
++ )
+[1] TRUE
+> 
+> 
 > ## assign parameters
 > test(coef(pfilter(ppo,Np=10)),coef(ppo))
 [1] TRUE
@@ -132,6 +162,3 @@ Type 'q()' to quit R.
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 > 
-> proc.time()
-   user  system elapsed 
-  0.881   0.206   1.474 

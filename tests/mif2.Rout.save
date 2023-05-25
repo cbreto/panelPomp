@@ -1,11 +1,13 @@
 
 R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
 Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20 (64-bit)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -46,8 +48,9 @@ Type 'q()' to quit R.
 +      mif2(panelPomp(unitobjects(ppo)),Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),
 +          cooling.fraction.50=0.5,sh=pparams(ppo)$sh))
 [1] TRUE
-> test(wQuotes(ep,"pomp's ''mif2'' error message: in ''mif2'': 'arg' must be ",
-+              "of length 1 (panelPomp:::mif2.internal)\n"),
+> 
+> # Testing error message if a parameter is both shared and specific
+> test(wQuotes(ep,"a parameter cannot be both shared and specific!", et),
 +      mif2(panelPomp(unitobjects(ppo),shared=coef(po)),Np=10,sp=pparams(ppo)$sp,
 +           rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
 [1] TRUE
@@ -150,7 +153,6 @@ Type 'q()' to quit R.
 [1] TRUE
 > test(err,mif2(mf,Nmif=2,start=coef(mf),sh=2*ppo@shared))
 [1] TRUE
-> 
 > test(dim(traces(mf)),c(3L,7L))
 [1] TRUE
 > test(dim(traces(mf,c("loglik","sigmaY"))),c(3L,2L))
@@ -160,12 +162,18 @@ Type 'q()' to quit R.
 > test(dim(traces(mf,c("loglik","unitLoglik"))),c(3L,3L))
 [1] TRUE
 > 
+> # Testing if parameter is both shared and specific (mif2d)
+> sh_pars <- c("sigmaX" = 1, "sigmaY" = 1)
+> sp_pars <- rbind(mf@specific, c(1, 1))
+> rownames(sp_pars) <- c(rownames(mf@specific), "sigmaX")
+> test(
++   wQuotes(ep,"a parameter cannot be both shared and specific! (''mif2,mif2d.ppomp-method'')\n"),
++   mif2(mf, Nmif = 2, shared.start = sh_pars, specific.start = sp_pars)
++ )
+[1] TRUE
 > 
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 > 
-> proc.time()
-   user  system elapsed 
-  0.701   0.129   1.033 
