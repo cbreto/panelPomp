@@ -58,9 +58,15 @@ jobs:
       - name: Install Dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, tools, desc
+          extra-packages: |
+            any::rcmdcheck
+            tools
+            any::desc
+            any::rmarkdown
+            any::knitr
+            kingaa/pomp
 
-      - name: Install "testpkg" from source
+      - name: Install package from source
         run: |
           R CMD INSTALL --preclean --no-multiarc --with-keep.source .
 
