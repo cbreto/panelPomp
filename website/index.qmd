@@ -26,7 +26,7 @@ desc_info <- description$new("../DESCRIPTION")
 # Get the authors data
 authors <- desc_info$get_authors()
 
-# If you want to output the authors as a list
+# Getting first and last name, and email if it is in the description. 
 authors_list <- unlist(lapply(authors, function(author) {
   if (!is.null(author$email)) {
     paste0(paste(paste(author$given, collapse = ' '), author$family), " (", author$email, ")")
