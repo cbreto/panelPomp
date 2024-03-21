@@ -16,7 +16,7 @@ website:
 
 format:
   html:
-    theme: spacelab
+    theme: yeti
     css: styles.css
     toc: true
 
