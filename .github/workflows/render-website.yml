@@ -3,7 +3,7 @@ name: Render and Deploy Quarto Website
 on:
   push:
     branches:
-      - main  # Set your default branch name
+      - master  # Set your default branch name
     paths:
       - 'DESCRIPTION'
       - 'R/**'
@@ -57,12 +57,11 @@ jobs:
       - name: Install Dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, tools
+          extra-packages: any::rcmdcheck, tools, desc
 
       - name: Install "testpkg" from source
         run: |
           R CMD INSTALL --preclean --no-multiarc --with-keep.source .
-          Rscript -e 'install.packages("desc")'
 
       - name: Copy Vignettes and Other Files
         run: |
