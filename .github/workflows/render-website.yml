@@ -5,6 +5,7 @@ on:
     branches:
       - master  # Set your default branch name
     paths:
+      - '.github/workflows/render-website.yml'
       - 'DESCRIPTION'
       - 'R/**'
       - 'vignettes/**'
@@ -62,10 +63,6 @@ jobs:
       - name: Install "testpkg" from source
         run: |
           R CMD INSTALL --preclean --no-multiarc --with-keep.source .
-
-      - name: Copy Vignettes and Other Files
-        run: |
-          cp -r vignettes website/
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
