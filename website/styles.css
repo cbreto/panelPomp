@@ -1,0 +1,21 @@
+/* css styles */
+.download-buttons {
+  text-align: center;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.download-buttons .button:hover {
+    background-color: #e8e8e8;
+}

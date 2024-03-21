@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "panelPomp"
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/cbreto/panelPomp
+        aria-label: GitHub
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+
+format:
+  html:
+    theme: yeti
+    css: styles.css
+    toc: true
+
+
+
