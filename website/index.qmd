@@ -1,15 +1,20 @@
 ---
 title: "panelPomp"
 subtitle: "R package for statistical inference using panel POMPs (Partially Observed Markov Processes)"
+format:
+  html:
+    code-links:
+      - text: GitHub Source
+        icon: github
+        href: https://github.com/cbreto/panelPomp
+    other-links:
+      - text: Download ZIP 
+        href: https://github.com/cbreto/panelPomp/zipball/master
+        icon: file-zip
+      - text: Download TAR Ball 
+        href: https://github.com/cbreto/panelPomp/tarball/master
+        icon: file-zip
 ---
-
-<hr style="margin-top: -1em; margin-bottom: 0.5em;" />
-
-<div class="download-buttons">
-  <a href="https://github.com/cbreto/panelPomp" class="button">View on <strong>GitHub</strong></a>
-  <a href="https://github.com/cbreto/panelPomp/zipball/master" class="button">Download <strong>ZIP</strong></a>
-  <a href="https://github.com/cbreto/panelPomp/tarball/master" class="button">Download <strong>TAR Ball</strong></a>
-</div>
 
 #### Package Description
 

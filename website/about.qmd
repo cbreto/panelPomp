@@ -1,9 +1,50 @@
 ---
-title: "About"
+title: "panelPomp"
+subtitle: "R package for statistical inference using panel POMPs (Partially Observed Markov Processes)"
+format:
+  html:
+    code-links:
+      - text: GitHub Source
+        icon: github
+        href: https://github.com/cbreto/panelPomp
+    other-links:
+      - text: pomp package 
+        href: https://kingaa.github.io/pomp
+      - text: spatPomp package 
+        href: https://kidusasfaw.github.io/spatPomp
+      - text: Download ZIP 
+        href: https://github.com/cbreto/panelPomp/zipball/master
+        icon: file-zip
+      - text: Download TAR Ball 
+        href: https://github.com/cbreto/panelPomp/tarball/master
+        icon: file-zip
 ---
 
-About this site
+#### Package Description
 
-```{r}
-1 + 1
+Tools for working with longitudinal or panel POMPs, i.e., with Partially Observed Markov Processes (AKA state-space models, stochastic dynamical systems) involving multiple, independent units (or individuals) for each of which (potentially multivariate) time series data is available. The basic idea driving `panelPomp` is to apply to a collection of units (or individuals) some of the [`pomp` package](https://kingaa.github.io/pomp/) facilities for implementing POMP models, simulating them, and fitting them to time series data.
+
+#### Authors and Contributors
+
+```{r, echo=FALSE}
+library(desc)
+
+# Read the DESCRIPTION file
+desc_info <- description$new("../DESCRIPTION")
+
+# Get the authors data
+authors <- desc_info$get_authors()
+
+# Getting first and last name, and email if it is in the description. 
+authors_list <- unlist(lapply(authors, function(author) {
+  if (!is.null(author$email)) {
+    paste0(paste(paste(author$given, collapse = ' '), author$family), " (", author$email, ")")
+  } else {
+    paste(paste(author$given, collapse = ' '), author$family)
+  }
+}))
+authors_txt <- paste(authors_list[1:(length(authors_list)-1)], collapse = ', ')
+authors_txt <- paste(authors_txt, authors_list[length(authors_list)], sep = ' and ')
 ```
+
+Authors: `r authors_txt`.
