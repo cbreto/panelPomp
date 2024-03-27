@@ -77,8 +77,6 @@ jobs:
           Rscript -e "devtools::install(args=c('--preclean','--html','--library=library'))"
           rsync --delete -a library/panelPomp/html/ website/html
           rsync --delete --exclude=aliases.rds --exclude=paths.rds --exclude=panelPomp.rdb --exclude=panelPomp.rdx --exclude=macros -a library/panelPomp/help/ website/help
-          cp library/panelPomp/NEWS.md website/NEWS
-
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
