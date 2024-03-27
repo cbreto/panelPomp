@@ -65,10 +65,11 @@ jobs:
             any::rmarkdown
             any::knitr
             kingaa/pomp
+            any::devtools
 
       - name: Install package from source
         run: |
-          R CMD INSTALL --preclean --no-multiarc --with-keep.source .
+          R CMD INSTALL --preclean --no-multiarch --with-keep.source .
 
       - name: Re-Install to generate HTML files
         run: |
