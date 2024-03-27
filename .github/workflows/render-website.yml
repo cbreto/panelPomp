@@ -72,6 +72,8 @@ jobs:
           R CMD INSTALL --preclean --no-multiarch --with-keep.source .
 
       - name: Re-Install to generate HTML files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p library
           Rscript -e "devtools::install(args=c('--preclean','--html','--library=library'))"
