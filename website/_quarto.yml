@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  resources: 
+    - html/*
+    - help/*
 
 website:
   title: "panelPomp"
@@ -14,6 +17,8 @@ website:
         text: Home
       - href: about.qmd
         text: About
+      - href: html/00Index.html
+        text: Manual
 
 format:
   html:
