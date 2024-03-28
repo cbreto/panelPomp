@@ -31,3 +31,5 @@ covr.rds
 .DS_Store
 .Rproj.user
 website/docs
+website/html
+website/help
