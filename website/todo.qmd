@@ -7,3 +7,5 @@ title: "Website TODO list"
 - [ ] Create Vignettes and non-Vignette examples for the package, link to them in the sidebar. 
 - [ ] Update the index page
 - [ ] Improve the website documentation in the [`testpkg`](https://jeswheel.github.io/testpkg) website, so that this is all reproducible and possibly can be extended to `spatPomp` and/or `pomp`. 
+- [ ] Add link to this website on personal website. 
+- [ ] (Not related to this project, but personal TODO item and this is a good place for me to put it): Create this same website-workflow for `arima2`. 
