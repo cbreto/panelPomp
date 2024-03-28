@@ -1,0 +1,14 @@
+17,18c
+<ul>
+  <li><a href="../index.html">panelPomp Homepage</a></li>
+  <li><a href="../NEWS.html">Package NEWS</a>.</li>
+.
+12,15c
+<h2>Documentation for package &lsquo;panelPomp&rsquo; version 1.1.0.2</h2>
+.
+9d
+6c
+<link rel="stylesheet" type="text/css" href="../R.css" />
+.
+w
+q

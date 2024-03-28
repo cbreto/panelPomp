@@ -1,6 +1,6 @@
 ---
 title: "panelPomp"
-subtitle: "R package for statistical inference using panel POMPs (Partially Observed Markov Processes)"
+subtitle: "Inference for Panel Partially Observed Markov Processes"
 format:
   html:
     code-links:
@@ -10,8 +10,10 @@ format:
     other-links:
       - text: pomp package 
         href: https://kingaa.github.io/pomp
+        icon: link
       - text: spatPomp package 
         href: https://kidusasfaw.github.io/spatPomp
+        icon: link
       - text: Download ZIP 
         href: https://github.com/cbreto/panelPomp/zipball/master
         icon: file-zip
@@ -20,31 +22,66 @@ format:
         icon: file-zip
 ---
 
-#### Package Description
-
-Tools for working with longitudinal or panel POMPs, i.e., with Partially Observed Markov Processes (AKA state-space models, stochastic dynamical systems) involving multiple, independent units (or individuals) for each of which (potentially multivariate) time series data is available. The basic idea driving `panelPomp` is to apply to a collection of units (or individuals) some of the [`pomp` package](https://kingaa.github.io/pomp/) facilities for implementing POMP models, simulating them, and fitting them to time series data.
-
-#### Authors and Contributors
-
 ```{r, echo=FALSE}
 library(desc)
 
 # Read the DESCRIPTION file
 desc_info <- description$new("../DESCRIPTION")
 
+version <- data.frame(
+  location = c("[GitHub](https://github.com/cbreto/panelPomp)", 
+                "[CRAN](https://cloud.r-project.org/web/packages/panelPomp/index.html)"),
+  version = c(desc_info$get('Version'), utils::available.packages(contriburl = utils::contrib.url('https://cloud.r-project.org'))['panelPomp', 'Version'])
+)
+rownames(version) <- NULL
+```
+
+#### Authors and Contributors
+
+```{r, echo=FALSE}
 # Get the authors data
 authors <- desc_info$get_authors()
-
+roles <- unlist(sapply(authors, function(x) paste0('[', paste0(x$role, collapse = ', '), ']')))
 # Getting first and last name, and email if it is in the description. 
 authors_list <- unlist(lapply(authors, function(author) {
   if (!is.null(author$email)) {
-    paste0(paste(paste(author$given, collapse = ' '), author$family), " (", author$email, ")")
+    paste(
+      paste0(
+        paste(
+          paste(
+            author$given, collapse = ' '
+          ), author$family
+        ), " (", author$email, ")"
+      ), paste0('[', paste0(author$role, collapse = ', '), ']')
+    )
   } else {
-    paste(paste(author$given, collapse = ' '), author$family)
+    paste(paste(paste(author$given, collapse = ' '), author$family), paste0('[', paste0(author$role, collapse = ', '), ']'))
   }
 }))
 authors_txt <- paste(authors_list[1:(length(authors_list)-1)], collapse = ', ')
-authors_txt <- paste(authors_txt, authors_list[length(authors_list)], sep = ' and ')
+authors_txt <- paste(authors_txt, authors_list[length(authors_list)], sep = ', and ')
 ```
 
-Authors: `r authors_txt`.
+`r authors_txt`.
+
+#### Version 
+
+```{r, echo=FALSE}
+version |> knitr::kable(col.names = NULL)
+```
+
+#### Package Description
+
+`r desc_info$get('Description')`
+
+#### Depends
+
+```{r, echo=FALSE}
+desc_info$get_deps() |> knitr::kable()
+```
+
+#### License 
+
+`r desc_info$get('License')`
+
+

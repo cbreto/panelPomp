@@ -4,6 +4,8 @@ project:
   resources: 
     - html/*
     - help/*
+    - NEWS.html
+    - R.css
 
 website:
   title: "panelPomp"
