@@ -50,7 +50,7 @@ authors_list <- unlist(lapply(authors, function(author) {
         paste(
           paste(
             author$given, collapse = ' '
-          ), author$family
+          ),  gsub("Breto","Bret\u00F3", author$family)
         ), " (", author$email, ")"
       ), paste0('[', paste0(author$role, collapse = ', '), ']')
     )
@@ -72,7 +72,7 @@ version |> knitr::kable(col.names = NULL)
 
 #### Package Description
 
-`r desc_info$get('Description')`
+`r gsub("Breto", "Bret\u00F3", desc_info$get('Description'))`
 
 #### Depends
 
