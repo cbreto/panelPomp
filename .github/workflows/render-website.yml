@@ -67,6 +67,7 @@ jobs:
             kingaa/pomp
             any::devtools
             any::bib2df
+            any::tidyverse
 
       - name: Install package from source
         run: |
