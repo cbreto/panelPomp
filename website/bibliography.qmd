@@ -1,0 +1,78 @@
+---
+title: "Bibliography"
+subtitle: "panelPomp: R package for statistical inference using panel POMPs"
+format:
+  html:
+    code-links:
+      - text: GitHub Source
+        icon: github
+        href: https://github.com/cbreto/panelPomp
+    other-links:
+      - text: pomp Package
+        href: https://kingaa.github.io/pomp/
+        icon: link
+      - text: spatPomp Package
+        href: https://kidusasfaw.github.io/spatPomp/
+        icon: link
+---
+
+```{r echo=FALSE, message=FALSE, include=FALSE, warning=FALSE}
+library(bib2df)
+library(tidyverse)
+papers <- bib2df('bibliography.bib') %>% arrange(-YEAR)
+
+fix_accent <- function(name) {
+  # Right now this only fixes the accent over the letter "o", but can be modified 
+  # to include other special characters as needed. 
+  name <- gsub("\\{\\\\'o\\}", '\u00F3', name)
+  name
+}
+
+```
+
+```{r echo=FALSE, results='asis'}
+out <- "<div class=\"myrefs\">\n" 
+for (i in 1:nrow(papers)) {
+  authors <- unlist(papers[[i, 'AUTHOR']])
+  authors_split <- strsplit(authors, ",")
+  
+  lasts <- unlist(lapply(authors_split, function(x) x[1]))
+  lasts <- fix_accent(lasts)
+  firsts <- gsub("^\\s", "", unlist(lapply(authors_split, function(x) x[2])))
+  first_initials <- str_extract_all(firsts, "\\b(\\w)")
+  first_initials <- unlist(lapply(first_initials, function(x) paste0(paste0(x, collapse = ". "), ".")))
+  
+  if (length(lasts) >= 6) {
+    out_name <- paste0(lasts[1], ", ", first_initials[1], ", et al.")
+  } else {
+    out_name <- paste(lasts, first_initials, sep = ', ', collapse = ', ')
+  }
+  
+  Working <- papers[[i, "WORKING"]]
+  Year <- gsub("noop\\{\\d+\\}", "", papers[[i, 'YEAR']])
+  Year <- gsub("[[:alpha:]]|[[:punct:]]|\\s", "", Year)
+  
+  entry <- paste0(
+    "<p>", out_name, " ", 
+    ifelse(!is.na(Working), paste0("**", Working, "**. "), ""),
+    Year, 
+    ". \"",
+    gsub("\\{|\\}", "", papers[[i, "TITLE"]]), "\". ",
+    "*", 
+    gsub("noop\\{\\d+\\}", "", papers[[i, "JOURNAL"]]),
+    "*.", 
+    ifelse(
+      is.na(papers[[i, "LINK"]]), "</p>", 
+      paste0(" <a href=\"", papers[[i, "LINK"]], "\">(Link)</a>", "</p>")
+    )
+  )
+  
+  out <- paste0(
+    out, 
+    entry, "\n"
+    )
+}
+out <- paste0(out, "</div>")
+cat(out)
+# out
+```

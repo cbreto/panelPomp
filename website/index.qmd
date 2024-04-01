@@ -44,6 +44,45 @@ authors_txt <- paste(authors_txt, authors_list[length(authors_list)], sep = ' an
 
 `r authors_txt`
 
-#### Package Description
+#### Inference for PanelPOMPs (Panel Partially Observed Markov Processes)
 
-Tools for working with longitudinal or panel POMPs, i.e., with Partially Observed Markov Processes (AKA state-space models, stochastic dynamical systems) involving multiple, independent units (or individuals) for each of which (potentially multivariate) time series data is available. The basic idea driving `panelPomp` is to apply to a collection of units (or individuals) some of the [`pomp` package](https://kingaa.github.io/pomp/) facilities for implementing POMP models, simulating them, and fitting them to time series data.
+The `panelPomp` package provides facilities for inference on panel data using panel partially-observed Markov process (PanelPOMP) models. 
+To do so, it relies on and extends a number of facilities that the [`pomp` package](https://kingaa.github.io/pomp/) provides for inference on time
+series data using partially-observed Markov process (POMP) models.
+
+The `panelPomp` package extends to panel data some of the capabilities of the `pomp` package to fit nonlinear, non-Gaussian dynamic models.
+This is done accommodating both fixed and random effects. 
+Currently, the focus is on likelihood-based approaches. 
+In addition to these likelihood-based tools, `panelPomp` also provides a framework under which alternative statistical methods for PanelPOMP models can be developed (very much like `pomp` provides a platform upon which statistical inference methods for POMP models can be implemented).
+
+#### Data analysis using `panelPomp`
+
+The first step in using `panelPomp` is to encode one's model(s) and data in objects of class `panelPomp`.
+One does this via a call to the [`panelPomp::panelPomp`](html/panelPomp.html) constructor function.
+
+The current [`panelPomp` version](about.qmd) provides algorithms for
+
+* particle filtering of panel data (AKA sequential Monte Carlo or
+sequential importance sampling), as proposed in Bret\oacute, Ionides and King
+(2020). This reference provides the fundamental theoretical support for the
+averaging of Monte Carlo replicates of panel unit likelihoods as implemented
+in `panelPomp`; see the [`pfilter` function documentation](html/pfilter.html).
+* the panel iterated filtering method of Bret\oacute, Ionides and King
+(2020). This reference provides the fundamental theoretical support for the
+extensions of the iterated filtering ideas of Ionides et al. (2006, 2011, 2015) to panel data as implemented in `panelPomp`; see the [`mif2` function documentation](html/mif2.html).
+
+The package also provides various tools for handling and extracting information on models and data.
+
+#### Extending the \pkg{pomp} platform for developing inference tools
+
+`panelPomp` extends to panel data the general interface to the components of POMP models provided by `pomp`. 
+In doing so, it contributes to the goal of the `pomp` project of facilitating the development of new algorithms in an environment where they can be tested and compared on a growing body of models and datasets.
+
+#### Comments, bug reports, and requests
+
+Contributions are welcome, as are suggestions for improvement, feature requests, and bug reports.
+Please submit these via the [`panelPomp` issues page](https://github.com/cbreto/panelPomp/issues).
+We particularly welcome minimal working examples displaying uninformative, misleading or inacurate error messages. 
+We also welcome suggestions for clarifying obscure passages in the documentation. 
+Help requests are welcome, but please consider before sending requests whether they are regarding the use of `panelPomp` or that of `pomp`. 
+For help with `pomp`, please visit [`pomp`'s FAQ](https://kingaa.github.io/pomp/FAQ.html#how-can-i-submit-an-effective-request-for-help).
