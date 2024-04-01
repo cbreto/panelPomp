@@ -66,6 +66,7 @@ jobs:
             any::knitr
             kingaa/pomp
             any::devtools
+            any::bib2df
 
       - name: Install package from source
         run: |

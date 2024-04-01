@@ -19,12 +19,14 @@ website:
         text: Home
       - href: about.qmd
         text: About
+      - href: bibliography.qmd
+        text: Bibliography
       - href: html/00Index.html
         text: Manual
 
 format:
   html:
-    theme: yeti
+    theme: flatly
     css: styles.css
     toc: true
 
