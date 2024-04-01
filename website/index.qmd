@@ -33,7 +33,7 @@ authors <- authors[sapply(authors, function(x) any(grepl("aut", x$role)))]
 # Getting first and last name, and email if it is in the description. 
 authors_list <- unlist(lapply(authors, function(author) {
   if (!is.null(author$email)) {
-    paste0(paste(paste(author$given, collapse = ' '), author$family), " (", author$email, ")")
+    paste0(paste(paste(author$given, collapse = ' '), gsub("Breto","Bret\u00F3", author$family)), " (", author$email, ")")
   } else {
     paste(paste(author$given, collapse = ' '), author$family)
   }
