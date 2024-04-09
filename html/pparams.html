@@ -1,0 +1,88 @@
+<!DOCTYPE html><html><head><title>R: Extract parameters (coefficients) of a panel model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>pparams {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='pparams'>Extract parameters (coefficients) of a panel model</h2>
+
+<h3>Description</h3>
+
+<p><code>pparams()</code> is a generic function that extracts parameter
+(coefficient) values from objects returned by panel modeling functions. While
+the named <code>numeric</code> vector format is useful and possible via S4 methods
+for <code>coef()</code>, alternative formats capturing the panel structure can be
+implemented via <code>pparams()</code>.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>pparams(object, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="pparams_:_object">object</code></td>
+<td>
+<p>an object for which extraction of panel model parameter
+(coefficient) values is meaningful.</p>
+</td></tr>
+<tr><td><code id="pparams_:_...">...</code></td>
+<td>
+<p>additional arguments.</p>
+</td></tr>
+</table>
+
+
+<h3>Details</h3>
+
+<p>This is a generic function: methods can be defined for it.
+</p>
+
+
+<h3>Value</h3>
+
+<p>Parameter (coefficient) values extracted from the panel model
+<code>object</code>.
+</p>
+<p>When given objects of class <code>panelPomp</code>, <code>pparams()</code> returns a named list with two elements: <code>shared</code>, which is a named <code>numeric</code> vector, and <code>specific</code>, which is a <code>matrix</code> with parameter names in its row names and panel unit names in its column names.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Carles Bret&oacute;
+</p>
+
+
+<h3>See Also</h3>
+
+<p><a href="../../panelPomp/help/panelPomp_methods.html">panelPomp_methods</a>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>prw &lt;- panelRandomWalk()
+# extract parameters in list form
+pparams(prw)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

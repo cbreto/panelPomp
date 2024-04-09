@@ -1,0 +1,84 @@
+<!DOCTYPE html><html><head><title>R: Convert to and from a 'panelPomp' object 'pParams' slot...</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>params {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='params'>Convert to and from a <code>panelPomp</code> object <code>pParams</code> slot format and a one-row <code>data.frame</code></h2>
+
+<h3>Description</h3>
+
+<p>These facilitate keeping a record of evaluated log likelihoods.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>toVectorPparams(pParams)
+
+fromVectorPparams(vec_pars)
+
+toMatrixPparams(listPparams)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="params_:_pParams">pParams</code></td>
+<td>
+<p>A list with the format of the <code>pParams</code> slot of <code>panelPomp</code> objects.</p>
+</td></tr>
+<tr><td><code id="params_:_vec_pars">vec_pars</code></td>
+<td>
+<p>A one-row <code>data.frame</code> with format matching that of the
+output of <a href="../../panelPomp/help/toVectorPparams.html">toVectorPparams</a>.</p>
+</td></tr>
+<tr><td><code id="params_:_listPparams">listPparams</code></td>
+<td>
+<p>PanelPomp parameters in list format</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>toVectorPparams()</code> returns an object of class <code>data.frame</code>.
+</p>
+<p><code>fromVectorPparams()</code> returns an object of class <code>list</code> with the
+model parameters in list form.
+</p>
+<p><code>toMatrixPparams()</code> returns an object of class <code>matrix</code> with the
+model parameters in matrix form.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Carles Bret&oacute;
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>prw &lt;- panelRandomWalk()
+toVectorPparams(pparams(prw))
+fromVectorPparams(toVectorPparams(pparams(prw)))
+toMatrixPparams(pparams(prw))
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head><title>R: Log-mean-exp for panels</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>panel_logmeanexp {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='panel_logmeanexp'>Log-mean-exp for panels</h2>
+
+<h3>Description</h3>
+
+<p>This function computes the <code><a href="../../pomp/help/logmeanexp.html">logmeanexp</a></code> for each column
+or row of a numeric matrix and sums the result. Because the loglikelihood
+of a <code>panelPomp</code> object is the sum of the loglikelihoods of its units,
+this function can be used to summarize replicated estimates of the
+<code>panelPomp</code> model likelihood. If <code>se = TRUE</code>, the jackknife SE estimates
+from <code><a href="../../pomp/help/logmeanexp.html">logmeanexp</a></code> are squared, summed and the squared root is taken.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>panel_logmeanexp(x, MARGIN, se = FALSE)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="panel_logmeanexp_:_x">x</code></td>
+<td>
+<p>Matrix with the same number of replicated estimates for each panel
+unit loglikelihood.</p>
+</td></tr>
+<tr><td><code id="panel_logmeanexp_:_MARGIN">MARGIN</code></td>
+<td>
+<p>The dimension of the matrix that corresponds to a panel unit
+and over which averaging occurs (1 indicates rows, 2 indicates columns).</p>
+</td></tr>
+<tr><td><code id="panel_logmeanexp_:_se">se</code></td>
+<td>
+<p>logical; whether to give standard errors.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code>numeric</code> value with the average panel log likelihood or, when
+<code>se = TRUE</code>, a <code>numeric</code> vector adding the corresponding standard error.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Carles Bret&oacute;
+</p>
+
+
+<h3>See Also</h3>
+
+<p>panel_loglik
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>ulls &lt;- matrix(c(1,1,10,10),nr=2)
+panel_logmeanexp(ulls,MARGIN=2,se=TRUE)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

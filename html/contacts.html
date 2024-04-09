@@ -1,0 +1,87 @@
+<!DOCTYPE html><html><head><title>R: Contacts model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>contacts {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='contacts'>Contacts model</h2>
+
+<h3>Description</h3>
+
+<p>A panel model for dynamic variation in sexual contacts, with
+data from Vittinghof et al (1999). The model was developed by
+Romero-Severson et al (2015) and discussed by Bret&oacute; et al (2020).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>contacts(
+  params = c(mu_X = 1.75, sigma_X = 2.67, mu_D = 3.81, sigma_D = 4.42, mu_R = 0.04,
+    sigma_R = 0, alpha = 0.9)
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="contacts_:_params">params</code></td>
+<td>
+<p>parameter vector.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code>panelPomp</code> object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Edward L. Ionides
+</p>
+
+
+<h3>References</h3>
+
+<p>Bret&oacute;, C., Ionides, E. L. and King, A. A. (2020) Panel Data Analysis via Mechanistic Models. <em>Journal of the American Statistical Association</em>, <b>115</b>(531), 1178&ndash;1188. <a href="https://doi.org/10.1080/01621459.2019.1604367">doi:10.1080/01621459.2019.1604367</a>
+</p>
+<p>Romero-Severson, E.O., Volz, E., Koopman, J.S., Leitner, T. and Ionides, E.L. (2015) Dynamic variation in sexual contact rates in a cohort of HIV-negative gay men. <em>American journal of epidemiology</em>, <b>182</b>(3), 255&ndash;262. <a href="https://doi.org/10.1093/aje/kwv044">doi:10.1093/aje/kwv044</a>
+</p>
+<p>Vitinghoff, E., Douglas, J., Judon, F., McKiman, D., MacQueen, K. and Buchinder, S.P. (1999) Per-contact risk of human immunodificiency virus tramnsmision between male sexual partners. <em>American journal of epidemiology</em>, <b>150</b>(3), 306&ndash;311. <a href="https://doi.org/10.1093/oxfordjournals.aje.a010003">doi:10.1093/oxfordjournals.aje.a010003</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other panelPomp examples: 
+<code><a href="../../panelPomp/help/panelGompertz.html">panelGompertz</a>()</code>,
+<code><a href="../../panelPomp/help/panelRandomWalk.html">panelRandomWalk</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>
+contacts()
+
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

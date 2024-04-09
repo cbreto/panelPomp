@@ -1,0 +1,209 @@
+<!DOCTYPE html><html><head><title>R: PIF: Panel iterated filtering</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>mif2 {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='mif2'>PIF: Panel iterated filtering</h2>
+
+<h3>Description</h3>
+
+<p>Tools for applying iterated filtering algorithms to panel data.
+The panel iterated filtering of Bret&oacute; et al. (2020) extends to
+panel models the improved iterated filtering algorithm (Ionides et al.,
+2015) for estimating parameters of a partially observed Markov process.
+Iterated filtering algorithms rely on extending a partially observed Markov
+process model of interest by introducing random perturbations to the model
+parameters. The space where the original parameters live is then explored
+at each iteration by running a particle filter. Convergence to a maximum
+likelihood estimate has been established for appropriately constructed
+procedures that iterate this search over the parameter space while
+diminishing the intensity of perturbations (Ionides et al. 2006, 2011, 2015).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S4 method for signature 'panelPomp'
+mif2(
+  data,
+  Nmif = 1,
+  shared.start,
+  specific.start,
+  start,
+  Np,
+  rw.sd,
+  cooling.type = c("hyperbolic", "geometric"),
+  cooling.fraction.50,
+  block = FALSE,
+  verbose = getOption("verbose"),
+  ...
+)
+
+## S4 method for signature 'mif2d.ppomp'
+mif2(
+  data,
+  Nmif,
+  shared.start,
+  specific.start,
+  start,
+  Np,
+  rw.sd,
+  cooling.type,
+  cooling.fraction.50,
+  block,
+  ...
+)
+
+## S4 method for signature 'mif2d.ppomp'
+traces(object, pars, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="mif2_:_data">data</code></td>
+<td>
+<p>An object of class <code>panelPomp</code> or inheriting class.</p>
+</td></tr>
+<tr><td><code id="mif2_:_Nmif">Nmif</code></td>
+<td>
+<p>The number of filtering iterations to perform.</p>
+</td></tr>
+<tr><td><code id="mif2_:_shared.start">shared.start</code></td>
+<td>
+<p>named numerical vector; the starting guess of the shared parameters.</p>
+</td></tr>
+<tr><td><code id="mif2_:_specific.start">specific.start</code></td>
+<td>
+<p>matrix with row parameter names and column unit names;
+the starting guess of the specific parameters.</p>
+</td></tr>
+<tr><td><code id="mif2_:_start">start</code></td>
+<td>
+<p>A named numeric vector of parameters at which to start the IF2 procedure.</p>
+</td></tr>
+<tr><td><code id="mif2_:_Np">Np</code></td>
+<td>
+<p>the number of particles to use.
+This may be specified as a single positive integer, in which case the same number of particles will be used at each timestep.
+Alternatively, if one wishes the number of particles to vary across timesteps, one may specify <code>Np</code> either as a vector of positive integers of length </p>
+<pre>length(time(object,t0=TRUE))</pre><p> or as a function taking a positive integer argument.
+In the latter case, <code>Np(k)</code> must be a single positive integer, representing the number of particles to be used at the <code>k</code>-th timestep:
+<code>Np(0)</code> is the number of particles to use going from <code>timezero(object)</code> to <code>time(object)[1]</code>,
+<code>Np(1)</code>, from <code>timezero(object)</code> to <code>time(object)[1]</code>,
+and so on,
+while when <code>T=length(time(object))</code>, <code>Np(T)</code> is the number of particles to sample at the end of the time-series.</p>
+</td></tr>
+<tr><td><code id="mif2_:_rw.sd">rw.sd</code></td>
+<td>
+<p>An unevaluated expression of the form <code>quote(rw.sd())</code> to
+be used for all panel units. If a <code>list</code> of such expressions of the
+same length as the <code>object</code> argument is provided, each list element
+will be used for the corresponding panel unit.</p>
+</td></tr>
+<tr><td><code id="mif2_:_cooling.type">cooling.type</code>, <code id="mif2_:_cooling.fraction.50">cooling.fraction.50</code></td>
+<td>
+<p>specifications for the cooling schedule,
+i.e., the manner and rate with which the intensity of the parameter perturbations is reduced with successive filtering iterations.
+<code>cooling.type</code> specifies the nature of the cooling schedule.
+See below (under &ldquo;Specifying the perturbations&rdquo;) for more detail.</p>
+</td></tr>
+<tr><td><code id="mif2_:_block">block</code></td>
+<td>
+<p>A logical variable determining whther to carry out block
+resampling of unit-specific parameters.</p>
+</td></tr>
+<tr><td><code id="mif2_:_verbose">verbose</code></td>
+<td>
+<p>logical; if <code>TRUE</code>, diagnostic messages will be printed to the console.</p>
+</td></tr>
+<tr><td><code id="mif2_:_...">...</code></td>
+<td>
+<p>....</p>
+</td></tr>
+<tr><td><code id="mif2_:_object">object</code></td>
+<td>
+<p>an object resulting from the application of IF2 (i.e., of
+class <code>mif2d.ppomp</code>)</p>
+</td></tr>
+<tr><td><code id="mif2_:_pars">pars</code></td>
+<td>
+<p>names of parameters</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>mif2()</code> returns an object of class <code>mif2d.ppomp</code>.
+</p>
+<p><code>traces()</code> returns a <code>matrix</code> with estimated parameter values at
+different iterations of the IF2 algorithm in the natural scale. The default
+is to return values for all parameters but a subset of parameters can be
+passed via the optional argument <code>pars</code>.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Carles Bret&oacute;
+</p>
+
+
+<h3>References</h3>
+
+<p>Bret&oacute;, C., Ionides, E. L. and King, A. A. (2020) Panel Data Analysis via Mechanistic Models. <em>Journal of the American Statistical Association</em>, <b>115</b>(531), 1178&ndash;1188. <a href="https://doi.org/10.1080/01621459.2019.1604367">doi:10.1080/01621459.2019.1604367</a>
+</p>
+<p>Ionides, E. L., Bret&oacute;, C. and King, A. A. (2006) Inference for nonlinear dynamical systems. <em>Proceedings of the National Academy of Sciences</em>, <b>103</b>(49), 18438&ndash;18443. <a href="https://doi.org/10.1073/pnas.0603181103">doi:10.1073/pnas.0603181103</a>
+</p>
+<p>Ionides, E. L., Bhadra, A., Atchad&eacute;, Y. and King, A. A. (2011) Iterated filtering. <em>Annals of Statistics</em>, <b>39</b>(3), 1776&ndash;1802. <a href="https://doi.org/10.1214/11-AOS886">doi:10.1214/11-AOS886</a>
+</p>
+<p>Ionides, E. L., Nguyen, D., Atchad&eacute;, Y., Stoev, S. and King, A. A. (2015) Inference via iterated, perturbed Bayes maps. <em>Proceedings of the National Academy of Sciences</em>, <b>112</b>(3), 719&ndash;724. <a href="https://doi.org/10.1073/pnas.1410597112">doi:10.1073/pnas.1410597112</a>
+</p>
+<p>King, A. A., Nguyen, D. and Ionides, E. L. (2016) Statistical inference for partially observed Markov processes via the package <span class="pkg">pomp</span>. <em>Journal of Statistical Software</em> <b>69</b>(12), 1&ndash;43. <abbr><span class="acronym">DOI</span></abbr>: 10.18637/jss.v069.i12. An updated version of this paper is available on the <a href="https://kingaa.github.io/pomp/docs.html">package website</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p><span class="pkg">pomp</span>'s mif2 at <a href="../../pomp/html/mif2.html">mif2</a>,
+<a href="../../panelPomp/help/panel_loglik.html">panel_loglik</a>
+</p>
+<p>Other panelPomp workhorse functions: 
+<code><a href="../../panelPomp/help/panelPomp.html">panelPomp</a></code>,
+<code><a href="../../panelPomp/help/panel_loglik.html">panel_loglik</a></code>,
+<code><a href="../../panelPomp/help/pfilter.html">pfilter</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>## start with a panelPomp object
+p &lt;- panelRandomWalk()
+## specify which parameters to estimate via rw_sd() and how fast to cool
+mp &lt;- mif2(p,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
+mp
+## the object resulting from an initial estimation can be used as a new starting point
+mmp &lt;- mif2(mp,Np=10,rw.sd=rw_sd(X.0=0.2),cooling.fraction.50=0.5,cooling.type="geometric")
+mmp
+## convergence can be partly diagnosed by checking estimates and likelihoods at different iterations
+traces(mmp)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

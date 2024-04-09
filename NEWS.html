@@ -1,0 +1,319 @@
+<!DOCTYPE html><html><head><title>R: News for package 'panelPomp'</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>NEWS</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='NEWS'>News for package &lsquo;panelPomp&rsquo;</h2>
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 1.1.0.2</h3>
+
+
+<ul>
+<li><p> Added a type check for the <code>params</code> arguement of the
+<code>pfilter</code> function in order to throw more user friendly error.
+</p>
+</li>
+<li><p> A more user friendly error is thrown when the user specifies a
+parameter as both shared and unit specific in the <code>mif2</code> function.
+</p>
+</li>
+<li><p> Added a <code>match.arg</code> call in <code>mif2.internal</code>; this will
+allow the default option for the <code>cooling.type</code> argument in
+<code>mif2</code> to no longer throw an error, and mimics the behaviour of the
+<code>mif2</code> function in the <code>pomp</code> package.
+</p>
+</li>
+<li><p> The <code>pParams</code> function no longer changes the order of the unit
+specific parameter names; this was causing an error because the
+<code>barycentric</code> parameter transformation requires that the parameters
+are adjacent to one another in the parameter vector.
+</p>
+</li>
+<li><p> Improved documentation for <code>panel_logmeanexp</code>.
+</p>
+</li>
+<li><p> More robust input checking for the <code>pfilter</code> function with
+user friendly error messages.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 1.1.0</h3>
+
+
+<ul>
+<li><p> Improved documentation and tests.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 1.0.0</h3>
+
+
+<ul>
+<li><p> Submitted to CRAN.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.18.0</h3>
+
+
+<ul>
+<li><p> Fixed bug in <code>fromVectorPparams()</code> to make it a true inverse of <code>toVectorPparams()</code>.
+</p>
+</li>
+<li><p> Homogenized documentation; added examples.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.15.0</h3>
+
+
+<ul>
+<li><p> New coercion to <code>pompList</code> and update to list.
+</p>
+</li>
+<li> <p><code>panelGompertzLikelihood</code> replaces <code>kalman_gompertz.R</code>.
+</p>
+</li>
+<li><p> expunged <code>panelPompExample</code>.
+</p>
+</li>
+<li><p> Names added to plot; <code>pfilter</code> matches units by name.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.14.0</h3>
+
+
+<ul>
+<li><p> New <code>simulate</code> function.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.13.0</h3>
+
+
+<ul>
+<li><p> New <code>panelRandomWalk</code> example.
+</p>
+</li>
+<li> <p><code>panelPompExample</code> is now deprecated and will be removed in the
+near future.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.12.0</h3>
+
+
+<ul>
+<li><p> New <code>plot</code> method for <code>panelPomp</code> objects.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.11.0</h3>
+
+
+<ul>
+<li><p> Additional functions implementing Kalman filtering to panels and to the Gompertz model.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.10.2.0</h3>
+
+
+<ul>
+<li><p> Minor improvements to the interface.
+</p>
+</li>
+<li><p> Additional examples: <span class="pkg">contacts()</span> and <span class="pkg">panelGompertz()</span>.
+</p>
+</li>
+<li><p> The minimum version of <span class="pkg">pomp</span> supported is now <code>2.7</code>.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.9.1</h3>
+
+
+<ul>
+<li><p> The minimum version of <span class="pkg">pomp</span> supported is now <code>2.1</code>. While
+this is likely to imply substantial changes in <span class="pkg">pomp</span> objects (on which
+<span class="pkg">panelPomp</span> objects rely) there are only three fundamental changes that
+break panelPomp's backwards compatibility:
+</p>
+</li>
+<li><p> The first argument <code>pfilter(object, ...)</code> changes to <code>data</code>.
+</p>
+</li>
+<li><p> The first argument <code>mif2(object, ...)</code> changes to <code>data</code>.
+</p>
+</li>
+<li><p> The ‘conv.rec’ method has been deprecated, replaced by the new
+‘traces’ method.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.8.3</h3>
+
+
+<ul>
+<li><p> Improvements to the interface.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.7</h3>
+
+
+<ul>
+<li><p> A new <code>conv.rec</code> method.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.6</h3>
+
+
+<ul>
+<li><p> Many improvements to the interface.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.5.6</h3>
+
+
+<ul>
+<li> <p><code>panelPompExamples()</code> now allows creating <code>panelPomp</code> objects that come with the package.
+</p>
+</li>
+<li><p> New documentation and tests.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.5.5</h3>
+
+
+<ul>
+<li><p> New documentation and tests.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.5.4</h3>
+
+
+<ul>
+<li><p> New documentation and tests.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.5.3</h3>
+
+
+<ul>
+<li><p> New documentation and additional tests.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.5</h3>
+
+
+<ul>
+<li><p> New documentation and additional tests and coverage.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.4</h3>
+
+
+<ul>
+<li><p> New tests added.
+</p>
+</li>
+<li><p> New methods.
+</p>
+</li>
+<li><p> A bug in <code>pfilter</code> and <code>mif2</code> has been fixed (<code>pomp</code>'s default filtering tolerance <code>tol=1e-17</code> was used instead of values specified by the user). Thanks to Aaron King for finding it.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.2</h3>
+
+
+<ul>
+<li><p> New tests added.
+</p>
+</li>
+<li><p> Eliminate need to protect <code>rw.sd</code> from being evaluated.
+</p>
+</li></ul>
+
+
+
+<h3>Changes in <span class="pkg">panelPomp</span> version 0.1</h3>
+
+
+<ul>
+<li><p> Unused variable purged.
+</p>
+</li>
+<li> <p><code>pPfilter.internal</code> streamlined.
+</p>
+</li>
+<li><p> Test for reproducibility of pfilter calculations added.
+</p>
+</li></ul>
+
+
+
+</div>
+</body></html>

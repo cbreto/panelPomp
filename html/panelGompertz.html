@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head><title>R: Panel Gompertz model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>panelGompertz {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='panelGompertz'>Panel Gompertz model</h2>
+
+<h3>Description</h3>
+
+<p>Builds a collection of independent realizations from the
+Gompertz model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>panelGompertz(
+  N = 100,
+  U = 50,
+  params = c(K = 1, r = 0.1, sigma = 0.1, tau = 0.1, X.0 = 1),
+  seed = 12345678
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="panelGompertz_:_N">N</code></td>
+<td>
+<p>number of observations for each unit.</p>
+</td></tr>
+<tr><td><code id="panelGompertz_:_U">U</code></td>
+<td>
+<p>number of units.</p>
+</td></tr>
+<tr><td><code id="panelGompertz_:_params">params</code></td>
+<td>
+<p>parameter vector, assuming all units have the same parameters.</p>
+</td></tr>
+<tr><td><code id="panelGompertz_:_seed">seed</code></td>
+<td>
+<p>passed to the random number generator for simulation.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code>panelPomp</code> object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Edward L. Ionides, Carles Bret&oacute;
+</p>
+
+
+<h3>References</h3>
+
+<p>Bret&oacute;, C., Ionides, E. L. and King, A. A. (2020) Panel Data Analysis via Mechanistic Models. <em>Journal of the American Statistical Association</em>, <b>115</b>(531), 1178&ndash;1188. <a href="https://doi.org/10.1080/01621459.2019.1604367">doi:10.1080/01621459.2019.1604367</a>
+</p>
+<p>King, A. A., Nguyen, D. and Ionides, E. L. (2016) Statistical inference for partially observed Markov processes via the package <span class="pkg">pomp</span>. <em>Journal of Statistical Software</em> <b>69</b>(12), 1&ndash;43. <abbr><span class="acronym">DOI</span></abbr>: 10.18637/jss.v069.i12. An updated version of this paper is available on the <a href="https://kingaa.github.io/pomp/docs.html">package website</a>.
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other panelPomp examples: 
+<code><a href="../../panelPomp/help/contacts.html">contacts</a>()</code>,
+<code><a href="../../panelPomp/help/panelRandomWalk.html">panelRandomWalk</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>panelGompertz()
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

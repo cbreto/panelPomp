@@ -1,0 +1,75 @@
+<!DOCTYPE html><html><head><title>R: Likelihood for a panel Gompertz model via a Kalman filter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>panelGompertzLikelihood {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='panelGompertzLikelihood'>Likelihood for a panel Gompertz model via a Kalman filter</h2>
+
+<h3>Description</h3>
+
+<p>Evaluates the likelihood function for a panel Gompertz model,
+using a format convenient for maximization by optim() to obtain a maximum
+likelihood estimate. Specifically, estimated and fixed parameters are
+supplied by two different arguments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>panelGompertzLikelihood(x, panelPompObject, params)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="panelGompertzLikelihood_:_x">x</code></td>
+<td>
+<p>named vector for a subset of parameters, corresponding to
+those being estimated.</p>
+</td></tr>
+<tr><td><code id="panelGompertzLikelihood_:_panelPompObject">panelPompObject</code></td>
+<td>
+<p>a panel Gompertz model.</p>
+</td></tr>
+<tr><td><code id="panelGompertzLikelihood_:_params">params</code></td>
+<td>
+<p>named vector containing all the parameters of the panel Gompertz model. Estimated parameters are overwritten by x.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code>numeric</code> value.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Edward L. Ionides
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>pg &lt;- panelGompertz(N=2,U=2)
+panelGompertzLikelihood(coef(pg),pg,coef(pg))
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

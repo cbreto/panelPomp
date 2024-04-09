@@ -1,9 +1,0 @@
-options(
-  help_type="html",
-  repos=c(
-    CRAN="https://repo.miserver.it.umich.edu/cran/",
-    kingaa="https://kingaa.github.io"
-  ),
-  useFancyQuotes=FALSE,
-  Ncpus=12
-)

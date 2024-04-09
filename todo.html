@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>panelPomp</title>
+<title>panelPomp - Website TODO list</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -124,14 +124,13 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="https://kingaa.github.io/pomp/"><i class="bi bi-link"></i>pomp Package</a></li><li><a href="https://kidusasfaw.github.io/spatPomp/"><i class="bi bi-link"></i>spatPomp Package</a></li></ul></div><div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/cbreto/panelPomp"><i class="bi bi-github"></i>GitHub Source</a></li></ul></div></div>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">panelPomp</h1>
-<p class="subtitle lead">R package for statistical inference using panel POMPs (Partially Observed Markov Processes)</p>
+<h1 class="title">Website TODO list</h1>
 </div>
 
 
@@ -148,35 +147,18 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="authors" class="level4">
-<h4 class="anchored" data-anchor-id="authors">Authors</h4>
-<p>Carles Bretó (carles.breto@uv.es), Edward L. Ionides, Aaron A. King and Jesse Wheeler (jeswheel@umich.edu)</p>
-</section>
-<section id="inference-for-panelpomps-panel-partially-observed-markov-processes" class="level4">
-<h4 class="anchored" data-anchor-id="inference-for-panelpomps-panel-partially-observed-markov-processes">Inference for PanelPOMPs (Panel Partially Observed Markov Processes)</h4>
-<p>The <code>panelPomp</code> package provides facilities for inference on panel data using panel partially-observed Markov process (PanelPOMP) models. To do so, it relies on and extends a number of facilities that the <a href="https://kingaa.github.io/pomp/"><code>pomp</code> package</a> provides for inference on time series data using partially-observed Markov process (POMP) models.</p>
-<p>The <code>panelPomp</code> package extends to panel data some of the capabilities of the <code>pomp</code> package to fit nonlinear, non-Gaussian dynamic models. This is done accommodating both fixed and random effects. Currently, the focus is on likelihood-based approaches. In addition to these likelihood-based tools, <code>panelPomp</code> also provides a framework under which alternative statistical methods for PanelPOMP models can be developed (very much like <code>pomp</code> provides a platform upon which statistical inference methods for POMP models can be implemented).</p>
-</section>
-<section id="data-analysis-using-panelpomp" class="level4">
-<h4 class="anchored" data-anchor-id="data-analysis-using-panelpomp">Data analysis using <code>panelPomp</code></h4>
-<p>The first step in using <code>panelPomp</code> is to encode one’s model(s) and data in objects of class <code>panelPomp</code>. One does this via a call to the <a href="html/panelPomp.html"><code>panelPomp::panelPomp</code></a> constructor function.</p>
-<p>The current <a href="./about.html"><code>panelPomp</code> version</a> provides algorithms for</p>
-<ul>
-<li>particle filtering of panel data (AKA sequential Monte Carlo or sequential importance sampling), as proposed in Bret, Ionides and King (2020). This reference provides the fundamental theoretical support for the averaging of Monte Carlo replicates of panel unit likelihoods as implemented in <code>panelPomp</code>; see the <a href="html/pfilter.html"><code>pfilter</code> function documentation</a>.</li>
-<li>the panel iterated filtering method of Bret, Ionides and King (2020). This reference provides the fundamental theoretical support for the extensions of the iterated filtering ideas of Ionides et al.&nbsp;(2006, 2011, 2015) to panel data as implemented in <code>panelPomp</code>; see the <a href="html/mif2.html"><code>mif2</code> function documentation</a>.</li>
+<ul class="task-list">
+<li><label><input type="checkbox">Create a bibliography page with all citations to the package (add to website side-bar)</label></li>
+<li><label><input type="checkbox">Check that the package TAR Ball and ZIP file also get created in the GitHub Action so that these files will be up-to-date if there are any changes to the packages. I’m worried that the current links will be to old versions of the package.</label></li>
+<li><label><input type="checkbox">Create Vignettes and non-Vignette examples for the package, link to them in the sidebar.</label></li>
+<li><label><input type="checkbox">Update the index page</label></li>
+<li><label><input type="checkbox">Improve the website documentation in the <a href="https://jeswheel.github.io/testpkg"><code>testpkg</code></a> website, so that this is all reproducible and possibly can be extended to <code>spatPomp</code> and/or <code>pomp</code>.</label></li>
+<li><label><input type="checkbox">Add link to this website on personal website.</label></li>
+<li><label><input type="checkbox">(Not related to this project, but personal TODO item and this is a good place for me to put it): Create this same website-workflow for <code>arima2</code>.</label></li>
+<li><label><input type="checkbox">It’s a little annoying all GitHub actions run every time you push, even if the changes are only to the website. Exclude the <code>website</code> directory from the GHA workflow for building, testing, code-coverage, etc.</label></li>
 </ul>
-<p>The package also provides various tools for handling and extracting information on models and data.</p>
-</section>
-<section id="extending-the-platform-for-developing-inference-tools" class="level4">
-<h4 class="anchored" data-anchor-id="extending-the-platform-for-developing-inference-tools">Extending the platform for developing inference tools</h4>
-<p><code>panelPomp</code> extends to panel data the general interface to the components of POMP models provided by <code>pomp</code>. In doing so, it contributes to the goal of the <code>pomp</code> project of facilitating the development of new algorithms in an environment where they can be tested and compared on a growing body of models and datasets.</p>
-</section>
-<section id="comments-bug-reports-and-requests" class="level4">
-<h4 class="anchored" data-anchor-id="comments-bug-reports-and-requests">Comments, bug reports, and requests</h4>
-<p>Contributions are welcome, as are suggestions for improvement, feature requests, and bug reports. Please submit these via the <a href="https://github.com/cbreto/panelPomp/issues"><code>panelPomp</code> issues page</a>. We particularly welcome minimal working examples displaying uninformative, misleading or inacurate error messages. We also welcome suggestions for clarifying obscure passages in the documentation. Help requests are welcome, but please consider before sending requests whether they are regarding the use of <code>panelPomp</code> or that of <code>pomp</code>. For help with <code>pomp</code>, please visit <a href="https://kingaa.github.io/pomp/FAQ.html#how-can-i-submit-an-effective-request-for-help"><code>pomp</code>’s FAQ</a>.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

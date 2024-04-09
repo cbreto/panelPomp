@@ -1,0 +1,184 @@
+<!DOCTYPE html><html><head><title>R: Particle filtering for panel data</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>pfilter {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='pfilter'>Particle filtering for panel data</h2>
+
+<h3>Description</h3>
+
+<p>Tools for applying particle filtering algorithms to panel data.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>## S4 method for signature 'panelPomp'
+pfilter(
+  data,
+  shared,
+  specific,
+  params,
+  Np,
+  verbose = getOption("verbose"),
+  ...
+)
+
+## S4 method for signature 'pfilterd.ppomp'
+logLik(object, ...)
+
+## S4 method for signature 'pfilterd.ppomp'
+unitlogLik(object, ...)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="pfilter_:_data">data</code></td>
+<td>
+<p>An object of class <code>panelPomp</code> or inheriting class
+<code>panelPomp</code>.</p>
+</td></tr>
+<tr><td><code id="pfilter_:_shared">shared</code>, <code id="pfilter_:_specific">specific</code></td>
+<td>
+<p>optional; these arguments depend on the type
+of <code>object</code>.
+</p>
+<p>If <code>object</code> is a <code>list</code> of <code>pomp</code>s, <code>shared</code> must be a
+numeric vector specifying parameter values shared among panel units.
+<code>specific</code> must be a <code>matrix</code> with parameter values that are
+unit-specific with rows naming parameters and columns naming units (these
+names must match those of <code>object</code>). If no values are specified and
+<code>object</code> has parameter values, these are set to be all unit-specific.
+</p>
+<p>If <code>object</code> is a <code>panelPomp</code> object, these arguments can still be
+used as described above to modify the parameters of <code>object</code>.
+Alternatively, the parameter configuration of <code>object</code> can be modified
+providing only a character <code>shared</code> naming parameters of <code>object</code>
+that should be shared (with values for parameters not originally shared
+taken from the unit-specific parameters of the first panel unit of
+<code>object</code>). <code>shared=NULL</code> sets all parameters as unit-specific.</p>
+</td></tr>
+<tr><td><code id="pfilter_:_params">params</code></td>
+<td>
+<p>optional; a named numeric vector. In this case, the nature of
+parameters is determined via a naming convention: names ending in
+&ldquo;<code>[unit_name]</code>&rdquo; are assumed to denote unit-specific parameters;
+all other names specify shared parameters.</p>
+</td></tr>
+<tr><td><code id="pfilter_:_Np">Np</code></td>
+<td>
+<p>the number of particles to use.
+This may be specified as a single positive integer, in which case the same number of particles will be used at each timestep.
+Alternatively, if one wishes the number of particles to vary across timesteps, one may specify <code>Np</code> either as a vector of positive integers of length </p>
+<pre>length(time(object,t0=TRUE))</pre><p> or as a function taking a positive integer argument.
+In the latter case, <code>Np(k)</code> must be a single positive integer, representing the number of particles to be used at the <code>k</code>-th timestep:
+<code>Np(0)</code> is the number of particles to use going from <code>timezero(object)</code> to <code>time(object)[1]</code>,
+<code>Np(1)</code>, from <code>timezero(object)</code> to <code>time(object)[1]</code>,
+and so on,
+while when <code>T=length(time(object))</code>, <code>Np(T)</code> is the number of particles to sample at the end of the time-series.</p>
+</td></tr>
+<tr><td><code id="pfilter_:_verbose">verbose</code></td>
+<td>
+<p>logical; if <code>TRUE</code>, diagnostic messages will be printed to the console.</p>
+</td></tr>
+<tr><td><code id="pfilter_:_...">...</code></td>
+<td>
+<p>additional arguments, passed to the <code>pfilter</code> method of <span class="pkg">pomp</span>.</p>
+</td></tr>
+<tr><td><code id="pfilter_:_object">object</code></td>
+<td>
+<p>required; either (i) a <code>list</code> of <code>pomp</code> objects; or
+(ii) an object of class <code>panelPomp</code> or inheriting class
+<code>panelPomp</code>.
+</p>
+<p>If <code>object</code> is a <code>list</code> of <code>pomp</code>s, the list must be named.
+All these <code>pomp</code>s must either have no parameters or have the same
+parameter names. (This is just a format requirement. <code>pomp</code> codes can
+ignore any parameter that is irrelevant to any given panel unit.)
+</p>
+<p>If <code>object</code> is a <code>panelPomp</code> object, the function allows modifying
+the shared and unit-specific configuration of <code>object</code>.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>pfilter()</code> returns an object of class <code>pfilterd.ppomp</code> that is also
+a <code>panelPomp</code> object (with the additional filtering details).
+</p>
+<p>When applied to an object of class <code>pfilterd.ppomp</code>, <code>logLik()</code>
+returns a <code>numeric</code> value.
+</p>
+<p>When given objects of class <code>pfilterd.ppomp</code>, <code>unitloglik()</code> returns a <code>numeric</code> vector.
+</p>
+
+
+<h3>Methods</h3>
+
+
+<dl>
+<dt>logLik</dt><dd><p>Extracts the estimated log likelihood for the entire panel.</p>
+</dd>
+<dt>unitlogLik</dt><dd><p>Extracts the estimated log likelihood for each panel unit.</p>
+</dd>
+</dl>
+
+
+
+<h3>Author(s)</h3>
+
+<p>Carles Bret&oacute;
+</p>
+
+
+<h3>References</h3>
+
+<p>Arulampalam, M. S., Maskell, S., Gordon, N. and Clapp, T. (2002) A Tutorial on Particle Filters for Online Nonlinear/Non-Gaussian Bayesian Tracking. <em>IEEE Trans. Sig. Proc.</em>, <b>50</b>(2), 174&ndash;188. <a href="https://doi.org/10.1109/78.978374">doi:10.1109/78.978374</a>
+</p>
+<p>Bret&oacute;, C., Ionides, E. L. and King, A. A. (2020) Panel Data Analysis via Mechanistic Models. <em>Journal of the American Statistical Association</em>, <b>115</b>(531), 1178&ndash;1188. <a href="https://doi.org/10.1080/01621459.2019.1604367">doi:10.1080/01621459.2019.1604367</a>
+</p>
+
+
+<h3>See Also</h3>
+
+<p><span class="pkg">pomp</span>'s pfilter at <a href="../../pomp/html/pfilter.html">pfilter</a>, <a href="../../panelPomp/help/panel_loglik.html">panel_loglik</a>
+</p>
+<p>Other panelPomp workhorse functions: 
+<code><a href="../../panelPomp/help/mif2.html">mif2</a>()</code>,
+<code><a href="../../panelPomp/help/panelPomp.html">panelPomp</a></code>,
+<code><a href="../../panelPomp/help/panel_loglik.html">panel_loglik</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'># filter, which generates log likelihoods
+pfrw &lt;- pfilter(panelRandomWalk(),Np=10)
+class(pfrw) # "pfilterd.ppomp"
+is(pfrw,"panelPomp") # TRUE
+pfrw
+# extract single log likelihood for the entire panel
+logLik(pfrw)
+# extract log likelihood for each panel unit
+unitlogLik(pfrw)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

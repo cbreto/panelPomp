@@ -1,0 +1,132 @@
+html {
+    overflow-y: scroll;
+}
+
+body {
+    color: #000000;
+    background: #ffffff;
+    font-family: "DejaVu Sans", "Arial Sans", Arial, sans;
+    font-size: 12pt;
+    position: absolute;
+    padding-left: 20px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: max(22em, calc(90% - 20px));
+}
+
+code {
+    font-family: monospace;
+}
+
+pre {
+    font-family: monospace;
+    font-size: 1.125em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "DejaVu Sans", "Arial Sans", Arial, sans;
+    font-weight: bold;
+    font-variant: normal;
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
+    font-size: 1.375em;
+}
+
+h3 {
+    font-size: 1.25em;
+}
+
+h4 {
+    font-size: 1.125em;
+    text-decoration: underline;
+}
+
+h5 {
+    font-size: 1.125em;
+    font-style: bold;
+}
+
+h6 {
+    font-size: 1.125em;
+    font-style: italic;
+}
+
+p, ul, ol {
+    text-align: left;
+}
+
+td {
+    padding-left: 1em;
+    vertical-align: top;
+}
+
+a:link, a:visited {
+    color: #0000ff;
+    text-decoration: none;
+}
+a:hover, a:active {
+    color: #cc3333; 
+    text-decoration: none;
+}
+a.activated {
+    text-decoration: underline;
+}
+
+thead {
+    display: table-header-group;
+}
+
+dl, ul, ol, dd {
+    page-break-before: avoid;
+}
+
+dt, dd, tr, h1, h2, h3, h4, li, p {
+    page-break-inside: avoid;
+}
+
+dt, h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+dt, dd {
+    text-align: left;
+}
+
+dt {
+    font-weight: bold;
+}
+
+span.acronym {
+    font-size: normal;
+}
+
+span.env {
+    font-family: monospace;
+}
+
+span.file {
+    font-family: monospace;
+}
+
+span.option{
+    font-family: monospace;
+}
+
+span.pkg {
+    font-weight: bold;
+}
+
+span.samp{
+    font-family: monospace;
+}
+
+div.vignettes a:hover {
+    background: rgb(85%, 85%, 85%);
+}
+

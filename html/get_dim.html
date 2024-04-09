@@ -1,0 +1,84 @@
+<!DOCTYPE html><html><head><title>R: Get single column or row without dropping names</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>get_dim {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='get_dim'>Get single column or row without dropping names</h2>
+
+<h3>Description</h3>
+
+<p>Subset matrix dropping dimension but without dropping dimname
+(as done by <code>`[`</code> by default).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>get_col(matrix, rows, col)
+
+get_row(matrix, row, cols)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="get_dim_:_matrix">matrix</code></td>
+<td>
+<p>matrix.</p>
+</td></tr>
+<tr><td><code id="get_dim_:_rows">rows</code></td>
+<td>
+<p>numeric; rows to subset; like with <code>`[`</code>, this argument can be left empty to designate all rows.</p>
+</td></tr>
+<tr><td><code id="get_dim_:_col">col</code></td>
+<td>
+<p>integer; single column to subset.</p>
+</td></tr>
+<tr><td><code id="get_dim_:_row">row</code></td>
+<td>
+<p>integer; single row to subset.</p>
+</td></tr>
+<tr><td><code id="get_dim_:_cols">cols</code></td>
+<td>
+<p>numeric; columns to subset; like with <code>`[`</code>, this argument can be left empty to designate all columns.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A named <code>vector</code> object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Carles Bret&oacute;
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>m &lt;- matrix(NA,dimnames=list('r1','c1'))
+m[1,1] # = NA; R removes both names
+get_col(m,rows=1,col=1) # = c(r1=NA) keeps colname
+get_row(m,row=1,cols=1) # = c(c1=NA) keeps rowname
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

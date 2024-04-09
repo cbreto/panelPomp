@@ -1,0 +1,88 @@
+<!DOCTYPE html><html><head><title>R: Panel random walk model</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table style="width: 100%;"><tr><td>panelRandomWalk {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2 id='panelRandomWalk'>Panel random walk model</h2>
+
+<h3>Description</h3>
+
+<p>Builds a collection of independent realizations from a random
+walk model.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>panelRandomWalk(
+  N = 5,
+  U = 2,
+  params = c(sigmaY = 1, sigmaX = 1, X.0 = 1),
+  seed = 3141592
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="panelRandomWalk_:_N">N</code></td>
+<td>
+<p>number of observations for each unit.</p>
+</td></tr>
+<tr><td><code id="panelRandomWalk_:_U">U</code></td>
+<td>
+<p>number of units.</p>
+</td></tr>
+<tr><td><code id="panelRandomWalk_:_params">params</code></td>
+<td>
+<p>parameter vector, assuming all units have the same parameters.</p>
+</td></tr>
+<tr><td><code id="panelRandomWalk_:_seed">seed</code></td>
+<td>
+<p>passed to the random number generator for simulation.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>A <code>panelPomp</code> object.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Edward L. Ionides, Carles Bret&oacute;
+</p>
+
+
+<h3>See Also</h3>
+
+<p>Other panelPomp examples: 
+<code><a href="../../panelPomp/help/contacts.html">contacts</a>()</code>,
+<code><a href="../../panelPomp/help/panelGompertz.html">panelGompertz</a>()</code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>panelRandomWalk()
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+</div>
+</body></html>

@@ -1,1 +1,0 @@
-prw <- panelRandomWalk()
