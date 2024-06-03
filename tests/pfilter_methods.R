@@ -11,11 +11,11 @@ ppo <- panelRandomWalk(U=2,N=5)
 set.seed(21125715L)
 ppf <- pfilter(ppo,Np=10)
 logLik(ppf)
-unitlogLik(ppf)
+unitLogLik(ppf)
 set.seed(21125715L)
 ppf_ <- pfilter(ppf,Np=10)
 logLik(ppf_)
-unitlogLik(ppf_)
+unitLogLik(ppf_)
 
 test(ppf,ppf_)
 
