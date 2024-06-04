@@ -11,7 +11,7 @@ NULL
 #' @section Methods:
 #' \describe{
 #'   \item{logLik}{Extracts the estimated log likelihood for the entire panel.}
-#'   \item{unitlogLik}{Extracts the estimated log likelihood for each panel unit.}
+#'   \item{unitLogLik}{Extracts the estimated log likelihood for each panel unit.}
 #'   }
 #' @references \arulampalam2002
 #'

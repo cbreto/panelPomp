@@ -34,11 +34,20 @@ Type 'q()' to quit R.
 > unitLogLik(ppf)
        rw1        rw2 
  -8.072918 -10.741827 
+> unitlogLik(ppf)
+       rw1        rw2 
+ -8.072918 -10.741827 
+Warning message:
+`unitlogLik()` was deprecated in panelPomp 1.2.0.
+ℹ Please use `unitLogLik()` instead. 
 > set.seed(21125715L)
 > ppf_ <- pfilter(ppf,Np=10)
 > logLik(ppf_)
 [1] -18.81474
 > unitLogLik(ppf_)
+       rw1        rw2 
+ -8.072918 -10.741827 
+> unitlogLik(ppf_)
        rw1        rw2 
  -8.072918 -10.741827 
 > 

@@ -12,10 +12,12 @@ set.seed(21125715L)
 ppf <- pfilter(ppo,Np=10)
 logLik(ppf)
 unitLogLik(ppf)
+unitlogLik(ppf)
 set.seed(21125715L)
 ppf_ <- pfilter(ppf,Np=10)
 logLik(ppf_)
 unitLogLik(ppf_)
+unitlogLik(ppf_)
 
 test(ppf,ppf_)
 

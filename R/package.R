@@ -1,6 +1,5 @@
 ## package description
 
-#' @docType package
 #' @name panelPomp-package
 #' @title Inference for PanelPOMPs (Panel Partially Observed Markov Processes)
 #'
@@ -70,13 +69,15 @@
 #' \pkg{panelPomp} is provided under the GPL-3 License.
 #'
 #' @references \breto2020
-#' @author Carles \Breto
 #'
 #' @seealso \link[=pomp-package]{pomp package}, \link{panelPomp}
 #'
 #' @keywords models datasets ts
 #'
 #' @import methods
+"_PACKAGE"
+
+
 #' @import pomp
 # @useDynLib panelPomp, .registration=TRUE
 #' @importFrom stats dnorm runif setNames var

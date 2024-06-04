@@ -23,7 +23,7 @@ NULL
 #' @param specific.start matrix with row parameter names and column unit names;
 #' the starting guess of the specific parameters.
 #' @param start A named numeric vector of parameters at which to start the IF2 procedure.
-#' @param block A logical variable determining whther to carry out block
+#' @param block A logical variable determining whether to carry out block
 #' resampling of unit-specific parameters.
 #' @param rw.sd An unevaluated expression of the form \code{quote(rw.sd())} to
 #' be used for all panel units. If a \code{list} of such expressions of the

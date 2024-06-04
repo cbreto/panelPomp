@@ -78,17 +78,17 @@ Tools for manipulating \code{panelPomp} objects.
 \section{Methods}{
 
 \describe{
-  \item{coef}{Extracts coefficients of \code{panelPomp} objects.}
-  \item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
-  \item{length}{Count the number of units in \code{panelPomp} objects.}
-  \item{names}{Get the unit names of \code{panelPomp} objects.}
-  \item{pparams}{Extracts coefficients from \code{panelPomp} objects in list form.}
-  \item{pParams}{Converts panel coefficients from vector form to list form.}
-  \item{window}{Subset \code{panelPomp} objects by changing start time and
-  end time.}
-  \item{\code{[]}}{Take a subset of units.}
-  \item{\code{[[]]}}{Select the pomp object for a single unit.}
-  }
+\item{coef}{Extracts coefficients of \code{panelPomp} objects.}
+\item{coef<-}{Assign coefficients to \code{panelPomp} objects.}
+\item{length}{Count the number of units in \code{panelPomp} objects.}
+\item{names}{Get the unit names of \code{panelPomp} objects.}
+\item{pparams}{Extracts coefficients from \code{panelPomp} objects in list form.}
+\item{pParams}{Converts panel coefficients from vector form to list form.}
+\item{window}{Subset \code{panelPomp} objects by changing start time and
+end time.}
+\item{\code{[]}}{Take a subset of units.}
+\item{\code{[[]]}}{Select the pomp object for a single unit.}
+}
 }
 
 \examples{

@@ -71,7 +71,7 @@ i.e., the manner and rate with which the intensity of the parameter perturbation
 \code{cooling.type} specifies the nature of the cooling schedule.
 See below (under \dQuote{Specifying the perturbations}) for more detail.}
 
-\item{block}{A logical variable determining whther to carry out block
+\item{block}{A logical variable determining whether to carry out block
 resampling of unit-specific parameters.}
 
 \item{verbose}{logical; if \code{TRUE}, diagnostic messages will be printed to the console.}
