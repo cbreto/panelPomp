@@ -83,8 +83,8 @@
 #' @importFrom stats dnorm runif setNames var
 #' @importFrom utils tail read.table
 NULL        # replacing NULL by "_PACKAGE" results in roxygen2 adding an
-            # \alias{} with the package name, conflicting with functions named
-            # after the package
+# \alias{} with the package name, conflicting with functions named
+# after the package
 
 pStop <- function (fn, ...) {
   fn <- as.character(fn) # nocov
