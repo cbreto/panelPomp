@@ -38,3 +38,8 @@ Collate:
     'plot.R'
     'simulate.R'
 Roxygen: list(markdown = TRUE)
+Suggests: 
+    knitr,
+    rmarkdown,
+    bookdown 
+VignetteBuilder: knitr

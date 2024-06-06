@@ -1,0 +1,199 @@
+---
+title: "Getting Started with panelPomp"
+output: 
+  bookdown::html_document2:
+    toc: yes
+    number_sections: FALSE
+    toc_float: true
+    toc_depth: 3
+    code_folding: show
+    theme: united
+    highlight: pygments
+    df_print: paged
+link-citations: yes
+pkgdown:
+  as_is: true
+vignette: >
+  %\VignetteIndexEntry{getting-started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(panelPomp)
+```
+
+## Introduction
+
+Panel data arise when time series are measured on a collection of units.
+When the time series for each unit is modeled as a partially observed Markov process (POMP) the collection of these models is a PanelPOMP.
+The `panelPomp` package provides facilities for inference on panel data using PanelPOMP models. 
+Monte Carlo methods used for POMP models require adaptation for PanelPOMP models due to the higher dimensionality of panel data.
+This package builds on the functionality and tools of the popular [`pomp` R package](kingaa.github.io/pomp), providing a computationally efficient framework that can be used to simulate from, fit, and diagnose PanelPOMP models. 
+As such, a basic working knowledge of the `pomp` package is recommended. 
+Here we cover some of the necessary basics. 
+See [Getting Started With `pomp`](https://kingaa.github.io/pomp/vignettes/getting_started.html#Model_criticism) for an introductory Vignette to the `pomp` package. 
+
+## Mathematical Notation
+
+Before discussing features of the `panelPomp` package, we describe a mathematical notation that is helpful in communicating details about `panelPomp` code and models. 
+The general scope of the `panelPomp` package requires notation concerning random variables and their densities in arbitrary spaces.
+The notation below allows us to talk about these things using the language of mathematics, enabling precise description of models and algorithms.
+
+Units of the panel can be identified with numeric labels $\{1,2,\dots,U\}$, which we also write as $1:U$.
+Let $N_u$ be the number of measurements collected on unit $u$, allowing for the possibility that a different number of observations are collected for each unit. 
+The data from the entire panel are written as $y^*_{1:U,1:N_u} = \{y^*_{1,1}, y^*_{2,1},\dots, y^*_{U, 1}, y^*_{1,2}\ldots, y^*_{u,N_u}\}$ where the $n^{th}$ observation from unit $u$ (denoted as $y^*_{u,n}$) is collected at time $t_{u,n}$ with $t_{u,1}<t_{u,2}<\dots<t_{u,N_u}$. 
+Observation times $t_{u, n}$ are often equally spaced, but this general framework and notation permit unequally spaced observations times both across and within units. 
+The data from unit $u$ are modeled as a realization of an observable stochastic process $Y_{u,1:N_u}$ which is dependent on a latent Markov process $\{X_{u}(t),t_{u,0}\le t\le t_{u,N_u}\}$ defined subsequent to an initial time $t_{u,0}\le t_{u,1}$.
+Requiring that $\{X_u(t)\}$ and $\{Y_{u,i},i\neq n\}$ are independent of $Y_{u,n}$ given $X_u(t_{u,n})$, for each $n\in 1: N_{u}$, completes the partially observed Markov process (POMP) model structure for unit $u$.
+**For a PanelPOMP we require additionally that all units are modeled as independent.**
+
+While the latent process may exist between measurement times, its value at measurement times is of particular interest. 
+We write $X_{u,n}=X_u(t_{u,n})$ to denote the latent process at the observation times.
+We suppose that $X_{u,n}$ and $Y_{u,n}$ take values in arbitrary spaces $\mathbb{X}_{u}$ and $\mathbb{Y}_{u}$ respectively.
+Using the independence of units, conditional independence of the observable random variables, and the Markov property of the latent states, the joint distribution of the entire collection of latent variables $\mathbf{X} = \{X_{u,0:N_u}\}_{u = 1}^U$ and observable variables $\mathbf{Y} = \{Y_{u,1:N_u}\}_{u = 1}^U$ can be written as: 
+$$
+f_{\mathbf{X}\mathbf{Y}}(\mathbf{x}, \mathbf{y}) = \prod_{u = 1}^U f_{X_{u, 0}}(x_{u,0}; \theta)\prod_{n = 1}^{N_u} f_{Y_{u, n}|X_{u, n}}(y_{u, n}|x_{u, n}; \theta)f_{X_{u, n}|X_{u, n-1}}(x_{u, n}|x_{u, n-1}; \theta),
+$$
+where $\theta\in\mathbb{R}^{D}$ is a possibly unknown parameter vector. 
+This representation is useful as it demonstrates how any PanelPOMP model can be fully described using three primary components: the transition densities
+$f_{X_{u,n}|X_{u,n-1}}(x_{u,n}| x_{u,n-1};\theta)$,
+measurement densities
+$f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n}:\theta)$, 
+and initialization densities 
+$f_{X_{u, 0}}(x_{u,0}; \theta)$.
+Each class of densities are permitted to depend arbitrarily on $u$ and $n$, allowing non-stationary models and the inclusion of covariate time series.
+In addition to continuous-time dynamics, the framework includes discrete-time dynamic models by specifying $X_{u,0:N_u}$ directly without ever defining $\{X_u(t),t_{u,0}\le t\le t_{u,N_u}\}$.
+
+### Likelihood Function
+
+The marginal density of $Y_{u,1:N_u}$ at $y_{u,1:N_u}$ is $f_{Y_{u,1:N_u}}(y_{u,1:N_u};\theta)$ and the likelihood function for unit $u$ is
+$L_{u}(\theta) = f_{Y_{u,1:N_u}}(y^*_{u,1:N_u};\theta)$.
+The likelihood for the entire panel is
+$L(\theta) = \prod_{u=1}^{U} L_{u}(\theta)$,
+and any solution $\hat\theta=\arg\max L(\theta)$ is a maximum likelihood estimate (MLE).
+The log likelihood is $\ell(\theta)=\log L(\theta)$.
+We also permit the possibility that some parameters may affect only a subset of units, so that the parameter vector can be written as
+$\theta=(\phi,\psi_1,\dots,\psi_U)$,
+where the important densities described above can be written as 
+\begin{align}
+f_{X_{u,n}\vert X_{u,n-1}}(x_{u,n}| x_{u,n-1} ; \theta)
+&=
+f_{X_{u,n}|X_{u,n-1}}(x_{u,n}| x_{u,n-1} ; \phi,\psi_u) (\#eq:proc)
+\\
+f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n} ; \theta) &= f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n} ; \phi,\psi_u) (\#eq:meas)
+\\
+f_{X_{u,0}}(x_{u,0} ; \theta) &= f_{X_{u,0}}(x_{u,0} ; \phi,\psi_u) (\#eq:init)
+\end{align}
+Then, $\psi_{u}$ is a vector of *unit-specific* parameters for unit $u$, and $\phi$ is a *shared* parameter vector.
+We suppose $\phi\in\mathbb{R}^{A}$ and $\psi\in\mathbb{R}^{B}$, so the dimension of the parameter vector $\theta$ is $D=A+B U$.
+In practice, the densities in Eqs. \@ref(eq:proc)--\@ref(eq:init) serve two primary roles in PanelPOMP models: evaluation and simulation. The way these fundamental goals are represented in the `panelPomp` package is described in Table \@ref(tab:funs).
+
+Table: (\#tab:funs) Basic mathematical functions of all PanelPOMP models and their representation in the `panelPomp` package.
+
+| Method            | Mathematical terminology                                                                        |
+|-------------------|--------------------------------------------------------------------------------------------------|
+| `rprocess`        | Simulate from Eq. \@ref(eq:proc): $f_{X_{u,n}\vert X_{u,n-1}}(x_{u,n}| x_{u,n-1} ; \theta)$  |
+| `dprocess`        | Evaluate Eq. \@ref(eq:proc): $f_{X_{u,n}| X_{u,n-1}}(x_{u,n}| x_{u,n-1} ; \theta)$        |
+| `rmeasure`        | Simulate from Eq. \@ref(eq:meas): $f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n} ; \phi,\psi_u)$       |
+| `dmeasure`        | Evaluate Eq. \@ref(eq:meas): $f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n} ; \phi,\psi_u)$             |
+| `rinit`          | Simulate from Eq. \@ref(eq:init): $f_{X_{u,0}}(x_{u,0} ; \phi,\psi_u)$                         |
+| `dinit`          | Evaluate Eq. \@ref(eq:init): $f_{X_{u,0}}(x_{u,0} ; \phi,\psi_u)$                             |
+
+Each independent unit in a panel is POMP model, represented using the `pomp` package. 
+Each `pomp` object contains the same components described in Table \@ref(tab:funs), with the exception that parameters cannot be shared across individual units in the panel. 
+As such, the functions listed in Table \@ref(tab:funs) are available in the `panelPomp` package through the `pomp` package. 
+Additional functions of interest that are not listed in Table \@ref(tab:funs) include: `rprior()` and `dprior()`, enabling the use of Bayesian analysis if desired; `emeasure()` and `vmeasure()`, which describe the conditional expectation and covariance of the measurement model for algorithms that rely on these values (such as the Kalman filter). 
+
+## `panelPomp` objects
+
+The `panelPomp` package is written in a functional object oriented programming framework.
+Key to the most important features of the package is the `panelPomp` class, which is implemented using the [`S4` system](https://adv-r.hadley.nz/s4.html#s4-basics).
+This `S4` class contains three slots: 
+
+ - `unit.objects`: A list of `pomp` objects.
+ - `shared`: a named numeric vector containing the names and values of parameters that are shared for each unit of the panel. 
+ - `specific`: a numeric matrix with row and column names; row names correspond to the parameter names, and column names to the unit names of the panel. 
+ 
+Notably, the functions listed in Table \@ref(tab:funs) are not part of a `panelPomp` object directly, rather they are part of the individual unit objects saved in the slot `unit.objects`. 
+ 
+### Constructing `panelPomp` objects
+
+The fundamental mathematical functions that define a PanelPOMP model are made available via the `pomp` objects in the `unit.objects` slot. 
+As such, constructing a `panelPomp` object is simple if you are already familiar with constructing `pomp` objects, or if you already have access to `pomp` objects. 
+**Here we describe how to create a `panelPomp` object if the unit-specific `pomp` objects are already created**. In the next sub-section, we give a brief demonstration of how to construct a `panelPomp` object from scratch, including each individual `pomp` object. 
+Here, we construct a `panelPomp` object representing a panel of stochastic Gompertz population models with log-normal measurement error. 
+The latent state process is defined as: 
+$$
+X_{n + 1} = K^{1-S}X_n^S\epsilon_n,
+$$
+where $S = \exp^{-r}$ and the $\epsilon_n$ are i.i.d. lognormal random variables with variance $\sigma^2$. The measurement model for the observed variables $Y_n$ are distributed as: 
+$$
+Y_n \sim \text{Lognormal}\big(\log X_n, \tau \big).
+$$
+The parameters of this model are: 
+
+- Per-capita growth rate $r$. 
+- The carrying capacity $K$. 
+- The process noise standard deviation $\sigma$.
+- The measurement error standard deviation $\tau$. 
+- The initial condition $X_0$. 
+
+This particular model class has a constructor function `gompertz()` from the `pomp` package. 
+Here, we create 5 unique instances of this model, and use these instances to create a single `panelPomp` object: 
+
+```{r createPpomp1}
+mod1 <- pomp::gompertz()  # Using default values 
+mod2 <- pomp::gompertz(K = 2, r = 0.01)  # Overwriting some of the defaults 
+mod3 <- pomp::gompertz(K = 1.5, sigma = 0.15, X_0 = 5)
+mod4 <- pomp::gompertz(K = 1.5, r = 0.05, X_0 = 5)
+mod5 <- pomp::gompertz(K = 5, sigma = 0.08)
+
+panelMod1 <- panelPomp(
+  object = list(mod1, mod2, mod3, mod4, mod5)
+)
+```
+
+One important thing to note above the above construction is that each individual model already has parameter values present. 
+When this is the case, the `panelPomp()` constructor sets all parameters to be unit specific: 
+
+```{r showMod1}
+# TODO: Create a specific() and shared() generic function. 
+print(pparams(panelMod1)$specific)
+print(pparams(panelMod1)$shared)
+```
+
+In the `panelMod1` object, all five parameters are listed as *unit specific*. 
+Notably, because $\tau$ was not modified in any of the unit specific objects, it has the same value across all five units. 
+In such cases, it might make sense to list parameters that have the same value across all units as *shared* parameters, which can be done in the model constructor: 
+
+```{r createPpomp2}
+panelMod2 <- panelPomp(
+  object = list(mod1, mod2, mod3, mod4, mod5),
+  shared = c("tau" = 0.1)
+)
+
+# TODO: Create a specific() and shared() generic function. 
+print(pparams(panelMod2)$specific)
+print(pparams(panelMod2)$shared)
+```
+
+In this case we did not need to explicitly specify unit-specific parameters; if parameter values are present in the unit `pomp` objects that comprise the panel, parameters are assumed to be unit-specific unless otherwise specified. 
+However, it is possible to explicitly provide a matrix of unit specific parameters in the constructor, if desired. 
+This is especially important if the individual `pomp` objects that make up the panel have missing parameter values. 
+
+### Constructing `pomp` objects to be used for `panelPomp`
+ 
+#### rinit: 
+ 
+#### rprocess 
+ 
+#### rmeasure
+
