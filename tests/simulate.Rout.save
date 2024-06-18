@@ -1,7 +1,7 @@
 
 R version 4.4.0 (2024-04-24) -- "Puppy Cup"
 Copyright (C) 2024 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin20
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -39,7 +39,7 @@ name     [,1]     [,2]     [,3]     [,4]      [,5]
 > try(simulate(g,nsim="inappropriate text argument"))
 Error : ‘nsim’ must be a positive integer.
 > 
-> g2 <- panelPomp(g@unit.objects)
+> g2 <- panelPomp(g@unit_objects)
 > try(simulate(g2))
 Error : at least one of shared and specific must be specified.
 > 

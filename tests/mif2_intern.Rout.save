@@ -1,7 +1,7 @@
 
 R version 4.4.0 (2024-04-24) -- "Puppy Cup"
 Copyright (C) 2024 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin20
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -40,7 +40,7 @@ Type 'q()' to quit R.
 +   pPomp.object,Nmif=2,start=list(
 +     shared=c(K=1.0,r=0.1,sigma=0.1,tau=0.1),
 +     specific=array(1,dim=c(1,length(pPomp.object)),
-+                    dimnames=list(c("X.0"),names(unitobjects(pPomp.object))))),
++                    dimnames=list(c("X.0"),names(unit_objects(pPomp.object))))),
 +   Np=50,rw.sd=rw_sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
 +   cooling.fraction.50=0.5,block=FALSE))[1])
 [1] TRUE
@@ -49,7 +49,7 @@ Type 'q()' to quit R.
 +   pPomp.object,Nmif=2,start=list(
 +     shared=c(r=0.1,sigma=0.1,tau=0.1),
 +     specific=array(c(1,1),dim=c(2,length(pPomp.object)),
-+                    dimnames=list(c("X.0","K"),names(unitobjects(pPomp.object))))),
++                    dimnames=list(c("X.0","K"),names(unit_objects(pPomp.object))))),
 +   Np=50,rw.sd=rw_sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
 +   cooling.fraction.50=0.5,block=FALSE))[1])
 [1] TRUE
@@ -59,7 +59,7 @@ Type 'q()' to quit R.
 +     shared=c(tau=0.1),
 +     specific=array(c(1,1,0.1,0.1),dim=c(4,length(pPomp.object)),
 +                    dimnames=list(c("X.0","K","r","sigma"),
-+                                  names(unitobjects(pPomp.object))))),
++                                  names(unit_objects(pPomp.object))))),
 +   Np=50,rw.sd=rw_sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
 +   cooling.fraction.50=0.5,block=FALSE))[1])
 [1] TRUE

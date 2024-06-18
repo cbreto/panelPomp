@@ -21,7 +21,7 @@ test("mif2d.ppomp",class(panelPomp:::mif2.internal(
   pPomp.object,Nmif=2,start=list(
     shared=c(K=1.0,r=0.1,sigma=0.1,tau=0.1),
     specific=array(1,dim=c(1,length(pPomp.object)),
-                   dimnames=list(c("X.0"),names(unitobjects(pPomp.object))))),
+                   dimnames=list(c("X.0"),names(unit_objects(pPomp.object))))),
   Np=50,rw.sd=rw_sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
   cooling.fraction.50=0.5,block=FALSE))[1])
 ## both shared and specific parameters
@@ -29,7 +29,7 @@ test("mif2d.ppomp",class(panelPomp:::mif2.internal(
   pPomp.object,Nmif=2,start=list(
     shared=c(r=0.1,sigma=0.1,tau=0.1),
     specific=array(c(1,1),dim=c(2,length(pPomp.object)),
-                   dimnames=list(c("X.0","K"),names(unitobjects(pPomp.object))))),
+                   dimnames=list(c("X.0","K"),names(unit_objects(pPomp.object))))),
   Np=50,rw.sd=rw_sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
   cooling.fraction.50=0.5,block=FALSE))[1])
 ## only one shared parameter
@@ -38,7 +38,7 @@ test("mif2d.ppomp",class(panelPomp:::mif2.internal(
     shared=c(tau=0.1),
     specific=array(c(1,1,0.1,0.1),dim=c(4,length(pPomp.object)),
                    dimnames=list(c("X.0","K","r","sigma"),
-                                 names(unitobjects(pPomp.object))))),
+                                 names(unit_objects(pPomp.object))))),
   Np=50,rw.sd=rw_sd(tau=0.02,X.0=ivp(0.2)),cooling.type="geometric",
   cooling.fraction.50=0.5,block=FALSE))[1])
 ## mif2d.ppomps can be mif2d again
