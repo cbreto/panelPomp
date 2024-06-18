@@ -50,7 +50,7 @@ The notation below allows us to talk about these things using the language of ma
 Units of the panel can be identified with numeric labels $\{1,2,\dots,U\}$, which we also write as $1:U$.
 Let $N_u$ be the number of measurements collected on unit $u$, allowing for the possibility that a different number of observations are collected for each unit. 
 The data from the entire panel are written as $y^*_{1:U,1:N_u} = \{y^*_{1,1}, y^*_{2,1},\dots, y^*_{U, 1}, y^*_{1,2}\ldots, y^*_{u,N_u}\}$ where the $n^{th}$ observation from unit $u$ (denoted as $y^*_{u,n}$) is collected at time $t_{u,n}$ with $t_{u,1}<t_{u,2}<\dots<t_{u,N_u}$. 
-Observation times $t_{u, n}$ are often equally spaced, but this general framework and notation permit unequally spaced observations times both across and within units. 
+Observation times $\{t_{u, n}\}$ are often equally spaced, but this general framework and notation permit unequally spaced observations times both across and within units. 
 The data from unit $u$ are modeled as a realization of an observable stochastic process $Y_{u,1:N_u}$ which is dependent on a latent Markov process $\{X_{u}(t),t_{u,0}\le t\le t_{u,N_u}\}$ defined subsequent to an initial time $t_{u,0}\le t_{u,1}$.
 Requiring that $\{X_u(t)\}$ and $\{Y_{u,i},i\neq n\}$ are independent of $Y_{u,n}$ given $X_u(t_{u,n})$, for each $n\in 1: N_{u}$, completes the partially observed Markov process (POMP) model structure for unit $u$.
 **For a PanelPOMP we require additionally that all units are modeled as independent.**
