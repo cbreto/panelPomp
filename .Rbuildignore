@@ -8,7 +8,6 @@ man/roxygen
 LICENSE\.md$
 README\.md$
 CRAN\.md$
-TODO\.md$
 ^\.gitignore$
 \.github
 ^\.travis\.yml$

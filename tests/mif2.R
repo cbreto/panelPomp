@@ -22,12 +22,12 @@ test(wQuotes(ep,"Missing ''cooling.fraction.50'' argument.",et),
 test(wQuotes(ep,"pomp's ''mif2'' error message: in ''mif2'': the following ",
              "parameter(s), given random walks in ''rw.sd'', are not present ",
              "in ''params'': ''X.0''. (panelPomp:::mif2.internal)\n"),
-     mif2(panelPomp(unitobjects(ppo)),Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),
+     mif2(panelPomp(unit_objects(ppo)),Np=10,rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),
          cooling.fraction.50=0.5,sh=pparams(ppo)$sh))
 
 # Testing error message if a parameter is both shared and specific
 test(wQuotes(ep,"a parameter cannot be both shared and specific!", et),
-     mif2(panelPomp(unitobjects(ppo),shared=coef(po)),Np=10,sp=pparams(ppo)$sp,
+     mif2(panelPomp(unit_objects(ppo),shared=coef(po)),Np=10,sp=pparams(ppo)$sp,
           rw.sd=rw_sd(sigmaX=0.05,X.0=0.5),cooling.fraction.50=0.5))
 ## assign parameters
 test(# no start (get from object)

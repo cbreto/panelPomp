@@ -1,2 +1,2 @@
 ## access underlying pomp objects
-unitobjects(prw)
+unit_objects(prw)

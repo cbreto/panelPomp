@@ -1,7 +1,7 @@
 
 R version 4.4.0 (2024-04-24) -- "Puppy Cup"
 Copyright (C) 2024 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin20
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -39,7 +39,7 @@ Type 'q()' to quit R.
 [1] TRUE
 > test(wQuotes(ep,"names of ''shared'' must match those of ",
 +   "''object@shared''.\n"),
-+   pfilter(panelPomp(unitobjects(ppo)),sh=pparams(ppo)$sh,Np=10))
++   pfilter(panelPomp(unit_objects(ppo)),sh=pparams(ppo)$sh,Np=10))
 [1] TRUE
 > test(wQuotes(ep,"Missing ''Np'' argument.\n"),pfilter(ppo))
 [1] TRUE
