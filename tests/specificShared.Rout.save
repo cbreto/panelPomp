@@ -1,0 +1,196 @@
+
+R version 4.4.0 (2024-04-24) -- "Puppy Cup"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ## test codes in R/panelPomp_methods.R
+> if (file.exists("_options.R")) source("_options.R")
+> library(panelPomp,quietly=TRUE)
+> 
+> TESTS_PASS <- NULL
+> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
++   panelPomp:::test(expr1,expr2,all=all,env=env,...)
+> 
+> ppo <-panelGompertz(U=5,N=5)
+> 
+> # shared, panelPomp-method
+> 
+> test(
++   shared(ppo), ppo@shared
++ )
+[1] TRUE
+> 
+> # specific, panelPomp-method
+> 
+> test(
++   specific(ppo), ppo@specific
++ )
+[1] TRUE
+> 
+> test(
++   specific(ppo, format = 'vector'), coef(ppo)[grepl('^.*\\[.+\\]$', names(coef(ppo)))]
++ )
+[1] TRUE
+> 
+> # shared<-, panelPomp-method
+> 
+> test(
++   c(shared(ppo), 'tau' = 0.1),
++   {shared(ppo) <- c(shared(ppo), 'tau' = 0.1); shared(ppo)}
++ )
+[1] TRUE
+> 
+> test(
++   setequal(
++     c(r = 0.1, sigma = 0.5, tau = 0.1),
++     {shared(ppo) <- c("sigma" = 0.5); shared(ppo)}
++   ),
++ )
+[1] TRUE
+> 
+> err <- wQuotes("Error : in ''shared<-'': ''value'' contains parameters not found in ''object''.\n")
+> 
+> test(
++   shared(ppo) <- c("foobar" = 1),
++   err
++ )
+[1] TRUE
+> 
+> # specific<-, panelPomp-method
+> 
+> test(
++   ppo@specific,
++   matrix(rep(1, 10), nrow = 2, dimnames = list(c("K", "X.0"), paste0("unit", 1:5)))
++ )
+[1] TRUE
+> 
+> test(
++   ppo@shared,
++   c('sigma' = 0.5, 'r' = 0.1, 'tau' = 0.1),
++ )
+[1] TRUE
+> 
+> test(
++   {
++     sigma_shared <- shared(ppo)['sigma']
++     specific(ppo) <- c('sigma[unit3]' = 0.75)
++     all(
++ 
++       # Check there is a row of all same sigma values, except unit3, which changed.
++       all.equal(
++         unname(specific(ppo)['sigma', ]),
++         unname(c(sigma_shared, sigma_shared, 0.75, sigma_shared, sigma_shared))
++       ),
++ 
++       # Check sigma is no longer shared
++       !c('sigma') %in% names(shared(ppo))
++     )
++   }
++ )
+[1] TRUE
+> 
+> test(
++   {
++     r_shared <- shared(ppo)['r']
++     specific(ppo) <- matrix(
++     c(0.1, 0.2, 1, 2),
++     byrow = TRUE, nrow = 2,
++     dimnames = list(param = c('r', 'K'), unit = c('unit4', 'unit5'))
++   )
++   all(
++     # Check r is in specific, and specified units match
++     all.equal(
++       ppo@specific['r', c('unit4', 'unit5')], c('unit4' = 0.1, 'unit5' = 0.2)
++     ),
++ 
++     # Check non-specified r values are unchanged
++     all.equal(
++       r_shared, ppo@specific['r', 'unit1'], ppo@specific['r', 'unit2'], ppo@specific['r', 'unit2']
++     )
++   )
++   }
++ )
+[1] NA
+Warning message:
+In all(all.equal(ppo@specific["r", c("unit4", "unit5")], c(unit4 = 0.1,  :
+  coercing argument of type 'character' to logical
+> 
+> err1 <- wQuotes("Error : in ''specific<-'': ''value'' contains unit names not in ''object''.\n")
+> err2 <- wQuotes("Error : in ''specific<-'': ''value'' contains parameters not found in ''object''.\n")
+> err3 <- wQuotes("Error : in ''specific<-'': names of ''value'' must end in ''[unit_name]''.\n")
+> 
+> test(
++   specific(ppo) <- c('K[unit101]' = 1),
++   err1
++ )
+[1] TRUE
+> 
+> test(
++   specific(ppo) <- c("foo[unit1]" = 1),
++   err2
++ )
+[1] TRUE
+> 
+> test(
++   specific(ppo) <- c("tau" = 0.1),
++   err3
++ )
+[1] TRUE
+> 
+> test(
++   specific(ppo) <- matrix(1, dimnames = list(param = c("K"), unit = 'unit101')),
++   err1
++ )
+[1] TRUE
+> 
+> test(
++   specific(ppo) <- matrix(1, dimnames = list(param = c("foo"), unit = 'unit1')),
++   err2
++ )
+[1] TRUE
+> 
+> ## show
+> show(ppo)
+<object of class ‘panelPomp’>
+panel of 5 units 
+parameter(s):
+$shared
+tau 
+0.1 
+
+$specific
+       unit
+param   unit1 unit2 unit3 unit4 unit5
+  r       0.1   0.1  0.10   0.1   0.2
+  K       1.0   1.0  1.00   1.0   2.0
+  sigma   0.5   0.5  0.75   0.5   0.5
+  X.0     1.0   1.0  1.00   1.0   1.0
+
+summary of first panel unit ("unit1"):
+<object of class ‘pomp’>
+> show(panelPomp(unit_objects(ppo)))
+<object of class ‘panelPomp’>
+panel of 5 units 
+parameter(s) unspecified
+summary of first panel unit ("unit1"):
+<object of class ‘pomp’>
+> 
+> ## check whether all tests passed
+> all(get(eval(formals(test))$all))
+[1] TRUE
+> if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+> 

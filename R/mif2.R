@@ -85,10 +85,10 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
   shnames <- names(start$shared)
   spnames <- rownames(start$specific)
 
-  if (!setequal(names(object@unit.objects),colnames(start$specific)))
+  if (!setequal(names(object@unit_objects),colnames(start$specific)))
     stop(ep,wQuotes("specific parameter column-names must match the names of the units"),
          call.=FALSE)
-  start$specific <- start$specific[,names(object@unit.objects),drop=FALSE]
+  start$specific <- start$specific[,names(object@unit_objects),drop=FALSE]
 
   ########################################################
   # Initialize objects
@@ -110,7 +110,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
     dimnames = list(
       variable = spnames,
       rep = NULL,
-      unit = names(unitobjects(object))
+      unit = names(unit_objects(object))
     )
   )
   # Initialize pconv.rec and pconv.rec.array
@@ -131,14 +131,14 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
       iteration = seq.int(.ndone, .ndone + Nmif),
       variable = c('unitLoglik',
         dimnames(start$specific)[[1]]),
-      unit = names(unitobjects(object))
+      unit = names(unit_objects(object))
     )
   )
   pconv.rec.array[1L, -1L, ] <- pparamArray[, 1L,]
   # Initialize output
   output <- vector(mode="list",length=U)
   # nameoutput
-  names(output) <- names(unitobjects(object))
+  names(output) <- names(unit_objects(object))
 
   ###########################################################
   # LOOP OVER MIF ITERATIONS AND PANEL UNITS
@@ -227,7 +227,7 @@ mif2.internal <- function (object, Nmif, start, Np, rw.sd, cooling.type,
     new(
       Class = "mif2d.ppomp",
       # panelPomp
-      unit.objects = output,
+      unit_objects = output,
       shared = pParams$shared,
       specific = pParams$specific,
       # pfilterd.ppomp

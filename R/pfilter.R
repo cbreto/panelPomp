@@ -49,7 +49,7 @@ pfilter.internal <- function(object, params, Np,
   for (unit in names(object)) {
     pfilterd.pomp.list[[unit]] <-
       pomp::pfilter(
-        object@unit.objects[[unit]],
+        object@unit_objects[[unit]],
         params = matrixpParams[,unit],
         Np = Np,
         ...
@@ -59,7 +59,7 @@ pfilter.internal <- function(object, params, Np,
   pfilter.internal.loglik <- sum(pfilter.internal.unit.logliks)
   new(
     Class = "pfilterd.ppomp",
-    unit.objects = pfilterd.pomp.list,
+    unit_objects = pfilterd.pomp.list,
     shared = params$shared,
     specific = params$specific,
     ploglik = pfilter.internal.loglik,

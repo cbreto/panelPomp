@@ -13,11 +13,11 @@ When coercing to a \code{data.frame}, it coerces a
 variable names.
 
 When coercing to a \code{list}, it extracts the
-\code{unit.objects} slot of \code{panelPomp} objects and attaches
+\code{unit_objects} slot of \code{panelPomp} objects and attaches
 associated parameters.
 
 When coercing to a \code{pompList}, it extracts the
-\code{unit.objects} slot of \code{panelPomp} objects and attaches
+\code{unit_objects} slot of \code{panelPomp} objects and attaches
 associated parameters, converting the resulting list to a \code{pompList} to
 help the assignment of pomp methods.
 }

@@ -56,12 +56,12 @@ NULL
 setClass(
   'panelPomp',
   slots=c(
-    unit.objects = 'list',
+    unit_objects = 'list',
     shared = 'numeric',
     specific = 'matrix'
   ),
   prototype=prototype(
-    unit.objects=list(),
+    unit_objects=list(),
     shared=numeric(),
     specific=matrix(numeric(),0,0)
   ),
@@ -69,22 +69,22 @@ setClass(
 
     retval <- character(0)
 
-    ## check to make sure unit.objects is named and are all pomps
-    if (length(object@unit.objects)<1) {
+    ## check to make sure unit_objects is named and are all pomps
+    if (length(object@unit_objects)<1) {
       retval <- append(
         retval,wQuotes("a ''panelPomp'' must contain at least one ''pomp''"))
     } else {
-      u.names <- names(object@unit.objects)
+      u.names <- names(object@unit_objects)
       if (is.null(u.names)) {
         retval <- append(retval,wQuotes("''unit.object'' must have names"))
       }
-      if (!all(sapply(object@unit.objects,is,"pomp"))) {
+      if (!all(sapply(object@unit_objects,is,"pomp"))) {
         retval <- append(retval,
-          wQuotes("''unit.objects'' must be a list of ''pomp'' objects"))
+          wQuotes("''unit_objects'' must be a list of ''pomp'' objects"))
       }
     }
 
-    if (ncol(object@specific)!=length(object@unit.objects))
+    if (ncol(object@specific)!=length(object@unit_objects))
       retval <- append(
         retval,
         wQuotes("there must be one column of specific parameters per unit"))
@@ -121,7 +121,7 @@ setClass(
 #' @examples
 #' ## recreate the 'panelRandomWalk()' example
 #' prw <- panelRandomWalk()
-#' prw2 <- panelPomp(unitobjects(prw),params=coef(prw))
+#' prw2 <- panelPomp(unit_objects(prw),params=coef(prw))
 #' identical(prw,prw2) # TRUE
 #' @author Carles \Breto
 #' @export
@@ -162,7 +162,7 @@ panelPomp <- function (object, shared, specific, params) {
     }
     object <- new(
       "panelPomp",
-      unit.objects=object,
+      unit_objects=object,
       shared=new("panelPomp")@shared,
       specific=specp
     )
@@ -185,16 +185,16 @@ panelPomp <- function (object, shared, specific, params) {
       }
       if (length(params$specific)==0) {
         params$specific <- array(
-          dim=c(0,length(object@unit.objects)),
-          dimnames=list(parameter=character(0),unit=names(object@unit.objects))
+          dim=c(0,length(object@unit_objects)),
+          dimnames=list(parameter=character(0),unit=names(object@unit_objects))
           )
       }
-      object <- new("panelPomp",unit.objects=unitobjects(object),
+      object <- new("panelPomp",unit_objects=unit_objects(object),
         shared=params$shared,specific=params$specific)
     }
   } else {  ## we are changing the allocation between shared and specific
 
-    u.names <- names(object@unit.objects)
+    u.names <- names(object@unit_objects)
     osp.names <- rownames(object@specific)
     osh.names <- names(object@shared)
 
@@ -251,7 +251,7 @@ panelPomp <- function (object, shared, specific, params) {
           nsps <- intersect(osh.names,sp.names)
           object <- new(
             "panelPomp",
-            unit.objects=unitobjects(object),
+            unit_objects=unit_objects(object),
             shared=shared,
             specific=rbind(
               object@specific[osps,,drop=FALSE],
@@ -274,7 +274,7 @@ panelPomp <- function (object, shared, specific, params) {
           nshs <- setdiff(osh.names,sp.names)
           object <- new(
            "panelPomp",
-            unit.objects=unitobjects(object),
+            unit_objects=unit_objects(object),
             shared=object@shared[nshs,drop=FALSE],
             specific=rbind(
               object@specific[osps,,drop=FALSE],
@@ -290,7 +290,7 @@ panelPomp <- function (object, shared, specific, params) {
         if (sh.given) {
           object <- new(
             "panelPomp",
-            unit.objects=unitobjects(object),
+            unit_objects=unit_objects(object),
             shared=shared,
             specific=specific
           )
@@ -298,7 +298,7 @@ panelPomp <- function (object, shared, specific, params) {
           nshs <- setdiff(osh.names,sp.names)
           object <- new(
             "panelPomp",
-            unit.objects=unitobjects(object),
+            unit_objects=unit_objects(object),
             shared=object@shared[nshs],
             specific=specific
           )
@@ -309,7 +309,7 @@ panelPomp <- function (object, shared, specific, params) {
         nsps <- setdiff(osp.names,sh.names)
         object <- new(
           "panelPomp",
-          unit.objects=unitobjects(object),
+          unit_objects=unit_objects(object),
           shared=shared,
           specific=object@specific[nsps,,drop=FALSE]
         )

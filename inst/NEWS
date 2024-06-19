@@ -1,5 +1,26 @@
 _N_e_w_s _f_o_r _p_a_c_k_a_g_e '_p_a_n_e_l_P_o_m_p'
 
+_C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n _1._2._0:
+
+        • Change the generic ‘unitlogLik’ to ‘unitLogLik’ to match
+          camel-case style of package. The original function is
+          deprecated in this version and will be removed in future
+          updates.
+
+        • Changed ‘panelPomp’ S4 object slot name from ‘unit.objects’
+          to ‘unit_objects’ in order to be consistent with ‘pomp’
+          pacakge. Corresponding getter and setter methods for this
+          slot have also been changed from ‘unitobjects()’ to
+          ‘unit_objects()’.
+
+        • Added generics ‘shared()’, ‘shared()<-’, ‘specific()’, and
+          ‘specific()<-’. These generics provide convinient access to
+          parameters of a ‘panelPomp’ object, but the setter methods
+          also allow for changing a parameter type between shared and
+          unit-specific.
+
+        • Minor typo fixes to package and function documentation.
+
 _C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n _1._1._0._2:
 
         • Added a type check for the ‘params’ arguement of the
