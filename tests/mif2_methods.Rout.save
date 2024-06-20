@@ -1,7 +1,7 @@
 
 R version 4.4.0 (2024-04-24) -- "Puppy Cup"
 Copyright (C) 2024 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin20
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -32,6 +32,24 @@ Type 'q()' to quit R.
 > test(wQuotes(
 +   "Error : in ''traces'': name(s) ''par'' correspond to no parameter(s).\n"),
 +   traces(pmf,pars="par"))
+[1] TRUE
+> 
+> test(
++   wQuotes("Error : in ''coef<-'': cannot change parameters of a filtered object.\n"),
++   {coef(pmf) <- c("test" = 1)}
++ )
+[1] TRUE
+> 
+> test(
++   wQuotes("Error : in ''shared<-'': cannot change parameters of a filtered object.\n"),
++   {shared(pmf) <- c("test" = 1)}
++ )
+[1] TRUE
+> 
+> test(
++   wQuotes("Error : in ''specific<-'': cannot change parameters of a filtered object.\n"),
++   {specific(pmf) <- c("test[unit1]" = 1)}
++ )
 [1] TRUE
 > 
 > ## check whether all tests passed

@@ -21,6 +21,20 @@ unitlogLik(ppf_)
 
 test(ppf,ppf_)
 
+test(
+  wQuotes("Error : in ''coef<-'': cannot change parameters of a filtered object.\n"),
+  {coef(ppf_) <- c("test" = 1)}
+)
+
+test(
+  wQuotes("Error : in ''shared<-'': cannot change parameters of a filtered object.\n"),
+  {shared(ppf_) <- c("test" = 1)}
+)
+
+test(
+  wQuotes("Error : in ''specific<-'': cannot change parameters of a filtered object.\n"),
+  {specific(ppf_) <- c("test[unit1]" = 1)}
+)
 
 ## check whether all tests passed
 all(get(eval(formals(test))$all))

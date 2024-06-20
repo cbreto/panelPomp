@@ -19,7 +19,7 @@ setMethod(
 )
 
 #' @rdname pfilter
-# @author Carles \Breto
+# @author Carles \Breto, Jesse Wheeler
 #' @return \unitLogLikReturn
 # \unitLoglikReturn is resused in documentation of generic function introduced by the panelPomp package
 #' @example examples/unitLogLik.R
@@ -52,5 +52,72 @@ setMethod(
   definition = function(object,...) {
     lifecycle::deprecate_warn("1.2.0", "unitlogLik()", "unitLogLik()")
     object@unit.logliks
+  }
+)
+
+#' Modifying parameters of filtered objects
+#'
+#' The setter functions for parameters of \code{pfilterd.ppomp} objects
+#' do not allow users to set parameters of \code{panelPomp} objects that
+#' have been filtered. This is done to avoid the possibility of
+#' having parameter values in an object that do not match other
+#' attributes of a filtered object to be saved together.
+#' @param object \code{pfilterd.ppomp} object
+#' @param value New parameter value. This function does not allow
+#'  users to set this value.
+#' @param ... additional arguments.
+#' @export
+#' @rdname pfilterd-setter
+setMethod(
+  "coef<-",
+  signature=signature(object="pfilterd.ppomp"),
+  definition=function (object, ..., value) {
+    ## check names(value)
+    ep <- wQuotes("in ''coef<-'': ")
+    stop(wQuotes(ep,"cannot change parameters of a filtered object","."),call.=FALSE)
+  }
+)
+
+#' Modifying parameters of filtered objects
+#'
+#' The setter functions for parameters of \code{pfilterd.ppomp} objects
+#' do not allow users to set parameters of \code{panelPomp} objects that
+#' have been filtered. This is done to avoid the possibility of
+#' having parameter values in an object that do not match other
+#' attributes of a filtered object to be saved together.
+#' @param object \code{pfilterd.ppomp} object
+#' @param value New parameter value. This function does not allow
+#'  users to set this value.
+#' @export
+#' @rdname pfilterd-setter
+setMethod(
+  "shared<-",
+  signature=signature(object="pfilterd.ppomp"),
+  definition=function (object, value) {
+    ## check names(value)
+    ep <- wQuotes("in ''shared<-'': ")
+    stop(wQuotes(ep,"cannot change parameters of a filtered object","."),call.=FALSE)
+  }
+)
+
+#' Modifying parameters of filtered objects
+#'
+#' The setter functions for parameters of \code{pfilterd.ppomp} objects
+#' do not allow users to set parameters of \code{panelPomp} objects that
+#' have been filtered. This is done to avoid the possibility of
+#' having parameter values in an object that do not match other
+#' attributes of a filtered object to be saved together.
+#' @param object \code{pfilterd.ppomp} object
+#' @param value New parameter value. This function does not allow
+#'  users to set this value.
+#' @export
+#' @rdname pfilterd-setter
+setMethod(
+  "specific<-",
+  signature=signature(object="pfilterd.ppomp"),
+  definition=function (object, value) {
+    ## check names(value)
+    ep <- wQuotes("in ''specific<-'': ")
+    stop(wQuotes(ep,"cannot change parameters of a filtered object","."),call.=FALSE)
   }
 )
