@@ -6,18 +6,11 @@ project:
     - help/*
     - NEWS.html
     - R.css
-    - vignettes/
+    - vignettes/*
 
 website:
   title: "panelPomp"
-  sidebar:
-    style: "docked"
-    search: true
-    contents:
-      - NEWS.html
-      - section: "Vignettes"
-        contents:
-          - vignettes/
+
   navbar:
     right:
       - icon: github
@@ -36,6 +29,14 @@ website:
         text: Bibliography
       - href: html/00Index.html
         text: Manual
+
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - NEWS.html
+      - section: "Vignettes"
+        contents: vignettes/*
 
 format:
   html:
