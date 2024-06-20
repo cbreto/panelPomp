@@ -29,14 +29,11 @@ website:
         text: Bibliography
       - href: html/00Index.html
         text: Manual
-
-  sidebar:
-    style: "docked"
-    search: true
-    contents:
-      - NEWS.html
-      - section: "Vignettes"
-        contents: vignettes/*
+      - href: news.qmd
+        text: NEWS
+      - text: "Tutorials"
+        menu: 
+          - vignettes/getting-started.Rmd
 
 format:
   html:

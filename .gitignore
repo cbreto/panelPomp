@@ -34,3 +34,4 @@ website/docs
 website/html
 website/help
 inst/doc
+website/vignettes/*

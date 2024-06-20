@@ -1,0 +1,24 @@
+---
+format:
+  html:
+    sidebar: false
+    code-links:
+      - text: GitHub Source
+        icon: github
+        href: https://github.com/cbreto/panelPomp
+    other-links:
+      - text: pomp Package
+        href: https://kingaa.github.io/pomp/
+        icon: link
+      - text: spatPomp Package
+        href: https://kidusasfaw.github.io/spatPomp/
+        icon: link
+---
+
+```{r echo=FALSE}
+content <- readLines('NEWS.html')
+content <- content[-1]
+content <- content[!grepl("NEWS", content)]
+```
+
+`r paste0(content, collapse = '\n')`
