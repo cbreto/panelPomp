@@ -1,19 +1,32 @@
 project:
   type: website
   output-dir: docs
-  resources: 
+  resources:
     - html/*
     - help/*
     - NEWS.html
     - R.css
+    - vignettes/
 
 website:
   title: "panelPomp"
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - NEWS.html
+      - section: "Vignettes"
+        contents:
+          - vignettes/
   navbar:
     right:
       - icon: github
-        href: https://github.com/cbreto/panelPomp
         aria-label: GitHub
+        menu:
+          - text: Source Code
+            href: https://github.com/cbreto/panelPomp
+          - text: Report a Bug
+            href: https://github.com/cbreto/panelPomp/issues
     left:
       - href: index.qmd
         text: Home

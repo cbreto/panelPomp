@@ -39,7 +39,7 @@ Monte Carlo methods used for POMP models require adaptation for PanelPOMP models
 This package builds on the functionality and tools of the popular [`pomp` R package](kingaa.github.io/pomp), providing a computationally efficient framework that can be used to simulate from, fit, and diagnose PanelPOMP models. 
 As such, a basic working knowledge of the `pomp` package is recommended. 
 Here we cover some of the necessary basics. 
-See [Getting Started With `pomp`](https://kingaa.github.io/pomp/vignettes/getting_started.html#Model_criticism) for an introductory Vignette to the `pomp` package. 
+See [Getting Started With `pomp`](https://kingaa.github.io/pomp/vignettes/getting_started.html) for an introductory Vignette to the `pomp` package. 
 
 ## Mathematical Notation
 
@@ -118,15 +118,16 @@ The `panelPomp` package is written in a functional object oriented programming f
 Key to the most important features of the package is the `panelPomp` class, which is implemented using the [`S4` system](https://adv-r.hadley.nz/s4.html#s4-basics).
 This `S4` class contains three slots: 
 
- - `unit.objects`: A list of `pomp` objects.
+ - `unit_objects`: A list of `pomp` objects.
  - `shared`: a named numeric vector containing the names and values of parameters that are shared for each unit of the panel. 
  - `specific`: a numeric matrix with row and column names; row names correspond to the parameter names, and column names to the unit names of the panel. 
  
-Notably, the functions listed in Table \@ref(tab:funs) are not part of a `panelPomp` object directly, rather they are part of the individual unit objects saved in the slot `unit.objects`. 
+Notably, the functions listed in Table \@ref(tab:funs) are not part of a `panelPomp` object directly, rather they are part of the individual unit objects saved in the slot `unit_objects`. 
+These objects can be extracted using the extracter function: `unit_objects(<object>)`.  
  
 ### Constructing `panelPomp` objects
 
-The fundamental mathematical functions that define a PanelPOMP model are made available via the `pomp` objects in the `unit.objects` slot. 
+The fundamental mathematical functions that define a PanelPOMP model are made available via the `pomp` objects in the `unit_objects` slot. 
 As such, constructing a `panelPomp` object is simple if you are already familiar with constructing `pomp` objects, or if you already have access to `pomp` objects. 
 **Here we describe how to create a `panelPomp` object if the unit-specific `pomp` objects are already created**. In the next sub-section, we give a brief demonstration of how to construct a `panelPomp` object from scratch, including each individual `pomp` object. 
 Here, we construct a `panelPomp` object representing a panel of stochastic Gompertz population models with log-normal measurement error. 
@@ -165,9 +166,8 @@ One important thing to note above the above construction is that each individual
 When this is the case, the `panelPomp()` constructor sets all parameters to be unit specific: 
 
 ```{r showMod1}
-# TODO: Create a specific() and shared() generic function. 
-print(pparams(panelMod1)$specific)
-print(pparams(panelMod1)$shared)
+print(specific(panelMod1))
+print(shared(panelMod1))
 ```
 
 In the `panelMod1` object, all five parameters are listed as *unit specific*. 
@@ -180,20 +180,143 @@ panelMod2 <- panelPomp(
   shared = c("tau" = 0.1)
 )
 
-# TODO: Create a specific() and shared() generic function. 
-print(pparams(panelMod2)$specific)
-print(pparams(panelMod2)$shared)
+specific(panelMod2)
+shared(panelMod2)
 ```
 
 In this case we did not need to explicitly specify unit-specific parameters; if parameter values are present in the unit `pomp` objects that comprise the panel, parameters are assumed to be unit-specific unless otherwise specified. 
 However, it is possible to explicitly provide a matrix of unit specific parameters in the constructor, if desired. 
-This is especially important if the individual `pomp` objects that make up the panel have missing parameter values. 
+This is especially important if the individual `pomp` objects that make up the panel have missing parameter values.
 
+Unit-specific parameters can be expressed in two ways: as a matrix with rows corresponding to parameter values and columns the corresponding unit (as seen above), or as a named numeric vector that follows the convention `<param>[<unit name>]`: 
+
+```{r unitSpecific-vector}
+specific(panelMod2, format = 'vector')
+```
+
+
+It is often convenient to modify which parameters are shared and which are unit-specific on existing `panelPomp` objects rather than creating new objects from scratch. 
+This can be done with the `shared<-` and `specific<-` setter functions: 
+
+```{r setterFuns}
+shared(panelMod2) <- c('r' = 0.05, 'sigma' = 0.1)
+specific(panelMod2) <- c('tau[unit1]' = 0.11, 'tau[unit4]' = 0.09)
+
+print(shared(panelMod2))
+print(specific(panelMod2))
+```
+
+Notice above that if a shared parameter (`tau`) is changed to a unit-specific parameter and not all values of the unit-specific parameter are explicitly provided, the parameters that are not specified default to the original shared value. 
+The unit-specific setter function also works in matrix format: 
+
+```{r }
+specific(panelMod2) <- matrix(
+  data = rbind(c(1.24, 1.78), 
+               c(   2,    3)),
+  nrow = 2, 
+  dimnames = list(
+    param = c("K", "X_0"), 
+    unit = c('unit2', 'unit4')
+  )
+)
+
+specific(panelMod2)
+```
+
+Neither the `shared<-` nor the `specific<-` setter functions allow a user to add new parameters (or unit names) that are not already part of the model:
+
+```{r errorShared, error=TRUE}
+shared(panelMod2) <- c("foo" = 1)
+```
+
+```{r errorSpecific, error=TRUE}
+specific(panelMod2) <- c("tau[unit6]" = 1)
+```
+
+<!-- 
 ### Constructing `pomp` objects to be used for `panelPomp`
- 
-#### rinit: 
- 
+
+In most scenarios where the `panelPomp` package is used, there does not exist `pomp` model constructor functions for the individual units in the panel. 
+In this case, one needs to construct the `pomp` models from scratch. 
+Here we provide a brief example of how to reconstruct the same stochastic Gompertz population PanelPOMP model from scratch. 
+See [Getting started with `pomp`](https://kingaa.github.io/pomp/vignettes/getting_started.html) for a more detailed introduction. 
+The model we would like to implement has latent states $X_{u, n}$ for $u \in 1:5$, $n \in 1:100$, with: 
+
+$$
+X_{u, n+1} = K_u^{1 - S_u}X_{u, n}^{S_u}\epsilon_{u, n},
+$$
+
+where $S_u=\exp\{-r_u\}$, and the $\epsilon_{u, n}$ are independent lognormal random variables with variance $\sigma^2_u$.
+The measurement model for the observed random variables $Y_{u, n}$ is assumed to be lognormal.
+
+Because the `panelPomp` package is currently focused on simulation-based algorithms, we will implement each mathematical function in Table \@ref(tab:funs) using `pomp::Csnippets` in order to speed up computations. 
+
+#### rinit
+
+First we will create a function that will specify how the latent states are initialized at time $t_{0, u}$ for each unit $u$. 
+In this model, we simply assume that the latent state is initialized at the value of the initial value parameter `X_0`:
+
+$$
+X_0 = \text{X_0},
+$$
+
+which can be implemented as: 
+
+```{r rinit}
+rinit_u <- pomp::Csnippet(
+"
+X = X_0;
+"
+)
+```
+
 #### rprocess 
- 
+
+The `rprocess` function defines how to simulated from the distribution $X_{u, n}|X_{u, n-1}$:
+
+```{r rprocess}
+rprocess_u <- pomp::Csnippet(
+"
+double S = exp(-r);
+double eps = exp(rnorm(0,sigma));
+
+X = pow(K, 1-S) * pow(X, S) * eps;
+"
+)
+```
+
 #### rmeasure
 
+The function `rmeasure` defines how observations are drawn on the system at time $t_{u, n}$, or how to simulation from the distribution $Y_{u, n}|X_{u, n}$. 
+For this model, the conditional density is defined as: 
+
+$$
+Y_{u, n} | X_{u, n} \sim \text{Lognormal}\big(\log X_{u, n}, \tau\big)
+$$
+
+which we can implement in `pomp` as: 
+
+```{r rmeasure}
+rmeasure_u <- pomp::Csnippet(
+"
+Y = rlnorm(log(X),tau);
+"
+)
+```
+
+#### dmeasure
+
+The function `dmeasure` describes how to evaluated the measurement density $Y_{u, n}|X_{u, n}$. 
+Users must be careful when implementing both `rmeasure` and `dmeasure` to ensure that these functions correspond to the same distribution. 
+This is also true for any simulation and evaluation functions (such as `rprocess` and `dprocess`); users should carefully ensure that these functions always correspond to the same distribution in order to obtain meaningful results. 
+
+```{r dmeasure}
+rmeasure_u <- pomp::Csnippet(
+"
+lik = dlnorm(Y,log(X),tau,give_log);
+"
+)
+```
+
+#### Constructing the `pomp` object
+-->
