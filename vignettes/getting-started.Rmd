@@ -2,7 +2,7 @@
 title: "Getting Started with panelPomp"
 output: 
   bookdown::html_document2:
-    toc: yes
+    toc: true
     number_sections: FALSE
     toc_float: true
     toc_depth: 3
@@ -10,7 +10,7 @@ output:
     theme: united
     highlight: pygments
     df_print: paged
-link-citations: yes
+link-citations: true
 pkgdown:
   as_is: true
 vignette: >
