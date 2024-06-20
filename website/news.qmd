@@ -19,6 +19,7 @@ format:
 content <- readLines('NEWS.html')
 content <- content[-1]
 content <- content[!grepl("NEWS", content)]
+content <- content[!grepl("R.css", content)]
 ```
 
 `r paste0(content, collapse = '\n')`
