@@ -87,7 +87,8 @@ jobs:
 
       - name: Copy Vignettes and Other Files
         run: |
-          cp -r vignettes website/
+          mkdir website/vignettes
+          cp vignettes/*.html website/vignettes/
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2

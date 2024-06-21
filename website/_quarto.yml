@@ -32,8 +32,9 @@ website:
       - href: news.qmd
         text: NEWS
       - text: "Tutorials"
-        menu: 
-          - vignettes/getting-started.Rmd
+        menu:
+          - href: vignettes/getting-started.html
+            text: "Getting Started"
 
 format:
   html:
