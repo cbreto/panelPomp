@@ -21,8 +21,6 @@ website:
           - text: Report a Bug
             href: https://github.com/cbreto/panelPomp/issues
     left:
-      - href: index.qmd
-        text: Home
       - href: about.qmd
         text: About
       - href: bibliography.qmd
@@ -33,7 +31,7 @@ website:
         text: NEWS
       - text: "Tutorials"
         menu:
-          - href: vignettes/getting-started.html
+          - href: vignettes/getting-started.qmd
             text: "Getting Started"
 
 format:
