@@ -4,8 +4,24 @@ args <- commandArgs(trailingOnly = TRUE)
 replace_crossrefs <- function(file_name) {
   text <- readLines(paste0(file_name, '.Rmd'))
 
+  # Remove Header that causes problems
+  start_header <- 1
+  end_header <- which(grepl('---', text))[2]
+  header <- text[start_header:end_header]
+  new_header <- c(
+    header[1],
+    header[grepl('title: ', header)],
+    header[grepl('subtitle: ', header)],
+    header[length(header)]
+  )
+
+  text <- text[(end_header+1):length(text)]
+  text <- c(new_header, text)
+
   # Replace equation references
   text <- gsub("Eqs?\\. \\\\@ref\\(eq:([[:alnum:]_-]+)\\)", "@eq-\\1", text)
+
+
 
   # Replace equation references (In case doesn't have leading word "Eq")
   text <- gsub("\\\\@ref\\(eq:([[:alnum:]_-]+)\\)", "@eq-\\1", text)

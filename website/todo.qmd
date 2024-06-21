@@ -1,0 +1,12 @@
+---
+title: "Website TODO list"
+---
+
+- [x] Create a bibliography page with all citations to the package (add to website side-bar)
+- [ ] Check that the package TAR Ball and ZIP file also get created in the GitHub Action so that these files will be up-to-date if there are any changes to the packages. I'm worried that the current links will be to old versions of the package. 
+- [x] Create Vignettes and non-Vignette examples for the package, link to them in the sidebar. 
+- [x] Update the index page
+- [x] Improve the website documentation in the [`testpkg`](https://jeswheel.github.io/testpkg) website, so that this is all reproducible and possibly can be extended to `spatPomp` and/or `pomp`. 
+- [x] Add link to this website on personal website. 
+- [ ] (Not related to this project, but personal TODO item and this is a good place for me to put it): Create this same website-workflow for `arima2`. 
+- [x] It's a little annoying all GitHub actions run every time you push, even if the changes are only to the website. Exclude the `website` directory from the GHA workflow for building, testing, code-coverage, etc. 
