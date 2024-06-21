@@ -35,6 +35,7 @@ Collate:
     'panelGompertz.R'
     'panelGompertzLikelihood.R'
     'panelRandomWalk.R'
+    'panel_designs.R'
     'plot.R'
     'simulate.R'
 Roxygen: list(markdown = TRUE)

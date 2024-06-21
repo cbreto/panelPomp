@@ -19,6 +19,9 @@ _C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n
           also allow for changing a parameter type between shared and
           unit-specific.
 
+        • Added function ‘runif_panel_design()’, which is useful for
+          generating design matrices for PanelPOMP models.
+
         • Minor typo fixes to package and function documentation.
 
 _C_h_a_n_g_e_s _i_n '_p_a_n_e_l_P_o_m_p' _v_e_r_s_i_o_n _1._1._0._2:
