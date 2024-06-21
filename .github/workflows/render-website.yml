@@ -89,6 +89,8 @@ jobs:
         run: |
           cp -r vignettes website/
           Rscript --vanilla website/rmd2qmd.R website/vignettes/getting-started
+          rm website/vignettes/getting-started.Rmd
+          tree website
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
