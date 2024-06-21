@@ -88,7 +88,9 @@ jobs:
       - name: Copy Vignettes and Other Files
         run: |
           mkdir website/vignettes
-          cp vignettes/*.html website/vignettes/
+          cp -r vignettes website/
+          for file in website/vignettes/*.Rmd; do Rscript -e "rmarkdown::render('$file')"; done;
+          rm website/vignettes/*.Rmd
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
