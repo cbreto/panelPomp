@@ -12,15 +12,15 @@ function processMathHTML() {
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
     onload="processMathHTML();"></script>
 <link rel="stylesheet" type="text/css" href="R.css" />
-</head><body><div class="container">
+</head><body><div class="container"><main>
 
-<table style="width: 100%;"><tr><td>unitobjects {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+<table style="width: 100%;"><tr><td>unit_objects {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<h2 id='unitobjects'>Extract units of a panel model</h2>
+<h2>Extract units of a panel model</h2>
 
 <h3>Description</h3>
 
-<p><code>unitobjects()</code> is a generic function that extracts a list
+<p><code>unit_objects()</code> is a generic function that extracts a list
 of objects corresponding to units of panel objects returned by panel modeling
 functions.
 </p>
@@ -28,18 +28,18 @@ functions.
 
 <h3>Usage</h3>
 
-<pre><code class='language-R'>unitobjects(object, ...)
+<pre><code class='language-R'>unit_objects(object, ...)
 </code></pre>
 
 
 <h3>Arguments</h3>
 
 <table>
-<tr><td><code id="unitobjects_:_object">object</code></td>
+<tr><td><code id="object">object</code></td>
 <td>
 <p>an object for which extraction of panel units is meaningful.</p>
 </td></tr>
-<tr><td><code id="unitobjects_:_...">...</code></td>
+<tr><td><code id="...">...</code></td>
 <td>
 <p>additional arguments.</p>
 </td></tr>
@@ -56,7 +56,7 @@ functions.
 
 <p>Units extracted from the panel model <code>object</code>.
 </p>
-<p>When given objects of class <code>panelPomp</code>, <code>unitobjects()</code> returns a <code>list</code> of <code>pomp</code> objects.
+<p>When given objects of class <code>panelPomp</code>, <code>unit_objects()</code> returns a <code>list</code> of <code>pomp</code> objects.
 </p>
 
 
@@ -76,9 +76,10 @@ functions.
 
 <pre><code class='language-R'>prw &lt;- panelRandomWalk()
 ## access underlying pomp objects
-unitobjects(prw)
+unit_objects(prw)
 </code></pre>
 
-<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
 </div>
 </body></html>

@@ -12,11 +12,11 @@ function processMathHTML() {
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
     onload="processMathHTML();"></script>
 <link rel="stylesheet" type="text/css" href="R.css" />
-</head><body><div class="container">
+</head><body><div class="container"><main>
 
 <table style="width: 100%;"><tr><td>panelPomp {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<h2 id='panelPomp'>Constructing <code>panelPomp</code> objects</h2>
+<h2>Constructing <code>panelPomp</code> objects</h2>
 
 <h3>Description</h3>
 
@@ -38,7 +38,7 @@ construct the corresponding <code>panelPomp</code> object.
 <h3>Arguments</h3>
 
 <table>
-<tr><td><code id="panelPomp_:_object">object</code></td>
+<tr><td><code id="object">object</code></td>
 <td>
 <p>required; either (i) a <code>list</code> of <code>pomp</code> objects; or
 (ii) an object of class <code>panelPomp</code> or inheriting class
@@ -52,7 +52,7 @@ ignore any parameter that is irrelevant to any given panel unit.)
 <p>If <code>object</code> is a <code>panelPomp</code> object, the function allows modifying
 the shared and unit-specific configuration of <code>object</code>.</p>
 </td></tr>
-<tr><td><code id="panelPomp_:_shared">shared</code>, <code id="panelPomp_:_specific">specific</code></td>
+<tr><td><code id="shared">shared</code>, <code id="specific">specific</code></td>
 <td>
 <p>optional; these arguments depend on the type
 of <code>object</code>.
@@ -72,7 +72,7 @@ that should be shared (with values for parameters not originally shared
 taken from the unit-specific parameters of the first panel unit of
 <code>object</code>). <code>shared=NULL</code> sets all parameters as unit-specific.</p>
 </td></tr>
-<tr><td><code id="panelPomp_:_params">params</code></td>
+<tr><td><code id="params">params</code></td>
 <td>
 <p>optional; a named numeric vector. In this case, the nature of
 parameters is determined via a naming convention: names ending in
@@ -117,10 +117,11 @@ all other names specify shared parameters.</p>
 
 <pre><code class='language-R'>## recreate the 'panelRandomWalk()' example
 prw &lt;- panelRandomWalk()
-prw2 &lt;- panelPomp(unitobjects(prw),params=coef(prw))
+prw2 &lt;- panelPomp(unit_objects(prw),params=coef(prw))
 identical(prw,prw2) # TRUE
 </code></pre>
 
-<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
 </div>
 </body></html>

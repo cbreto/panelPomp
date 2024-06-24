@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>panelPomp - Getting Started</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">panelPomp</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../bibliography.html"> 
+<span class="menu-text">Bibliography</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../html/00Index.html"> 
+<span class="menu-text">Manual</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../news.html"> 
+<span class="menu-text">NEWS</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorials" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tutorials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorials">    
+        <li>
+    <a class="dropdown-item" href="../vignettes/getting-started.html">
+ <span class="dropdown-text">Getting Started</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/cbreto/panelPomp">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/cbreto/panelPomp/issues">
+ <span class="dropdown-text">Report a Bug</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#mathematical-notation" id="toc-mathematical-notation" class="nav-link" data-scroll-target="#mathematical-notation">Mathematical Notation</a>
+  <ul class="collapse">
+  <li><a href="#likelihood-function" id="toc-likelihood-function" class="nav-link" data-scroll-target="#likelihood-function">Likelihood Function</a></li>
+  </ul></li>
+  <li><a href="#panelpomp-objects" id="toc-panelpomp-objects" class="nav-link" data-scroll-target="#panelpomp-objects"><code>panelPomp</code> objects</a>
+  <ul class="collapse">
+  <li><a href="#constructing-panelpomp-objects" id="toc-constructing-panelpomp-objects" class="nav-link" data-scroll-target="#constructing-panelpomp-objects">Constructing <code>panelPomp</code> objects</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Getting Started</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(panelPomp)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: pomp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Panel data arise when time series are measured on a collection of units. When the time series for each unit is modeled as a partially observed Markov process (POMP) the collection of these models is a PanelPOMP. The <code>panelPomp</code> package provides facilities for inference on panel data using PanelPOMP models. Monte Carlo methods used for POMP models require adaptation for PanelPOMP models due to the higher dimensionality of panel data. This package builds on the functionality and tools of the popular <a href="kingaa.github.io/pomp"><code>pomp</code> R package</a>, providing a computationally efficient framework that can be used to simulate from, fit, and diagnose PanelPOMP models. As such, a basic working knowledge of the <code>pomp</code> package is recommended. Here we cover some of the necessary basics. See <a href="https://kingaa.github.io/pomp/vignettes/getting_started.html">Getting Started With <code>pomp</code></a> for an introductory Vignette to the <code>pomp</code> package.</p>
+</section>
+<section id="mathematical-notation" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-notation">Mathematical Notation</h2>
+<p>Before discussing features of the <code>panelPomp</code> package, we describe a mathematical notation that is helpful in communicating details about <code>panelPomp</code> code and models. The general scope of the <code>panelPomp</code> package requires notation concerning random variables and their densities in arbitrary spaces. The notation below allows us to talk about these things using the language of mathematics, enabling precise description of models and algorithms.</p>
+<p>Units of the panel can be identified with numeric labels <span class="math inline">\(\{1,2,\dots,U\}\)</span>, which we also write as <span class="math inline">\(1:U\)</span>. Let <span class="math inline">\(N_u\)</span> be the number of measurements collected on unit <span class="math inline">\(u\)</span>, allowing for the possibility that a different number of observations are collected for each unit. The data from the entire panel are written as <span class="math inline">\(y^*_{1:U,1:N_u} = \{y^*_{1,1}, y^*_{2,1},\dots, y^*_{U, 1}, y^*_{1,2}\ldots, y^*_{u,N_u}\}\)</span> where the <span class="math inline">\(n^{th}\)</span> observation from unit <span class="math inline">\(u\)</span> (denoted as <span class="math inline">\(y^*_{u,n}\)</span>) is collected at time <span class="math inline">\(t_{u,n}\)</span> with <span class="math inline">\(t_{u,1}&lt;t_{u,2}&lt;\dots&lt;t_{u,N_u}\)</span>. Observation times <span class="math inline">\(\{t_{u, n}\}\)</span> are often equally spaced, but this general framework and notation permit unequally spaced observations times both across and within units. The data from unit <span class="math inline">\(u\)</span> are modeled as a realization of an observable stochastic process <span class="math inline">\(Y_{u,1:N_u}\)</span> which is dependent on a latent Markov process <span class="math inline">\(\{X_{u}(t),t_{u,0}\le t\le t_{u,N_u}\}\)</span> defined subsequent to an initial time <span class="math inline">\(t_{u,0}\le t_{u,1}\)</span>. Requiring that <span class="math inline">\(\{X_u(t)\}\)</span> and <span class="math inline">\(\{Y_{u,i},i\neq n\}\)</span> are independent of <span class="math inline">\(Y_{u,n}\)</span> given <span class="math inline">\(X_u(t_{u,n})\)</span>, for each <span class="math inline">\(n\in 1: N_{u}\)</span>, completes the partially observed Markov process (POMP) model structure for unit <span class="math inline">\(u\)</span>. <strong>For a PanelPOMP we require additionally that all units are modeled as independent.</strong></p>
+<p>While the latent process may exist between measurement times, its value at measurement times is of particular interest. We write <span class="math inline">\(X_{u,n}=X_u(t_{u,n})\)</span> to denote the latent process at the observation times. We suppose that <span class="math inline">\(X_{u,n}\)</span> and <span class="math inline">\(Y_{u,n}\)</span> take values in arbitrary spaces <span class="math inline">\(\mathbb{X}_{u}\)</span> and <span class="math inline">\(\mathbb{Y}_{u}\)</span> respectively. Using the independence of units, conditional independence of the observable random variables, and the Markov property of the latent states, the joint distribution of the entire collection of latent variables <span class="math inline">\(\mathbf{X} = \{X_{u,0:N_u}\}_{u = 1}^U\)</span> and observable variables <span class="math inline">\(\mathbf{Y} = \{Y_{u,1:N_u}\}_{u = 1}^U\)</span> can be written as: <span class="math display">\[
+f_{\mathbf{X}\mathbf{Y}}(\mathbf{x}, \mathbf{y}) = \prod_{u = 1}^U f_{X_{u, 0}}(x_{u,0}; \theta)\prod_{n = 1}^{N_u} f_{Y_{u, n}|X_{u, n}}(y_{u, n}|x_{u, n}; \theta)f_{X_{u, n}|X_{u, n-1}}(x_{u, n}|x_{u, n-1}; \theta),
+\]</span> where <span class="math inline">\(\theta\in\mathbb{R}^{D}\)</span> is a possibly unknown parameter vector. This representation is useful as it demonstrates how any PanelPOMP model can be fully described using three primary components: the transition densities <span class="math inline">\(f_{X_{u,n}|X_{u,n-1}}(x_{u,n}| x_{u,n-1};\theta)\)</span>, measurement densities <span class="math inline">\(f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n}:\theta)\)</span>, and initialization densities <span class="math inline">\(f_{X_{u, 0}}(x_{u,0}; \theta)\)</span>. Each class of densities are permitted to depend arbitrarily on <span class="math inline">\(u\)</span> and <span class="math inline">\(n\)</span>, allowing non-stationary models and the inclusion of covariate time series. In addition to continuous-time dynamics, the framework includes discrete-time dynamic models by specifying <span class="math inline">\(X_{u,0:N_u}\)</span> directly without ever defining <span class="math inline">\(\{X_u(t),t_{u,0}\le t\le t_{u,N_u}\}\)</span>.</p>
+<section id="likelihood-function" class="level3">
+<h3 class="anchored" data-anchor-id="likelihood-function">Likelihood Function</h3>
+<p>The marginal density of <span class="math inline">\(Y_{u,1:N_u}\)</span> at <span class="math inline">\(y_{u,1:N_u}\)</span> is <span class="math inline">\(f_{Y_{u,1:N_u}}(y_{u,1:N_u};\theta)\)</span> and the likelihood function for unit <span class="math inline">\(u\)</span> is <span class="math inline">\(L_{u}(\theta) = f_{Y_{u,1:N_u}}(y^*_{u,1:N_u};\theta)\)</span>. The likelihood for the entire panel is <span class="math inline">\(L(\theta) = \prod_{u=1}^{U} L_{u}(\theta)\)</span>, and any solution <span class="math inline">\(\hat\theta=\arg\max L(\theta)\)</span> is a maximum likelihood estimate (MLE). The log likelihood is <span class="math inline">\(\ell(\theta)=\log L(\theta)\)</span>. We also permit the possibility that some parameters may affect only a subset of units, so that the parameter vector can be written as <span class="math inline">\(\theta=(\phi,\psi_1,\dots,\psi_U)\)</span>, where the important densities described above can be written as <span id="eq-proc"><span class="math display">\[
+f_{X_{u,n}\vert X_{u,n-1}}(x_{u,n}| x_{u,n-1} ; \theta)=f_{X_{u,n}|X_{u,n-1}}(x_{u,n}| x_{u,n-1} ; \phi,\psi_u)
+\tag{1}\]</span></span></p>
+<p><span id="eq-meas"><span class="math display">\[
+f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n} ; \theta) = f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n} ; \phi,\psi_u)
+\tag{2}\]</span></span></p>
+<p><span id="eq-init"><span class="math display">\[
+f_{X_{u,0}}(x_{u,0} ; \theta) = f_{X_{u,0}}(x_{u,0} ; \phi,\psi_u)
+\tag{3}\]</span></span></p>
+<p>Then, <span class="math inline">\(\psi_{u}\)</span> is a vector of <em>unit-specific</em> parameters for unit <span class="math inline">\(u\)</span>, and <span class="math inline">\(\phi\)</span> is a <em>shared</em> parameter vector. We suppose <span class="math inline">\(\phi\in\mathbb{R}^{A}\)</span> and <span class="math inline">\(\psi\in\mathbb{R}^{B}\)</span>, so the dimension of the parameter vector <span class="math inline">\(\theta\)</span> is <span class="math inline">\(D=A+B U\)</span>. In practice, the densities in <a href="#eq-proc" class="quarto-xref">Equation&nbsp;1</a>–<a href="#eq-init" class="quarto-xref">Equation&nbsp;3</a> serve two primary roles in PanelPOMP models: evaluation and simulation. The way these fundamental goals are represented in the <code>panelPomp</code> package is described in <a href="#tbl-funs" class="quarto-xref">Table&nbsp;1</a>.</p>
+<div id="tbl-funs" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-funs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Basic mathematical functions of all PanelPOMP models and their representation in the <code>panelPomp</code>
+</figcaption>
+<div aria-describedby="tbl-funs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 83%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Mathematical terminology</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>rprocess</code></td>
+<td>Simulate from <a href="#eq-proc" class="quarto-xref">Equation&nbsp;1</a>: <span class="math inline">\(f_{X_{u,n}\vert X_{u,n-1}}(x_{u,n}| x_{u,n-1} ; \theta)\)</span></td>
+</tr>
+<tr class="even">
+<td><code>dprocess</code></td>
+<td>Evaluate <a href="#eq-proc" class="quarto-xref">Equation&nbsp;1</a>: <span class="math inline">\(f_{X_{u,n}| X_{u,n-1}}(x_{u,n}| x_{u,n-1} ; \theta)\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>rmeasure</code></td>
+<td>Simulate from <a href="#eq-meas" class="quarto-xref">Equation&nbsp;2</a>: <span class="math inline">\(f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n} ; \phi,\psi_u)\)</span></td>
+</tr>
+<tr class="even">
+<td><code>dmeasure</code></td>
+<td>Evaluate <a href="#eq-meas" class="quarto-xref">Equation&nbsp;2</a>: <span class="math inline">\(f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n} ; \phi,\psi_u)\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>rinit</code></td>
+<td>Simulate from <a href="#eq-init" class="quarto-xref">Equation&nbsp;3</a>: <span class="math inline">\(f_{X_{u,0}}(x_{u,0} ; \phi,\psi_u)\)</span></td>
+</tr>
+<tr class="even">
+<td><code>dinit</code></td>
+<td>Evaluate <a href="#eq-init" class="quarto-xref">Equation&nbsp;3</a>: <span class="math inline">\(f_{X_{u,0}}(x_{u,0} ; \phi,\psi_u)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Each independent unit in a panel is POMP model, represented using the <code>pomp</code> package. Each <code>pomp</code> object contains the same components described in <a href="#tbl-funs" class="quarto-xref">Table&nbsp;1</a>, with the exception that parameters cannot be shared across individual units in the panel. As such, the functions listed in <a href="#tbl-funs" class="quarto-xref">Table&nbsp;1</a> are available in the <code>panelPomp</code> package through the <code>pomp</code> package. Additional functions of interest that are not listed in <a href="#tbl-funs" class="quarto-xref">Table&nbsp;1</a> include: <code>rprior()</code> and <code>dprior()</code>, enabling the use of Bayesian analysis if desired; <code>emeasure()</code> and <code>vmeasure()</code>, which describe the conditional expectation and covariance of the measurement model for algorithms that rely on these values (such as the Kalman filter).</p>
+</section>
+</section>
+<section id="panelpomp-objects" class="level2">
+<h2 class="anchored" data-anchor-id="panelpomp-objects"><code>panelPomp</code> objects</h2>
+<p>The <code>panelPomp</code> package is written in a functional object oriented programming framework. Key to the most important features of the package is the <code>panelPomp</code> class, which is implemented using the <a href="https://adv-r.hadley.nz/s4.html#s4-basics"><code>S4</code> system</a>. This <code>S4</code> class contains three slots:</p>
+<ul>
+<li><code>unit_objects</code>: A list of <code>pomp</code> objects.</li>
+<li><code>shared</code>: a named numeric vector containing the names and values of parameters that are shared for each unit of the panel.</li>
+<li><code>specific</code>: a numeric matrix with row and column names; row names correspond to the parameter names, and column names to the unit names of the panel.</li>
+</ul>
+<p>Notably, the functions listed in <a href="#tbl-funs" class="quarto-xref">Table&nbsp;1</a> are not part of a <code>panelPomp</code> object directly, rather they are part of the individual unit objects saved in the slot <code>unit_objects</code>. These objects can be extracted using the extracter function: <code>unit_objects(&lt;object&gt;)</code>.</p>
+<section id="constructing-panelpomp-objects" class="level3">
+<h3 class="anchored" data-anchor-id="constructing-panelpomp-objects">Constructing <code>panelPomp</code> objects</h3>
+<p>The fundamental mathematical functions that define a PanelPOMP model are made available via the <code>pomp</code> objects in the <code>unit_objects</code> slot. As such, constructing a <code>panelPomp</code> object is simple if you are already familiar with constructing <code>pomp</code> objects, or if you already have access to <code>pomp</code> objects. <strong>Here we describe how to create a <code>panelPomp</code> object if the unit-specific <code>pomp</code> objects are already created</strong>. In the next sub-section, we give a brief demonstration of how to construct a <code>panelPomp</code> object from scratch, including each individual <code>pomp</code> object. Here, we construct a <code>panelPomp</code> object representing a panel of stochastic Gompertz population models with log-normal measurement error. The latent state process is defined as: <span class="math display">\[
+X_{n + 1} = K^{1-S}X_n^S\epsilon_n,
+\]</span> where <span class="math inline">\(S = \exp^{-r}\)</span> and the <span class="math inline">\(\epsilon_n\)</span> are i.i.d. lognormal random variables with variance <span class="math inline">\(\sigma^2\)</span>. The measurement model for the observed variables <span class="math inline">\(Y_n\)</span> are distributed as: <span class="math display">\[
+Y_n \sim \text{Lognormal}\big(\log X_n, \tau \big).
+\]</span> The parameters of this model are:</p>
+<ul>
+<li>Per-capita growth rate <span class="math inline">\(r\)</span>.</li>
+<li>The carrying capacity <span class="math inline">\(K\)</span>.</li>
+<li>The process noise standard deviation <span class="math inline">\(\sigma\)</span>.</li>
+<li>The measurement error standard deviation <span class="math inline">\(\tau\)</span>.</li>
+<li>The initial condition <span class="math inline">\(X_0\)</span>.</li>
+</ul>
+<p>This particular model class has a constructor function <code>gompertz()</code> from the <code>pomp</code> package. Here, we create 5 unique instances of this model, and use these instances to create a single <code>panelPomp</code> object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> pomp<span class="sc">::</span><span class="fu">gompertz</span>()  <span class="co"># Using default values </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> pomp<span class="sc">::</span><span class="fu">gompertz</span>(<span class="at">K =</span> <span class="dv">2</span>, <span class="at">r =</span> <span class="fl">0.01</span>)  <span class="co"># Overwriting some of the defaults </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> pomp<span class="sc">::</span><span class="fu">gompertz</span>(<span class="at">K =</span> <span class="fl">1.5</span>, <span class="at">sigma =</span> <span class="fl">0.15</span>, <span class="at">X_0 =</span> <span class="dv">5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> pomp<span class="sc">::</span><span class="fu">gompertz</span>(<span class="at">K =</span> <span class="fl">1.5</span>, <span class="at">r =</span> <span class="fl">0.05</span>, <span class="at">X_0 =</span> <span class="dv">5</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> pomp<span class="sc">::</span><span class="fu">gompertz</span>(<span class="at">K =</span> <span class="dv">5</span>, <span class="at">sigma =</span> <span class="fl">0.08</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>panelMod1 <span class="ot">&lt;-</span> <span class="fu">panelPomp</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> <span class="fu">list</span>(mod1, mod2, mod3, mod4, mod5)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>One important thing to note above the above construction is that each individual model already has parameter values present. When this is the case, the <code>panelPomp()</code> constructor sets all parameters to be unit specific:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">specific</span>(panelMod1))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          unit</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parameter unit1 unit2 unit3 unit4 unit5</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     K       1.0  2.00  1.50  1.50  5.00</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     r       0.1  0.01  0.10  0.05  0.10</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     sigma   0.1  0.10  0.15  0.10  0.08</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     tau     0.1  0.10  0.10  0.10  0.10</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     X_0     1.0  1.00  5.00  5.00  1.00</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">shared</span>(panelMod1))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; numeric(0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the <code>panelMod1</code> object, all five parameters are listed as <em>unit specific</em>. Notably, because <span class="math inline">\(\tau\)</span> was not modified in any of the unit specific objects, it has the same value across all five units. In such cases, it might make sense to list parameters that have the same value across all units as <em>shared</em> parameters, which can be done in the model constructor:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>panelMod2 <span class="ot">&lt;-</span> <span class="fu">panelPomp</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">object =</span> <span class="fu">list</span>(mod1, mod2, mod3, mod4, mod5),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">shared =</span> <span class="fu">c</span>(<span class="st">"tau"</span> <span class="ot">=</span> <span class="fl">0.1</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">specific</span>(panelMod2)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          unit</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; parameter unit1 unit2 unit3 unit4 unit5</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     K       1.0  2.00  1.50  1.50  5.00</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     r       0.1  0.01  0.10  0.05  0.10</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     sigma   0.1  0.10  0.15  0.10  0.08</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     X_0     1.0  1.00  5.00  5.00  1.00</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">shared</span>(panelMod2)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tau </span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this case we did not need to explicitly specify unit-specific parameters; if parameter values are present in the unit <code>pomp</code> objects that comprise the panel, parameters are assumed to be unit-specific unless otherwise specified. However, it is possible to explicitly provide a matrix of unit specific parameters in the constructor, if desired. This is especially important if the individual <code>pomp</code> objects that make up the panel have missing parameter values.</p>
+<p>Unit-specific parameters can be expressed in two ways: as a matrix with rows corresponding to parameter values and columns the corresponding unit (as seen above), or as a named numeric vector that follows the convention <code>&lt;param&gt;[&lt;unit name&gt;]</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">specific</span>(panelMod2, <span class="at">format =</span> <span class="st">'vector'</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     K[unit1]     r[unit1] sigma[unit1]   X_0[unit1]     K[unit2]     r[unit2] </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         1.00         0.10         0.10         1.00         2.00         0.01 </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sigma[unit2]   X_0[unit2]     K[unit3]     r[unit3] sigma[unit3]   X_0[unit3] </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         0.10         1.00         1.50         0.10         0.15         5.00 </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     K[unit4]     r[unit4] sigma[unit4]   X_0[unit4]     K[unit5]     r[unit5] </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         1.50         0.05         0.10         5.00         5.00         0.10 </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; sigma[unit5]   X_0[unit5] </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         0.08         1.00</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It is often convenient to modify which parameters are shared and which are unit-specific on existing <code>panelPomp</code> objects rather than creating new objects from scratch. This can be done with the <code>shared&lt;-</code> and <code>specific&lt;-</code> setter functions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shared</span>(panelMod2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'r'</span> <span class="ot">=</span> <span class="fl">0.05</span>, <span class="st">'sigma'</span> <span class="ot">=</span> <span class="fl">0.1</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">specific</span>(panelMod2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'tau[unit1]'</span> <span class="ot">=</span> <span class="fl">0.11</span>, <span class="st">'tau[unit4]'</span> <span class="ot">=</span> <span class="fl">0.09</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">shared</span>(panelMod2))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     r sigma </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.05  0.10</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">specific</span>(panelMod2))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      unit</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; param unit1 unit2 unit3 unit4 unit5</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   K    1.00   2.0   1.5  1.50   5.0</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   tau  0.11   0.1   0.1  0.09   0.1</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   X_0  1.00   1.0   5.0  5.00   1.0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice above that if a shared parameter (<code>tau</code>) is changed to a unit-specific parameter and not all values of the unit-specific parameter are explicitly provided, the parameters that are not specified default to the original shared value. The unit-specific setter function also works in matrix format:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">specific</span>(panelMod2) <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">1.24</span>, <span class="fl">1.78</span>), </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>               <span class="fu">c</span>(   <span class="dv">2</span>,    <span class="dv">3</span>)),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dimnames =</span> <span class="fu">list</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">param =</span> <span class="fu">c</span>(<span class="st">"K"</span>, <span class="st">"X_0"</span>), </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">unit =</span> <span class="fu">c</span>(<span class="st">'unit2'</span>, <span class="st">'unit4'</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">specific</span>(panelMod2)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      unit</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; param unit1 unit2 unit3 unit4 unit5</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   K    1.00  1.24   1.5  1.78   5.0</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   X_0  1.00  2.00   5.0  3.00   1.0</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   tau  0.11  0.10   0.1  0.09   0.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Neither the <code>shared&lt;-</code> nor the <code>specific&lt;-</code> setter functions allow a user to add new parameters (or unit names) that are not already part of the model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shared</span>(panelMod2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"foo"</span> <span class="ot">=</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: in 'shared&lt;-': 'value' contains parameters not found in 'object'.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">specific</span>(panelMod2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"tau[unit6]"</span> <span class="ot">=</span> <span class="dv">1</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: in 'specific&lt;-': 'value' contains unit names not in 'object'.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<!-- 
+### Constructing `pomp` objects to be used for `panelPomp`
+
+In most scenarios where the `panelPomp` package is used, there does not exist `pomp` model constructor functions for the individual units in the panel. 
+In this case, one needs to construct the `pomp` models from scratch. 
+Here we provide a brief example of how to reconstruct the same stochastic Gompertz population PanelPOMP model from scratch. 
+See [Getting started with `pomp`](https://kingaa.github.io/pomp/vignettes/getting_started.html) for a more detailed introduction. 
+The model we would like to implement has latent states $X_{u, n}$ for $u \in 1:5$, $n \in 1:100$, with: 
+
+$$
+X_{u, n+1} = K_u^{1 - S_u}X_{u, n}^{S_u}\epsilon_{u, n},
+$$
+
+where $S_u=\exp\{-r_u\}$, and the $\epsilon_{u, n}$ are independent lognormal random variables with variance $\sigma^2_u$.
+The measurement model for the observed random variables $Y_{u, n}$ is assumed to be lognormal.
+
+Because the `panelPomp` package is currently focused on simulation-based algorithms, we will implement each mathematical function in @tbl-funs using `pomp::Csnippets` in order to speed up computations. 
+
+#### rinit
+
+First we will create a function that will specify how the latent states are initialized at time $t_{0, u}$ for each unit $u$. 
+In this model, we simply assume that the latent state is initialized at the value of the initial value parameter `X_0`:
+
+$$
+X_0 = \text{X_0},
+$$
+
+which can be implemented as: 
+
+
+::: {.cell}
+
+```{.r .cell-code}
+rinit_u <- pomp::Csnippet(
+"
+X = X_0;
+"
+)
+```
+:::
+
+
+#### rprocess 
+
+The `rprocess` function defines how to simulated from the distribution $X_{u, n}|X_{u, n-1}$:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+rprocess_u <- pomp::Csnippet(
+"
+double S = exp(-r);
+double eps = exp(rnorm(0,sigma));
+
+X = pow(K, 1-S) * pow(X, S) * eps;
+"
+)
+```
+:::
+
+
+#### rmeasure
+
+The function `rmeasure` defines how observations are drawn on the system at time $t_{u, n}$, or how to simulation from the distribution $Y_{u, n}|X_{u, n}$. 
+For this model, the conditional density is defined as: 
+
+$$
+Y_{u, n} | X_{u, n} \sim \text{Lognormal}\big(\log X_{u, n}, \tau\big)
+$$
+
+which we can implement in `pomp` as: 
+
+
+::: {.cell}
+
+```{.r .cell-code}
+rmeasure_u <- pomp::Csnippet(
+"
+Y = rlnorm(log(X),tau);
+"
+)
+```
+:::
+
+
+#### dmeasure
+
+The function `dmeasure` describes how to evaluated the measurement density $Y_{u, n}|X_{u, n}$. 
+Users must be careful when implementing both `rmeasure` and `dmeasure` to ensure that these functions correspond to the same distribution. 
+This is also true for any simulation and evaluation functions (such as `rprocess` and `dprocess`); users should carefully ensure that these functions always correspond to the same distribution in order to obtain meaningful results. 
+
+
+::: {.cell}
+
+```{.r .cell-code}
+rmeasure_u <- pomp::Csnippet(
+"
+lik = dlnorm(Y,log(X),tau,give_log);
+"
+)
+```
+:::
+
+
+#### Constructing the `pomp` object
+-->
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/cbreto\.github\.io\/panelPomp\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

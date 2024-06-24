@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -89,10 +89,6 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
@@ -104,13 +100,40 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./html/00Index.html"> 
 <span class="menu-text">Manual</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./news.html"> 
+<span class="menu-text">NEWS</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorials" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tutorials</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorials">    
+        <li>
+    <a class="dropdown-item" href="./vignettes/getting-started.html">
+ <span class="dropdown-text">Getting Started</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/cbreto/panelPomp"> <i class="bi bi-github" role="img" aria-label="GitHub">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
-<span class="menu-text"></span></a>
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/cbreto/panelPomp">
+ <span class="dropdown-text">Source Code</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/cbreto/panelPomp/issues">
+ <span class="dropdown-text">Report a Bug</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -148,14 +171,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <ul class="task-list">
-<li><label><input type="checkbox">Create a bibliography page with all citations to the package (add to website side-bar)</label></li>
+<li><label><input type="checkbox" checked="">Create a bibliography page with all citations to the package (add to website side-bar)</label></li>
 <li><label><input type="checkbox">Check that the package TAR Ball and ZIP file also get created in the GitHub Action so that these files will be up-to-date if there are any changes to the packages. I’m worried that the current links will be to old versions of the package.</label></li>
-<li><label><input type="checkbox">Create Vignettes and non-Vignette examples for the package, link to them in the sidebar.</label></li>
-<li><label><input type="checkbox">Update the index page</label></li>
-<li><label><input type="checkbox">Improve the website documentation in the <a href="https://jeswheel.github.io/testpkg"><code>testpkg</code></a> website, so that this is all reproducible and possibly can be extended to <code>spatPomp</code> and/or <code>pomp</code>.</label></li>
-<li><label><input type="checkbox">Add link to this website on personal website.</label></li>
+<li><label><input type="checkbox" checked="">Create Vignettes and non-Vignette examples for the package, link to them in the sidebar.</label></li>
+<li><label><input type="checkbox" checked="">Update the index page</label></li>
+<li><label><input type="checkbox" checked="">Improve the website documentation in the <a href="https://jeswheel.github.io/testpkg"><code>testpkg</code></a> website, so that this is all reproducible and possibly can be extended to <code>spatPomp</code> and/or <code>pomp</code>.</label></li>
+<li><label><input type="checkbox" checked="">Add link to this website on personal website.</label></li>
 <li><label><input type="checkbox">(Not related to this project, but personal TODO item and this is a good place for me to put it): Create this same website-workflow for <code>arima2</code>.</label></li>
-<li><label><input type="checkbox">It’s a little annoying all GitHub actions run every time you push, even if the changes are only to the website. Exclude the <code>website</code> directory from the GHA workflow for building, testing, code-coverage, etc.</label></li>
+<li><label><input type="checkbox" checked="">It’s a little annoying all GitHub actions run every time you push, even if the changes are only to the website. Exclude the <code>website</code> directory from the GHA workflow for building, testing, code-coverage, etc.</label></li>
 </ul>
 
 

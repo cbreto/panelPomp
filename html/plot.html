@@ -12,11 +12,11 @@ function processMathHTML() {
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
     onload="processMathHTML();"></script>
 <link rel="stylesheet" type="text/css" href="R.css" />
-</head><body><div class="container">
+</head><body><div class="container"><main>
 
 <table style="width: 100%;"><tr><td>plot {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<h2 id='plot'>panelPomp plotting facilities</h2>
+<h2>panelPomp plotting facilities</h2>
 
 <h3>Description</h3>
 
@@ -44,38 +44,38 @@ plot(
 <h3>Arguments</h3>
 
 <table>
-<tr><td><code id="plot_:_x">x</code></td>
+<tr><td><code id="x">x</code></td>
 <td>
 <p>the object to plot</p>
 </td></tr>
-<tr><td><code id="plot_:_variables">variables</code></td>
+<tr><td><code id="variables">variables</code></td>
 <td>
 <p>optional character; names of variables to be displayed</p>
 </td></tr>
-<tr><td><code id="plot_:_panel">panel</code></td>
+<tr><td><code id="panel">panel</code></td>
 <td>
 <p>function of prototype <code>panel(x, col, bg, pch, type, ...)</code> which gives the action to be carried out in each panel of the display.</p>
 </td></tr>
-<tr><td><code id="plot_:_nc">nc</code></td>
+<tr><td><code id="nc">nc</code></td>
 <td>
 <p>the number of columns to use.
 Defaults to 1 for up to 4 series, otherwise to 2.</p>
 </td></tr>
-<tr><td><code id="plot_:_yax.flip">yax.flip</code></td>
+<tr><td><code id="yax.flip">yax.flip</code></td>
 <td>
 <p>logical;
 if TRUE, the y-axis (ticks and numbering) should flip from side 2 (left) to 4 (right) from series to series.</p>
 </td></tr>
-<tr><td><code id="plot_:_mar">mar</code>, <code id="plot_:_oma">oma</code></td>
+<tr><td><code id="mar">mar</code>, <code id="oma">oma</code></td>
 <td>
 <p>the <code><a href="../../graphics/html/par.html">par</a></code> <code>mar</code> and <code>oma</code> settings.
 Modify with care!</p>
 </td></tr>
-<tr><td><code id="plot_:_axes">axes</code></td>
+<tr><td><code id="axes">axes</code></td>
 <td>
 <p>logical; indicates if x- and y- axes should be drawn</p>
 </td></tr>
-<tr><td><code id="plot_:_...">...</code></td>
+<tr><td><code id="...">...</code></td>
 <td>
 <p>ignored or passed to low-level plotting functions</p>
 </td></tr>
@@ -99,6 +99,7 @@ Modify with care!</p>
 <pre><code class='language-R'>plot(panelRandomWalk())
 </code></pre>
 
-<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
 </div>
 </body></html>

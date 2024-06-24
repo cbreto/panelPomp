@@ -12,11 +12,11 @@ function processMathHTML() {
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
     onload="processMathHTML();"></script>
 <link rel="stylesheet" type="text/css" href="R.css" />
-</head><body><div class="container">
+</head><body><div class="container"><main>
 
 <table style="width: 100%;"><tr><td>panelPomp_methods {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<h2 id='panelPomp_methods'>Manipulating <code>panelPomp</code> objects</h2>
+<h2>Manipulating <code>panelPomp</code> objects</h2>
 
 <h3>Description</h3>
 
@@ -50,7 +50,7 @@ print(x, ...)
 show(object)
 
 ## S4 method for signature 'panelPomp'
-unitobjects(object)
+unit_objects(object)
 
 ## S4 method for signature 'panelPomp'
 window(x, start, end)
@@ -60,32 +60,48 @@ x[i]
 
 ## S4 method for signature 'panelPomp'
 x[[i]]
+
+## S4 method for signature 'panelPomp'
+specific(object, ..., format = c("matrix", "vector"))
+
+## S4 replacement method for signature 'panelPomp'
+specific(object) &lt;- value
+
+## S4 method for signature 'panelPomp'
+shared(object)
+
+## S4 replacement method for signature 'panelPomp'
+shared(object) &lt;- value
 </code></pre>
 
 
 <h3>Arguments</h3>
 
 <table>
-<tr><td><code id="panelPomp_methods_:_object">object</code>, <code id="panelPomp_methods_:_x">x</code></td>
+<tr><td><code id="object">object</code>, <code id="x">x</code></td>
 <td>
 <p>An object of class <code>panelPomp</code> or inheriting class
 <code>panelPomp</code>.</p>
 </td></tr>
-<tr><td><code id="panelPomp_methods_:_...">...</code></td>
+<tr><td><code id="...">...</code></td>
 <td>
 <p>....</p>
 </td></tr>
-<tr><td><code id="panelPomp_methods_:_value">value</code></td>
+<tr><td><code id="value">value</code></td>
 <td>
 <p>value to be assigned.</p>
 </td></tr>
-<tr><td><code id="panelPomp_methods_:_start">start</code>, <code id="panelPomp_methods_:_end">end</code></td>
+<tr><td><code id="start">start</code>, <code id="end">end</code></td>
 <td>
 <p>position in original <code>times(pomp)</code> at which to start.</p>
 </td></tr>
-<tr><td><code id="panelPomp_methods_:_i">i</code></td>
+<tr><td><code id="i">i</code></td>
 <td>
 <p>unit index (indices) or name (names).</p>
+</td></tr>
+<tr><td><code id="format">format</code></td>
+<td>
+<p>the format (data type) of the return value.</p>
 </td></tr>
 </table>
 
@@ -102,13 +118,18 @@ x[[i]]
 </p>
 <p><code>pParams()</code> returns a <code>list</code> with the model parameters in list form.
 </p>
-<p>When given objects of class <code>panelPomp</code>, <code>unitobjects()</code> returns a <code>list</code> of <code>pomp</code> objects.
+<p>When given objects of class <code>panelPomp</code>, <code>unit_objects()</code> returns a <code>list</code> of <code>pomp</code> objects.
 </p>
 <p><code>window()</code> returns a <code>panelPomp</code> object with adjusted times.
 </p>
 <p><code>`[`</code> returns a <code>panelPomp</code> object.
 </p>
 <p><code>`[[`</code> returns a <code>pomp</code> object.
+</p>
+<p><code>specific()</code> returns unit-specific parameters as a numeric matrix or
+vector
+</p>
+<p><code>shared()</code> returns shared parameters from a panelPomp object
 </p>
 
 
@@ -141,7 +162,9 @@ end time.</p>
 
 <h3>Author(s)</h3>
 
-<p>Carles Bret&oacute;, Aaron A. King.
+<p>Carles Bret&oacute;, Aaron A. King, Edward L. Ionides, Jesse Wheeler
+</p>
+<p>Jesse Wheeler
 </p>
 
 
@@ -170,14 +193,28 @@ pParams(coef(prw))
 print(prw)
 show(prw)
 ## access underlying pomp objects
-unitobjects(prw)
+unit_objects(prw)
 ## select windows of time
 window(prw,start=2,end=4)
 ## subsetting panelPomp objects
 prw[1] # panelPomp of 1 unit (first unit of prw)
 prw[[2]] # pomp object corresponding to unit 2 of prw
+## access and manipulate model parameters and other features
+prw &lt;- panelRandomWalk(U = 4)
+specific(prw)
+# replace unit-specific coefficients
+specific(prw) &lt;- c("sigmaX[rw1]"=2)
+specific(prw)
+## access and manipulate model parameters and other features
+prw &lt;- panelRandomWalk(U = 4)
+shared(prw)
+prw &lt;- panelRandomWalk(U = 4)
+# replace unit-specific coefficients
+shared(prw) &lt;- c(sigmaX=2)
+shared(prw)
 </code></pre>
 
-<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
 </div>
 </body></html>

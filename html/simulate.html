@@ -12,11 +12,11 @@ function processMathHTML() {
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
     onload="processMathHTML();"></script>
 <link rel="stylesheet" type="text/css" href="R.css" />
-</head><body><div class="container">
+</head><body><div class="container"><main>
 
 <table style="width: 100%;"><tr><td>simulate {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<h2 id='simulate'>Simulations of a panel of partially observed Markov process</h2>
+<h2>Simulations of a panel of partially observed Markov process</h2>
 
 <h3>Description</h3>
 
@@ -35,20 +35,20 @@ simulate(object, nsim = 1, shared, specific)
 <h3>Arguments</h3>
 
 <table>
-<tr><td><code id="simulate_:_object">object</code></td>
+<tr><td><code id="object">object</code></td>
 <td>
 <p>a <code>panelPomp</code> object.</p>
 </td></tr>
-<tr><td><code id="simulate_:_nsim">nsim</code></td>
+<tr><td><code id="nsim">nsim</code></td>
 <td>
 <p>The number of simulations to perform. Unlike the pomp
 simulate method, all simulations share the same parameters.</p>
 </td></tr>
-<tr><td><code id="simulate_:_shared">shared</code></td>
+<tr><td><code id="shared">shared</code></td>
 <td>
 <p>Named vector of the shared parameters.</p>
 </td></tr>
-<tr><td><code id="simulate_:_specific">specific</code></td>
+<tr><td><code id="specific">specific</code></td>
 <td>
 <p>Matrix of unit-specific parameters, with a column
 for each unit.</p>
@@ -74,6 +74,7 @@ for each unit.</p>
 <pre><code class='language-R'>simulate(panelRandomWalk())
 </code></pre>
 
-<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
 </div>
 </body></html>

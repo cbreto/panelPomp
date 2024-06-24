@@ -1,0 +1,97 @@
+<!DOCTYPE html><html><head><title>R: #' Create design matrix for panelPomp calculations</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+<script type="text/javascript">
+const macros = { "\\R": "\\textsf{R}", "\\code": "\\texttt"};
+function processMathHTML() {
+    var l = document.getElementsByClassName('reqn');
+    for (let e of l) { katex.render(e.textContent, e, { throwOnError: false, macros }); }
+    return;
+}</script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
+    onload="processMathHTML();"></script>
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container"><main>
+
+<table style="width: 100%;"><tr><td>panel-designs {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>#' Create design matrix for panelPomp calculations</h2>
+
+<h3>Description</h3>
+
+<p>These functions are useful for generating design matrices for the exploration
+of parameter space.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre><code class='language-R'>runif_panel_design(
+  lower = numeric(0),
+  upper = numeric(0),
+  nseq,
+  specific_names,
+  unit_names
+)
+</code></pre>
+
+
+<h3>Arguments</h3>
+
+<table>
+<tr><td><code id="lower">lower</code>, <code id="upper">upper</code></td>
+<td>
+<p>named numeric vectors giving the lower and upper bounds
+of the ranges, respectively.</p>
+</td></tr>
+<tr><td><code id="nseq">nseq</code></td>
+<td>
+<p>Total number of points requested</p>
+</td></tr>
+<tr><td><code id="specific_names">specific_names</code></td>
+<td>
+<p>Character vector containing the names of unit-specific
+parameters. This argument must be used in conjunction with the argument
+<code>unit_names</code>; it is used if the search bounds for all unspecified
+unit-specific parameters are the same.</p>
+</td></tr>
+<tr><td><code id="unit_names">unit_names</code></td>
+<td>
+<p>Character vector containing the names of the units of the
+panel. If not used in conjunction with <code>unit_names</code> this argument
+is ignored.</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p><code>runif_panel_design</code> returns a <code>data.frame</code> object with
+<code>nseq</code> rows. Each row corresponds to a parameter set drawn randomly
+from a multivariate uniform distribution specified by the <code>lower</code>,
+<code>upper</code>, <code>specific_names</code> and <code>unit_names</code> arguments.
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>Jesse Wheeler, Aaron A. King
+</p>
+
+
+<h3>Examples</h3>
+
+<pre><code class='language-R'>runif_panel_design(
+  lower = c('a' = 0, 'b' = 10, 'a[u2]' = 0.5),
+  upper = c('a' = 1, 'b' = 15, 'a[u2]' = 0.75),
+  specific_names = c('a'),
+  unit_names = paste0(rep('u', 5), 1:5),
+  nseq = 10
+)
+</code></pre>
+
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
+</div>
+</body></html>

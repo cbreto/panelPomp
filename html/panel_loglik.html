@@ -12,11 +12,11 @@ function processMathHTML() {
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
     onload="processMathHTML();"></script>
 <link rel="stylesheet" type="text/css" href="R.css" />
-</head><body><div class="container">
+</head><body><div class="container"><main>
 
 <table style="width: 100%;"><tr><td>panel_loglik {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<h2 id='panel_loglik'>Handling of loglikelihood replicates</h2>
+<h2>Handling of loglikelihood replicates</h2>
 
 <h3>Description</h3>
 
@@ -34,28 +34,28 @@ logLik(object, repMargin, first = "aver", aver = "logmeanexp", se = FALSE)
 <h3>Arguments</h3>
 
 <table>
-<tr><td><code id="panel_loglik_:_object">object</code></td>
+<tr><td><code id="object">object</code></td>
 <td>
 <p>Matrix with the same number of replicated estimates for each
 panel unit loglikelihood.</p>
 </td></tr>
-<tr><td><code id="panel_loglik_:_repMargin">repMargin</code></td>
+<tr><td><code id="repMargin">repMargin</code></td>
 <td>
 <p>The margin of the matrix having the replicates (1 for rows,
 2 for columns).</p>
 </td></tr>
-<tr><td><code id="panel_loglik_:_first">first</code></td>
+<tr><td><code id="first">first</code></td>
 <td>
 <p>Wether to <code>"aver"</code>(age replicates) or <code>"aggr"</code>(egate
 units) before performing the other action.</p>
 </td></tr>
-<tr><td><code id="panel_loglik_:_aver">aver</code></td>
+<tr><td><code id="aver">aver</code></td>
 <td>
 <p>How to average: <code>'logmeanexp'</code> to average on the likelihood
 scale before taking logs or <code>'mean'</code> to average after taking logs (in
 which case, which action is performed first does not change the result).</p>
 </td></tr>
-<tr><td><code id="panel_loglik_:_se">se</code></td>
+<tr><td><code id="se">se</code></td>
 <td>
 <p>logical; whether to give standard errors.</p>
 </td></tr>
@@ -100,6 +100,7 @@ logLik(ulls,repMargin=1,first="aver",aver="logmeanexp")
 logLik(ulls,repMargin=1,first="aggr",aver="mean",se=TRUE)
 </code></pre>
 
-<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
 </div>
 </body></html>

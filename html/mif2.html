@@ -12,11 +12,11 @@ function processMathHTML() {
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"
     onload="processMathHTML();"></script>
 <link rel="stylesheet" type="text/css" href="R.css" />
-</head><body><div class="container">
+</head><body><div class="container"><main>
 
 <table style="width: 100%;"><tr><td>mif2 {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<h2 id='mif2'>PIF: Panel iterated filtering</h2>
+<h2>PIF: Panel iterated filtering</h2>
 
 <h3>Description</h3>
 
@@ -75,28 +75,28 @@ traces(object, pars, ...)
 <h3>Arguments</h3>
 
 <table>
-<tr><td><code id="mif2_:_data">data</code></td>
+<tr><td><code id="data">data</code></td>
 <td>
 <p>An object of class <code>panelPomp</code> or inheriting class.</p>
 </td></tr>
-<tr><td><code id="mif2_:_Nmif">Nmif</code></td>
+<tr><td><code id="Nmif">Nmif</code></td>
 <td>
 <p>The number of filtering iterations to perform.</p>
 </td></tr>
-<tr><td><code id="mif2_:_shared.start">shared.start</code></td>
+<tr><td><code id="shared.start">shared.start</code></td>
 <td>
 <p>named numerical vector; the starting guess of the shared parameters.</p>
 </td></tr>
-<tr><td><code id="mif2_:_specific.start">specific.start</code></td>
+<tr><td><code id="specific.start">specific.start</code></td>
 <td>
 <p>matrix with row parameter names and column unit names;
 the starting guess of the specific parameters.</p>
 </td></tr>
-<tr><td><code id="mif2_:_start">start</code></td>
+<tr><td><code id="start">start</code></td>
 <td>
 <p>A named numeric vector of parameters at which to start the IF2 procedure.</p>
 </td></tr>
-<tr><td><code id="mif2_:_Np">Np</code></td>
+<tr><td><code id="Np">Np</code></td>
 <td>
 <p>the number of particles to use.
 This may be specified as a single positive integer, in which case the same number of particles will be used at each timestep.
@@ -108,39 +108,39 @@ In the latter case, <code>Np(k)</code> must be a single positive integer, repres
 and so on,
 while when <code>T=length(time(object))</code>, <code>Np(T)</code> is the number of particles to sample at the end of the time-series.</p>
 </td></tr>
-<tr><td><code id="mif2_:_rw.sd">rw.sd</code></td>
+<tr><td><code id="rw.sd">rw.sd</code></td>
 <td>
 <p>An unevaluated expression of the form <code>quote(rw.sd())</code> to
 be used for all panel units. If a <code>list</code> of such expressions of the
 same length as the <code>object</code> argument is provided, each list element
 will be used for the corresponding panel unit.</p>
 </td></tr>
-<tr><td><code id="mif2_:_cooling.type">cooling.type</code>, <code id="mif2_:_cooling.fraction.50">cooling.fraction.50</code></td>
+<tr><td><code id="cooling.type">cooling.type</code>, <code id="cooling.fraction.50">cooling.fraction.50</code></td>
 <td>
 <p>specifications for the cooling schedule,
 i.e., the manner and rate with which the intensity of the parameter perturbations is reduced with successive filtering iterations.
 <code>cooling.type</code> specifies the nature of the cooling schedule.
 See below (under &ldquo;Specifying the perturbations&rdquo;) for more detail.</p>
 </td></tr>
-<tr><td><code id="mif2_:_block">block</code></td>
+<tr><td><code id="block">block</code></td>
 <td>
-<p>A logical variable determining whther to carry out block
+<p>A logical variable determining whether to carry out block
 resampling of unit-specific parameters.</p>
 </td></tr>
-<tr><td><code id="mif2_:_verbose">verbose</code></td>
+<tr><td><code id="verbose">verbose</code></td>
 <td>
 <p>logical; if <code>TRUE</code>, diagnostic messages will be printed to the console.</p>
 </td></tr>
-<tr><td><code id="mif2_:_...">...</code></td>
+<tr><td><code id="...">...</code></td>
 <td>
 <p>....</p>
 </td></tr>
-<tr><td><code id="mif2_:_object">object</code></td>
+<tr><td><code id="object">object</code></td>
 <td>
 <p>an object resulting from the application of IF2 (i.e., of
 class <code>mif2d.ppomp</code>)</p>
 </td></tr>
-<tr><td><code id="mif2_:_pars">pars</code></td>
+<tr><td><code id="pars">pars</code></td>
 <td>
 <p>names of parameters</p>
 </td></tr>
@@ -204,6 +204,7 @@ mmp
 traces(mmp)
 </code></pre>
 
-<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.1.0.2 <a href="00Index.html">Index</a>]</div>
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+
 </div>
 </body></html>

@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://cbreto.github.io/panelPomp/about.html</loc>
-    <lastmod>2024-04-09T17:54:48.207Z</lastmod>
-  </url>
-  <url>
     <loc>https://cbreto.github.io/panelPomp/todo.html</loc>
-    <lastmod>2024-04-09T17:54:48.207Z</lastmod>
-  </url>
-  <url>
-    <loc>https://cbreto.github.io/panelPomp/index.html</loc>
-    <lastmod>2024-04-09T17:54:48.207Z</lastmod>
+    <lastmod>2024-06-24T14:41:55.746Z</lastmod>
   </url>
   <url>
     <loc>https://cbreto.github.io/panelPomp/bibliography.html</loc>
-    <lastmod>2024-04-09T17:54:48.207Z</lastmod>
+    <lastmod>2024-06-24T14:41:55.746Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cbreto.github.io/panelPomp/index.html</loc>
+    <lastmod>2024-06-24T14:41:55.746Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cbreto.github.io/panelPomp/news.html</loc>
+    <lastmod>2024-06-24T14:41:55.746Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cbreto.github.io/panelPomp/vignettes/getting-started.html</loc>
+    <lastmod>2024-06-24T14:48:32.199Z</lastmod>
+  </url>
+  <url>
+    <loc>https://cbreto.github.io/panelPomp/about.html</loc>
+    <lastmod>2024-06-24T14:41:55.746Z</lastmod>
   </url>
 </urlset>
