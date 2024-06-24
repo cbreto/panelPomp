@@ -42,20 +42,22 @@ runif_panel_design <- function (
     lower = numeric(0), upper = numeric(0), nseq, specific_names, unit_names
 ) {
 
+  ep <- wQuotes("in ''runif_panel_design'': ")
+
   # Checks made in pomp::runif_design
   if (length(lower)!=length(upper))
-    pStop(sQuote("lower")," and ",sQuote("upper")," must have same length.")
+    stop(wQuotes(ep,"''lower'' and ''upper'' must have the same length","."),call.=FALSE)
   lnames <- names(lower)
   if (is.null(lnames))
-    pStop(sQuote("lower")," and ",sQuote("upper")," must be named vectors.")
+    stop(wQuotes(ep,"''lower'' and ''upper'' must be named vectors","."),call.=FALSE)
   if (!all(sort(lnames)==sort(names(upper))))
-    pStop("names of ",sQuote("lower")," and ",sQuote("upper")," must match.")
+    stop(wQuotes(ep,"names of ''lower'' and ''upper'' must match","."),call.=FALSE)
   upper <- upper[lnames]
   if (!all(upper>=lower))
-    pStop("upper values should be at least as large as lower ones.")
+    stop(wQuotes(ep,"upper values should be at least as large as lower ones","."),call.=FALSE)
   nseq <- as.integer(nseq)
   if (nseq < 0)
-    pStop(sQuote("nseq"),"< 0.")
+    stop(wQuotes(ep,"''nseq'' must be greater than zero","."),call.=FALSE)
 
   if (missing(specific_names) && missing(unit_names)) {
     # Do as pomp::runif_design
@@ -68,10 +70,10 @@ runif_panel_design <- function (
     return(as.data.frame(y))
   } else {
     if (missing(specific_names) | missing(unit_names))
-      pStop("If used, both ", sQuote("specific_names")," and ",sQuote("unit_names")," must be provided.")
+      stop(wQuotes(ep,"If used, both ''specific_names'' and ''unit_names'' must be provided","."),call.=FALSE)
 
     if (any(!specific_names %in% lnames))
-      pStop("No bounds were given for some parameters in ", sQuote("specific_names"), ".")
+      stop(wQuotes(ep,"No bounds were given for some parameters in ''specific_names''","."),call.=FALSE)
 
     lwr_tmp <- lower[!lnames %in% specific_names]
     upr_tmp <- upper[!lnames %in% specific_names]

@@ -32,7 +32,7 @@ is ignored.}
 \code{runif_panel_design} returns a \code{data.frame} object with
 \code{nseq} rows. Each row corresponds to a parameter set drawn randomly
 from a multivariate uniform distribution specified by the \code{lower},
-\code{upper}, \code{specific_names} and code{unit_names} arguments.
+\code{upper}, \code{specific_names} and \code{unit_names} arguments.
 }
 \description{
 These functions are useful for generating design matrices for the exploration
