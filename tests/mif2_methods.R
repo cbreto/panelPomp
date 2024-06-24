@@ -14,6 +14,21 @@ test(wQuotes(
   "Error : in ''traces'': name(s) ''par'' correspond to no parameter(s).\n"),
   traces(pmf,pars="par"))
 
+test(
+  wQuotes("Error : in ''coef<-'': cannot change parameters of a filtered object.\n"),
+  {coef(pmf) <- c("test" = 1)}
+)
+
+test(
+  wQuotes("Error : in ''shared<-'': cannot change parameters of a filtered object.\n"),
+  {shared(pmf) <- c("test" = 1)}
+)
+
+test(
+  wQuotes("Error : in ''specific<-'': cannot change parameters of a filtered object.\n"),
+  {specific(pmf) <- c("test[unit1]" = 1)}
+)
+
 ## check whether all tests passed
 all(get(eval(formals(test))$all))
 if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")

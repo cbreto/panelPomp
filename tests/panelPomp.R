@@ -37,7 +37,7 @@ pos <- as(ppo,"list")
 pPs <- pparams(ppo)
 all_sh <- c(pPs$sh,get_col(pPs$sp,col=1,rows=seq_along(dim(pPs$sp)[1])))
 
-noparams <- lapply(unitobjects(ppo),pomp,params=numeric(0))
+noparams <- lapply(unit_objects(ppo),pomp,params=numeric(0))
 
 
 ep <- "Error : in ''panelPomp'': "
@@ -57,7 +57,7 @@ test(wQuotes(ep,"specify EITHER ''params'' OR ''shared'' and/or ''specific''.",
 test(as(panelPomp(pos,params=coef(ppo)),"data.frame"),
      as(ppo,"data.frame"))
 # noparams
-test(obs(unitobjects(panelPomp(noparams))[[1]]),
+test(obs(unit_objects(panelPomp(noparams))[[1]]),
      obs(lapply(pos,`coef<-`,value=numeric(0))[[1]]) )
 # someparams
 test(as(panelPomp(ppo,params=coef(ppo)),"data.frame"),

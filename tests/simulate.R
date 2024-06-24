@@ -16,7 +16,7 @@ s5 <- simulate(g,specific=2*g@specific,shared=2*g@shared)
 
 try(simulate(g,nsim="inappropriate text argument"))
 
-g2 <- panelPomp(g@unit.objects)
+g2 <- panelPomp(g@unit_objects)
 try(simulate(g2))
 
 

@@ -9,7 +9,7 @@ seeds <- c(21125715L,81902071L,86680005L,29971689L,73376915L)
 for (s in seq_along(seeds)) {
   set.seed(seeds[s])
   pf <- pfilter(ppo,Np=10)
-  print(unitlogLik(pf))
+  print(unitLogLik(pf))
   print(logLik(pf))
 }
 
@@ -19,7 +19,7 @@ for (s in seq_along(seeds)) {
              cooling.fraction.50=0.5,cooling.type="geometric")
   print(mf@shared)
   print(mf@specific)
-  print(unitlogLik(mf))
+  print(unitLogLik(mf))
   print(logLik(mf))
   print(traces(mf))
 }

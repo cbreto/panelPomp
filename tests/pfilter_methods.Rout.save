@@ -1,11 +1,13 @@
 
-R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
-Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20 (64-bit)
+R version 4.4.0 (2024-04-24) -- "Puppy Cup"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -29,13 +31,22 @@ Type 'q()' to quit R.
 > ppf <- pfilter(ppo,Np=10)
 > logLik(ppf)
 [1] -18.81474
+> unitLogLik(ppf)
+       rw1        rw2 
+ -8.072918 -10.741827 
 > unitlogLik(ppf)
        rw1        rw2 
  -8.072918 -10.741827 
+Warning message:
+`unitlogLik()` was deprecated in panelPomp 1.2.0.
+ℹ Please use `unitLogLik()` instead. 
 > set.seed(21125715L)
 > ppf_ <- pfilter(ppf,Np=10)
 > logLik(ppf_)
 [1] -18.81474
+> unitLogLik(ppf_)
+       rw1        rw2 
+ -8.072918 -10.741827 
 > unitlogLik(ppf_)
        rw1        rw2 
  -8.072918 -10.741827 
@@ -43,12 +54,26 @@ Type 'q()' to quit R.
 > test(ppf,ppf_)
 [1] TRUE
 > 
+> test(
++   wQuotes("Error : in ''coef<-'': cannot change parameters of a filtered object.\n"),
++   {coef(ppf_) <- c("test" = 1)}
++ )
+[1] TRUE
+> 
+> test(
++   wQuotes("Error : in ''shared<-'': cannot change parameters of a filtered object.\n"),
++   {shared(ppf_) <- c("test" = 1)}
++ )
+[1] TRUE
+> 
+> test(
++   wQuotes("Error : in ''specific<-'': cannot change parameters of a filtered object.\n"),
++   {specific(ppf_) <- c("test[unit1]" = 1)}
++ )
+[1] TRUE
 > 
 > ## check whether all tests passed
 > all(get(eval(formals(test))$all))
 [1] TRUE
 > if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
 > 
-> proc.time()
-   user  system elapsed 
-  0.610   0.118   0.915 

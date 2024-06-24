@@ -1,7 +1,7 @@
 
-R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
-Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin17.0 (64-bit)
+R version 4.4.0 (2024-04-24) -- "Puppy Cup"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -29,7 +29,7 @@ Type 'q()' to quit R.
 > pP2 <- list(shared=c(sigmaX=1,sigmaY=2),
 +             specific=matrix(c(0,0.1),nr=1,
 +                             dimnames=list(param="X.0",unit=c("rw1","rw2"))))
-> ppo <- panelPomp(unitobjects(ppo),shared=pP2$shared,specific=pP2$specific)
+> ppo <- panelPomp(unit_objects(ppo),shared=pP2$shared,specific=pP2$specific)
 > # other definitions from old test file
 > pg <- panelGompertz(U=3,N=5)
 > pgl <- as(pg,"list")
@@ -105,8 +105,8 @@ Type 'q()' to quit R.
 + )
 [1] TRUE
 > 
-> ## test unitobjects,panelPomp-method
-> test(unitobjects(ppo),ppo@unit.objects)
+> ## test unit_objects,panelPomp-method
+> test(unit_objects(ppo),ppo@unit_objects)
 [1] TRUE
 > coef(ppo[["rw1"]])
 sigmaX sigmaY    X.0 
@@ -131,11 +131,11 @@ sigmaX sigmaY    X.0
 > 
 > 
 > ## as(,'list') returns list of units with parameters
-> test(as(pg,"list")[[1]]@data,pg@unit.objects[[1]]@data)
+> test(as(pg,"list")[[1]]@data,pg@unit_objects[[1]]@data)
 [1] TRUE
 > 
 > ## as(,'pompList')
-> test(as(pg,'pompList')[[1]]@data,pg@unit.objects[[1]]@data)
+> test(as(pg,'pompList')[[1]]@data,pg@unit_objects[[1]]@data)
 [1] TRUE
 > 
 > ## test as(,'data.frame')
@@ -160,7 +160,7 @@ param rw1 rw2
 
 summary of first panel unit ("rw1"):
 <object of class ‘pomp’>
-> show(panelPomp(unitobjects(ppo)))
+> show(panelPomp(unit_objects(ppo)))
 <object of class ‘panelPomp’>
 panel of 2 units 
 parameter(s) unspecified

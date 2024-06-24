@@ -68,6 +68,7 @@ jobs:
             any::devtools
             any::bib2df
             any::tidyverse
+            any::bookdown
 
       - name: Install package from source
         run: |
@@ -83,6 +84,13 @@ jobs:
           rsync --delete --exclude=aliases.rds --exclude=paths.rds --exclude=panelPomp.rdb --exclude=panelPomp.rdx --exclude=macros -a library/panelPomp/help/ website/help
           R CMD Rdconv -t html inst/NEWS.Rd -o website/NEWS.html
           ed -s website/html/00Index.html < website/changes.ed
+
+      - name: Copy Vignettes and Other Files
+        run: |
+          cp -r vignettes website/
+          Rscript --vanilla website/rmd2qmd.R website/vignettes/getting-started
+          rm website/vignettes/getting-started.Rmd
+          tree website
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2

@@ -1,28 +1,38 @@
 project:
   type: website
   output-dir: docs
-  resources: 
+  resources:
     - html/*
     - help/*
     - NEWS.html
     - R.css
+    - vignettes/*
 
 website:
   title: "panelPomp"
+
   navbar:
     right:
       - icon: github
-        href: https://github.com/cbreto/panelPomp
         aria-label: GitHub
+        menu:
+          - text: Source Code
+            href: https://github.com/cbreto/panelPomp
+          - text: Report a Bug
+            href: https://github.com/cbreto/panelPomp/issues
     left:
-      - href: index.qmd
-        text: Home
       - href: about.qmd
         text: About
       - href: bibliography.qmd
         text: Bibliography
       - href: html/00Index.html
         text: Manual
+      - href: news.qmd
+        text: NEWS
+      - text: "Tutorials"
+        menu:
+          - href: vignettes/getting-started.qmd
+            text: "Getting Started"
 
 format:
   html:

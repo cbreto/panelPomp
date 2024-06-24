@@ -1,5 +1,14 @@
 \name{NEWS}
 \title{News for package `panelPomp'}
+\section{Changes in \pkg{panelPomp} version 1.2.0}{
+  \itemize{
+    \item Change the generic \code{unitlogLik} to \code{unitLogLik} to match camel-case style of package. The original function is deprecated in this version and will be removed in future updates.
+    \item Changed \code{panelPomp} S4 object slot name from \code{unit.objects} to \code{unit_objects} in order to be consistent with \code{pomp} pacakge. Corresponding getter and setter methods for this slot have also been changed from \code{unitobjects()} to \code{unit_objects()}.
+    \item Added generics \code{shared()}, \code{shared()<-}, \code{specific()}, and \code{specific()<-}. These generics provide convinient access to parameters of a \code{panelPomp} object, but the setter methods also allow for changing a parameter type between shared and unit-specific.
+    \item Added function \code{runif_panel_design()}, which is useful for generating design matrices for PanelPOMP models.
+    \item Minor typo fixes to package and function documentation.
+  }
+}
 \section{Changes in \pkg{panelPomp} version 1.1.0.2}{
   \itemize{
     \item Added a type check for the \code{params} arguement of the

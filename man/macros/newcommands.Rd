@@ -10,6 +10,6 @@
 
 \newcommand{\pparamsReturn}{When given objects of class \code{panelPomp}, \code{pparams()} returns a named list with two elements: \code{shared}, which is a named \code{numeric} vector, and \code{specific}, which is a \code{matrix} with parameter names in its row names and panel unit names in its column names.}
 
-\newcommand{\unitlogLikReturn}{When given objects of class \code{pfilterd.ppomp}, \code{unitloglik()} returns a \code{numeric} vector.}
+\newcommand{\unitLogLikReturn}{When given objects of class \code{pfilterd.ppomp}, \code{unitLoglik()} returns a \code{numeric} vector.}
 
-\newcommand{\unitobjectsReturn}{When given objects of class \code{panelPomp}, \code{unitobjects()} returns a \code{list} of \code{pomp} objects.}
+\newcommand{\unitobjectsReturn}{When given objects of class \code{panelPomp}, \code{unit_objects()} returns a \code{list} of \code{pomp} objects.}

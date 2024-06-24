@@ -6,7 +6,7 @@
 \alias{pfilterd.ppomp-class}
 \alias{pfilter,panelPomp-method}
 \alias{logLik,pfilterd.ppomp-method}
-\alias{unitlogLik,pfilterd.ppomp-method}
+\alias{unitLogLik,pfilterd.ppomp-method}
 \title{Particle filtering for panel data}
 \usage{
 \S4method{pfilter}{panelPomp}(
@@ -21,7 +21,7 @@
 
 \S4method{logLik}{pfilterd.ppomp}(object, ...)
 
-\S4method{unitlogLik}{pfilterd.ppomp}(object, ...)
+\S4method{unitLogLik}{pfilterd.ppomp}(object, ...)
 }
 \arguments{
 \item{data}{An object of class \code{panelPomp} or inheriting class
@@ -82,7 +82,7 @@ a \code{panelPomp} object (with the additional filtering details).
 When applied to an object of class \code{pfilterd.ppomp}, \code{logLik()}
 returns a \code{numeric} value.
 
-\unitlogLikReturn
+\unitLogLikReturn
 }
 \description{
 Tools for applying particle filtering algorithms to panel data.
@@ -90,9 +90,9 @@ Tools for applying particle filtering algorithms to panel data.
 \section{Methods}{
 
 \describe{
-  \item{logLik}{Extracts the estimated log likelihood for the entire panel.}
-  \item{unitlogLik}{Extracts the estimated log likelihood for each panel unit.}
-  }
+\item{logLik}{Extracts the estimated log likelihood for the entire panel.}
+\item{unitLogLik}{Extracts the estimated log likelihood for each panel unit.}
+}
 }
 
 \examples{
@@ -104,7 +104,7 @@ pfrw
 # extract single log likelihood for the entire panel
 logLik(pfrw)
 # extract log likelihood for each panel unit
-unitlogLik(pfrw)
+unitLogLik(pfrw)
 }
 \references{
 \arulampalam2002

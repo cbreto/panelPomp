@@ -1,4 +1,4 @@
-#' @include package.R
+#' @include panelPomp-package.R
 NULL
 
 #' @title Interpret shortcuts for \code{sQuote()}s and \code{dQuote()}s in

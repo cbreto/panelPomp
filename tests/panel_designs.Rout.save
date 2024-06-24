@@ -1,0 +1,149 @@
+
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> if (file.exists("_options.R")) source("_options.R")
+> library(panelPomp,quietly=TRUE)
+> 
+> TESTS_PASS <- NULL
+> test <- function(expr1,expr2,all="TESTS_PASS",env=parent.frame(),...)
++   panelPomp:::test(expr1,expr2,all=all,env=env,...)
+> 
+> 
+> NSEQ <- 43L
+> 
+> test(
++   {
++     df <- runif_panel_design(
++       lower = c('a' = 0, 'b' = 10),
++       upper = c('a' = 1, 'b' = 15),
++       nseq = NSEQ
++     )
++     c(nrow(df), ncol(df))
++   },
++   c(NSEQ, 2L)
++ )
+[1] TRUE
+> 
+> test(
++   {
++     df <- runif_panel_design(
++       lower = c('a' = 0, 'b' = 10, 'a[u2]' = 0.5),
++       upper = c('a' = 1, 'b' = 15, 'a[u2]' = 0.75),
++       specific_names = c('a'),
++       unit_names = paste0(rep('u', 5), 1:5),
++       nseq = NSEQ
++     )
++     c(nrow(df), ncol(df))
++   },
++   c(NSEQ, 6L)
++ )
+[1] TRUE
+> 
+> err <- wQuotes("Error : in ''runif_panel_design'': upper values should be at least as large as lower ones.\n")
+> 
+> test(
++   runif_panel_design(
++     lower = c('a' = 1),
++     upper = c('a' = 0),
++     nseq = NSEQ
++   ),
++   err
++ )
+[1] TRUE
+> 
+> err <- wQuotes("Error : in ''runif_panel_design'': ''lower'' and ''upper'' must have the same length.\n")
+> 
+> test(
++   runif_panel_design(
++     lower = c('a' = 0, 'b' = 0),
++     upper = c('a' = 1),
++     nseq = NSEQ
++   ),
++   err
++ )
+[1] TRUE
+> 
+> err <- wQuotes("Error : in ''runif_panel_design'': ''lower'' and ''upper'' must be named vectors.\n")
+> 
+> test(
++   runif_panel_design(
++     lower = c(0, 0),
++     upper = c(1, 1),
++     nseq = NSEQ
++   ),
++   err
++ )
+[1] TRUE
+> 
+> err <- wQuotes("Error : in ''runif_panel_design'': names of ''lower'' and ''upper'' must match.\n")
+> 
+> test(
++   runif_panel_design(
++     lower = c('b' = 0),
++     upper = c('a' = 1),
++     nseq = NSEQ
++   ),
++   err
++ )
+[1] TRUE
+> 
+> err <- wQuotes("Error : in ''runif_panel_design'': ''nseq'' must be greater than zero.\n")
+> 
+> test(
++   runif_panel_design(
++     lower = c('a' = 0),
++     upper = c('a' = 1),
++     nseq = -1
++   ),
++   err
++ )
+[1] TRUE
+> 
+> err <- wQuotes("Error : in ''runif_panel_design'': No bounds were given for some parameters in ''specific_names''.\n")
+> 
+> test(
++   runif_panel_design(
++     lower = c('a' = 0),
++     upper = c('a' = 1),
++     specific_names = c('b'),
++     unit_names = c(paste0("u", 1:5)),
++     nseq = NSEQ
++   ),
++   err
++ )
+[1] TRUE
+> 
+> err <- wQuotes("Error : in ''runif_panel_design'': If used, both ''specific_names'' and ''unit_names'' must be provided.\n")
+> 
+> test(
++   runif_panel_design(
++     lower = c('a' = 0, 'b' = 0),
++     upper = c('a' = 1, 'b' = 1),
++     specific_names = c('b'),
++     nseq = NSEQ
++   ),
++   err
++ )
+[1] TRUE
+> 
+> ## check whether all tests passed
+> all(get(eval(formals(test))$all))
+[1] TRUE
+> if (!all(get(eval(formals(test))$all))) stop("Not all tests passed!")
+> 
