@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>panelPomp - Getting Started</title>
+<title>Getting Started – panelPomp</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -146,7 +146,7 @@ window.Quarto = {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -168,7 +168,7 @@ window.Quarto = {
 <span class="menu-text">NEWS</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorials" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorials" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Tutorials</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorials">    
@@ -176,12 +176,16 @@ window.Quarto = {
     <a class="dropdown-item" href="../vignettes/getting-started.html">
  <span class="dropdown-text">Getting Started</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../vignettes/tutorial.pdf">
+ <span class="dropdown-text">Package Tutorial</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
  <span class="menu-text"></span>
@@ -199,7 +203,7 @@ window.Quarto = {
   </li>
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -274,7 +278,7 @@ f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_{u,n} ; \theta) = f_{Y_{u,n}|X_{u,n}}(y_{u,n}| x_
 f_{X_{u,0}}(x_{u,0} ; \theta) = f_{X_{u,0}}(x_{u,0} ; \phi,\psi_u)
 \tag{3}\]</span></span></p>
 <p>Then, <span class="math inline">\(\psi_{u}\)</span> is a vector of <em>unit-specific</em> parameters for unit <span class="math inline">\(u\)</span>, and <span class="math inline">\(\phi\)</span> is a <em>shared</em> parameter vector. We suppose <span class="math inline">\(\phi\in\mathbb{R}^{A}\)</span> and <span class="math inline">\(\psi\in\mathbb{R}^{B}\)</span>, so the dimension of the parameter vector <span class="math inline">\(\theta\)</span> is <span class="math inline">\(D=A+B U\)</span>. In practice, the densities in <a href="#eq-proc" class="quarto-xref">Equation&nbsp;1</a>–<a href="#eq-init" class="quarto-xref">Equation&nbsp;3</a> serve two primary roles in PanelPOMP models: evaluation and simulation. The way these fundamental goals are represented in the <code>panelPomp</code> package is described in <a href="#tbl-funs" class="quarto-xref">Table&nbsp;1</a>.</p>
-<div id="tbl-funs" class="quarto-float anchored">
+<div id="tbl-funs" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-funs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Basic mathematical functions of all PanelPOMP models and their representation in the <code>panelPomp</code>
@@ -476,6 +480,8 @@ $$
 which can be implemented as: 
 
 
+
+
 ::: {.cell}
 
 ```{.r .cell-code}
@@ -488,9 +494,13 @@ X = X_0;
 :::
 
 
+
+
 #### rprocess 
 
 The `rprocess` function defines how to simulated from the distribution $X_{u, n}|X_{u, n-1}$:
+
+
 
 
 ::: {.cell}
@@ -508,6 +518,8 @@ X = pow(K, 1-S) * pow(X, S) * eps;
 :::
 
 
+
+
 #### rmeasure
 
 The function `rmeasure` defines how observations are drawn on the system at time $t_{u, n}$, or how to simulation from the distribution $Y_{u, n}|X_{u, n}$. 
@@ -518,6 +530,8 @@ Y_{u, n} | X_{u, n} \sim \text{Lognormal}\big(\log X_{u, n}, \tau\big)
 $$
 
 which we can implement in `pomp` as: 
+
+
 
 
 ::: {.cell}
@@ -532,11 +546,15 @@ Y = rlnorm(log(X),tau);
 :::
 
 
+
+
 #### dmeasure
 
 The function `dmeasure` describes how to evaluated the measurement density $Y_{u, n}|X_{u, n}$. 
 Users must be careful when implementing both `rmeasure` and `dmeasure` to ensure that these functions correspond to the same distribution. 
 This is also true for any simulation and evaluation functions (such as `rprocess` and `dprocess`); users should carefully ensure that these functions always correspond to the same distribution in order to obtain meaningful results. 
+
+
 
 
 ::: {.cell}
@@ -549,6 +567,8 @@ lik = dlnorm(Y,log(X),tau,give_log);
 )
 ```
 :::
+
+
 
 
 #### Constructing the `pomp` object
@@ -594,18 +614,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -637,7 +646,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/cbreto\.github\.io\/panelPomp\/");
@@ -645,7 +676,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

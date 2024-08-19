@@ -27,7 +27,7 @@ function processMathHTML() {
 <h3>Usage</h3>
 
 <pre><code class='language-R'>## S4 method for signature 'panelPomp'
-coef(object)
+coef(object, format = c("vector", "list"))
 
 ## S4 replacement method for signature 'panelPomp'
 coef(object, ...) &lt;- value
@@ -38,10 +38,7 @@ length(x)
 ## S4 method for signature 'panelPomp'
 names(x)
 
-## S4 method for signature 'panelPomp'
-pparams(object)
-
-pParams(value)
+toParamList(value)
 
 ## S4 method for signature 'panelPomp'
 print(x, ...)
@@ -83,6 +80,10 @@ shared(object) &lt;- value
 <p>An object of class <code>panelPomp</code> or inheriting class
 <code>panelPomp</code>.</p>
 </td></tr>
+<tr><td><code id="format">format</code></td>
+<td>
+<p>the format (data type) of the return value.</p>
+</td></tr>
 <tr><td><code id="...">...</code></td>
 <td>
 <p>....</p>
@@ -99,10 +100,6 @@ shared(object) &lt;- value
 <td>
 <p>unit index (indices) or name (names).</p>
 </td></tr>
-<tr><td><code id="format">format</code></td>
-<td>
-<p>the format (data type) of the return value.</p>
-</td></tr>
 </table>
 
 
@@ -114,9 +111,7 @@ shared(object) &lt;- value
 </p>
 <p><code>names()</code> returns a <code>character</code> vector.
 </p>
-<p>When given objects of class <code>panelPomp</code>, <code>pparams()</code> returns a named list with two elements: <code>shared</code>, which is a named <code>numeric</code> vector, and <code>specific</code>, which is a <code>matrix</code> with parameter names in its row names and panel unit names in its column names.
-</p>
-<p><code>pParams()</code> returns a <code>list</code> with the model parameters in list form.
+<p><code>toParamList()</code> returns a <code>list</code> with the model parameters in list form.
 </p>
 <p>When given objects of class <code>panelPomp</code>, <code>unit_objects()</code> returns a <code>list</code> of <code>pomp</code> objects.
 </p>
@@ -145,9 +140,7 @@ vector
 </dd>
 <dt>names</dt><dd><p>Get the unit names of <code>panelPomp</code> objects.</p>
 </dd>
-<dt>pparams</dt><dd><p>Extracts coefficients from <code>panelPomp</code> objects in list form.</p>
-</dd>
-<dt>pParams</dt><dd><p>Converts panel coefficients from vector form to list form.</p>
+<dt>toParamList</dt><dd><p>Converts panel coefficients from vector form to list form.</p>
 </dd>
 <dt>window</dt><dd><p>Subset <code>panelPomp</code> objects by changing start time and
 end time.</p>
@@ -185,10 +178,8 @@ coef(prw) &lt;- c(sigmaX=2,coef(prw)[-1])
 coef(prw)
 length(prw)
 names(prw)
-# extract parameters in list form
-pparams(prw)
 # convert vector-form parameters to list-form parameters
-pParams(coef(prw))
+toParamList(coef(prw))
 ## summaries of objects
 print(prw)
 show(prw)
@@ -214,7 +205,7 @@ shared(prw) &lt;- c(sigmaX=2)
 shared(prw)
 </code></pre>
 
-<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.3.0 <a href="00Index.html">Index</a>]</div></main>
 
 </div>
 </body></html>

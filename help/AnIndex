@@ -4,7 +4,6 @@ coef,panelPomp-method	panelPomp_methods
 coef<-,panelPomp-method	panelPomp_methods
 coef<-,pfilterd.ppomp-method	pfilterd-setter
 contacts	contacts
-fromVectorPparams	params
 get_col	get_dim
 get_dim	get_dim
 get_row	get_dim
@@ -31,9 +30,6 @@ pfilter,panelPomp-method	pfilter
 pfilterd.ppomp-class	pfilter
 plot	plot
 plot,panelPomp_plottable-method	plot
-pParams	panelPomp_methods
-pparams	pparams
-pparams,panelPomp-method	panelPomp_methods
 print,panelPomp-method	panelPomp_methods
 runif_panel_design	panel-designs
 shared	shared
@@ -50,7 +46,8 @@ specific<-	specific-set
 specific<-,panelPomp-method	panelPomp_methods
 specific<-,pfilterd.ppomp-method	pfilterd-setter
 toMatrixPparams	params
-toVectorPparams	params
+toParamList	panelPomp_methods
+toParamVec	params
 traces,mif2d.ppomp-method	mif2
 unitLogLik	unitLogLik
 unitlogLik	unitlogLik-deprecated

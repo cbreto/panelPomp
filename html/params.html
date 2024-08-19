@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>R: Convert to and from a 'panelPomp' object 'pParams' slot...</title>
+<!DOCTYPE html><html><head><title>R: Manipulating 'panelPomp' object parameter formats</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
@@ -16,7 +16,7 @@ function processMathHTML() {
 
 <table style="width: 100%;"><tr><td>params {panelPomp}</td><td style="text-align: right;">R Documentation</td></tr></table>
 
-<h2>Convert to and from a <code>panelPomp</code> object <code>pParams</code> slot format and a one-row <code>data.frame</code></h2>
+<h2>Manipulating <code>panelPomp</code> object parameter formats</h2>
 
 <h3>Description</h3>
 
@@ -26,9 +26,7 @@ function processMathHTML() {
 
 <h3>Usage</h3>
 
-<pre><code class='language-R'>toVectorPparams(pParams)
-
-fromVectorPparams(vec_pars)
+<pre><code class='language-R'>toParamVec(pParams)
 
 toMatrixPparams(listPparams)
 </code></pre>
@@ -39,12 +37,7 @@ toMatrixPparams(listPparams)
 <table>
 <tr><td><code id="pParams">pParams</code></td>
 <td>
-<p>A list with the format of the <code>pParams</code> slot of <code>panelPomp</code> objects.</p>
-</td></tr>
-<tr><td><code id="vec_pars">vec_pars</code></td>
-<td>
-<p>A one-row <code>data.frame</code> with format matching that of the
-output of <a href="../../panelPomp/help/toVectorPparams.html">toVectorPparams</a>.</p>
+<p>A list with both shared (vector) and unit-specific (matrix) parameters.</p>
 </td></tr>
 <tr><td><code id="listPparams">listPparams</code></td>
 <td>
@@ -55,10 +48,8 @@ output of <a href="../../panelPomp/help/toVectorPparams.html">toVectorPparams</a
 
 <h3>Value</h3>
 
-<p><code>toVectorPparams()</code> returns an object of class <code>data.frame</code>.
-</p>
-<p><code>fromVectorPparams()</code> returns an object of class <code>list</code> with the
-model parameters in list form.
+<p><code>toParamVec()</code> returns model parameters in vector form. This function
+is the inverse of <a href="../../panelPomp/help/toParamList.html">toParamList</a>
 </p>
 <p><code>toMatrixPparams()</code> returns an object of class <code>matrix</code> with the
 model parameters in matrix form.
@@ -74,12 +65,11 @@ model parameters in matrix form.
 <h3>Examples</h3>
 
 <pre><code class='language-R'>prw &lt;- panelRandomWalk()
-toVectorPparams(pparams(prw))
-fromVectorPparams(toVectorPparams(pparams(prw)))
-toMatrixPparams(pparams(prw))
+toParamVec(coef(prw, format = 'list'))
+toMatrixPparams(coef(prw, format = 'list'))
 </code></pre>
 
-<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.2.0 <a href="00Index.html">Index</a>]</div></main>
+<hr /><div style="text-align: center;">[Package <em>panelPomp</em> version 1.3.0 <a href="00Index.html">Index</a>]</div></main>
 
 </div>
 </body></html>
