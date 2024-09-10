@@ -74,3 +74,12 @@ test <- function (expr1, expr2, all, env, verbose = TRUE) {
   }
   if (verbose) PASSES
 }
+
+.onAttach <- function(libname, pkgname) {
+  packageStartupMessage(
+    paste0("\n","panelPomp has been installed from an archived repository. ",
+           "Please see https://github.com/panelPomp-org/panelPomp",
+           " for instructions on installing newer versions.", "\n"
+    )
+  )
+}
