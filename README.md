@@ -4,7 +4,7 @@
 
 ### an *R* package for inference on panel partially observed Markov processes
 
-[![Project Status: Active -- The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: Moved to http://example.com – The project has been moved to a new location, and the version at that location should be considered authoritative.](https://www.repostatus.org/badges/latest/moved.svg)](https://www.repostatus.org/#moved) to [https://github.com/panelPomp-org/panelPomp](https://github.com/panelPomp-org/panelPomp)
 [![CRAN Status](https://www.r-pkg.org/badges/version/panelPomp)](https://cran.r-project.org/package=panelPomp)
 [![Last CRAN release date](https://www.r-pkg.org/badges/last-release/panelPomp)](https://cran.r-project.org/package=panelPomp)
 [![R-CMD-check](https://github.com/cbreto/panelPomp/actions/workflows/r-cmd-check.yml/badge.svg)](https://github.com/cbreto/panelPomp/actions/workflows/r-cmd-check.yml) [![binary-build](https://github.com/cbreto/panelPomp/actions/workflows/binary-build.yml/badge.svg)](https://github.com/cbreto/panelPomp/actions/workflows/binary-build.yml) [![test-coverage](https://github.com/cbreto/panelPomp/actions/workflows/test-coverage.yml/badge.svg)](https://github.com/cbreto/panelPomp/actions/workflows/test-coverage.yml) [![codecov](https://codecov.io/gh/cbreto/panelPomp/branch/master/graph/badge.svg?token=1vT9TJfHGP)](https://codecov.io/gh/cbreto/panelPomp)
